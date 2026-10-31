@@ -48,3 +48,12 @@
 .ghost:hover:not(:disabled) {
   background: var(--surface-blue);
 }
+
+.accent {
+  background: var(--accent);
+  color: var(--text-primary);
+}
+
+.accent:hover:not(:disabled) {
+  background: var(--accent-hover);
+}

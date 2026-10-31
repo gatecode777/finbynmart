@@ -1,0 +1,1 @@
+export { SupplierProfileCard } from "./SupplierProfileCard";

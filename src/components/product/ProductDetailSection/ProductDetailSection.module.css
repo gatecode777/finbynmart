@@ -1,0 +1,17 @@
+.section {
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  max-width: 900px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 340px 1fr;
+    align-items: start;
+  }
+}

@@ -4,7 +4,7 @@ import styles from "./TrustBenefits.module.css";
 
 export function TrustBenefits() {
   return (
-    <section className={styles.section} aria-label="Why choose Finbyn Kart">
+    <section className={styles.section} aria-label="Why choose Finbyn Mart">
       <Container>
         <div className={styles.card}>
           {TRUST_BENEFITS.map((benefit) => {

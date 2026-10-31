@@ -1,0 +1,18 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-4) var(--space-6);
+}
+
+.title {
+  font-size: var(--fs-3xl);
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  max-width: 48rem;
+  font-size: var(--fs-base);
+  color: var(--text-secondary);
+}

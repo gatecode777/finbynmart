@@ -9,6 +9,11 @@ import {
   Layers3,
   Users,
   Truck,
+  Shirt,
+  Scissors,
+  Factory,
+  Zap,
+  Pill,
 } from "lucide-react";
 import type { B2BProduct, CategoryPageData, Subcategory } from "@/types";
 
@@ -52,7 +57,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     rating: 4.5,
     reviewCount: 230,
     badge: "Best Seller",
-    tile: { icon: Archive, tint: "navy" },
+    tile: { iconName: "Archive", tint: "navy", imageSrc: "/images/products/corrugated-packaging-box.webp" },
   },
   {
     id: "stretch-film-roll",
@@ -72,7 +77,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.3,
     reviewCount: 118,
-    tile: { icon: Layers3, tint: "blue" },
+    tile: { iconName: "Layers3", tint: "blue" },
   },
   {
     id: "bopp-packaging-tape",
@@ -93,7 +98,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     rating: 4.6,
     reviewCount: 320,
     badge: "Popular",
-    tile: { icon: Tag, tint: "slate" },
+    tile: { iconName: "Tag", tint: "slate" },
   },
   {
     id: "bubble-wrap-roll",
@@ -113,7 +118,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.4,
     reviewCount: 190,
-    tile: { icon: Layers3, tint: "navy" },
+    tile: { iconName: "Layers3", tint: "navy" },
   },
   {
     id: "packaging-pouches",
@@ -133,7 +138,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.2,
     reviewCount: 145,
-    tile: { icon: ShoppingBag, tint: "blue" },
+    tile: { iconName: "ShoppingBag", tint: "blue" },
   },
   {
     id: "plastic-storage-containers",
@@ -153,7 +158,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.3,
     reviewCount: 210,
-    tile: { icon: Package, tint: "slate" },
+    tile: { iconName: "Package", tint: "slate" },
   },
   {
     id: "paper-bags-with-handle",
@@ -173,7 +178,7 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.5,
     reviewCount: 198,
-    tile: { icon: FileText, tint: "navy" },
+    tile: { iconName: "FileText", tint: "navy" },
   },
   {
     id: "wooden-packaging-crates",
@@ -193,7 +198,302 @@ const packagingMaterialProducts: B2BProduct[] = [
     verified: true,
     rating: 4.4,
     reviewCount: 176,
-    tile: { icon: TreePine, tint: "blue" },
+    tile: { iconName: "TreePine", tint: "blue" },
+  },
+];
+
+const industrialMachinerySubcategories: Subcategory[] = [
+  { id: "air-compressors", name: "Air Compressors", href: "/category/air-compressors", icon: Factory, tint: "navy" },
+];
+
+const industrialMachineryProducts: B2BProduct[] = [
+  {
+    id: "industrial-air-compressor",
+    name: "Industrial Air Compressor",
+    href: "/products/industrial-air-compressor",
+    subcategoryId: "air-compressors",
+    priceMin: 75000,
+    priceUnit: "Piece",
+    moq: 1,
+    moqUnit: "Piece",
+    supplierName: "Shree Industrial Works",
+    supplierHref: "/suppliers/shree-industrial-works",
+    supplierCity: "Ahmedabad",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 120,
+    tile: { iconName: "Factory", tint: "navy", imageSrc: "/images/products/industrial-air-compressor.webp" },
+  },
+];
+
+const electricalElectronicsSubcategories: Subcategory[] = [
+  { id: "solar-panels", name: "Solar Panels", href: "/category/solar-panels", icon: Zap, tint: "blue" },
+];
+
+const electricalElectronicsProducts: B2BProduct[] = [
+  {
+    id: "solar-panel-540w",
+    name: "Solar Panel 540W",
+    href: "/products/solar-panel-540w",
+    subcategoryId: "solar-panels",
+    priceMin: 12500,
+    priceUnit: "Piece",
+    moq: 10,
+    moqUnit: "Pieces",
+    supplierName: "SunEdge Solutions",
+    supplierHref: "/suppliers/sunedge-solutions",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 98,
+    tile: { iconName: "Zap", tint: "blue", imageSrc: "/images/products/solar-panel-540w.webp" },
+  },
+];
+
+const constructionSubcategories: Subcategory[] = [
+  { id: "steel-pipes", name: "Steel Pipes & Tubes", href: "/category/steel-pipes", icon: Layers3, tint: "slate" },
+];
+
+const constructionProducts: B2BProduct[] = [
+  {
+    id: "stainless-steel-pipes",
+    name: "Stainless Steel Pipes",
+    href: "/products/stainless-steel-pipes",
+    subcategoryId: "steel-pipes",
+    priceMin: 220,
+    priceUnit: "Kg",
+    moq: 100,
+    moqUnit: "Kg",
+    supplierName: "MetalCraft Solutions",
+    supplierHref: "/suppliers/metalcraft-solutions",
+    supplierCity: "Mumbai",
+    supplierState: "Maharashtra",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 142,
+    tile: { iconName: "Layers3", tint: "slate", imageSrc: "/images/products/stainless-steel-pipes.webp" },
+  },
+];
+
+const healthPharmaSubcategories: Subcategory[] = [
+  { id: "tablets-capsules", name: "Tablets & Capsules", href: "/category/tablets-capsules", icon: Pill, tint: "blue" },
+];
+
+const healthPharmaProducts: B2BProduct[] = [
+  {
+    id: "pharma-tablets",
+    name: "Pharma Tablets",
+    href: "/products/pharma-tablets",
+    subcategoryId: "tablets-capsules",
+    priceMin: 1250,
+    priceUnit: "Box",
+    moq: 50,
+    moqUnit: "Boxes",
+    supplierName: "Arogya Pharma",
+    supplierHref: "/suppliers/arogya-pharma",
+    supplierCity: "Hyderabad",
+    supplierState: "Telangana",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 96,
+    tile: { iconName: "Pill", tint: "blue", imageSrc: "/images/products/pharma-tablets.webp" },
+  },
+];
+
+const apparelFashionSubcategories: Subcategory[] = [
+  { id: "fabrics", name: "Fabrics", href: "/category/fabrics", icon: Layers3, tint: "navy" },
+  { id: "garments", name: "Garments", href: "/category/garments", icon: Shirt, tint: "blue" },
+  { id: "textile-materials", name: "Textile Materials", href: "/category/textile-materials", icon: Scissors, tint: "slate" },
+  { id: "custom-manufacturing", name: "Custom Manufacturing", href: "/category/custom-manufacturing", icon: Factory, tint: "navy" },
+];
+
+const apparelFashionProducts: B2BProduct[] = [
+  {
+    id: "cotton-fabric",
+    name: "Cotton Fabric",
+    href: "/products/cotton-fabric",
+    subcategoryId: "fabrics",
+    priceMin: 80,
+    priceMax: 150,
+    priceUnit: "Meter",
+    moq: 200,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 142,
+    badge: "Best Seller",
+    tile: { iconName: "Layers3", tint: "navy" },
+  },
+  {
+    id: "printed-fabric",
+    name: "Printed Fabric",
+    href: "/products/printed-fabric",
+    subcategoryId: "fabrics",
+    priceMin: 110,
+    priceMax: 220,
+    priceUnit: "Meter",
+    moq: 150,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.7,
+    reviewCount: 98,
+    tile: { iconName: "Layers3", tint: "blue" },
+  },
+  {
+    id: "rayon-fabric",
+    name: "Rayon Fabric",
+    href: "/products/rayon-fabric",
+    subcategoryId: "fabrics",
+    priceMin: 95,
+    priceMax: 180,
+    priceUnit: "Meter",
+    moq: 200,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 76,
+    tile: { iconName: "Layers3", tint: "slate" },
+  },
+  {
+    id: "polyester-fabric",
+    name: "Polyester Fabric",
+    href: "/products/polyester-fabric",
+    subcategoryId: "fabrics",
+    priceMin: 70,
+    priceMax: 140,
+    priceUnit: "Meter",
+    moq: 300,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.5,
+    reviewCount: 64,
+    tile: { iconName: "Layers3", tint: "navy" },
+  },
+  {
+    id: "silk-fabric",
+    name: "Silk Fabric",
+    href: "/products/silk-fabric",
+    subcategoryId: "fabrics",
+    priceMin: 350,
+    priceMax: 650,
+    priceUnit: "Meter",
+    moq: 50,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.9,
+    reviewCount: 110,
+    badge: "Popular",
+    tile: { iconName: "Layers3", tint: "blue" },
+  },
+  {
+    id: "embroidery-fabric",
+    name: "Embroidery Fabric",
+    href: "/products/embroidery-fabric",
+    subcategoryId: "textile-materials",
+    priceMin: 180,
+    priceMax: 420,
+    priceUnit: "Meter",
+    moq: 100,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.7,
+    reviewCount: 58,
+    tile: { iconName: "Scissors", tint: "slate" },
+  },
+  {
+    id: "garment-fabric",
+    name: "Garment Fabric",
+    href: "/products/garment-fabric",
+    subcategoryId: "garments",
+    priceMin: 120,
+    priceMax: 260,
+    priceUnit: "Meter",
+    moq: 150,
+    moqUnit: "Meters",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 71,
+    tile: { iconName: "Shirt", tint: "navy" },
+  },
+  {
+    id: "unstitched-dress-material",
+    name: "Unstitched Dress Material",
+    href: "/products/unstitched-dress-material",
+    subcategoryId: "custom-manufacturing",
+    priceMin: 450,
+    priceMax: 950,
+    priceUnit: "Set",
+    moq: 50,
+    moqUnit: "Sets",
+    supplierName: "Shree Textiles",
+    supplierHref: "/suppliers/shree-textiles",
+    supplierCity: "Surat",
+    supplierState: "Gujarat",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 89,
+    tile: { iconName: "Shirt", tint: "blue" },
+  },
+  {
+    id: "mens-cotton-tshirt",
+    name: "Men's Cotton T-Shirt",
+    href: "/products/mens-cotton-tshirt",
+    subcategoryId: "garments",
+    priceMin: 299,
+    priceUnit: "Piece",
+    moq: 100,
+    moqUnit: "Pieces",
+    supplierName: "Fashion Hub",
+    supplierHref: "/suppliers/fashion-hub",
+    supplierCity: "Tirupur",
+    supplierState: "Tamil Nadu",
+    supplierType: "Manufacturer",
+    verified: true,
+    rating: 4.5,
+    reviewCount: 210,
+    tile: { iconName: "Shirt", tint: "navy", imageSrc: "/images/products/mens-cotton-tshirt.webp" },
   },
 ];
 
@@ -216,14 +516,93 @@ export const CATEGORY_PAGES: Record<string, CategoryPageData> = {
     parentHref: "/categories/industrial-supplies",
     description:
       "Find verified suppliers of packaging material, boxes, bags, containers and more. Get best prices, compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Package, tint: "navy", imageSrc: "/images/categories/packaging-printing.png" },
     stats: buildCategoryStats(packagingMaterialProducts),
     subcategories: packagingMaterialSubcategories,
     products: packagingMaterialProducts,
+  },
+  "apparel-fashion": {
+    slug: "apparel-fashion",
+    name: "Apparel & Fashion",
+    parentLabel: "Industrial Supplies",
+    parentHref: "/categories/industrial-supplies",
+    description:
+      "Find verified suppliers of fabrics, garments and textile materials. Get best prices, compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Shirt, tint: "slate", imageSrc: "/images/categories/apparel-fashion.png" },
+    stats: buildCategoryStats(apparelFashionProducts),
+    subcategories: apparelFashionSubcategories,
+    products: apparelFashionProducts,
+  },
+  "industrial-machinery": {
+    slug: "industrial-machinery",
+    name: "Industrial Machinery",
+    parentLabel: "All Categories",
+    parentHref: "/",
+    description:
+      "Find suppliers of industrial machinery and equipment. Get best prices, compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Factory, tint: "navy", imageSrc: "/images/categories/industrial-machinery.png" },
+    stats: buildCategoryStats(industrialMachineryProducts),
+    subcategories: industrialMachinerySubcategories,
+    products: industrialMachineryProducts,
+  },
+  "electrical-electronics": {
+    slug: "electrical-electronics",
+    name: "Electrical & Electronics",
+    parentLabel: "All Categories",
+    parentHref: "/",
+    description:
+      "Find suppliers of electrical and electronic equipment, including solar power products. Compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Zap, tint: "blue", imageSrc: "/images/categories/electrical-electronics.png" },
+    stats: buildCategoryStats(electricalElectronicsProducts),
+    subcategories: electricalElectronicsSubcategories,
+    products: electricalElectronicsProducts,
+  },
+  "construction-real-estate": {
+    slug: "construction-real-estate",
+    name: "Construction & Real Estate",
+    parentLabel: "All Categories",
+    parentHref: "/",
+    description:
+      "Find suppliers of construction materials, steel and building products. Compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Layers3, tint: "slate", imageSrc: "/images/categories/construction-real-estate.png" },
+    stats: buildCategoryStats(constructionProducts),
+    subcategories: constructionSubcategories,
+    products: constructionProducts,
+  },
+  "health-pharma": {
+    slug: "health-pharma",
+    name: "Health & Pharma",
+    parentLabel: "All Categories",
+    parentHref: "/",
+    description:
+      "Find suppliers of pharmaceutical and healthcare products. Compare quotes and connect with manufacturers.",
+    heroVisual: { icon: Pill, tint: "blue", imageSrc: "/images/categories/health-pharma.png" },
+    stats: buildCategoryStats(healthPharmaProducts),
+    subcategories: healthPharmaSubcategories,
+    products: healthPharmaProducts,
   },
 };
 
 export function getCategoryPage(slug: string): CategoryPageData | undefined {
   return CATEGORY_PAGES[slug];
+}
+
+export function getProductsBySupplier(supplierHref: string): B2BProduct[] {
+  return Object.values(CATEGORY_PAGES).flatMap((category) =>
+    category.products.filter((product) => product.supplierHref === supplierHref)
+  );
+}
+
+export function getProductBySlug(
+  slug: string
+): { product: B2BProduct; category: CategoryPageData } | undefined {
+  for (const category of Object.values(CATEGORY_PAGES)) {
+    const product = category.products.find((item) => item.id === slug);
+    if (product) {
+      return { product, category };
+    }
+  }
+  return undefined;
 }
 
 export const SUPPLIER_TYPE_OPTIONS = [

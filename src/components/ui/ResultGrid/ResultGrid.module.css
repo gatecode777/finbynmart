@@ -1,0 +1,16 @@
+.grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.seller {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.product {
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+
+.category {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}

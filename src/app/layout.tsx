@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { CategoryNavigation } from "@/components/layout/CategoryNavigation";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
-const manrope = Manrope({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-manrope",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Finbyn Kart — India's Trusted B2B Marketplace",
+  title: "Finbyn Mart — India's Trusted B2B Marketplace",
   description:
     "Connect with verified manufacturers, suppliers, wholesalers and exporters across India. Get the best prices, compare quotes and grow your business with trusted partners.",
 };
@@ -32,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${manrope.variable}`}>
+      <body className={`${poppins.variable} ${playfair.variable}`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

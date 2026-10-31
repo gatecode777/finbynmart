@@ -18,15 +18,15 @@ export function Footer() {
         <div className={styles.top}>
           <div className={styles.brandCol}>
             <Image
-              src="/finbyn-kart-logo.png"
-              alt="Finbyn Kart"
-              width={193}
-              height={53}
+              src="/images/brand/finbyn-mart-logo.png"
+              alt="Finbyn Mart"
+              width={600}
+              height={132}
               className={styles.logo}
             />
             <p className={styles.tagline}>Powering Digital Commerce</p>
             <p className={styles.description}>
-              Finbyn Kart is India&apos;s trusted B2B marketplace connecting
+              Finbyn Mart is India&apos;s trusted B2B marketplace connecting
               buyers with verified suppliers, manufacturers and exporters
               across multiple industries.
             </p>
@@ -67,7 +67,7 @@ export function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <span>&copy; {new Date().getFullYear()} Finbyn Kart. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Finbyn Mart. All rights reserved.</span>
           <div className={styles.legalLinks}>
             {LEGAL_LINKS.map((link) => (
               <Link key={link.href} href={link.href}>

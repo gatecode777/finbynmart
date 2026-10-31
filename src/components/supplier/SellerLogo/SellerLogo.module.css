@@ -1,0 +1,40 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.teal {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.cream {
+  background: var(--accent-soft);
+  color: var(--primary-deep);
+}
+
+.sm {
+  width: 40px;
+  height: 40px;
+  font-size: var(--fs-sm);
+}
+
+.md {
+  width: 56px;
+  height: 56px;
+  font-size: var(--fs-lg);
+}
+
+.lg {
+  width: 96px;
+  height: 96px;
+  font-size: var(--fs-2xl);
+}

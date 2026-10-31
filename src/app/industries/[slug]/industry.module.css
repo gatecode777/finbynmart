@@ -1,0 +1,9 @@
+.banner {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  aspect-ratio: 16 / 6;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--background-soft);
+}

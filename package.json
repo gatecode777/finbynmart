@@ -1,17 +1,19 @@
 {
-  "name": "finbynkart",
+  "name": "finbynmart",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "catalog:build": "node --disable-warning=ExperimentalWarning scripts/build-catalog.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.7",
     "lucide-react": "^1.16.0",
+    "mongodb": "^7.8.0",
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -26,4 +28,3 @@
     "typescript": "^5.7.3"
   }
 }
-

@@ -1,6 +1,7 @@
 .footer {
-  background: var(--navy);
-  color: rgba(255, 255, 255, 0.75);
+  background: #fff;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
 }
 
 .top {
@@ -21,13 +22,13 @@
 }
 
 .tagline {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-muted);
   font-size: var(--fs-xs);
   margin-bottom: var(--space-3);
 }
 
 .description {
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-secondary);
   font-size: var(--fs-sm);
   max-width: 32rem;
   margin-bottom: var(--space-4);
@@ -41,17 +42,17 @@
 .social a {
   font-size: var(--fs-xs);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-secondary);
 }
 
 .social a:hover {
-  color: #fff;
+  color: var(--primary);
 }
 
 .colTitle {
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: var(--space-4);
 }
 
@@ -63,11 +64,11 @@
 
 .linkList a {
   font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-secondary);
 }
 
 .linkList a:hover {
-  color: #fff;
+  color: var(--primary);
 }
 
 .contactItem {
@@ -76,17 +77,17 @@
   gap: var(--space-2);
   font-size: var(--fs-sm);
   margin-bottom: var(--space-3);
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-secondary);
 }
 
 .contactPlaceholder {
   font-size: var(--fs-xs);
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   font-style: italic;
 }
 
 .bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--border);
   padding-block: var(--space-5);
   display: flex;
   flex-wrap: wrap;
@@ -94,7 +95,7 @@
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--fs-xs);
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-muted);
 }
 
 .legalLinks {
@@ -104,7 +105,7 @@
 }
 
 .legalLinks a:hover {
-  color: #fff;
+  color: var(--primary);
 }
 
 @media (min-width: 640px) {

@@ -21,6 +21,15 @@ yarn-error.log*
 .env*
 !.env.example
 
+# raw research dataset + placeholder sellers: used locally by scripts/build-catalog.mjs, never published
+/public/sellers.csv
+/public/sellers.xlsx
+/public/real_clothing_products.csv
+/public/real_clothing_products.xlsx
+
+# generated catalog database (rebuild with `npm run catalog:build`)
+/db/catalog.sqlite*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

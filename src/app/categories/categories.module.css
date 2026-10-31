@@ -1,0 +1,48 @@
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.heading {
+  font-size: var(--fs-xl);
+  color: var(--text-primary);
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.departments {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.department {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-4);
+  background: var(--primary-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.department:hover {
+  border-color: var(--primary);
+}
+
+.departmentName {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.departmentCount {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}

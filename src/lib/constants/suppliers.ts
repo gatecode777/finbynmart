@@ -1,11 +1,6 @@
 import { Shirt, Settings, Package, Pill, Wrench, Wheat } from "lucide-react";
 import type { Supplier } from "@/types";
 
-/**
- * Sample supplier records for visual development only — per spec section 16,
- * production must render actual supplier records from the backend.
- * See docs/MISSING_ASSETS.md.
- */
 export const FEATURED_SUPPLIERS: Supplier[] = [
   {
     id: "shree-textiles",
@@ -17,7 +12,11 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     rating: 4.9,
     reviewCount: 230,
     href: "/suppliers/shree-textiles",
-    tile: { icon: Shirt, tint: "slate" },
+    tile: {
+      icon: Shirt,
+      tint: "slate",
+      imageSrc: "/images/suppliers/shree-textiles.png",
+    },
   },
   {
     id: "abc-engineering-works",
@@ -29,7 +28,11 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     rating: 4.8,
     reviewCount: 185,
     href: "/suppliers/abc-engineering-works",
-    tile: { icon: Settings, tint: "navy" },
+    tile: {
+      icon: Settings,
+      tint: "navy",
+      imageSrc: "/images/suppliers/abc-engineering-works.png",
+    },
   },
   {
     id: "sunrise-packaging",
@@ -41,7 +44,11 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     rating: 4.7,
     reviewCount: 198,
     href: "/suppliers/sunrise-packaging",
-    tile: { icon: Package, tint: "blue" },
+    tile: {
+      icon: Package,
+      tint: "blue",
+      imageSrc: "/images/suppliers/sunrise-packaging.png",
+    },
   },
   {
     id: "medico-pharma",
@@ -50,10 +57,14 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     state: "Gujarat",
     categoryLabel: "Health & Pharma",
     verified: true,
-    rating: 4.6,
+    rating: 4.8,
     reviewCount: 142,
     href: "/suppliers/medico-pharma",
-    tile: { icon: Pill, tint: "slate" },
+    tile: {
+      icon: Pill,
+      tint: "slate",
+      imageSrc: "/images/suppliers/medico-pharma.png",
+    },
   },
   {
     id: "buildright-solutions",
@@ -65,7 +76,11 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     rating: 4.6,
     reviewCount: 176,
     href: "/suppliers/buildright-solutions",
-    tile: { icon: Wrench, tint: "navy" },
+    tile: {
+      icon: Wrench,
+      tint: "navy",
+      imageSrc: "/images/suppliers/buildright-solutions.png",
+    },
   },
   {
     id: "agro-fresh-foods",
@@ -77,6 +92,10 @@ export const FEATURED_SUPPLIERS: Supplier[] = [
     rating: 4.8,
     reviewCount: 210,
     href: "/suppliers/agro-fresh-foods",
-    tile: { icon: Wheat, tint: "blue" },
+    tile: {
+      icon: Wheat,
+      tint: "blue",
+      imageSrc: "/images/suppliers/agro-fresh-foods.png",
+    },
   },
 ];

@@ -9,7 +9,7 @@ export function HowItWorks() {
         <div className={styles.heading}>
           <p className={styles.eyebrow}>Simple &amp; Secure</p>
           <h2 id="how-it-works-heading" className={styles.title}>
-            How Finbyn Kart Works
+            How Finbyn Mart Works
           </h2>
           <p className={styles.subtitle}>
             A simple and secure way to grow your business.

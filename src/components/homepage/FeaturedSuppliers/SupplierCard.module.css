@@ -3,27 +3,30 @@
   flex-direction: column;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
-  transition: box-shadow var(--transition-normal);
+  transition: box-shadow var(--transition-normal), transform var(--transition-fast);
   height: 100%;
 }
 
 .card:hover {
   box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
 
 .tileWrap {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 7;
+  overflow: hidden;
+  background: var(--background-soft);
 }
 
 .body {
-  padding: var(--space-4);
+  padding: var(--space-3);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 6px;
   flex: 1;
 }
 
@@ -35,20 +38,24 @@
 }
 
 .name {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .location {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--fs-xs);
+  font-size: 11px;
   color: var(--text-muted);
 }
 
 .category {
-  font-size: var(--fs-xs);
+  font-size: 11px;
   color: var(--text-secondary);
 }
 
@@ -56,7 +63,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--fs-xs);
+  font-size: 11px;
   color: var(--text-secondary);
 }
 
@@ -66,6 +73,7 @@
 
 .cta {
   margin-top: auto;
+  padding-top: var(--space-2);
 }
 
 .ctaButton {
@@ -73,15 +81,17 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--fs-sm);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 6px 0;
+  font-size: 11px;
   font-weight: 600;
-  color: var(--primary-deep);
-  transition: background-color var(--transition-fast);
+  color: var(--primary);
+  transition: all var(--transition-fast);
+  background: #fff;
 }
 
 .ctaButton:hover {
-  background: var(--background-soft);
+  background: var(--primary);
+  color: #fff;
 }

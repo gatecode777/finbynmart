@@ -12,20 +12,85 @@ import {
 } from "lucide-react";
 import type { TopCategory } from "@/types";
 
-/**
- * Placeholder category list for visual development — reconcile with the
- * actual database categories before this goes to production.
- * See docs/MISSING_ASSETS.md.
- */
 export const TOP_CATEGORIES: TopCategory[] = [
-  { id: "industrial-machinery", name: "Industrial Machinery", href: "/categories/industrial-machinery", icon: Factory, tint: "navy" },
-  { id: "electrical-electronics", name: "Electrical & Electronics", href: "/categories/electrical-electronics", icon: Zap, tint: "blue" },
-  { id: "apparel-fashion", name: "Apparel & Fashion", href: "/categories/apparel-fashion", icon: Shirt, tint: "slate" },
-  { id: "home-lifestyle", name: "Home & Lifestyle", href: "/categories/home-lifestyle", icon: Home, tint: "blue" },
-  { id: "packaging-printing", name: "Packaging & Printing", href: "/categories/packaging-printing", icon: Package, tint: "navy" },
-  { id: "food-beverages", name: "Food & Beverages", href: "/categories/food-beverages", icon: UtensilsCrossed, tint: "slate" },
-  { id: "health-pharma", name: "Health & Pharma", href: "/categories/health-pharma", icon: Pill, tint: "blue" },
-  { id: "agriculture", name: "Agriculture", href: "/categories/agriculture", icon: Tractor, tint: "navy" },
-  { id: "construction-real-estate", name: "Construction & Real Estate", href: "/categories/construction-real-estate", icon: Building2, tint: "slate" },
-  { id: "chemicals-dyes", name: "Chemicals & Dyes", href: "/categories/chemicals-dyes", icon: FlaskConical, tint: "blue" },
+  {
+    id: "industrial-machinery",
+    name: "Industrial Machinery",
+    href: "/categories/industrial-machinery",
+    icon: Factory,
+    tint: "navy",
+    imageSrc: "/images/categories/industrial-machinery.png",
+  },
+  {
+    id: "electrical-electronics",
+    name: "Electrical & Electronics",
+    href: "/categories/electrical-electronics",
+    icon: Zap,
+    tint: "blue",
+    imageSrc: "/images/categories/electrical-electronics.png",
+  },
+  {
+    id: "apparel-fashion",
+    name: "Apparel & Fashion",
+    href: "/categories/apparel-fashion",
+    icon: Shirt,
+    tint: "slate",
+    imageSrc: "/images/categories/apparel-fashion.png",
+  },
+  {
+    id: "home-lifestyle",
+    name: "Home & Lifestyle",
+    href: "/categories/home-lifestyle",
+    icon: Home,
+    tint: "blue",
+    imageSrc: "/images/categories/home-lifestyle.png",
+  },
+  {
+    id: "packaging-printing",
+    name: "Packaging & Printing",
+    href: "/categories/packaging-printing",
+    icon: Package,
+    tint: "navy",
+    imageSrc: "/images/categories/packaging-printing.png",
+  },
+  {
+    id: "food-beverages",
+    name: "Food & Beverages",
+    href: "/categories/food-beverages",
+    icon: UtensilsCrossed,
+    tint: "slate",
+    imageSrc: "/images/categories/food-beverages.png",
+  },
+  {
+    id: "health-pharma",
+    name: "Health & Pharma",
+    href: "/categories/health-pharma",
+    icon: Pill,
+    tint: "blue",
+    imageSrc: "/images/categories/health-pharma.png",
+  },
+  {
+    id: "agriculture",
+    name: "Agriculture",
+    href: "/categories/agriculture",
+    icon: Tractor,
+    tint: "navy",
+    imageSrc: "/images/categories/agriculture.png",
+  },
+  {
+    id: "construction-real-estate",
+    name: "Construction & Real Estate",
+    href: "/categories/construction-real-estate",
+    icon: Building2,
+    tint: "slate",
+    imageSrc: "/images/categories/construction-real-estate.png",
+  },
+  {
+    id: "chemicals-dyes",
+    name: "Chemicals & Dyes",
+    href: "/categories/chemicals-dyes",
+    icon: FlaskConical,
+    tint: "blue",
+    imageSrc: "/images/categories/chemicals-dyes.png",
+  },
 ];

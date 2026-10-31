@@ -1,0 +1,1201 @@
+id,name,owner_name,email,phone,city,state,pincode,specialization,rating,total_orders,joined_date,status
+SLR0001,Sunrise Hub,Nisha Das,sunrisehub@example.com,+91 00000 34890,Varanasi,Uttar Pradesh,221024,Winter Wear,4.2,12251,2022-08-02,Active
+SLR0002,Modern Apparels,Anjali Kumar,modernapparels@example.com,+91 00000 61925,Ahmedabad,Gujarat,380058,Multi-category,4.4,10371,2022-09-04,Active
+SLR0003,Ruchi Creations,Sneha Verma,ruchicreations@example.com,+91 00000 88593,Lucknow,Uttar Pradesh,226004,Sportswear,4.0,12850,2018-09-17,Active
+SLR0004,Classic Retail,Rahul Mishra,classicretail@example.com,+91 00000 95826,Mumbai,Maharashtra,400036,Innerwear,4.9,46437,2021-02-16,Active
+SLR0005,Balaji Kart,Karan Sharma,balajikart@example.com,+91 00000 24146,Mumbai,Maharashtra,400052,Men Bottomwear,4.6,4429,2022-04-25,Inactive
+SLR0006,Shree Collections,Divya Gill,shreecollections@example.com,+91 00000 59212,Ahmedabad,Gujarat,380091,Innerwear,4.1,41301,2021-04-09,Active
+SLR0007,Elite Wear,Anjali Singh,elitewear@example.com,+91 00000 63746,Bengaluru,Karnataka,560098,Men Bottomwear,3.7,6672,2016-03-03,Active
+SLR0008,Golden Retail,Kavita Mishra,goldenretail@example.com,+91 00000 68644,Bhagalpur,Bihar,812066,Women Western Wear,4.9,8633,2018-02-10,Active
+SLR0009,Prime Textiles,Mary Joshi,primetextiles@example.com,+91 00000 45362,Lucknow,Uttar Pradesh,226076,Sarees,4.9,13859,2016-01-02,Active
+SLR0010,Madhav Store,Rohit Verma,madhavstore@example.com,+91 00000 67873,Delhi,Delhi,110034,Men Topwear,4.5,19469,2018-05-23,Active
+SLR0011,Desi Creations,Divya Chopra,desicreations@example.com,+91 00000 88811,Jaipur,Rajasthan,302048,Kids Wear,4.3,38537,2016-03-04,Active
+SLR0012,Pari Apparels,Joseph Agarwal,pariapparels@example.com,+91 00000 39934,Delhi,Delhi,110079,Women Western Wear,4.4,48508,2019-06-27,Active
+SLR0013,Laxmi Collections,Joseph Menon,laxmicollections@example.com,+91 00000 20288,Kochi,Kerala,682054,Men Topwear,3.7,33627,2022-10-08,Inactive
+SLR0014,Krishna Fab,Deepak Joshi,krishnafab@example.com,+91 00000 78167,Kochi,Kerala,682023,Men Bottomwear,3.7,36708,2019-04-16,Active
+SLR0015,Tulsi House,Vikram Iyer,tulsihouse@example.com,+91 00000 12172,Lucknow,Uttar Pradesh,226009,Sarees,4.1,4012,2018-04-15,Active
+SLR0016,Classic Exports,Rekha Chopra,classicexports@example.com,+91 00000 57467,Delhi,Delhi,110018,Sportswear,4.8,48081,2017-01-12,Active
+SLR0017,Surya Apparels,Ayesha Verma,suryaapparels@example.com,+91 00000 56854,Surat,Gujarat,395090,Sarees,4.8,39264,2021-04-28,Active
+SLR0018,Swastik Creations,Swati Khan,swastikcreations@example.com,+91 00000 19864,Delhi,Delhi,110058,Winter Wear,4.1,48355,2016-10-23,Active
+SLR0019,Navya Wear,Harpreet Gupta,navyawear@example.com,+91 00000 64677,Kochi,Kerala,682004,Sportswear,4.3,43452,2016-11-14,Active
+SLR0020,Surya Garments,Sandeep Gupta,suryagarments@example.com,+91 00000 93808,Mumbai,Maharashtra,400015,Sarees,4.6,21686,2017-01-06,Active
+SLR0021,Surya Styles,Arvind Das,suryastyles@example.com,+91 00000 77986,Bhagalpur,Bihar,812097,Winter Wear,3.4,5799,2016-12-09,Active
+SLR0022,Balaji Textiles,Sunita Fernandes,balajitextiles@example.com,+91 00000 11482,Kochi,Kerala,682048,Sarees,3.7,13325,2018-11-13,Active
+SLR0023,Silk Styles,Sunita Menon,silkstyles@example.com,+91 00000 63052,Jaipur,Rajasthan,302086,Sarees,3.8,49505,2019-09-01,Inactive
+SLR0024,Ganesh Fab,Sanjay Chopra,ganeshfab@example.com,+91 00000 27848,Bengaluru,Karnataka,560018,Sportswear,4.0,46660,2018-05-09,Active
+SLR0025,Elite Clothing,Pooja Das,eliteclothing@example.com,+91 00000 38059,Kochi,Kerala,682053,Innerwear,4.3,44099,2019-02-01,Active
+SLR0026,Tulsi Styles,Imran Gupta,tulsistyles@example.com,+91 00000 89633,Ahmedabad,Gujarat,380006,Multi-category,4.4,23263,2019-02-13,Active
+SLR0027,Pari Garments,Arjun Jain,parigarments@example.com,+91 00000 13240,Indore,Madhya Pradesh,452099,Sarees,3.9,3126,2018-02-16,Inactive
+SLR0028,Fashion Styles,Rohit Bansal,fashionstyles@example.com,+91 00000 93875,Bhagalpur,Bihar,812048,Men Bottomwear,4.4,31188,2023-05-07,Active
+SLR0029,Shree Retail,Nitin Pandey,shreeretail@example.com,+91 00000 39682,Ahmedabad,Gujarat,380035,Kids Wear,4.2,32845,2018-01-03,Active
+SLR0030,Kalyan Fab,Sanjay Gupta,kalyanfab@example.com,+91 00000 60852,Hyderabad,Telangana,500017,Sportswear,4.1,490,2024-02-06,Active
+SLR0031,Pari Kart,Fatima Das,parikart@example.com,+91 00000 36855,Bengaluru,Karnataka,560013,Multi-category,4.7,14028,2023-04-21,Active
+SLR0032,Prime Creations,Swati Kumar,primecreations@example.com,+91 00000 12051,Bengaluru,Karnataka,560045,Winter Wear,3.6,22466,2018-12-08,Active
+SLR0033,Elite Retail,Priya Reddy,eliteretail@example.com,+91 00000 14601,Mumbai,Maharashtra,400023,Winter Wear,4.0,30888,2020-10-22,Active
+SLR0034,Ruchi Kart,Arvind Menon,ruchikart@example.com,+91 00000 21275,Kochi,Kerala,682098,Women Western Wear,4.1,19066,2022-06-29,Active
+SLR0035,Laxmi Clothing,Rekha Rao,laxmiclothing@example.com,+91 00000 50854,Bhagalpur,Bihar,812086,Innerwear,4.8,13697,2018-11-16,Active
+SLR0036,Aarav Hub,Rekha Iyer,aaravhub@example.com,+91 00000 63881,Kochi,Kerala,682069,Men Bottomwear,4.2,24759,2018-04-03,Active
+SLR0037,Royal Kart,Mary Kumar,royalkart@example.com,+91 00000 22218,Pune,Maharashtra,411089,Women Ethnic Wear,3.6,30126,2021-07-04,Active
+SLR0038,Star Traders,Ritu Banerjee,startraders@example.com,+91 00000 54522,Kochi,Kerala,682056,Sportswear,4.2,12596,2017-06-04,Active
+SLR0039,Sai Traders,Arjun Pandey,saitraders@example.com,+91 00000 35441,Surat,Gujarat,395020,Women Western Wear,3.4,21157,2016-05-25,Active
+SLR0040,Krishna House,Sunita Patel,krishnahouse@example.com,+91 00000 86314,Kochi,Kerala,682016,Winter Wear,4.3,13008,2024-03-12,Active
+SLR0041,Lucky Garments,Joseph Bansal,luckygarments@example.com,+91 00000 79382,Hyderabad,Telangana,500079,Women Ethnic Wear,4.2,35046,2025-04-02,Active
+SLR0042,Ruchi Collections,Nitin Malhotra,ruchicollections@example.com,+91 00000 92298,Delhi,Delhi,110045,Women Ethnic Wear,4.0,12808,2018-08-10,Active
+SLR0043,Om Textiles,Arjun Menon,omtextiles@example.com,+91 00000 21553,Jaipur,Rajasthan,302034,Innerwear,3.6,35654,2017-06-26,Active
+SLR0044,Navya Collections,Mary Bansal,navyacollections@example.com,+91 00000 36336,Surat,Gujarat,395073,Multi-category,4.0,7613,2017-01-28,Active
+SLR0045,Silk Kart,Manoj Kulkarni,silkkart@example.com,+91 00000 23916,Mumbai,Maharashtra,400004,Men Topwear,4.5,33789,2021-05-28,Inactive
+SLR0046,Swastik Apparels,Manoj Agarwal,swastikapparels@example.com,+91 00000 32608,Pune,Maharashtra,411021,Sarees,4.7,38046,2018-04-15,Active
+SLR0047,Golden Creations,Rohit Khan,goldencreations@example.com,+91 00000 65894,Ludhiana,Punjab,141066,Kids Wear,4.1,24505,2021-03-27,Active
+SLR0048,Royal Collections,Kavita Joshi,royalcollections@example.com,+91 00000 58522,Indore,Madhya Pradesh,452052,Women Western Wear,4.3,33641,2020-01-12,Active
+SLR0049,Rang Creations,Mary Chopra,rangcreations@example.com,+91 00000 86626,Lucknow,Uttar Pradesh,226044,Sarees,3.9,48837,2021-08-27,Active
+SLR0050,Kalyan Fab Co.,Fatima Menon,kalyanfabco@example.com,+91 00000 58479,Bhagalpur,Bihar,812099,Innerwear,4.5,13604,2023-10-16,Active
+SLR0051,Desi Wear,Swati Banerjee,desiwear@example.com,+91 00000 56614,Pune,Maharashtra,411082,Nightwear,3.5,43703,2016-02-13,Active
+SLR0052,Ganesh Fab Store,Kavita Kumar,ganeshfabstore@example.com,+91 00000 77462,Mumbai,Maharashtra,400064,Multi-category,3.8,49971,2020-05-14,Active
+SLR0053,Pari Garments India,Komal Patel,parigarmentsindia@example.com,+91 00000 68149,Jaipur,Rajasthan,302052,Winter Wear,3.5,42517,2018-11-17,Active
+SLR0054,Style Traders,Deepak Iyer,styletraders@example.com,+91 00000 80842,Bengaluru,Karnataka,560066,Innerwear,4.8,6579,2022-03-03,Active
+SLR0055,Desi Hub,Sandeep Mishra,desihub@example.com,+91 00000 30962,Ahmedabad,Gujarat,380050,Sportswear,4.8,35567,2020-05-01,Active
+SLR0056,Urban Threads,Sunita Joshi,urbanthreads@example.com,+91 00000 62241,Chennai,Tamil Nadu,600077,Sarees,4.1,31719,2021-11-27,Active
+SLR0057,Laxmi Boutique,Karan Sharma,laxmiboutique@example.com,+91 00000 42115,Surat,Gujarat,395075,Men Topwear,4.3,49506,2024-08-30,Active
+SLR0058,Urban Wear,Mary Verma,urbanwear@example.com,+91 00000 39321,Bengaluru,Karnataka,560055,Sportswear,3.9,16021,2016-10-28,Active
+SLR0059,Style Styles,Neha Desai,stylestyles@example.com,+91 00000 25085,Jaipur,Rajasthan,302007,Nightwear,4.1,13396,2022-10-08,Active
+SLR0060,Cotton Kart,Neha Patel,cottonkart@example.com,+91 00000 28321,Kolkata,West Bengal,700086,Innerwear,4.1,41966,2020-12-18,Active
+SLR0061,Galaxy Exports,Rekha Desai,galaxyexports@example.com,+91 00000 26891,Delhi,Delhi,110031,Sportswear,3.7,33299,2019-04-03,Active
+SLR0062,Cotton Traders,Meera Malhotra,cottontraders@example.com,+91 00000 46521,Lucknow,Uttar Pradesh,226097,Women Western Wear,3.8,32958,2023-02-06,Inactive
+SLR0063,Om Fashions,Sneha Sharma,omfashions@example.com,+91 00000 65730,Tiruppur,Tamil Nadu,641004,Nightwear,3.5,35547,2018-11-28,Active
+SLR0064,Trendy Clothing,Shalini Nair,trendyclothing@example.com,+91 00000 72725,Kolkata,West Bengal,700046,Women Western Wear,4.0,48862,2021-06-05,Active
+SLR0065,Desi Textiles,Arvind Kulkarni,desitextiles@example.com,+91 00000 65621,Lucknow,Uttar Pradesh,226096,Sarees,4.1,24229,2020-12-25,Active
+SLR0066,Madhav Wear,Karan Kumar,madhavwear@example.com,+91 00000 95695,Noida,Uttar Pradesh,201048,Nightwear,3.6,5195,2020-10-17,Active
+SLR0067,Lucky Store,Farhan Banerjee,luckystore@example.com,+91 00000 11218,Indore,Madhya Pradesh,452010,Sarees,3.8,39615,2019-05-09,Active
+SLR0068,Modern Retail,Imran Singh,modernretail@example.com,+91 00000 56897,Delhi,Delhi,110085,Kids Wear,4.1,21181,2018-06-15,Active
+SLR0069,Pari House,Meera Das,parihouse@example.com,+91 00000 49946,Varanasi,Uttar Pradesh,221059,Kids Wear,3.9,33877,2025-01-02,Active
+SLR0070,Denim Exports,Priya Mehta,denimexports@example.com,+91 00000 60800,Ludhiana,Punjab,141025,Nightwear,4.1,35476,2022-07-23,Active
+SLR0071,Surya Store,Kavita Agarwal,suryastore@example.com,+91 00000 69555,Mumbai,Maharashtra,400037,Men Topwear,3.9,35711,2024-07-05,Active
+SLR0072,Classic Garments,Lakshmi Gupta,classicgarments@example.com,+91 00000 81493,Bhagalpur,Bihar,812011,Kids Wear,3.6,6957,2019-06-05,Active
+SLR0073,Trendy Garments,Neha Patel,trendygarments@example.com,+91 00000 38894,Hyderabad,Telangana,500063,Winter Wear,4.0,25896,2018-10-02,Active
+SLR0074,Silk Apparels,Sunita Banerjee,silkapparels@example.com,+91 00000 19498,Bhagalpur,Bihar,812091,Nightwear,4.7,49663,2025-01-09,Active
+SLR0075,Cotton Garments,Joseph Desai,cottongarments@example.com,+91 00000 80954,Mumbai,Maharashtra,400082,Men Topwear,4.2,715,2021-03-18,Active
+SLR0076,Galaxy Threads,Neha Nair,galaxythreads@example.com,+91 00000 59220,Noida,Uttar Pradesh,201088,Women Ethnic Wear,4.0,27899,2023-02-14,Active
+SLR0077,Elite Fashions,Vijay Singh,elitefashions@example.com,+91 00000 94932,Pune,Maharashtra,411020,Women Ethnic Wear,4.7,30115,2019-05-28,Active
+SLR0078,Swastik Fashions,Imran Patel,swastikfashions@example.com,+91 00000 57096,Lucknow,Uttar Pradesh,226028,Nightwear,3.9,30977,2018-01-25,Active
+SLR0079,Balaji Styles,Kavita Menon,balajistyles@example.com,+91 00000 32611,Tiruppur,Tamil Nadu,641097,Sarees,4.3,31473,2020-07-06,Active
+SLR0080,Jai Fab,Fatima Mishra,jaifab@example.com,+91 00000 22113,Bhagalpur,Bihar,812062,Women Western Wear,4.1,8850,2024-08-26,Active
+SLR0081,Prime Kart,Rekha Fernandes,primekart@example.com,+91 00000 17593,Tiruppur,Tamil Nadu,641085,Women Western Wear,4.6,24400,2024-10-31,Active
+SLR0082,Krishna Threads,Sandeep Bose,krishnathreads@example.com,+91 00000 30566,Noida,Uttar Pradesh,201099,Kids Wear,3.7,8642,2020-08-30,Active
+SLR0083,Tulsi Traders,Rekha Kumar,tulsitraders@example.com,+91 00000 84956,Ahmedabad,Gujarat,380099,Women Ethnic Wear,3.3,8465,2017-09-09,Active
+SLR0084,Elite House,Rekha Patel,elitehouse@example.com,+91 00000 71428,Kochi,Kerala,682011,Nightwear,4.2,19946,2023-10-12,Active
+SLR0085,Om Threads,Manoj Gill,omthreads@example.com,+91 00000 67696,Mumbai,Maharashtra,400027,Men Topwear,4.2,32436,2024-10-05,Active
+SLR0086,Modern Wear,Swati Jain,modernwear@example.com,+91 00000 50068,Mumbai,Maharashtra,400060,Multi-category,4.4,4922,2022-03-28,Active
+SLR0087,Style Fab,Nisha Thomas,stylefab@example.com,+91 00000 68367,Pune,Maharashtra,411002,Innerwear,4.4,15613,2023-05-02,Active
+SLR0088,Fashion Styles India,Divya Menon,fashionstylesindia@example.com,+91 00000 92283,Delhi,Delhi,110049,Winter Wear,4.4,49524,2019-04-04,Active
+SLR0089,Trendy Traders,Manoj Reddy,trendytraders@example.com,+91 00000 24363,Ludhiana,Punjab,141043,Sarees,4.7,30840,2024-03-14,Active
+SLR0090,Silk Styles Pvt Ltd,Anjali Patel,silkstylespvtltd@example.com,+91 00000 22372,Delhi,Delhi,110017,Multi-category,4.3,11838,2022-12-21,Active
+SLR0091,Royal Styles,Ayesha Pandey,royalstyles@example.com,+91 00000 39698,Mumbai,Maharashtra,400005,Women Ethnic Wear,4.9,26712,2017-02-15,Active
+SLR0092,Silk Threads,Ajay Shah,silkthreads@example.com,+91 00000 29395,Lucknow,Uttar Pradesh,226089,Innerwear,4.2,40880,2024-08-07,Active
+SLR0093,Star House,Imran Kulkarni,starhouse@example.com,+91 00000 89770,Jaipur,Rajasthan,302068,Men Topwear,3.9,22478,2023-05-28,Active
+SLR0094,Sunrise Textiles,Shalini Jain,sunrisetextiles@example.com,+91 00000 53614,Lucknow,Uttar Pradesh,226038,Men Bottomwear,4.3,16688,2021-09-17,Active
+SLR0095,Modern Hub,Sanjay Mehta,modernhub@example.com,+91 00000 28580,Varanasi,Uttar Pradesh,221074,Women Western Wear,4.9,46933,2021-10-04,Active
+SLR0096,Om Store,Priya Bansal,omstore@example.com,+91 00000 20910,Lucknow,Uttar Pradesh,226018,Women Western Wear,4.2,45735,2024-09-16,Active
+SLR0097,Trendy Exports,Meera Das,trendyexports@example.com,+91 00000 27773,Pune,Maharashtra,411031,Nightwear,4.2,4217,2021-01-26,Active
+SLR0098,Vogue Clothing,Fatima Malhotra,vogueclothing@example.com,+91 00000 10497,Delhi,Delhi,110037,Multi-category,4.6,49747,2017-05-17,Active
+SLR0099,Kalyan Clothing,Sandeep Kumar,kalyanclothing@example.com,+91 00000 14197,Mumbai,Maharashtra,400052,Women Ethnic Wear,4.5,9110,2021-02-04,Active
+SLR0100,Prime House,Ayesha Bansal,primehouse@example.com,+91 00000 36153,Surat,Gujarat,395053,Sportswear,3.5,25371,2017-10-11,Active
+SLR0101,Star Clothing,Fatima Rao,starclothing@example.com,+91 00000 41998,Delhi,Delhi,110073,Kids Wear,3.5,47342,2018-12-15,Active
+SLR0102,Aarav Fab,Sunita Malhotra,aaravfab@example.com,+91 00000 55278,Pune,Maharashtra,411053,Nightwear,4.7,49728,2021-04-08,Active
+SLR0103,Classic Retail Pvt Ltd,Ravi Desai,classicretailpvtltd@example.com,+91 00000 84182,Hyderabad,Telangana,500015,Winter Wear,4.0,28376,2017-04-25,Active
+SLR0104,Sai Wear,Sneha Singh,saiwear@example.com,+91 00000 59346,Hyderabad,Telangana,500077,Kids Wear,4.4,38941,2024-03-17,Active
+SLR0105,Krishna Textiles,Arvind Nair,krishnatextiles@example.com,+91 00000 16811,Varanasi,Uttar Pradesh,221061,Men Bottomwear,4.2,35765,2020-06-12,Active
+SLR0106,Star Enterprises,Vikram Gill,starenterprises@example.com,+91 00000 65234,Kolkata,West Bengal,700073,Women Ethnic Wear,3.9,27678,2022-02-15,Active
+SLR0107,Desi Textiles Store,Arjun Patel,desitextilesstore@example.com,+91 00000 69399,Bhagalpur,Bihar,812001,Sarees,3.9,1617,2022-06-16,Active
+SLR0108,Desi Styles,Arvind Desai,desistyles@example.com,+91 00000 28517,Varanasi,Uttar Pradesh,221046,Nightwear,3.9,2090,2020-06-15,Active
+SLR0109,Rang Boutique,Imran Banerjee,rangboutique@example.com,+91 00000 71949,Delhi,Delhi,110027,Women Western Wear,4.0,3914,2024-09-16,Active
+SLR0110,Cotton Retail,Priya Agarwal,cottonretail@example.com,+91 00000 79874,Bhagalpur,Bihar,812081,Women Western Wear,3.8,42655,2018-04-07,Active
+SLR0111,Rang Traders,Ravi Pandey,rangtraders@example.com,+91 00000 68347,Delhi,Delhi,110054,Men Bottomwear,3.8,7957,2019-10-03,Active
+SLR0112,Om Traders,Kavita Thomas,omtraders@example.com,+91 00000 97109,Jaipur,Rajasthan,302038,Sarees,4.1,34417,2021-08-15,Active
+SLR0113,Surya Kart,Sanjay Singh,suryakart@example.com,+91 00000 39615,Noida,Uttar Pradesh,201036,Women Ethnic Wear,4.3,30374,2023-06-25,Inactive
+SLR0114,Sunrise Kart,Vikram Rao,sunrisekart@example.com,+91 00000 88603,Ahmedabad,Gujarat,380076,Sarees,4.2,37311,2016-01-29,Active
+SLR0115,Classic Collections,Ritu Agarwal,classiccollections@example.com,+91 00000 81841,Tiruppur,Tamil Nadu,641004,Women Ethnic Wear,4.5,2252,2024-03-26,Active
+SLR0116,Surya Fab,Rahul Gill,suryafab@example.com,+91 00000 33579,Kochi,Kerala,682009,Winter Wear,4.5,21074,2016-09-03,Active
+SLR0117,Royal Kart & Sons,Ajay Desai,royalkartandsons@example.com,+91 00000 79688,Varanasi,Uttar Pradesh,221023,Nightwear,4.5,7397,2024-05-06,Active
+SLR0118,Krishna Styles,Shalini Fernandes,krishnastyles@example.com,+91 00000 40924,Tiruppur,Tamil Nadu,641034,Sportswear,4.2,39587,2024-10-26,Active
+SLR0119,Royal Collections Store,Sneha Chopra,royalcollectionsstore@example.com,+91 00000 52605,Indore,Madhya Pradesh,452020,Nightwear,3.4,28534,2018-01-07,Active
+SLR0120,Vogue Garments,Vikram Patel,voguegarments@example.com,+91 00000 93868,Noida,Uttar Pradesh,201070,Nightwear,4.5,40893,2022-05-19,Active
+SLR0121,Modern Threads,Amit Pandey,modernthreads@example.com,+91 00000 91421,Bengaluru,Karnataka,560095,Winter Wear,4.5,38630,2025-03-11,Active
+SLR0122,Neel Clothing,Joseph Iyer,neelclothing@example.com,+91 00000 75125,Jaipur,Rajasthan,302089,Multi-category,4.5,4057,2017-10-16,Active
+SLR0123,Golden Exports,Divya Pandey,goldenexports@example.com,+91 00000 74164,Ahmedabad,Gujarat,380097,Nightwear,4.9,48848,2017-06-09,Active
+SLR0124,Royal Garments,Ritu Joshi,royalgarments@example.com,+91 00000 21983,Varanasi,Uttar Pradesh,221051,Winter Wear,4.0,5062,2017-08-02,Inactive
+SLR0125,Tulsi Enterprises,Karan Iyer,tulsienterprises@example.com,+91 00000 41677,Pune,Maharashtra,411054,Sportswear,3.6,23905,2022-03-10,Active
+SLR0126,Tulsi Collections,Amit Agarwal,tulsicollections@example.com,+91 00000 95169,Ludhiana,Punjab,141008,Kids Wear,4.3,11668,2022-07-25,Active
+SLR0127,Star Collections,Joseph Jain,starcollections@example.com,+91 00000 64848,Ahmedabad,Gujarat,380045,Women Western Wear,3.8,10789,2018-06-01,Active
+SLR0128,Star Collections Store,Nisha Fernandes,starcollectionsstore@example.com,+91 00000 68603,Chennai,Tamil Nadu,600063,Multi-category,4.4,13457,2021-04-19,Active
+SLR0129,Galaxy Creations,Sneha Pandey,galaxycreations@example.com,+91 00000 45981,Tiruppur,Tamil Nadu,641080,Men Topwear,4.2,17242,2020-01-26,Active
+SLR0130,Pari Collections,Meera Patel,paricollections@example.com,+91 00000 30122,Kolkata,West Bengal,700094,Kids Wear,3.7,47462,2016-08-22,Active
+SLR0131,Fashion Garments,Imran Desai,fashiongarments@example.com,+91 00000 20900,Ludhiana,Punjab,141049,Kids Wear,3.9,43908,2021-01-16,Active
+SLR0132,Star House Co.,Sunita Verma,starhouseco@example.com,+91 00000 77357,Lucknow,Uttar Pradesh,226077,Women Ethnic Wear,3.5,26964,2017-09-09,Active
+SLR0133,Anmol Apparels,Rekha Pandey,anmolapparels@example.com,+91 00000 51138,Bhagalpur,Bihar,812093,Sportswear,4.4,13472,2018-12-02,Active
+SLR0134,Anmol Styles,Mary Shah,anmolstyles@example.com,+91 00000 56611,Ludhiana,Punjab,141029,Men Bottomwear,4.0,40112,2021-10-17,Active
+SLR0135,Royal Garments Mart,Vijay Chopra,royalgarmentsmart@example.com,+91 00000 49071,Surat,Gujarat,395085,Multi-category,3.6,36626,2025-01-25,Active
+SLR0136,Fashion Exports,Ritu Kulkarni,fashionexports@example.com,+91 00000 66060,Tiruppur,Tamil Nadu,641016,Innerwear,4.2,25173,2017-01-03,Inactive
+SLR0137,Classic Retail Mart,Meera Nair,classicretailmart@example.com,+91 00000 36465,Noida,Uttar Pradesh,201061,Women Ethnic Wear,4.0,15766,2020-07-06,Active
+SLR0138,Silk Threads Co.,Vijay Chopra,silkthreadsco@example.com,+91 00000 82507,Tiruppur,Tamil Nadu,641040,Men Topwear,4.6,23924,2023-11-12,Inactive
+SLR0139,Star Traders India,Joseph Banerjee,startradersindia@example.com,+91 00000 52668,Chennai,Tamil Nadu,600033,Men Bottomwear,3.4,21253,2021-04-04,Active
+SLR0140,Pari Boutique,Deepak Desai,pariboutique@example.com,+91 00000 71505,Noida,Uttar Pradesh,201050,Nightwear,4.0,2083,2023-03-15,Active
+SLR0141,Ganesh Creations,Sneha Malhotra,ganeshcreations@example.com,+91 00000 90322,Bhagalpur,Bihar,812054,Men Bottomwear,3.9,29512,2020-08-10,Active
+SLR0142,Prime Fashions,Arjun Mishra,primefashions@example.com,+91 00000 50449,Varanasi,Uttar Pradesh,221064,Kids Wear,4.2,9870,2019-01-22,Active
+SLR0143,Elite Enterprises,Deepak Mishra,eliteenterprises@example.com,+91 00000 78235,Jaipur,Rajasthan,302001,Winter Wear,4.8,15735,2018-08-18,Active
+SLR0144,Laxmi Creations,Komal Desai,laxmicreations@example.com,+91 00000 53715,Bhagalpur,Bihar,812034,Kids Wear,3.7,20586,2025-04-27,Active
+SLR0145,Ganesh Fab Mart,Suresh Reddy,ganeshfabmart@example.com,+91 00000 53655,Noida,Uttar Pradesh,201080,Sportswear,4.5,24267,2017-10-15,Active
+SLR0146,Denim Hub,Sunita Nair,denimhub@example.com,+91 00000 52596,Jaipur,Rajasthan,302091,Women Ethnic Wear,4.7,8307,2020-01-23,Active
+SLR0147,Desi Textiles Mart,Swati Patel,desitextilesmart@example.com,+91 00000 99031,Indore,Madhya Pradesh,452062,Men Topwear,3.8,31636,2021-09-29,Active
+SLR0148,Vogue Fab,Ajay Thomas,voguefab@example.com,+91 00000 93201,Ludhiana,Punjab,141033,Kids Wear,4.4,12081,2018-11-02,Active
+SLR0149,Ganesh Store,Arjun Chopra,ganeshstore@example.com,+91 00000 26458,Hyderabad,Telangana,500080,Sarees,4.5,13213,2023-03-11,Active
+SLR0150,Classic Enterprises,Kavita Sharma,classicenterprises@example.com,+91 00000 27530,Kochi,Kerala,682035,Sarees,4.1,43682,2022-07-26,Active
+SLR0151,Navya Fashions,Suresh Pandey,navyafashions@example.com,+91 00000 35401,Pune,Maharashtra,411037,Kids Wear,4.4,26564,2016-06-22,Active
+SLR0152,Sai Hub,Vijay Agarwal,saihub@example.com,+91 00000 50527,Kolkata,West Bengal,700057,Multi-category,3.9,47358,2016-10-02,Active
+SLR0153,Aarav Store,Joseph Mishra,aaravstore@example.com,+91 00000 47052,Lucknow,Uttar Pradesh,226019,Sportswear,3.8,36500,2022-02-14,Inactive
+SLR0154,Vogue Retail,Lakshmi Patel,vogueretail@example.com,+91 00000 12522,Delhi,Delhi,110035,Nightwear,4.3,41029,2019-08-18,Active
+SLR0155,Rang Enterprises,Anjali Banerjee,rangenterprises@example.com,+91 00000 82283,Lucknow,Uttar Pradesh,226034,Winter Wear,3.5,517,2020-02-07,Active
+SLR0156,Modern Creations,Rahul Agarwal,moderncreations@example.com,+91 00000 28315,Bengaluru,Karnataka,560026,Innerwear,4.2,23079,2021-06-03,Active
+SLR0157,Star Hub,Sneha Reddy,starhub@example.com,+91 00000 96099,Bhagalpur,Bihar,812080,Sarees,3.9,16406,2022-12-01,Inactive
+SLR0158,Sunrise Store,Sneha Agarwal,sunrisestore@example.com,+91 00000 80648,Surat,Gujarat,395016,Multi-category,3.6,1622,2017-11-22,Active
+SLR0159,Modern Creations Store,Nisha Sharma,moderncreationsstore@example.com,+91 00000 57777,Lucknow,Uttar Pradesh,226002,Winter Wear,3.9,48245,2016-09-17,Active
+SLR0160,Modern Hub Mart,Rohit Gill,modernhubmart@example.com,+91 00000 63547,Kochi,Kerala,682033,Nightwear,3.4,9276,2020-07-05,Active
+SLR0161,Prime Exports,Ajay Mishra,primeexports@example.com,+91 00000 57799,Tiruppur,Tamil Nadu,641081,Multi-category,4.1,18348,2025-02-02,Active
+SLR0162,Rang House,Rohit Iyer,ranghouse@example.com,+91 00000 33603,Bengaluru,Karnataka,560028,Men Topwear,4.4,20004,2018-05-24,Active
+SLR0163,Mahalaxmi Exports,Rohit Shah,mahalaxmiexports@example.com,+91 00000 55919,Delhi,Delhi,110024,Innerwear,3.4,32986,2020-03-06,Active
+SLR0164,Style Wear,Nitin Desai,stylewear@example.com,+91 00000 32880,Lucknow,Uttar Pradesh,226042,Men Bottomwear,4.4,37981,2016-03-26,Inactive
+SLR0165,Lucky Retail,Sanjay Banerjee,luckyretail@example.com,+91 00000 33306,Hyderabad,Telangana,500035,Men Bottomwear,4.4,12072,2024-10-01,Active
+SLR0166,Ruchi Garments,Neha Thomas,ruchigarments@example.com,+91 00000 17248,Ludhiana,Punjab,141028,Nightwear,4.3,46876,2023-03-22,Active
+SLR0167,Neel Store,Pooja Patel,neelstore@example.com,+91 00000 97222,Indore,Madhya Pradesh,452060,Innerwear,4.5,15125,2020-11-21,Active
+SLR0168,Anmol Store,Amit Rao,anmolstore@example.com,+91 00000 92225,Ahmedabad,Gujarat,380058,Sportswear,4.0,39015,2021-12-03,Active
+SLR0169,Rang Apparels,Nitin Das,rangapparels@example.com,+91 00000 91639,Bengaluru,Karnataka,560041,Women Western Wear,4.4,26401,2018-11-14,Active
+SLR0170,Navya Retail,Pooja Nair,navyaretail@example.com,+91 00000 95095,Noida,Uttar Pradesh,201019,Men Bottomwear,4.5,16550,2025-06-03,Inactive
+SLR0171,Desi Clothing,Amit Pandey,desiclothing@example.com,+91 00000 77850,Bengaluru,Karnataka,560045,Sportswear,3.8,28023,2018-10-23,Active
+SLR0172,Elite Enterprises India,Rohit Kumar,eliteenterprisesindia@example.com,+91 00000 74323,Indore,Madhya Pradesh,452031,Men Bottomwear,4.5,36047,2024-10-29,Inactive
+SLR0173,Desi Apparels,Gurpreet Agarwal,desiapparels@example.com,+91 00000 14823,Pune,Maharashtra,411045,Women Western Wear,4.5,27315,2019-09-29,Active
+SLR0174,Prime Garments,Komal Das,primegarments@example.com,+91 00000 21572,Kochi,Kerala,682084,Women Western Wear,4.2,47737,2016-10-21,Inactive
+SLR0175,Laxmi Threads,Joseph Sharma,laxmithreads@example.com,+91 00000 51331,Bengaluru,Karnataka,560081,Sarees,4.3,45587,2023-11-06,Active
+SLR0176,Navya Clothing,Ayesha Das,navyaclothing@example.com,+91 00000 46468,Ahmedabad,Gujarat,380015,Sarees,4.7,40869,2017-06-12,Active
+SLR0177,Om Garments,Vikram Pandey,omgarments@example.com,+91 00000 57228,Lucknow,Uttar Pradesh,226040,Innerwear,3.8,41418,2024-04-03,Active
+SLR0178,Denim House,Ravi Iyer,denimhouse@example.com,+91 00000 76386,Indore,Madhya Pradesh,452016,Men Bottomwear,4.0,27435,2017-07-01,Active
+SLR0179,Surya Textiles,Karan Patel,suryatextiles@example.com,+91 00000 20245,Chennai,Tamil Nadu,600087,Multi-category,4.1,25453,2025-07-31,Active
+SLR0180,Galaxy House,Sanjay Das,galaxyhouse@example.com,+91 00000 64932,Mumbai,Maharashtra,400043,Sarees,4.3,17590,2020-02-12,Active
+SLR0181,Shree House,Ritu Sharma,shreehouse@example.com,+91 00000 27323,Hyderabad,Telangana,500076,Sarees,4.1,22435,2020-03-15,Active
+SLR0182,Surya Textiles Store,Rohit Das,suryatextilesstore@example.com,+91 00000 57655,Lucknow,Uttar Pradesh,226003,Kids Wear,3.4,43905,2016-12-28,Active
+SLR0183,Sai Apparels,Vijay Gupta,saiapparels@example.com,+91 00000 70927,Kolkata,West Bengal,700065,Kids Wear,4.2,39734,2017-11-29,Active
+SLR0184,Balaji Garments,Mary Joshi,balajigarments@example.com,+91 00000 80957,Jaipur,Rajasthan,302090,Men Bottomwear,4.9,30342,2023-04-16,Active
+SLR0185,Ganesh Kart,Ayesha Reddy,ganeshkart@example.com,+91 00000 28738,Kochi,Kerala,682066,Innerwear,3.6,286,2020-02-24,Active
+SLR0186,Tulsi Traders Mart,Vijay Fernandes,tulsitradersmart@example.com,+91 00000 71428,Pune,Maharashtra,411020,Men Topwear,4.1,1634,2020-11-09,Active
+SLR0187,Galaxy Hub,Shalini Kumar,galaxyhub@example.com,+91 00000 22356,Pune,Maharashtra,411039,Winter Wear,4.3,37266,2024-09-14,Active
+SLR0188,Trendy Kart,Ajay Singh,trendykart@example.com,+91 00000 42230,Chennai,Tamil Nadu,600032,Nightwear,4.1,14313,2019-12-15,Active
+SLR0189,Kalyan Hub,Rohit Das,kalyanhub@example.com,+91 00000 23676,Delhi,Delhi,110065,Women Ethnic Wear,3.7,34454,2025-07-16,Active
+SLR0190,Tulsi House Mart,Pooja Joshi,tulsihousemart@example.com,+91 00000 30151,Surat,Gujarat,395015,Innerwear,3.8,40591,2018-07-26,Active
+SLR0191,Fashion Retail,Swati Gill,fashionretail@example.com,+91 00000 16039,Bhagalpur,Bihar,812050,Innerwear,4.0,17143,2023-03-18,Active
+SLR0192,Galaxy Wear,Sunita Reddy,galaxywear@example.com,+91 00000 84437,Bhagalpur,Bihar,812065,Men Bottomwear,4.1,17575,2017-07-18,Active
+SLR0193,Vogue Enterprises,Gurpreet Gupta,vogueenterprises@example.com,+91 00000 72504,Hyderabad,Telangana,500050,Kids Wear,4.3,29594,2024-11-16,Active
+SLR0194,Modern Kart,Sneha Agarwal,modernkart@example.com,+91 00000 81767,Varanasi,Uttar Pradesh,221042,Innerwear,4.5,6550,2020-04-14,Active
+SLR0195,Royal Wear,Gurpreet Banerjee,royalwear@example.com,+91 00000 79056,Jaipur,Rajasthan,302063,Men Topwear,4.1,6926,2021-10-30,Active
+SLR0196,Surya Exports,Ritu Mehta,suryaexports@example.com,+91 00000 49475,Kolkata,West Bengal,700027,Nightwear,4.5,20702,2025-06-02,Active
+SLR0197,Fashion Kart,Harpreet Verma,fashionkart@example.com,+91 00000 43025,Mumbai,Maharashtra,400076,Sarees,4.5,42465,2018-05-23,Active
+SLR0198,Star Creations,Karan Chopra,starcreations@example.com,+91 00000 61994,Pune,Maharashtra,411029,Sarees,4.0,9839,2016-12-16,Active
+SLR0199,Classic Boutique,Sneha Fernandes,classicboutique@example.com,+91 00000 61800,Kochi,Kerala,682080,Men Bottomwear,4.2,41907,2016-07-15,Active
+SLR0200,Tulsi Collections Store,Nitin Sharma,tulsicollectionsstore@example.com,+91 00000 53969,Kochi,Kerala,682087,Multi-category,4.9,11353,2020-09-09,Active
+SLR0201,Sunrise Apparels,Joseph Fernandes,sunriseapparels@example.com,+91 00000 67262,Indore,Madhya Pradesh,452016,Sportswear,4.0,47740,2023-08-05,Active
+SLR0202,Fashion Exports Mart,Shalini Pandey,fashionexportsmart@example.com,+91 00000 25517,Pune,Maharashtra,411051,Sarees,4.4,36763,2023-11-19,Active
+SLR0203,Ganesh Textiles,Ravi Khan,ganeshtextiles@example.com,+91 00000 26169,Bhagalpur,Bihar,812020,Sarees,4.2,28357,2017-07-27,Inactive
+SLR0204,Om Retail,Sunita Joshi,omretail@example.com,+91 00000 73139,Ludhiana,Punjab,141014,Winter Wear,4.4,38442,2021-09-26,Active
+SLR0205,Shree Exports,Suresh Bansal,shreeexports@example.com,+91 00000 87516,Kolkata,West Bengal,700067,Multi-category,4.1,38638,2020-03-24,Active
+SLR0206,Cotton Store,Neha Banerjee,cottonstore@example.com,+91 00000 21850,Ludhiana,Punjab,141090,Sportswear,3.9,23045,2019-09-05,Active
+SLR0207,Pari Fashions,Deepak Gill,parifashions@example.com,+91 00000 43397,Mumbai,Maharashtra,400049,Women Western Wear,4.4,40527,2024-12-31,Active
+SLR0208,Mahalaxmi Threads,Rekha Das,mahalaxmithreads@example.com,+91 00000 25406,Ludhiana,Punjab,141030,Women Ethnic Wear,4.4,44577,2021-06-16,Active
+SLR0209,Aarav Fashions,Harpreet Chopra,aaravfashions@example.com,+91 00000 74254,Noida,Uttar Pradesh,201043,Sportswear,3.7,23432,2022-03-08,Active
+SLR0210,Style Enterprises,Neha Reddy,styleenterprises@example.com,+91 00000 89931,Lucknow,Uttar Pradesh,226045,Men Bottomwear,3.8,38221,2021-12-31,Active
+SLR0211,Denim Wear,Gurpreet Patel,denimwear@example.com,+91 00000 44697,Chennai,Tamil Nadu,600015,Women Western Wear,4.0,35256,2022-10-27,Active
+SLR0212,Classic Boutique & Sons,Shalini Shah,classicboutiqueandsons@example.com,+91 00000 19929,Tiruppur,Tamil Nadu,641035,Men Topwear,4.0,33421,2021-06-09,Active
+SLR0213,Prime Clothing,Nitin Bose,primeclothing@example.com,+91 00000 21709,Delhi,Delhi,110070,Women Ethnic Wear,4.2,46104,2022-11-01,Inactive
+SLR0214,Vogue Boutique,Sneha Joshi,vogueboutique@example.com,+91 00000 81111,Kolkata,West Bengal,700030,Sportswear,4.1,22701,2023-04-23,Active
+SLR0215,Neel Traders,Farhan Thomas,neeltraders@example.com,+91 00000 19877,Kolkata,West Bengal,700071,Men Bottomwear,4.3,48728,2018-08-09,Active
+SLR0216,Shree Textiles,Farhan Patel,shreetextiles@example.com,+91 00000 50543,Lucknow,Uttar Pradesh,226046,Women Ethnic Wear,3.5,43616,2020-02-13,Active
+SLR0217,Sai Threads,Farhan Shah,saithreads@example.com,+91 00000 20117,Varanasi,Uttar Pradesh,221056,Winter Wear,4.4,34568,2022-01-30,Active
+SLR0218,Tulsi Retail,Manoj Menon,tulsiretail@example.com,+91 00000 28286,Pune,Maharashtra,411063,Women Western Wear,3.6,1986,2020-09-05,Active
+SLR0219,Laxmi Creations Co.,Swati Iyer,laxmicreationsco@example.com,+91 00000 45717,Bengaluru,Karnataka,560020,Winter Wear,4.7,28077,2018-06-17,Inactive
+SLR0220,Sai House,Sunita Kulkarni,saihouse@example.com,+91 00000 21324,Bengaluru,Karnataka,560099,Winter Wear,3.8,7203,2017-11-25,Active
+SLR0221,Modern Garments,Ravi Verma,moderngarments@example.com,+91 00000 34429,Delhi,Delhi,110089,Nightwear,4.2,49685,2025-04-21,Active
+SLR0222,Trendy Garments & Sons,Vikram Kulkarni,trendygarmentsandsons@example.com,+91 00000 40413,Lucknow,Uttar Pradesh,226053,Kids Wear,4.0,25738,2020-06-07,Active
+SLR0223,Krishna Traders,Sneha Chopra,krishnatraders@example.com,+91 00000 53959,Kolkata,West Bengal,700067,Multi-category,4.0,15410,2021-11-24,Inactive
+SLR0224,Galaxy Clothing,Manoj Shah,galaxyclothing@example.com,+91 00000 69160,Lucknow,Uttar Pradesh,226062,Women Western Wear,4.5,12162,2018-11-04,Active
+SLR0225,Tulsi Traders Store,Rekha Chopra,tulsitradersstore@example.com,+91 00000 12929,Tiruppur,Tamil Nadu,641024,Sarees,3.9,33454,2022-06-06,Active
+SLR0226,Ganesh Fashions,Ritu Kumar,ganeshfashions@example.com,+91 00000 99748,Mumbai,Maharashtra,400098,Winter Wear,3.9,2993,2016-11-17,Active
+SLR0227,Navya Exports,Harpreet Gupta,navyaexports@example.com,+91 00000 60747,Mumbai,Maharashtra,400018,Innerwear,4.5,22211,2025-05-14,Inactive
+SLR0228,Ganesh Fab & Sons,Shalini Chopra,ganeshfabandsons@example.com,+91 00000 11813,Mumbai,Maharashtra,400007,Sportswear,3.5,27893,2021-05-03,Inactive
+SLR0229,Aarav Creations,Divya Agarwal,aaravcreations@example.com,+91 00000 51739,Kochi,Kerala,682044,Women Ethnic Wear,4.7,46877,2018-07-15,Active
+SLR0230,Royal Collections Co.,Arjun Pandey,royalcollectionsco@example.com,+91 00000 97595,Jaipur,Rajasthan,302059,Kids Wear,4.1,17941,2025-07-09,Active
+SLR0231,Desi Clothing Mart,Harpreet Mishra,desiclothingmart@example.com,+91 00000 50233,Ahmedabad,Gujarat,380042,Women Ethnic Wear,4.3,34581,2017-05-19,Active
+SLR0232,Pari Styles,Rekha Iyer,paristyles@example.com,+91 00000 95665,Mumbai,Maharashtra,400029,Men Topwear,3.6,49901,2016-11-29,Inactive
+SLR0233,Neel Clothing Co.,Fatima Bansal,neelclothingco@example.com,+91 00000 73391,Pune,Maharashtra,411077,Sportswear,4.0,30527,2019-04-20,Active
+SLR0234,Aarav Retail,Priya Das,aaravretail@example.com,+91 00000 16801,Ludhiana,Punjab,141037,Women Ethnic Wear,3.5,48309,2022-02-03,Active
+SLR0235,Sai Garments,Sanjay Joshi,saigarments@example.com,+91 00000 95563,Kochi,Kerala,682009,Sportswear,3.4,1045,2022-11-12,Active
+SLR0236,Royal Wear & Sons,Komal Kumar,royalwearandsons@example.com,+91 00000 71988,Kolkata,West Bengal,700033,Nightwear,4.4,23418,2023-09-17,Active
+SLR0237,Surya Store Store,Ravi Joshi,suryastorestore@example.com,+91 00000 70337,Bhagalpur,Bihar,812033,Kids Wear,4.7,15342,2022-07-31,Active
+SLR0238,Tulsi Clothing,Nisha Rao,tulsiclothing@example.com,+91 00000 32408,Bhagalpur,Bihar,812093,Kids Wear,3.9,26504,2019-03-28,Active
+SLR0239,Silk Boutique,Rohit Bansal,silkboutique@example.com,+91 00000 72845,Surat,Gujarat,395072,Men Bottomwear,4.2,42687,2019-11-22,Active
+SLR0240,Shree Retail Pvt Ltd,Meera Banerjee,shreeretailpvtltd@example.com,+91 00000 21788,Indore,Madhya Pradesh,452041,Sportswear,4.3,42078,2016-08-18,Active
+SLR0241,Sai Traders Store,Arvind Verma,saitradersstore@example.com,+91 00000 16625,Mumbai,Maharashtra,400031,Nightwear,4.5,16738,2019-02-21,Active
+SLR0242,Neel Textiles,Lakshmi Mehta,neeltextiles@example.com,+91 00000 19497,Bhagalpur,Bihar,812063,Sportswear,3.7,43679,2016-08-26,Active
+SLR0243,Silk Collections,Divya Pandey,silkcollections@example.com,+91 00000 49162,Indore,Madhya Pradesh,452086,Women Ethnic Wear,4.4,46688,2025-01-04,Active
+SLR0244,Modern Clothing,Pooja Desai,modernclothing@example.com,+91 00000 41993,Kochi,Kerala,682006,Men Topwear,4.8,22538,2019-05-27,Active
+SLR0245,Tulsi Fab,Vikram Mishra,tulsifab@example.com,+91 00000 44036,Noida,Uttar Pradesh,201037,Innerwear,4.0,40051,2017-03-24,Active
+SLR0246,Vogue House,Arjun Thomas,voguehouse@example.com,+91 00000 63420,Ahmedabad,Gujarat,380099,Innerwear,4.5,37349,2020-11-21,Active
+SLR0247,Jai Retail,Sanjay Jain,jairetail@example.com,+91 00000 13000,Kolkata,West Bengal,700021,Sportswear,4.5,15178,2016-06-09,Active
+SLR0248,Fashion Apparels,Rekha Joshi,fashionapparels@example.com,+91 00000 45766,Bengaluru,Karnataka,560089,Women Ethnic Wear,3.4,45026,2021-03-26,Active
+SLR0249,Style Wear & Sons,Sneha Gill,stylewearandsons@example.com,+91 00000 79842,Surat,Gujarat,395075,Nightwear,4.0,3765,2019-04-05,Active
+SLR0250,Elite Collections,Rekha Banerjee,elitecollections@example.com,+91 00000 22671,Mumbai,Maharashtra,400091,Winter Wear,3.5,48847,2016-05-24,Active
+SLR0251,Classic Collections Store,Gurpreet Nair,classiccollectionsstore@example.com,+91 00000 62207,Hyderabad,Telangana,500009,Kids Wear,3.5,19422,2019-09-03,Active
+SLR0252,Anmol Threads,Divya Joshi,anmolthreads@example.com,+91 00000 72116,Jaipur,Rajasthan,302011,Men Bottomwear,4.1,44983,2024-11-08,Active
+SLR0253,Laxmi Kart,Deepak Chopra,laxmikart@example.com,+91 00000 11604,Bhagalpur,Bihar,812068,Men Bottomwear,3.8,3782,2020-09-14,Active
+SLR0254,Mahalaxmi Hub,Meera Kulkarni,mahalaxmihub@example.com,+91 00000 94898,Bengaluru,Karnataka,560006,Men Topwear,4.2,7034,2019-01-03,Inactive
+SLR0255,Om Traders India,Shalini Gupta,omtradersindia@example.com,+91 00000 70926,Surat,Gujarat,395089,Nightwear,4.1,27942,2019-01-08,Active
+SLR0256,Krishna Fab Mart,Ritu Mishra,krishnafabmart@example.com,+91 00000 21393,Hyderabad,Telangana,500091,Nightwear,3.7,37426,2016-07-09,Active
+SLR0257,Sai Fab,Vikram Thomas,saifab@example.com,+91 00000 71415,Ludhiana,Punjab,141080,Men Bottomwear,3.8,48645,2024-03-10,Active
+SLR0258,Surya Wear,Pooja Khan,suryawear@example.com,+91 00000 38959,Chennai,Tamil Nadu,600093,Winter Wear,4.3,26186,2016-03-31,Active
+SLR0259,Trendy Traders Pvt Ltd,Divya Mehta,trendytraderspvtltd@example.com,+91 00000 69379,Hyderabad,Telangana,500056,Kids Wear,3.8,26994,2018-04-18,Active
+SLR0260,Tulsi Creations,Nisha Thomas,tulsicreations@example.com,+91 00000 82142,Kochi,Kerala,682059,Multi-category,4.1,26358,2023-01-06,Active
+SLR0261,Desi Enterprises,Karan Nair,desienterprises@example.com,+91 00000 37879,Indore,Madhya Pradesh,452084,Sarees,3.9,5628,2020-11-17,Active
+SLR0262,Silk Store,Mary Sharma,silkstore@example.com,+91 00000 65920,Hyderabad,Telangana,500034,Men Bottomwear,4.3,26156,2019-11-12,Active
+SLR0263,Om Threads India,Sunita Chopra,omthreadsindia@example.com,+91 00000 38234,Ahmedabad,Gujarat,380084,Innerwear,3.6,46731,2025-03-17,Active
+SLR0264,Denim Store,Vijay Iyer,denimstore@example.com,+91 00000 99273,Tiruppur,Tamil Nadu,641072,Innerwear,4.2,8994,2023-11-28,Active
+SLR0265,Surya Wear Mart,Ajay Sharma,suryawearmart@example.com,+91 00000 84337,Tiruppur,Tamil Nadu,641044,Winter Wear,4.8,10998,2024-06-27,Inactive
+SLR0266,Jai Retail & Sons,Ravi Mishra,jairetailandsons@example.com,+91 00000 89409,Delhi,Delhi,110007,Sportswear,4.2,28862,2017-02-05,Active
+SLR0267,Classic Exports Pvt Ltd,Sneha Gupta,classicexportspvtltd@example.com,+91 00000 81556,Surat,Gujarat,395089,Women Ethnic Wear,4.4,24965,2019-05-15,Active
+SLR0268,Aarav Exports,Ayesha Kumar,aaravexports@example.com,+91 00000 80713,Varanasi,Uttar Pradesh,221048,Innerwear,4.3,20439,2016-04-08,Active
+SLR0269,Tulsi Enterprises Co.,Kavita Sharma,tulsienterprisesco@example.com,+91 00000 93493,Pune,Maharashtra,411004,Women Western Wear,3.9,3821,2016-12-17,Active
+SLR0270,Sai Boutique,Fatima Reddy,saiboutique@example.com,+91 00000 52154,Kolkata,West Bengal,700044,Women Western Wear,4.6,20609,2023-11-04,Active
+SLR0271,Pari Boutique Store,Ajay Mehta,pariboutiquestore@example.com,+91 00000 39193,Jaipur,Rajasthan,302078,Nightwear,4.0,22413,2022-02-25,Active
+SLR0272,Lucky Clothing,Kavita Gill,luckyclothing@example.com,+91 00000 56552,Noida,Uttar Pradesh,201078,Kids Wear,3.9,14893,2021-04-21,Active
+SLR0273,Urban Enterprises,Sunita Pandey,urbanenterprises@example.com,+91 00000 18211,Ahmedabad,Gujarat,380099,Multi-category,4.2,1650,2025-07-14,Active
+SLR0274,Royal Store,Harpreet Fernandes,royalstore@example.com,+91 00000 79898,Kochi,Kerala,682050,Men Bottomwear,4.5,1420,2022-09-24,Inactive
+SLR0275,Tulsi Clothing Store,Meera Verma,tulsiclothingstore@example.com,+91 00000 98952,Delhi,Delhi,110042,Men Topwear,4.2,14536,2023-10-19,Active
+SLR0276,Cotton Enterprises,Gurpreet Sharma,cottonenterprises@example.com,+91 00000 49285,Jaipur,Rajasthan,302034,Men Topwear,3.4,27344,2019-04-11,Active
+SLR0277,Elite Clothing India,Suresh Bose,eliteclothingindia@example.com,+91 00000 98789,Pune,Maharashtra,411066,Women Western Wear,4.0,40855,2021-04-05,Active
+SLR0278,Sunrise Kart Co.,Ravi Desai,sunrisekartco@example.com,+91 00000 76077,Ludhiana,Punjab,141034,Sportswear,4.1,34983,2020-01-23,Inactive
+SLR0279,Balaji Boutique,Priya Singh,balajiboutique@example.com,+91 00000 14175,Chennai,Tamil Nadu,600083,Men Topwear,4.3,34248,2020-05-23,Active
+SLR0280,Laxmi Styles,Gurpreet Thomas,laxmistyles@example.com,+91 00000 62088,Indore,Madhya Pradesh,452065,Winter Wear,3.9,42944,2017-01-05,Inactive
+SLR0281,Om Creations,Pooja Nair,omcreations@example.com,+91 00000 81238,Bhagalpur,Bihar,812055,Winter Wear,4.2,19015,2019-10-07,Active
+SLR0282,Desi Hub India,Rahul Bose,desihubindia@example.com,+91 00000 61054,Delhi,Delhi,110092,Multi-category,4.4,36907,2024-12-14,Inactive
+SLR0283,Lucky Store Store,Ayesha Verma,luckystorestore@example.com,+91 00000 70815,Noida,Uttar Pradesh,201096,Women Western Wear,4.4,29342,2016-10-08,Active
+SLR0284,Silk Store Mart,Komal Sharma,silkstoremart@example.com,+91 00000 96073,Surat,Gujarat,395028,Nightwear,3.6,20439,2018-06-20,Active
+SLR0285,Laxmi Kart India,Kavita Iyer,laxmikartindia@example.com,+91 00000 39331,Lucknow,Uttar Pradesh,226098,Women Ethnic Wear,3.5,47640,2025-02-17,Active
+SLR0286,Navya Collections Mart,Priya Thomas,navyacollectionsmart@example.com,+91 00000 94536,Noida,Uttar Pradesh,201042,Sarees,4.6,12137,2021-04-23,Active
+SLR0287,Fashion House,Rahul Gill,fashionhouse@example.com,+91 00000 49853,Ahmedabad,Gujarat,380050,Multi-category,3.9,42507,2022-04-25,Active
+SLR0288,Jai Fashions,Ritu Chopra,jaifashions@example.com,+91 00000 36212,Tiruppur,Tamil Nadu,641087,Men Bottomwear,3.6,45599,2019-01-12,Active
+SLR0289,Classic Textiles,Joseph Gill,classictextiles@example.com,+91 00000 10927,Bengaluru,Karnataka,560008,Innerwear,4.2,8046,2021-07-14,Active
+SLR0290,Urban Textiles,Priya Mehta,urbantextiles@example.com,+91 00000 53256,Kolkata,West Bengal,700050,Women Ethnic Wear,4.7,39888,2022-04-02,Active
+SLR0291,Neel Garments,Sunita Mishra,neelgarments@example.com,+91 00000 34859,Jaipur,Rajasthan,302063,Men Topwear,3.6,8571,2021-01-10,Active
+SLR0292,Golden Enterprises,Lakshmi Malhotra,goldenenterprises@example.com,+91 00000 31391,Ludhiana,Punjab,141098,Kids Wear,4.4,23035,2024-05-12,Active
+SLR0293,Aarav Traders,Suresh Malhotra,aaravtraders@example.com,+91 00000 41657,Ahmedabad,Gujarat,380083,Innerwear,3.7,3108,2016-04-26,Active
+SLR0294,Silk House,Amit Chopra,silkhouse@example.com,+91 00000 47575,Pune,Maharashtra,411024,Women Western Wear,4.1,13193,2018-07-30,Active
+SLR0295,Ruchi Clothing,Vikram Agarwal,ruchiclothing@example.com,+91 00000 59218,Bhagalpur,Bihar,812053,Women Ethnic Wear,4.1,33339,2024-11-16,Active
+SLR0296,Shree Retail & Sons,Amit Malhotra,shreeretailandsons@example.com,+91 00000 54009,Surat,Gujarat,395002,Innerwear,4.6,25751,2018-03-03,Active
+SLR0297,Classic Apparels,Suresh Jain,classicapparels@example.com,+91 00000 24114,Kolkata,West Bengal,700084,Men Topwear,3.9,19239,2023-12-04,Active
+SLR0298,Style Clothing,Mary Bose,styleclothing@example.com,+91 00000 42992,Bengaluru,Karnataka,560015,Winter Wear,4.8,27255,2024-08-01,Active
+SLR0299,Denim Store Store,Farhan Menon,denimstorestore@example.com,+91 00000 73347,Tiruppur,Tamil Nadu,641084,Sarees,4.8,17064,2018-08-17,Active
+SLR0300,Pari Creations,Arjun Fernandes,paricreations@example.com,+91 00000 92412,Ahmedabad,Gujarat,380075,Sarees,3.8,25565,2020-11-13,Active
+SLR0301,Sunrise Garments,Deepak Agarwal,sunrisegarments@example.com,+91 00000 89376,Kolkata,West Bengal,700025,Winter Wear,4.6,24974,2021-09-04,Active
+SLR0302,Silk Garments,Pooja Sharma,silkgarments@example.com,+91 00000 53020,Surat,Gujarat,395083,Sarees,4.2,41839,2023-01-13,Active
+SLR0303,Lucky Enterprises,Vijay Agarwal,luckyenterprises@example.com,+91 00000 98113,Indore,Madhya Pradesh,452054,Sarees,4.0,15871,2021-04-26,Active
+SLR0304,Golden Hub,Komal Shah,goldenhub@example.com,+91 00000 90816,Lucknow,Uttar Pradesh,226077,Women Ethnic Wear,4.4,27180,2017-05-29,Active
+SLR0305,Anmol Collections,Farhan Mishra,anmolcollections@example.com,+91 00000 17636,Kolkata,West Bengal,700048,Men Bottomwear,4.7,30157,2023-04-01,Active
+SLR0306,Vogue Traders,Shalini Das,voguetraders@example.com,+91 00000 17519,Kolkata,West Bengal,700083,Multi-category,3.4,6660,2017-04-07,Active
+SLR0307,Kalyan Creations,Suresh Kumar,kalyancreations@example.com,+91 00000 22214,Kolkata,West Bengal,700078,Kids Wear,4.7,44038,2017-06-08,Active
+SLR0308,Denim Threads,Shalini Bansal,denimthreads@example.com,+91 00000 98762,Jaipur,Rajasthan,302070,Kids Wear,4.0,18796,2016-08-08,Active
+SLR0309,Golden Collections,Rahul Das,goldencollections@example.com,+91 00000 44522,Kochi,Kerala,682062,Nightwear,4.7,33500,2025-07-22,Active
+SLR0310,Anmol Apparels & Sons,Sandeep Mehta,anmolapparelsandsons@example.com,+91 00000 48020,Pune,Maharashtra,411010,Sportswear,4.3,18366,2024-11-21,Active
+SLR0311,Swastik Fab,Vijay Bose,swastikfab@example.com,+91 00000 25428,Kolkata,West Bengal,700006,Innerwear,4.2,9923,2016-11-26,Active
+SLR0312,Pari Threads,Rohit Malhotra,parithreads@example.com,+91 00000 29415,Jaipur,Rajasthan,302057,Multi-category,4.0,25203,2024-07-24,Active
+SLR0313,Ganesh Garments,Rahul Menon,ganeshgarments@example.com,+91 00000 28647,Noida,Uttar Pradesh,201017,Women Ethnic Wear,3.7,48134,2021-06-01,Active
+SLR0314,Aarav Collections,Fatima Das,aaravcollections@example.com,+91 00000 16672,Noida,Uttar Pradesh,201037,Men Topwear,4.0,27888,2022-10-14,Active
+SLR0315,Style Hub,Amit Bansal,stylehub@example.com,+91 00000 62645,Bengaluru,Karnataka,560098,Women Western Wear,4.5,11747,2021-04-09,Active
+SLR0316,Modern Boutique,Ravi Reddy,modernboutique@example.com,+91 00000 30612,Mumbai,Maharashtra,400059,Nightwear,3.8,47495,2020-09-13,Active
+SLR0317,Royal Kart Co.,Arjun Bose,royalkartco@example.com,+91 00000 81636,Bhagalpur,Bihar,812037,Women Western Wear,3.8,20853,2021-10-10,Active
+SLR0318,Madhav Traders,Ritu Khan,madhavtraders@example.com,+91 00000 39348,Hyderabad,Telangana,500060,Men Bottomwear,3.7,15194,2023-10-23,Active
+SLR0319,Galaxy Retail,Sunita Mehta,galaxyretail@example.com,+91 00000 20105,Lucknow,Uttar Pradesh,226023,Women Western Wear,4.8,16291,2020-02-20,Active
+SLR0320,Neel House,Rekha Malhotra,neelhouse@example.com,+91 00000 40979,Hyderabad,Telangana,500083,Kids Wear,4.7,8131,2020-07-23,Active
+SLR0321,Cotton Styles,Harpreet Kumar,cottonstyles@example.com,+91 00000 98634,Tiruppur,Tamil Nadu,641020,Sarees,4.1,2976,2024-12-19,Active
+SLR0322,Rang Store,Rohit Kulkarni,rangstore@example.com,+91 00000 87546,Noida,Uttar Pradesh,201049,Multi-category,3.7,41874,2019-05-24,Active
+SLR0323,Trendy Hub,Deepak Fernandes,trendyhub@example.com,+91 00000 22375,Kochi,Kerala,682009,Kids Wear,4.4,19104,2018-07-14,Inactive
+SLR0324,Elite Boutique,Vijay Sharma,eliteboutique@example.com,+91 00000 84667,Lucknow,Uttar Pradesh,226042,Sportswear,3.8,27530,2023-03-01,Active
+SLR0325,Madhav Hub,Rahul Nair,madhavhub@example.com,+91 00000 88470,Indore,Madhya Pradesh,452063,Kids Wear,4.0,27640,2021-03-29,Active
+SLR0326,Vogue Apparels,Gurpreet Malhotra,vogueapparels@example.com,+91 00000 54799,Pune,Maharashtra,411081,Men Bottomwear,3.8,6424,2017-05-30,Active
+SLR0327,Mahalaxmi Threads Store,Suresh Singh,mahalaxmithreadsstore@example.com,+91 00000 48794,Bengaluru,Karnataka,560038,Men Bottomwear,4.4,2396,2022-06-25,Active
+SLR0328,Rang Textiles,Suresh Rao,rangtextiles@example.com,+91 00000 77563,Varanasi,Uttar Pradesh,221096,Nightwear,4.3,29202,2020-08-20,Active
+SLR0329,Aarav Fashions Co.,Swati Patel,aaravfashionsco@example.com,+91 00000 70993,Indore,Madhya Pradesh,452022,Nightwear,4.3,40014,2017-07-27,Active
+SLR0330,Silk Threads India,Sunita Kumar,silkthreadsindia@example.com,+91 00000 37742,Ludhiana,Punjab,141009,Kids Wear,3.9,43777,2017-01-16,Active
+SLR0331,Mahalaxmi Threads & Sons,Rekha Bansal,mahalaxmithreadsandsons@example.com,+91 00000 70604,Lucknow,Uttar Pradesh,226006,Sarees,3.5,7044,2020-10-19,Active
+SLR0332,Madhav Collections,Farhan Kumar,madhavcollections@example.com,+91 00000 74189,Bhagalpur,Bihar,812001,Women Western Wear,4.5,41116,2022-07-10,Active
+SLR0333,Sunrise Clothing,Sunita Gill,sunriseclothing@example.com,+91 00000 25791,Lucknow,Uttar Pradesh,226047,Women Ethnic Wear,4.1,391,2023-03-30,Active
+SLR0334,Navya Exports India,Ritu Singh,navyaexportsindia@example.com,+91 00000 55607,Bhagalpur,Bihar,812056,Sportswear,3.4,24310,2024-09-13,Active
+SLR0335,Neel Wear,Farhan Pandey,neelwear@example.com,+91 00000 15926,Delhi,Delhi,110068,Innerwear,4.3,36096,2017-09-23,Active
+SLR0336,Lucky Enterprises & Sons,Priya Gupta,luckyenterprisesandsons@example.com,+91 00000 58324,Bengaluru,Karnataka,560015,Sarees,4.5,38740,2018-07-05,Active
+SLR0337,Tulsi Fab & Sons,Kavita Agarwal,tulsifabandsons@example.com,+91 00000 11986,Pune,Maharashtra,411057,Women Western Wear,3.8,13149,2019-10-29,Active
+SLR0338,Rang Retail,Anjali Thomas,rangretail@example.com,+91 00000 69232,Chennai,Tamil Nadu,600063,Kids Wear,3.6,17202,2016-06-29,Inactive
+SLR0339,Desi Boutique,Sandeep Khan,desiboutique@example.com,+91 00000 32431,Varanasi,Uttar Pradesh,221043,Women Western Wear,4.7,7994,2017-01-25,Active
+SLR0340,Sunrise Creations,Ayesha Mishra,sunrisecreations@example.com,+91 00000 21465,Bengaluru,Karnataka,560054,Winter Wear,3.5,18770,2018-04-14,Inactive
+SLR0341,Galaxy Fab,Vikram Malhotra,galaxyfab@example.com,+91 00000 63982,Hyderabad,Telangana,500032,Innerwear,4.4,28732,2016-10-19,Active
+SLR0342,Desi Fashions,Swati Joshi,desifashions@example.com,+91 00000 48266,Tiruppur,Tamil Nadu,641052,Nightwear,4.2,1152,2022-02-15,Active
+SLR0343,Royal Wear Store,Sunita Kulkarni,royalwearstore@example.com,+91 00000 45385,Ludhiana,Punjab,141080,Men Topwear,3.3,19580,2017-01-14,Active
+SLR0344,Krishna Garments,Vijay Malhotra,krishnagarments@example.com,+91 00000 13736,Surat,Gujarat,395047,Men Topwear,4.1,10701,2024-03-25,Active
+SLR0345,Style Fab Store,Sunita Patel,stylefabstore@example.com,+91 00000 45341,Kolkata,West Bengal,700065,Innerwear,4.5,47621,2020-04-30,Active
+SLR0346,Modern Styles,Nitin Menon,modernstyles@example.com,+91 00000 16827,Varanasi,Uttar Pradesh,221097,Nightwear,4.2,3299,2021-10-13,Active
+SLR0347,Navya Fab,Rahul Chopra,navyafab@example.com,+91 00000 45378,Noida,Uttar Pradesh,201019,Sportswear,3.7,20172,2022-04-25,Active
+SLR0348,Lucky Garments & Sons,Sanjay Menon,luckygarmentsandsons@example.com,+91 00000 46060,Ludhiana,Punjab,141011,Innerwear,4.4,4020,2023-10-08,Active
+SLR0349,Ruchi Creations India,Arvind Banerjee,ruchicreationsindia@example.com,+91 00000 32379,Jaipur,Rajasthan,302014,Nightwear,4.6,8182,2019-10-17,Active
+SLR0350,Navya Traders,Shalini Mishra,navyatraders@example.com,+91 00000 33864,Varanasi,Uttar Pradesh,221043,Innerwear,4.1,34441,2017-03-25,Active
+SLR0351,Madhav Boutique,Priya Gill,madhavboutique@example.com,+91 00000 42039,Varanasi,Uttar Pradesh,221026,Sportswear,4.7,39785,2018-07-24,Active
+SLR0352,Classic Boutique Mart,Priya Shah,classicboutiquemart@example.com,+91 00000 15471,Mumbai,Maharashtra,400085,Women Western Wear,3.6,5362,2018-05-07,Active
+SLR0353,Vogue Hub,Rohit Das,voguehub@example.com,+91 00000 86093,Tiruppur,Tamil Nadu,641061,Women Ethnic Wear,4.4,33429,2024-01-14,Active
+SLR0354,Ruchi House,Imran Thomas,ruchihouse@example.com,+91 00000 43734,Delhi,Delhi,110028,Women Ethnic Wear,3.9,2496,2017-08-24,Inactive
+SLR0355,Galaxy Wear Store,Vikram Menon,galaxywearstore@example.com,+91 00000 61542,Ahmedabad,Gujarat,380008,Winter Wear,4.4,3161,2016-06-27,Active
+SLR0356,Sunrise Collections,Imran Pandey,sunrisecollections@example.com,+91 00000 17737,Hyderabad,Telangana,500082,Men Bottomwear,4.5,47467,2020-02-14,Active
+SLR0357,Star Styles,Divya Shah,starstyles@example.com,+91 00000 99204,Indore,Madhya Pradesh,452071,Men Bottomwear,3.8,16097,2020-12-16,Active
+SLR0358,Navya Enterprises,Ravi Desai,navyaenterprises@example.com,+91 00000 12713,Delhi,Delhi,110086,Nightwear,3.8,40266,2023-08-03,Active
+SLR0359,Trendy Wear,Vikram Mehta,trendywear@example.com,+91 00000 99269,Ahmedabad,Gujarat,380071,Men Topwear,4.4,31826,2025-07-11,Active
+SLR0360,Golden Styles,Rahul Malhotra,goldenstyles@example.com,+91 00000 90237,Noida,Uttar Pradesh,201047,Kids Wear,3.6,21263,2025-05-21,Active
+SLR0361,Jai Store,Manoj Bose,jaistore@example.com,+91 00000 88653,Ahmedabad,Gujarat,380027,Sportswear,4.6,26053,2024-08-29,Active
+SLR0362,Laxmi Wear,Harpreet Verma,laxmiwear@example.com,+91 00000 46008,Ludhiana,Punjab,141009,Men Bottomwear,4.3,25937,2019-07-19,Active
+SLR0363,Trendy House,Ajay Joshi,trendyhouse@example.com,+91 00000 15993,Kolkata,West Bengal,700044,Nightwear,4.8,37832,2024-12-29,Active
+SLR0364,Balaji Wear,Rahul Rao,balajiwear@example.com,+91 00000 48212,Chennai,Tamil Nadu,600044,Sportswear,4.6,17484,2020-09-02,Active
+SLR0365,Cotton Creations,Ravi Mehta,cottoncreations@example.com,+91 00000 87974,Chennai,Tamil Nadu,600018,Sarees,4.4,22768,2025-02-22,Active
+SLR0366,Style Hub Store,Suresh Desai,stylehubstore@example.com,+91 00000 67446,Pune,Maharashtra,411078,Sportswear,3.7,33498,2023-01-01,Inactive
+SLR0367,Urban Styles,Joseph Desai,urbanstyles@example.com,+91 00000 97704,Mumbai,Maharashtra,400003,Sarees,3.6,19877,2024-03-28,Active
+SLR0368,Lucky Wear,Shalini Reddy,luckywear@example.com,+91 00000 56878,Tiruppur,Tamil Nadu,641012,Nightwear,4.3,31656,2025-03-29,Active
+SLR0369,Navya Enterprises Mart,Rekha Chopra,navyaenterprisesmart@example.com,+91 00000 27210,Surat,Gujarat,395008,Sportswear,4.6,1875,2025-04-02,Active
+SLR0370,Elite Fashions Mart,Rekha Sharma,elitefashionsmart@example.com,+91 00000 25272,Indore,Madhya Pradesh,452043,Women Ethnic Wear,4.4,47203,2023-08-09,Active
+SLR0371,Surya Apparels Pvt Ltd,Ajay Rao,suryaapparelspvtltd@example.com,+91 00000 48443,Tiruppur,Tamil Nadu,641045,Men Bottomwear,4.5,13475,2019-03-22,Active
+SLR0372,Shree Textiles India,Ayesha Banerjee,shreetextilesindia@example.com,+91 00000 31403,Ahmedabad,Gujarat,380007,Nightwear,4.0,19450,2021-04-19,Active
+SLR0373,Trendy Enterprises,Priya Shah,trendyenterprises@example.com,+91 00000 74712,Surat,Gujarat,395075,Innerwear,4.1,20610,2017-10-16,Active
+SLR0374,Om Hub,Lakshmi Patel,omhub@example.com,+91 00000 56606,Indore,Madhya Pradesh,452078,Nightwear,4.6,16027,2016-05-01,Active
+SLR0375,Balaji Wear Mart,Manoj Nair,balajiwearmart@example.com,+91 00000 75959,Chennai,Tamil Nadu,600064,Men Bottomwear,4.7,32338,2017-10-01,Active
+SLR0376,Denim Collections,Vikram Agarwal,denimcollections@example.com,+91 00000 15543,Chennai,Tamil Nadu,600001,Kids Wear,4.6,3086,2023-08-27,Active
+SLR0377,Lucky Enterprises Store,Sanjay Patel,luckyenterprisesstore@example.com,+91 00000 49118,Kolkata,West Bengal,700008,Women Ethnic Wear,4.1,17251,2021-12-28,Active
+SLR0378,Fashion Enterprises,Farhan Jain,fashionenterprises@example.com,+91 00000 81372,Tiruppur,Tamil Nadu,641071,Innerwear,4.2,29471,2016-01-15,Inactive
+SLR0379,Jai Enterprises,Manoj Patel,jaienterprises@example.com,+91 00000 46880,Kochi,Kerala,682029,Winter Wear,4.9,45525,2025-07-14,Active
+SLR0380,Urban Kart,Pooja Verma,urbankart@example.com,+91 00000 61083,Indore,Madhya Pradesh,452031,Women Ethnic Wear,3.6,36832,2024-01-28,Active
+SLR0381,Shree Enterprises,Arjun Banerjee,shreeenterprises@example.com,+91 00000 89447,Mumbai,Maharashtra,400061,Innerwear,3.7,993,2019-11-19,Active
+SLR0382,Navya Garments,Sandeep Iyer,navyagarments@example.com,+91 00000 49848,Delhi,Delhi,110058,Women Ethnic Wear,4.1,1907,2022-07-25,Active
+SLR0383,Kalyan Retail,Kavita Desai,kalyanretail@example.com,+91 00000 38311,Kochi,Kerala,682041,Kids Wear,3.8,30109,2025-04-18,Active
+SLR0384,Navya Boutique,Meera Joshi,navyaboutique@example.com,+91 00000 35231,Chennai,Tamil Nadu,600099,Sarees,4.0,4217,2024-06-27,Inactive
+SLR0385,Pari Kart Store,Neha Kumar,parikartstore@example.com,+91 00000 58025,Bhagalpur,Bihar,812060,Men Bottomwear,4.4,13711,2016-09-25,Active
+SLR0386,Prime Styles,Ajay Das,primestyles@example.com,+91 00000 26028,Ahmedabad,Gujarat,380073,Nightwear,4.1,44598,2024-11-06,Active
+SLR0387,Desi Apparels India,Ajay Gupta,desiapparelsindia@example.com,+91 00000 27989,Hyderabad,Telangana,500014,Men Bottomwear,4.3,36322,2017-03-20,Active
+SLR0388,Elite House Store,Farhan Bansal,elitehousestore@example.com,+91 00000 12946,Bhagalpur,Bihar,812026,Kids Wear,4.1,8949,2016-07-15,Active
+SLR0389,Vogue Clothing India,Divya Kumar,vogueclothingindia@example.com,+91 00000 77131,Kolkata,West Bengal,700027,Sportswear,3.8,27054,2020-08-02,Active
+SLR0390,Star Apparels,Rahul Mehta,starapparels@example.com,+91 00000 34359,Bengaluru,Karnataka,560079,Women Western Wear,4.7,34694,2018-10-06,Active
+SLR0391,Madhav Hub & Sons,Deepak Fernandes,madhavhubandsons@example.com,+91 00000 98911,Lucknow,Uttar Pradesh,226028,Winter Wear,4.0,38206,2018-11-23,Active
+SLR0392,Royal Boutique,Pooja Fernandes,royalboutique@example.com,+91 00000 90010,Ahmedabad,Gujarat,380032,Women Western Wear,3.6,44088,2022-07-12,Active
+SLR0393,Golden Traders,Manoj Mehta,goldentraders@example.com,+91 00000 92313,Surat,Gujarat,395093,Women Ethnic Wear,4.3,40846,2025-04-17,Active
+SLR0394,Tulsi Wear,Rohit Jain,tulsiwear@example.com,+91 00000 94147,Chennai,Tamil Nadu,600051,Women Ethnic Wear,4.4,43633,2018-10-09,Active
+SLR0395,Denim Textiles,Lakshmi Shah,denimtextiles@example.com,+91 00000 77884,Bhagalpur,Bihar,812078,Winter Wear,3.5,36598,2019-04-23,Active
+SLR0396,Madhav Enterprises,Karan Patel,madhaventerprises@example.com,+91 00000 23948,Indore,Madhya Pradesh,452038,Men Topwear,4.3,29806,2019-07-02,Active
+SLR0397,Tulsi Creations Mart,Sanjay Mishra,tulsicreationsmart@example.com,+91 00000 36620,Tiruppur,Tamil Nadu,641001,Women Western Wear,4.3,34360,2025-04-06,Active
+SLR0398,Surya House,Komal Kulkarni,suryahouse@example.com,+91 00000 90274,Kochi,Kerala,682019,Sarees,4.2,45175,2021-04-13,Active
+SLR0399,Elite Textiles,Ayesha Gill,elitetextiles@example.com,+91 00000 45292,Chennai,Tamil Nadu,600071,Women Western Wear,4.0,28387,2022-11-29,Active
+SLR0400,Laxmi Clothing & Sons,Neha Rao,laxmiclothingandsons@example.com,+91 00000 54382,Kochi,Kerala,682080,Women Ethnic Wear,4.1,7879,2021-10-25,Active
+SLR0401,Surya House Co.,Lakshmi Thomas,suryahouseco@example.com,+91 00000 93126,Kochi,Kerala,682087,Winter Wear,4.0,17659,2022-10-09,Active
+SLR0402,Laxmi Fashions,Lakshmi Banerjee,laxmifashions@example.com,+91 00000 31803,Kochi,Kerala,682051,Winter Wear,4.3,10893,2024-05-06,Active
+SLR0403,Aarav Clothing,Kavita Agarwal,aaravclothing@example.com,+91 00000 48291,Varanasi,Uttar Pradesh,221012,Multi-category,4.6,36024,2018-06-27,Inactive
+SLR0404,Sunrise Creations Mart,Nisha Agarwal,sunrisecreationsmart@example.com,+91 00000 67817,Kolkata,West Bengal,700037,Men Bottomwear,4.3,36279,2020-02-21,Active
+SLR0405,Pari House Pvt Ltd,Imran Reddy,parihousepvtltd@example.com,+91 00000 81755,Tiruppur,Tamil Nadu,641066,Nightwear,3.5,15636,2019-10-29,Active
+SLR0406,Classic Retail Co.,Arvind Nair,classicretailco@example.com,+91 00000 40254,Lucknow,Uttar Pradesh,226055,Kids Wear,4.3,30602,2020-11-27,Active
+SLR0407,Swastik Clothing,Ritu Malhotra,swastikclothing@example.com,+91 00000 53908,Bhagalpur,Bihar,812047,Sarees,4.1,32606,2023-12-07,Active
+SLR0408,Vogue House Store,Deepak Jain,voguehousestore@example.com,+91 00000 62561,Indore,Madhya Pradesh,452055,Nightwear,3.7,28544,2020-05-31,Active
+SLR0409,Aarav Collections India,Harpreet Patel,aaravcollectionsindia@example.com,+91 00000 16912,Surat,Gujarat,395036,Men Topwear,4.5,6951,2021-11-26,Active
+SLR0410,Sai Clothing,Imran Sharma,saiclothing@example.com,+91 00000 51305,Ahmedabad,Gujarat,380061,Sportswear,4.5,42528,2020-05-21,Active
+SLR0411,Krishna Store,Rohit Gill,krishnastore@example.com,+91 00000 88474,Ahmedabad,Gujarat,380031,Sportswear,4.1,47293,2023-07-20,Active
+SLR0412,Lucky Retail Co.,Manoj Agarwal,luckyretailco@example.com,+91 00000 73725,Kochi,Kerala,682035,Women Western Wear,4.3,40263,2024-06-10,Active
+SLR0413,Mahalaxmi Wear,Ajay Jain,mahalaxmiwear@example.com,+91 00000 11436,Pune,Maharashtra,411089,Nightwear,3.9,21898,2018-07-20,Active
+SLR0414,Swastik Styles,Manoj Rao,swastikstyles@example.com,+91 00000 21129,Noida,Uttar Pradesh,201096,Multi-category,4.9,7239,2018-10-26,Active
+SLR0415,Anmol Garments,Manoj Menon,anmolgarments@example.com,+91 00000 87193,Tiruppur,Tamil Nadu,641058,Kids Wear,3.7,36386,2024-11-30,Active
+SLR0416,Sunrise Hub Co.,Lakshmi Kulkarni,sunrisehubco@example.com,+91 00000 12482,Varanasi,Uttar Pradesh,221014,Women Ethnic Wear,3.6,12146,2018-10-13,Active
+SLR0417,Vogue Boutique India,Gurpreet Joshi,vogueboutiqueindia@example.com,+91 00000 11295,Indore,Madhya Pradesh,452064,Innerwear,3.9,43210,2018-11-25,Active
+SLR0418,Rang Threads,Imran Gupta,rangthreads@example.com,+91 00000 56721,Varanasi,Uttar Pradesh,221051,Women Western Wear,4.5,31609,2025-05-22,Active
+SLR0419,Aarav Styles,Ayesha Iyer,aaravstyles@example.com,+91 00000 42483,Ludhiana,Punjab,141041,Nightwear,4.2,44864,2016-03-13,Active
+SLR0420,Ruchi Exports,Shalini Pandey,ruchiexports@example.com,+91 00000 74496,Pune,Maharashtra,411078,Sarees,4.4,39086,2021-07-08,Active
+SLR0421,Cotton Apparels,Farhan Bansal,cottonapparels@example.com,+91 00000 39041,Pune,Maharashtra,411017,Men Topwear,3.7,19873,2020-06-07,Active
+SLR0422,Shree Retail Mart,Suresh Verma,shreeretailmart@example.com,+91 00000 71402,Bhagalpur,Bihar,812009,Sportswear,3.9,15392,2024-08-06,Active
+SLR0423,Sai Store,Sandeep Agarwal,saistore@example.com,+91 00000 34236,Varanasi,Uttar Pradesh,221029,Men Bottomwear,4.5,34419,2021-11-08,Active
+SLR0424,Jai Styles,Ravi Bansal,jaistyles@example.com,+91 00000 70482,Kochi,Kerala,682069,Kids Wear,4.6,45270,2020-08-10,Inactive
+SLR0425,Ruchi Enterprises,Ayesha Patel,ruchienterprises@example.com,+91 00000 47686,Mumbai,Maharashtra,400032,Multi-category,4.3,28654,2023-05-31,Active
+SLR0426,Lucky Enterprises Co.,Swati Menon,luckyenterprisesco@example.com,+91 00000 51787,Surat,Gujarat,395060,Kids Wear,4.2,28178,2017-07-20,Active
+SLR0427,Sai Hub Mart,Ayesha Joshi,saihubmart@example.com,+91 00000 68547,Indore,Madhya Pradesh,452067,Multi-category,3.9,17633,2023-08-07,Active
+SLR0428,Laxmi Kart Pvt Ltd,Gurpreet Iyer,laxmikartpvtltd@example.com,+91 00000 46471,Surat,Gujarat,395084,Sportswear,4.2,4974,2025-01-30,Inactive
+SLR0429,Desi Traders,Priya Bansal,desitraders@example.com,+91 00000 49098,Delhi,Delhi,110045,Multi-category,4.4,11728,2016-10-07,Inactive
+SLR0430,Style Fab Co.,Sunita Khan,stylefabco@example.com,+91 00000 97349,Chennai,Tamil Nadu,600019,Sportswear,3.9,38115,2023-06-11,Active
+SLR0431,Surya Threads,Vijay Gill,suryathreads@example.com,+91 00000 19009,Ludhiana,Punjab,141073,Nightwear,4.6,34240,2024-02-07,Active
+SLR0432,Laxmi Creations Store,Gurpreet Mishra,laxmicreationsstore@example.com,+91 00000 54910,Kochi,Kerala,682060,Women Western Wear,3.8,33994,2016-07-09,Active
+SLR0433,Vogue Store,Vijay Nair,voguestore@example.com,+91 00000 56131,Indore,Madhya Pradesh,452071,Nightwear,4.1,16634,2016-06-25,Active
+SLR0434,Prime Garments Mart,Rekha Das,primegarmentsmart@example.com,+91 00000 28365,Ludhiana,Punjab,141078,Kids Wear,4.3,44664,2025-03-15,Active
+SLR0435,Cotton Enterprises Co.,Lakshmi Mishra,cottonenterprisesco@example.com,+91 00000 21675,Ludhiana,Punjab,141094,Men Bottomwear,3.8,24199,2017-12-31,Active
+SLR0436,Silk Boutique & Sons,Ritu Agarwal,silkboutiqueandsons@example.com,+91 00000 96577,Noida,Uttar Pradesh,201012,Sarees,4.5,17334,2020-06-27,Active
+SLR0437,Lucky Collections,Rohit Pandey,luckycollections@example.com,+91 00000 45385,Kochi,Kerala,682050,Sportswear,4.1,30105,2025-06-06,Active
+SLR0438,Denim Store & Sons,Mary Malhotra,denimstoreandsons@example.com,+91 00000 74010,Kolkata,West Bengal,700010,Innerwear,3.3,3480,2016-01-31,Active
+SLR0439,Aarav Wear,Ritu Mishra,aaravwear@example.com,+91 00000 85610,Delhi,Delhi,110096,Sportswear,3.9,20372,2020-08-20,Active
+SLR0440,Silk Exports,Imran Nair,silkexports@example.com,+91 00000 97821,Ahmedabad,Gujarat,380085,Men Bottomwear,4.5,47434,2021-12-31,Active
+SLR0441,Trendy House India,Kavita Jain,trendyhouseindia@example.com,+91 00000 33883,Chennai,Tamil Nadu,600054,Sarees,4.4,1761,2018-08-12,Active
+SLR0442,Kalyan Textiles,Sunita Gupta,kalyantextiles@example.com,+91 00000 98624,Bhagalpur,Bihar,812063,Women Ethnic Wear,4.0,33226,2017-07-27,Active
+SLR0443,Modern Exports,Karan Sharma,modernexports@example.com,+91 00000 35173,Ahmedabad,Gujarat,380014,Multi-category,4.1,10186,2020-05-14,Active
+SLR0444,Golden Traders Pvt Ltd,Nitin Shah,goldentraderspvtltd@example.com,+91 00000 29437,Tiruppur,Tamil Nadu,641062,Men Bottomwear,3.8,29997,2022-09-29,Active
+SLR0445,Anmol Fashions,Rahul Singh,anmolfashions@example.com,+91 00000 61178,Pune,Maharashtra,411062,Kids Wear,4.0,34170,2024-12-05,Active
+SLR0446,Silk Fab,Nisha Sharma,silkfab@example.com,+91 00000 14818,Kolkata,West Bengal,700050,Sarees,4.2,35400,2016-09-04,Active
+SLR0447,Style Store,Lakshmi Kulkarni,stylestore@example.com,+91 00000 95554,Hyderabad,Telangana,500044,Sportswear,4.3,32135,2017-02-02,Active
+SLR0448,Balaji Kart India,Ritu Thomas,balajikartindia@example.com,+91 00000 89916,Noida,Uttar Pradesh,201043,Winter Wear,4.5,25452,2021-05-05,Active
+SLR0449,Sunrise Garments Mart,Nisha Agarwal,sunrisegarmentsmart@example.com,+91 00000 29655,Tiruppur,Tamil Nadu,641011,Winter Wear,4.3,5239,2022-03-30,Active
+SLR0450,Royal House,Sunita Singh,royalhouse@example.com,+91 00000 63975,Varanasi,Uttar Pradesh,221023,Kids Wear,3.8,33849,2016-07-18,Inactive
+SLR0451,Tulsi Fab Mart,Kavita Banerjee,tulsifabmart@example.com,+91 00000 76625,Pune,Maharashtra,411023,Sportswear,3.8,17539,2018-01-15,Active
+SLR0452,Kalyan Wear,Amit Menon,kalyanwear@example.com,+91 00000 37729,Ahmedabad,Gujarat,380033,Multi-category,4.1,9440,2023-06-22,Inactive
+SLR0453,Anmol Styles Mart,Swati Gupta,anmolstylesmart@example.com,+91 00000 21225,Chennai,Tamil Nadu,600096,Multi-category,4.3,12078,2024-03-17,Active
+SLR0454,Mahalaxmi Fashions,Komal Agarwal,mahalaxmifashions@example.com,+91 00000 84026,Mumbai,Maharashtra,400015,Multi-category,3.5,8109,2020-02-03,Active
+SLR0455,Balaji Traders,Anjali Fernandes,balajitraders@example.com,+91 00000 37114,Ludhiana,Punjab,141050,Sportswear,3.3,21026,2023-11-12,Inactive
+SLR0456,Royal Clothing,Joseph Thomas,royalclothing@example.com,+91 00000 67437,Jaipur,Rajasthan,302035,Women Ethnic Wear,3.6,16938,2024-07-19,Inactive
+SLR0457,Pari Creations Store,Farhan Desai,paricreationsstore@example.com,+91 00000 71363,Indore,Madhya Pradesh,452001,Sportswear,4.1,41811,2021-08-21,Inactive
+SLR0458,Silk Store Pvt Ltd,Arjun Iyer,silkstorepvtltd@example.com,+91 00000 55375,Indore,Madhya Pradesh,452099,Men Topwear,4.0,40665,2021-07-21,Inactive
+SLR0459,Laxmi Kart Co.,Suresh Mishra,laxmikartco@example.com,+91 00000 46011,Indore,Madhya Pradesh,452047,Sarees,4.2,3672,2018-06-04,Inactive
+SLR0460,Navya Creations,Meera Das,navyacreations@example.com,+91 00000 72563,Surat,Gujarat,395027,Multi-category,3.4,28632,2019-05-01,Active
+SLR0461,Sai House Store,Sandeep Kumar,saihousestore@example.com,+91 00000 74201,Bhagalpur,Bihar,812072,Sportswear,4.2,8470,2016-10-15,Active
+SLR0462,Aarav Store Pvt Ltd,Deepak Mehta,aaravstorepvtltd@example.com,+91 00000 98347,Kochi,Kerala,682036,Women Western Wear,4.3,24599,2022-07-26,Active
+SLR0463,Ganesh House,Ajay Thomas,ganeshhouse@example.com,+91 00000 92594,Ludhiana,Punjab,141068,Nightwear,4.7,20965,2024-12-18,Active
+SLR0464,Elite Exports,Arjun Shah,eliteexports@example.com,+91 00000 98255,Noida,Uttar Pradesh,201084,Innerwear,4.5,34889,2017-01-21,Active
+SLR0465,Denim Wear India,Ritu Patel,denimwearindia@example.com,+91 00000 49069,Ludhiana,Punjab,141074,Men Topwear,4.1,24968,2019-08-16,Active
+SLR0466,Ganesh Styles,Anjali Singh,ganeshstyles@example.com,+91 00000 94843,Kochi,Kerala,682037,Men Topwear,4.8,6305,2016-08-22,Active
+SLR0467,Trendy Creations,Anjali Das,trendycreations@example.com,+91 00000 79556,Noida,Uttar Pradesh,201046,Men Bottomwear,4.0,33278,2023-01-24,Active
+SLR0468,Ganesh Retail,Farhan Bose,ganeshretail@example.com,+91 00000 28731,Noida,Uttar Pradesh,201075,Men Bottomwear,4.1,18986,2022-09-11,Active
+SLR0469,Tulsi Fashions,Mary Fernandes,tulsifashions@example.com,+91 00000 19411,Pune,Maharashtra,411014,Sportswear,4.7,15548,2017-05-05,Active
+SLR0470,Surya Collections,Mary Shah,suryacollections@example.com,+91 00000 28413,Kolkata,West Bengal,700072,Kids Wear,3.4,48785,2024-10-31,Active
+SLR0471,Lucky Exports,Sneha Gill,luckyexports@example.com,+91 00000 60636,Indore,Madhya Pradesh,452059,Women Ethnic Wear,3.4,23421,2018-03-17,Active
+SLR0472,Navya Fab Store,Nitin Chopra,navyafabstore@example.com,+91 00000 86459,Lucknow,Uttar Pradesh,226040,Innerwear,4.4,31600,2021-07-17,Active
+SLR0473,Sunrise Apparels Co.,Mary Singh,sunriseapparelsco@example.com,+91 00000 94413,Ahmedabad,Gujarat,380056,Women Western Wear,4.4,41801,2017-01-24,Active
+SLR0474,Tulsi Clothing Pvt Ltd,Kavita Gill,tulsiclothingpvtltd@example.com,+91 00000 93887,Bhagalpur,Bihar,812081,Women Ethnic Wear,4.3,39642,2018-11-07,Active
+SLR0475,Madhav Garments,Nitin Pandey,madhavgarments@example.com,+91 00000 37870,Delhi,Delhi,110040,Multi-category,4.3,33224,2019-05-20,Active
+SLR0476,Laxmi Enterprises,Mary Nair,laxmienterprises@example.com,+91 00000 43310,Kochi,Kerala,682008,Sarees,4.3,42427,2016-12-12,Active
+SLR0477,Elite Apparels,Arvind Rao,eliteapparels@example.com,+91 00000 60240,Surat,Gujarat,395055,Kids Wear,3.8,4452,2020-09-30,Active
+SLR0478,Swastik Garments,Rahul Das,swastikgarments@example.com,+91 00000 40366,Kochi,Kerala,682094,Sportswear,4.6,29845,2019-07-30,Active
+SLR0479,Silk Textiles,Harpreet Shah,silktextiles@example.com,+91 00000 32695,Delhi,Delhi,110054,Innerwear,3.7,2094,2019-12-10,Active
+SLR0480,Jai Fashions Store,Rekha Gill,jaifashionsstore@example.com,+91 00000 58724,Pune,Maharashtra,411089,Sportswear,4.4,31192,2024-02-20,Inactive
+SLR0481,Madhav Hub Pvt Ltd,Nitin Mehta,madhavhubpvtltd@example.com,+91 00000 41100,Varanasi,Uttar Pradesh,221025,Men Topwear,4.2,14561,2019-05-14,Active
+SLR0482,Jai Garments,Imran Reddy,jaigarments@example.com,+91 00000 61932,Noida,Uttar Pradesh,201064,Multi-category,4.4,7348,2022-12-11,Inactive
+SLR0483,Prime Wear,Anjali Kumar,primewear@example.com,+91 00000 90300,Indore,Madhya Pradesh,452021,Winter Wear,4.3,45376,2022-11-17,Active
+SLR0484,Lucky Traders,Vijay Kulkarni,luckytraders@example.com,+91 00000 14878,Mumbai,Maharashtra,400030,Innerwear,4.5,38986,2018-05-19,Active
+SLR0485,Kalyan Enterprises,Ayesha Menon,kalyanenterprises@example.com,+91 00000 17474,Mumbai,Maharashtra,400038,Women Ethnic Wear,4.3,31935,2016-09-29,Active
+SLR0486,Modern Boutique Co.,Kavita Rao,modernboutiqueco@example.com,+91 00000 92100,Pune,Maharashtra,411040,Sarees,4.8,18409,2025-06-14,Active
+SLR0487,Mahalaxmi Boutique,Deepak Mishra,mahalaxmiboutique@example.com,+91 00000 29475,Bengaluru,Karnataka,560008,Men Bottomwear,4.1,13954,2020-02-23,Active
+SLR0488,Neel Fashions,Meera Mehta,neelfashions@example.com,+91 00000 96602,Mumbai,Maharashtra,400012,Men Topwear,4.4,39595,2021-12-29,Active
+SLR0489,Silk Apparels Pvt Ltd,Ajay Verma,silkapparelspvtltd@example.com,+91 00000 93902,Varanasi,Uttar Pradesh,221020,Winter Wear,3.8,2433,2016-12-02,Active
+SLR0490,Pari Boutique Mart,Nitin Verma,pariboutiquemart@example.com,+91 00000 86763,Lucknow,Uttar Pradesh,226042,Men Bottomwear,4.6,20656,2016-11-22,Active
+SLR0491,Silk Store Co.,Ayesha Gupta,silkstoreco@example.com,+91 00000 18838,Surat,Gujarat,395082,Nightwear,4.7,33775,2023-03-28,Active
+SLR0492,Denim Collections Store,Komal Desai,denimcollectionsstore@example.com,+91 00000 27992,Delhi,Delhi,110030,Sportswear,3.8,14740,2023-08-08,Active
+SLR0493,Cotton Garments Pvt Ltd,Farhan Shah,cottongarmentspvtltd@example.com,+91 00000 39912,Pune,Maharashtra,411067,Sportswear,3.5,45941,2019-01-04,Active
+SLR0494,Fashion House Pvt Ltd,Arjun Gupta,fashionhousepvtltd@example.com,+91 00000 22237,Varanasi,Uttar Pradesh,221008,Sarees,4.6,35732,2021-11-30,Active
+SLR0495,Star Wear,Harpreet Rao,starwear@example.com,+91 00000 58139,Lucknow,Uttar Pradesh,226006,Women Western Wear,3.4,27614,2018-09-08,Active
+SLR0496,Sunrise House,Sanjay Banerjee,sunrisehouse@example.com,+91 00000 43487,Lucknow,Uttar Pradesh,226053,Sportswear,4.4,47309,2022-07-10,Active
+SLR0497,Vogue Textiles,Karan Sharma,voguetextiles@example.com,+91 00000 35964,Bengaluru,Karnataka,560045,Nightwear,4.1,15659,2016-04-25,Active
+SLR0498,Mahalaxmi Apparels,Rahul Shah,mahalaxmiapparels@example.com,+91 00000 10947,Ahmedabad,Gujarat,380041,Nightwear,4.2,5073,2018-02-08,Active
+SLR0499,Sai Wear Co.,Lakshmi Khan,saiwearco@example.com,+91 00000 55926,Surat,Gujarat,395079,Women Ethnic Wear,3.4,13837,2019-08-09,Active
+SLR0500,Urban Clothing,Sandeep Bose,urbanclothing@example.com,+91 00000 49409,Bengaluru,Karnataka,560057,Kids Wear,3.9,6326,2017-04-06,Inactive
+SLR0501,Rang Exports,Vikram Chopra,rangexports@example.com,+91 00000 16382,Jaipur,Rajasthan,302052,Winter Wear,3.7,11765,2021-12-02,Inactive
+SLR0502,Ruchi Enterprises India,Rahul Malhotra,ruchienterprisesindia@example.com,+91 00000 37247,Mumbai,Maharashtra,400085,Multi-category,4.4,43592,2016-06-05,Active
+SLR0503,Modern Wear Mart,Nitin Banerjee,modernwearmart@example.com,+91 00000 78977,Kochi,Kerala,682091,Men Topwear,4.1,11526,2016-12-28,Inactive
+SLR0504,Rang Fashions,Mary Bansal,rangfashions@example.com,+91 00000 66080,Surat,Gujarat,395062,Women Ethnic Wear,3.5,19293,2024-02-13,Active
+SLR0505,Galaxy Threads Store,Komal Shah,galaxythreadsstore@example.com,+91 00000 82959,Varanasi,Uttar Pradesh,221044,Innerwear,4.1,45336,2020-03-24,Active
+SLR0506,Trendy Traders Store,Kavita Mehta,trendytradersstore@example.com,+91 00000 73337,Lucknow,Uttar Pradesh,226086,Kids Wear,4.2,47254,2017-06-16,Inactive
+SLR0507,Pari Fab,Imran Mehta,parifab@example.com,+91 00000 39687,Kolkata,West Bengal,700009,Nightwear,3.7,14307,2024-10-10,Active
+SLR0508,Trendy Boutique,Deepak Pandey,trendyboutique@example.com,+91 00000 67440,Bengaluru,Karnataka,560012,Men Bottomwear,4.4,24953,2022-06-02,Active
+SLR0509,Rang Creations Pvt Ltd,Manoj Shah,rangcreationspvtltd@example.com,+91 00000 48303,Hyderabad,Telangana,500083,Sportswear,4.4,37662,2016-08-01,Inactive
+SLR0510,Rang Fab,Anjali Thomas,rangfab@example.com,+91 00000 74116,Hyderabad,Telangana,500097,Men Bottomwear,4.7,24479,2016-09-07,Active
+SLR0511,Trendy Fashions,Nitin Reddy,trendyfashions@example.com,+91 00000 20063,Bengaluru,Karnataka,560082,Women Ethnic Wear,4.1,29093,2019-12-28,Active
+SLR0512,Silk House Pvt Ltd,Kavita Rao,silkhousepvtltd@example.com,+91 00000 44421,Jaipur,Rajasthan,302075,Men Topwear,4.4,20710,2020-08-08,Active
+SLR0513,Trendy Threads,Karan Rao,trendythreads@example.com,+91 00000 82821,Pune,Maharashtra,411007,Kids Wear,4.4,23313,2019-02-16,Active
+SLR0514,Ruchi Textiles,Sanjay Khan,ruchitextiles@example.com,+91 00000 60003,Noida,Uttar Pradesh,201079,Sportswear,4.3,35390,2022-04-15,Inactive
+SLR0515,Elite Collections Store,Komal Nair,elitecollectionsstore@example.com,+91 00000 19730,Pune,Maharashtra,411080,Sportswear,4.5,40339,2017-02-16,Active
+SLR0516,Elite House Pvt Ltd,Anjali Jain,elitehousepvtltd@example.com,+91 00000 54888,Kolkata,West Bengal,700012,Kids Wear,3.6,41460,2023-01-24,Inactive
+SLR0517,Denim Traders,Rahul Gupta,denimtraders@example.com,+91 00000 23084,Lucknow,Uttar Pradesh,226022,Kids Wear,3.8,42684,2021-12-03,Active
+SLR0518,Mahalaxmi Exports Co.,Karan Nair,mahalaxmiexportsco@example.com,+91 00000 95922,Kolkata,West Bengal,700003,Men Topwear,4.4,34231,2022-09-20,Active
+SLR0519,Elite Hub,Ayesha Desai,elitehub@example.com,+91 00000 80410,Pune,Maharashtra,411080,Kids Wear,4.1,19136,2021-06-04,Inactive
+SLR0520,Silk Creations,Sunita Patel,silkcreations@example.com,+91 00000 88392,Varanasi,Uttar Pradesh,221086,Women Western Wear,4.4,33501,2021-07-29,Active
+SLR0521,Ruchi Fashions,Pooja Das,ruchifashions@example.com,+91 00000 55284,Pune,Maharashtra,411094,Sportswear,3.6,5127,2016-06-24,Active
+SLR0522,Shree Enterprises Mart,Arjun Kumar,shreeenterprisesmart@example.com,+91 00000 42099,Lucknow,Uttar Pradesh,226002,Women Ethnic Wear,4.1,34110,2016-01-15,Active
+SLR0523,Rang Creations Mart,Shalini Gill,rangcreationsmart@example.com,+91 00000 88134,Bengaluru,Karnataka,560084,Men Topwear,4.1,28935,2016-05-18,Active
+SLR0524,Sai Enterprises,Arvind Bansal,saienterprises@example.com,+91 00000 72415,Chennai,Tamil Nadu,600054,Women Western Wear,4.5,28992,2021-05-30,Inactive
+SLR0525,Lucky Creations,Rohit Sharma,luckycreations@example.com,+91 00000 93886,Pune,Maharashtra,411039,Women Western Wear,3.9,8269,2019-08-03,Active
+SLR0526,Royal Textiles,Karan Bose,royaltextiles@example.com,+91 00000 65055,Ludhiana,Punjab,141010,Winter Wear,4.2,34146,2022-03-04,Active
+SLR0527,Desi Wear Co.,Priya Pandey,desiwearco@example.com,+91 00000 34349,Jaipur,Rajasthan,302097,Kids Wear,3.8,43161,2018-02-15,Active
+SLR0528,Kalyan Retail Co.,Sunita Desai,kalyanretailco@example.com,+91 00000 65973,Surat,Gujarat,395090,Winter Wear,4.2,29136,2017-05-09,Active
+SLR0529,Balaji Textiles & Sons,Komal Gill,balajitextilesandsons@example.com,+91 00000 17621,Ahmedabad,Gujarat,380003,Sarees,4.4,21119,2025-04-21,Active
+SLR0530,Galaxy Creations Store,Vijay Banerjee,galaxycreationsstore@example.com,+91 00000 70548,Bengaluru,Karnataka,560021,Men Bottomwear,3.9,1576,2016-05-26,Active
+SLR0531,Swastik Fab India,Joseph Malhotra,swastikfabindia@example.com,+91 00000 41426,Pune,Maharashtra,411090,Nightwear,4.0,28232,2018-06-26,Active
+SLR0532,Desi Textiles Pvt Ltd,Komal Joshi,desitextilespvtltd@example.com,+91 00000 82787,Indore,Madhya Pradesh,452060,Kids Wear,4.1,31111,2018-11-28,Active
+SLR0533,Prime Collections,Arvind Shah,primecollections@example.com,+91 00000 36189,Surat,Gujarat,395050,Nightwear,4.6,45857,2019-01-17,Active
+SLR0534,Kalyan Fab Store,Farhan Rao,kalyanfabstore@example.com,+91 00000 37172,Noida,Uttar Pradesh,201055,Winter Wear,4.4,13571,2022-05-16,Active
+SLR0535,Jai Traders,Arvind Singh,jaitraders@example.com,+91 00000 75945,Jaipur,Rajasthan,302038,Women Ethnic Wear,4.1,5546,2017-11-08,Active
+SLR0536,Sai Styles,Vijay Jain,saistyles@example.com,+91 00000 21861,Bengaluru,Karnataka,560022,Kids Wear,3.8,41950,2021-12-21,Active
+SLR0537,Galaxy Retail Pvt Ltd,Ajay Mishra,galaxyretailpvtltd@example.com,+91 00000 10005,Tiruppur,Tamil Nadu,641007,Women Western Wear,4.2,38230,2022-08-24,Active
+SLR0538,Anmol House,Harpreet Rao,anmolhouse@example.com,+91 00000 87737,Delhi,Delhi,110094,Sportswear,3.8,27124,2017-04-08,Active
+SLR0539,Vogue Garments Store,Nitin Rao,voguegarmentsstore@example.com,+91 00000 70856,Surat,Gujarat,395064,Kids Wear,4.2,42524,2019-03-03,Inactive
+SLR0540,Golden Styles India,Gurpreet Kumar,goldenstylesindia@example.com,+91 00000 45241,Bhagalpur,Bihar,812085,Women Western Wear,4.0,35308,2023-03-08,Active
+SLR0541,Sai House Pvt Ltd,Komal Gill,saihousepvtltd@example.com,+91 00000 48107,Varanasi,Uttar Pradesh,221022,Men Bottomwear,4.1,36358,2023-07-27,Active
+SLR0542,Anmol Wear,Ayesha Chopra,anmolwear@example.com,+91 00000 33389,Hyderabad,Telangana,500099,Multi-category,4.2,48859,2019-11-18,Active
+SLR0543,Galaxy Kart,Nitin Bansal,galaxykart@example.com,+91 00000 43638,Ludhiana,Punjab,141062,Sportswear,4.1,43771,2019-06-02,Active
+SLR0544,Anmol Kart,Meera Joshi,anmolkart@example.com,+91 00000 82269,Pune,Maharashtra,411039,Sarees,3.7,37119,2017-11-15,Active
+SLR0545,Denim Fashions,Nitin Fernandes,denimfashions@example.com,+91 00000 62093,Noida,Uttar Pradesh,201055,Multi-category,3.6,49410,2020-05-19,Active
+SLR0546,Royal Creations,Rekha Nair,royalcreations@example.com,+91 00000 90888,Delhi,Delhi,110057,Kids Wear,4.0,39898,2023-08-03,Active
+SLR0547,Vogue Hub Store,Kavita Malhotra,voguehubstore@example.com,+91 00000 59658,Kochi,Kerala,682091,Nightwear,4.5,19826,2024-09-19,Active
+SLR0548,Fashion Retail India,Vikram Das,fashionretailindia@example.com,+91 00000 20781,Ahmedabad,Gujarat,380031,Nightwear,4.0,30759,2023-08-20,Active
+SLR0549,Ganesh Apparels,Harpreet Iyer,ganeshapparels@example.com,+91 00000 30920,Bhagalpur,Bihar,812044,Sportswear,3.7,29031,2020-01-23,Active
+SLR0550,Royal Enterprises,Swati Patel,royalenterprises@example.com,+91 00000 79659,Mumbai,Maharashtra,400032,Kids Wear,3.9,41707,2016-08-13,Active
+SLR0551,Sai Enterprises Pvt Ltd,Joseph Mehta,saienterprisespvtltd@example.com,+91 00000 56303,Jaipur,Rajasthan,302034,Women Ethnic Wear,4.0,25064,2016-06-05,Active
+SLR0552,Urban Clothing & Sons,Rekha Patel,urbanclothingandsons@example.com,+91 00000 26318,Delhi,Delhi,110058,Men Bottomwear,3.8,25130,2024-04-19,Active
+SLR0553,Galaxy Threads Co.,Divya Mishra,galaxythreadsco@example.com,+91 00000 17790,Chennai,Tamil Nadu,600078,Women Ethnic Wear,3.6,8748,2022-02-18,Inactive
+SLR0554,Surya Retail,Pooja Das,suryaretail@example.com,+91 00000 45283,Surat,Gujarat,395048,Nightwear,4.7,19751,2023-06-22,Active
+SLR0555,Desi Kart,Joseph Bose,desikart@example.com,+91 00000 14111,Lucknow,Uttar Pradesh,226064,Sarees,4.4,8397,2025-05-23,Active
+SLR0556,Ruchi Textiles & Sons,Arvind Bose,ruchitextilesandsons@example.com,+91 00000 41550,Surat,Gujarat,395070,Men Topwear,3.9,33169,2018-08-21,Inactive
+SLR0557,Lucky Hub,Rohit Joshi,luckyhub@example.com,+91 00000 46419,Lucknow,Uttar Pradesh,226043,Women Western Wear,4.2,21446,2023-05-18,Inactive
+SLR0558,Elite Kart,Pooja Fernandes,elitekart@example.com,+91 00000 44237,Bhagalpur,Bihar,812042,Sarees,4.1,500,2024-05-15,Inactive
+SLR0559,Pari Fashions Pvt Ltd,Sandeep Das,parifashionspvtltd@example.com,+91 00000 71474,Delhi,Delhi,110018,Sarees,4.0,7055,2020-04-17,Active
+SLR0560,Denim Creations,Harpreet Malhotra,denimcreations@example.com,+91 00000 21513,Kolkata,West Bengal,700030,Nightwear,4.4,42956,2017-10-29,Active
+SLR0561,Jai Store Mart,Divya Banerjee,jaistoremart@example.com,+91 00000 11969,Tiruppur,Tamil Nadu,641082,Kids Wear,3.9,16753,2025-07-13,Inactive
+SLR0562,Mahalaxmi Apparels Store,Rahul Menon,mahalaxmiapparelsstore@example.com,+91 00000 12481,Mumbai,Maharashtra,400094,Nightwear,4.7,36111,2017-07-17,Active
+SLR0563,Galaxy Traders,Farhan Fernandes,galaxytraders@example.com,+91 00000 71046,Kochi,Kerala,682044,Winter Wear,4.2,19742,2022-09-13,Active
+SLR0564,Desi Clothing Store,Lakshmi Sharma,desiclothingstore@example.com,+91 00000 25764,Hyderabad,Telangana,500044,Sportswear,4.6,17070,2019-03-06,Active
+SLR0565,Anmol Hub,Fatima Joshi,anmolhub@example.com,+91 00000 83744,Bhagalpur,Bihar,812089,Winter Wear,4.5,30030,2016-07-23,Active
+SLR0566,Sunrise Traders,Vikram Iyer,sunrisetraders@example.com,+91 00000 13576,Kolkata,West Bengal,700085,Innerwear,3.6,20825,2023-07-29,Active
+SLR0567,Laxmi Boutique & Sons,Amit Singh,laxmiboutiqueandsons@example.com,+91 00000 15474,Kochi,Kerala,682030,Men Topwear,4.5,45163,2021-12-18,Active
+SLR0568,Denim Kart,Ajay Patel,denimkart@example.com,+91 00000 80776,Tiruppur,Tamil Nadu,641042,Multi-category,3.9,16837,2021-11-24,Active
+SLR0569,Trendy Store,Sanjay Bose,trendystore@example.com,+91 00000 89516,Mumbai,Maharashtra,400068,Innerwear,3.6,35206,2021-05-20,Active
+SLR0570,Ruchi House Store,Lakshmi Rao,ruchihousestore@example.com,+91 00000 12695,Mumbai,Maharashtra,400049,Men Topwear,5.0,48288,2018-12-08,Active
+SLR0571,Style Wear Co.,Rohit Jain,stylewearco@example.com,+91 00000 37462,Delhi,Delhi,110093,Multi-category,4.1,14105,2022-04-28,Active
+SLR0572,Rang Hub,Sunita Sharma,ranghub@example.com,+91 00000 84626,Ludhiana,Punjab,141008,Men Bottomwear,3.3,17349,2016-02-12,Active
+SLR0573,Fashion Apparels Store,Pooja Pandey,fashionapparelsstore@example.com,+91 00000 26216,Jaipur,Rajasthan,302049,Kids Wear,4.1,38542,2023-08-29,Active
+SLR0574,Cotton Kart Co.,Gurpreet Khan,cottonkartco@example.com,+91 00000 68574,Kochi,Kerala,682070,Men Topwear,4.1,10937,2017-12-30,Inactive
+SLR0575,Silk Hub,Komal Chopra,silkhub@example.com,+91 00000 27456,Ahmedabad,Gujarat,380088,Women Ethnic Wear,4.0,30770,2018-10-30,Active
+SLR0576,Golden Collections Co.,Neha Shah,goldencollectionsco@example.com,+91 00000 85719,Ludhiana,Punjab,141095,Innerwear,4.2,19899,2024-05-16,Active
+SLR0577,Ruchi Threads,Karan Joshi,ruchithreads@example.com,+91 00000 20753,Ludhiana,Punjab,141005,Nightwear,3.9,27854,2018-12-26,Inactive
+SLR0578,Urban Fashions,Arvind Patel,urbanfashions@example.com,+91 00000 54315,Ahmedabad,Gujarat,380032,Women Ethnic Wear,4.3,49090,2020-01-06,Active
+SLR0579,Navya Kart,Rohit Iyer,navyakart@example.com,+91 00000 59994,Indore,Madhya Pradesh,452044,Winter Wear,4.5,48175,2024-08-16,Inactive
+SLR0580,Vogue Collections,Lakshmi Iyer,voguecollections@example.com,+91 00000 80014,Indore,Madhya Pradesh,452065,Kids Wear,4.1,42839,2019-03-01,Active
+SLR0581,Kalyan Retail India,Komal Thomas,kalyanretailindia@example.com,+91 00000 63426,Chennai,Tamil Nadu,600096,Men Topwear,4.5,28179,2021-04-24,Active
+SLR0582,Neel Collections,Ajay Verma,neelcollections@example.com,+91 00000 52914,Bengaluru,Karnataka,560016,Men Topwear,4.2,38453,2021-06-06,Active
+SLR0583,Golden Textiles,Rahul Khan,goldentextiles@example.com,+91 00000 57602,Kolkata,West Bengal,700074,Nightwear,4.3,46565,2025-05-07,Active
+SLR0584,Galaxy Garments,Pooja Mishra,galaxygarments@example.com,+91 00000 31087,Delhi,Delhi,110023,Women Ethnic Wear,3.8,34320,2020-12-22,Inactive
+SLR0585,Tulsi Enterprises Store,Vikram Patel,tulsienterprisesstore@example.com,+91 00000 82333,Kochi,Kerala,682089,Sportswear,3.9,4096,2023-03-13,Active
+SLR0586,Sunrise Boutique,Joseph Reddy,sunriseboutique@example.com,+91 00000 57858,Ahmedabad,Gujarat,380049,Women Western Wear,4.1,24175,2018-01-01,Active
+SLR0587,Krishna Textiles Pvt Ltd,Suresh Bose,krishnatextilespvtltd@example.com,+91 00000 14799,Kolkata,West Bengal,700085,Multi-category,3.9,11894,2022-12-19,Active
+SLR0588,Lucky Fashions,Sneha Menon,luckyfashions@example.com,+91 00000 50548,Chennai,Tamil Nadu,600003,Sarees,4.7,15925,2024-04-08,Active
+SLR0589,Denim House & Sons,Divya Menon,denimhouseandsons@example.com,+91 00000 37995,Varanasi,Uttar Pradesh,221069,Nightwear,3.7,45768,2016-01-23,Active
+SLR0590,Golden Textiles Mart,Suresh Joshi,goldentextilesmart@example.com,+91 00000 34677,Tiruppur,Tamil Nadu,641021,Multi-category,4.3,47500,2020-01-26,Active
+SLR0591,Silk Kart Mart,Nitin Pandey,silkkartmart@example.com,+91 00000 83831,Pune,Maharashtra,411050,Sportswear,4.6,20868,2021-04-07,Active
+SLR0592,Laxmi Kart Store,Harpreet Desai,laxmikartstore@example.com,+91 00000 34936,Noida,Uttar Pradesh,201068,Winter Wear,4.1,47518,2024-06-13,Inactive
+SLR0593,Trendy Creations & Sons,Imran Singh,trendycreationsandsons@example.com,+91 00000 21343,Bengaluru,Karnataka,560005,Innerwear,3.9,27117,2020-06-05,Active
+SLR0594,Aarav Apparels,Amit Mishra,aaravapparels@example.com,+91 00000 40517,Bhagalpur,Bihar,812056,Sportswear,4.3,31857,2020-03-11,Active
+SLR0595,Balaji Enterprises,Shalini Fernandes,balajienterprises@example.com,+91 00000 16223,Noida,Uttar Pradesh,201067,Men Topwear,4.1,29677,2022-01-09,Inactive
+SLR0596,Sai Clothing India,Neha Desai,saiclothingindia@example.com,+91 00000 77992,Ahmedabad,Gujarat,380050,Women Ethnic Wear,4.1,15189,2020-09-30,Inactive
+SLR0597,Denim Collections & Sons,Ajay Nair,denimcollectionsandsons@example.com,+91 00000 18828,Ahmedabad,Gujarat,380011,Women Ethnic Wear,3.7,19963,2016-06-04,Active
+SLR0598,Aarav Collections Pvt Ltd,Gurpreet Iyer,aaravcollectionspvtltd@example.com,+91 00000 30284,Kochi,Kerala,682024,Nightwear,4.2,48369,2016-10-22,Active
+SLR0599,Pari Fab & Sons,Ajay Bansal,parifabandsons@example.com,+91 00000 75250,Tiruppur,Tamil Nadu,641082,Women Western Wear,4.4,41700,2021-08-18,Inactive
+SLR0600,Laxmi Collections Co.,Suresh Reddy,laxmicollectionsco@example.com,+91 00000 21677,Kolkata,West Bengal,700056,Winter Wear,3.4,20477,2025-06-14,Active
+SLR0601,Elite Collections India,Meera Chopra,elitecollectionsindia@example.com,+91 00000 54451,Bengaluru,Karnataka,560072,Kids Wear,4.4,34390,2020-04-10,Active
+SLR0602,Denim Clothing,Neha Nair,denimclothing@example.com,+91 00000 64263,Kochi,Kerala,682015,Innerwear,4.3,23714,2017-09-17,Active
+SLR0603,Sunrise Retail,Ajay Malhotra,sunriseretail@example.com,+91 00000 44432,Ahmedabad,Gujarat,380055,Men Bottomwear,4.2,10152,2022-10-17,Active
+SLR0604,Royal Apparels,Swati Thomas,royalapparels@example.com,+91 00000 51235,Chennai,Tamil Nadu,600036,Innerwear,4.2,8742,2022-08-22,Active
+SLR0605,Star Traders & Sons,Kavita Bose,startradersandsons@example.com,+91 00000 19159,Pune,Maharashtra,411052,Innerwear,4.2,22805,2020-02-28,Active
+SLR0606,Ganesh Garments Co.,Rahul Bose,ganeshgarmentsco@example.com,+91 00000 85322,Varanasi,Uttar Pradesh,221006,Women Western Wear,4.3,8622,2024-11-05,Active
+SLR0607,Desi Garments,Lakshmi Bansal,desigarments@example.com,+91 00000 18379,Surat,Gujarat,395050,Winter Wear,4.6,44482,2016-09-01,Inactive
+SLR0608,Om Textiles India,Rahul Malhotra,omtextilesindia@example.com,+91 00000 37394,Bengaluru,Karnataka,560027,Sportswear,3.8,3060,2019-04-29,Active
+SLR0609,Neel Exports,Rohit Kumar,neelexports@example.com,+91 00000 21504,Pune,Maharashtra,411072,Sportswear,4.4,41239,2021-07-25,Active
+SLR0610,Navya House,Nisha Malhotra,navyahouse@example.com,+91 00000 92685,Noida,Uttar Pradesh,201034,Sportswear,4.9,42330,2020-01-12,Inactive
+SLR0611,Elite Retail Pvt Ltd,Farhan Verma,eliteretailpvtltd@example.com,+91 00000 27056,Ludhiana,Punjab,141006,Sarees,3.8,209,2018-10-17,Active
+SLR0612,Elite Clothing & Sons,Ravi Jain,eliteclothingandsons@example.com,+91 00000 99094,Noida,Uttar Pradesh,201063,Innerwear,4.4,28584,2018-11-26,Active
+SLR0613,Swastik Collections,Rekha Bose,swastikcollections@example.com,+91 00000 96531,Noida,Uttar Pradesh,201068,Nightwear,3.4,41182,2016-11-10,Active
+SLR0614,Ruchi Traders,Meera Bose,ruchitraders@example.com,+91 00000 36903,Mumbai,Maharashtra,400085,Women Ethnic Wear,3.9,3804,2023-10-01,Inactive
+SLR0615,Laxmi Enterprises & Sons,Deepak Pandey,laxmienterprisesandsons@example.com,+91 00000 26886,Ahmedabad,Gujarat,380015,Innerwear,4.1,38926,2021-09-15,Active
+SLR0616,Ganesh Textiles & Sons,Divya Gupta,ganeshtextilesandsons@example.com,+91 00000 31565,Bengaluru,Karnataka,560054,Women Western Wear,4.2,33215,2022-03-01,Active
+SLR0617,Desi Threads,Imran Nair,desithreads@example.com,+91 00000 22528,Bengaluru,Karnataka,560057,Sarees,3.9,19718,2024-03-20,Active
+SLR0618,Sunrise Wear,Arvind Pandey,sunrisewear@example.com,+91 00000 66184,Kochi,Kerala,682030,Men Topwear,3.9,19595,2019-12-15,Active
+SLR0619,Elite Creations,Shalini Nair,elitecreations@example.com,+91 00000 85123,Mumbai,Maharashtra,400098,Men Topwear,3.4,34501,2023-03-29,Active
+SLR0620,Swastik Clothing Co.,Komal Reddy,swastikclothingco@example.com,+91 00000 45318,Noida,Uttar Pradesh,201058,Men Topwear,4.0,14107,2020-05-20,Active
+SLR0621,Sai Textiles,Karan Sharma,saitextiles@example.com,+91 00000 59064,Bengaluru,Karnataka,560071,Multi-category,4.2,42567,2022-10-25,Active
+SLR0622,Tulsi Apparels,Imran Desai,tulsiapparels@example.com,+91 00000 26901,Indore,Madhya Pradesh,452083,Men Topwear,4.5,49569,2023-04-11,Active
+SLR0623,Shree Styles,Pooja Gupta,shreestyles@example.com,+91 00000 53471,Ahmedabad,Gujarat,380028,Sportswear,3.9,10622,2022-09-02,Active
+SLR0624,Vogue Exports,Anjali Iyer,vogueexports@example.com,+91 00000 28968,Lucknow,Uttar Pradesh,226021,Men Bottomwear,4.2,5748,2024-04-04,Active
+SLR0625,Rang Enterprises Pvt Ltd,Nisha Gupta,rangenterprisespvtltd@example.com,+91 00000 77453,Pune,Maharashtra,411031,Kids Wear,4.4,22445,2016-03-13,Active
+SLR0626,Navya Kart Co.,Nisha Gupta,navyakartco@example.com,+91 00000 36639,Kolkata,West Bengal,700022,Sportswear,4.3,28784,2019-11-15,Active
+SLR0627,Mahalaxmi Collections,Lakshmi Kulkarni,mahalaxmicollections@example.com,+91 00000 33202,Ahmedabad,Gujarat,380080,Women Western Wear,3.6,17602,2023-08-13,Active
+SLR0628,Ruchi Store,Sunita Menon,ruchistore@example.com,+91 00000 89549,Kolkata,West Bengal,700035,Men Topwear,4.7,21147,2018-08-17,Active
+SLR0629,Balaji Clothing,Fatima Sharma,balajiclothing@example.com,+91 00000 83127,Ludhiana,Punjab,141037,Multi-category,4.1,35966,2018-11-05,Active
+SLR0630,Mahalaxmi Creations,Kavita Khan,mahalaxmicreations@example.com,+91 00000 40579,Indore,Madhya Pradesh,452006,Men Topwear,4.4,23987,2024-10-27,Active
+SLR0631,Cotton Threads,Rohit Agarwal,cottonthreads@example.com,+91 00000 61345,Lucknow,Uttar Pradesh,226002,Sportswear,3.4,36686,2018-04-30,Active
+SLR0632,Jai Hub,Suresh Shah,jaihub@example.com,+91 00000 70167,Tiruppur,Tamil Nadu,641061,Women Ethnic Wear,4.4,12254,2017-06-25,Active
+SLR0633,Royal Hub,Deepak Bose,royalhub@example.com,+91 00000 24498,Tiruppur,Tamil Nadu,641021,Men Bottomwear,4.4,28787,2021-11-29,Active
+SLR0634,Fashion Apparels Pvt Ltd,Rahul Jain,fashionapparelspvtltd@example.com,+91 00000 46656,Chennai,Tamil Nadu,600037,Innerwear,4.2,7813,2016-06-26,Active
+SLR0635,Desi Boutique Co.,Meera Kulkarni,desiboutiqueco@example.com,+91 00000 64910,Kochi,Kerala,682014,Sportswear,3.7,35510,2018-03-23,Active
+SLR0636,Lucky Store & Sons,Manoj Thomas,luckystoreandsons@example.com,+91 00000 47888,Kochi,Kerala,682037,Sportswear,4.5,20101,2021-07-20,Active
+SLR0637,Krishna Store Pvt Ltd,Arjun Thomas,krishnastorepvtltd@example.com,+91 00000 42006,Mumbai,Maharashtra,400034,Women Ethnic Wear,4.0,20265,2021-06-29,Active
+SLR0638,Sai Fab India,Pooja Patel,saifabindia@example.com,+91 00000 79512,Kochi,Kerala,682015,Nightwear,4.6,19723,2020-02-21,Active
+SLR0639,Neel Textiles Co.,Joseph Agarwal,neeltextilesco@example.com,+91 00000 23967,Ahmedabad,Gujarat,380012,Women Ethnic Wear,4.0,45750,2025-01-20,Active
+SLR0640,Trendy Styles,Rohit Kulkarni,trendystyles@example.com,+91 00000 88560,Kochi,Kerala,682048,Women Ethnic Wear,4.2,11303,2017-05-27,Inactive
+SLR0641,Star Creations & Sons,Vijay Khan,starcreationsandsons@example.com,+91 00000 25014,Jaipur,Rajasthan,302086,Nightwear,4.3,44061,2023-06-14,Inactive
+SLR0642,Denim Retail,Joseph Thomas,denimretail@example.com,+91 00000 39574,Bengaluru,Karnataka,560065,Winter Wear,4.3,15898,2025-02-19,Active
+SLR0643,Ganesh Wear,Nitin Iyer,ganeshwear@example.com,+91 00000 50473,Kolkata,West Bengal,700073,Men Topwear,4.1,46307,2019-06-06,Active
+SLR0644,Classic Threads,Swati Kumar,classicthreads@example.com,+91 00000 17291,Surat,Gujarat,395085,Men Bottomwear,3.4,40113,2020-06-23,Active
+SLR0645,Desi Exports,Vikram Agarwal,desiexports@example.com,+91 00000 51286,Hyderabad,Telangana,500077,Winter Wear,3.7,14464,2021-10-07,Active
+SLR0646,Cotton Enterprises & Sons,Swati Malhotra,cottonenterprisesandsons@example.com,+91 00000 63978,Kochi,Kerala,682035,Multi-category,3.9,19517,2022-07-13,Inactive
+SLR0647,Krishna Wear,Swati Reddy,krishnawear@example.com,+91 00000 17965,Hyderabad,Telangana,500012,Women Ethnic Wear,4.2,244,2025-05-06,Active
+SLR0648,Ganesh Retail India,Farhan Shah,ganeshretailindia@example.com,+91 00000 24689,Tiruppur,Tamil Nadu,641021,Men Topwear,4.4,36356,2023-11-19,Active
+SLR0649,Aarav Garments,Sanjay Mehta,aaravgarments@example.com,+91 00000 19939,Bengaluru,Karnataka,560065,Women Ethnic Wear,4.2,6487,2024-10-26,Active
+SLR0650,Desi Styles & Sons,Manoj Mehta,desistylesandsons@example.com,+91 00000 35812,Kochi,Kerala,682036,Kids Wear,4.4,28864,2020-08-02,Active
+SLR0651,Star Retail,Vijay Gill,starretail@example.com,+91 00000 98007,Ahmedabad,Gujarat,380072,Women Ethnic Wear,4.7,20056,2025-01-23,Active
+SLR0652,Sai Retail,Sanjay Reddy,sairetail@example.com,+91 00000 27778,Kolkata,West Bengal,700067,Innerwear,4.9,4152,2019-09-11,Active
+SLR0653,Pari Traders,Divya Jain,paritraders@example.com,+91 00000 57168,Ludhiana,Punjab,141055,Innerwear,4.0,26779,2016-04-07,Active
+SLR0654,Swastik Kart,Karan Kumar,swastikkart@example.com,+91 00000 87513,Bhagalpur,Bihar,812050,Innerwear,4.5,1211,2016-06-22,Active
+SLR0655,Madhav Clothing,Amit Iyer,madhavclothing@example.com,+91 00000 10253,Chennai,Tamil Nadu,600086,Multi-category,4.1,45037,2018-04-10,Active
+SLR0656,Star Hub Mart,Ritu Kumar,starhubmart@example.com,+91 00000 71677,Delhi,Delhi,110088,Multi-category,3.9,36904,2016-05-23,Active
+SLR0657,Trendy Threads Mart,Sandeep Khan,trendythreadsmart@example.com,+91 00000 67682,Kochi,Kerala,682020,Nightwear,3.4,30052,2024-02-14,Active
+SLR0658,Lucky Boutique,Ajay Mehta,luckyboutique@example.com,+91 00000 77508,Surat,Gujarat,395091,Multi-category,3.9,3169,2025-02-20,Active
+SLR0659,Trendy Clothing Store,Meera Gupta,trendyclothingstore@example.com,+91 00000 41182,Kochi,Kerala,682057,Women Ethnic Wear,4.6,31813,2020-10-03,Active
+SLR0660,Galaxy Apparels,Rekha Chopra,galaxyapparels@example.com,+91 00000 49609,Pune,Maharashtra,411038,Men Bottomwear,4.8,16448,2017-08-28,Active
+SLR0661,Surya Garments Pvt Ltd,Harpreet Nair,suryagarmentspvtltd@example.com,+91 00000 22401,Noida,Uttar Pradesh,201084,Innerwear,3.9,24949,2016-01-12,Active
+SLR0662,Star Exports,Anjali Jain,starexports@example.com,+91 00000 32818,Bengaluru,Karnataka,560014,Multi-category,3.7,41739,2021-05-29,Active
+SLR0663,Fashion Kart Co.,Shalini Verma,fashionkartco@example.com,+91 00000 94536,Jaipur,Rajasthan,302086,Women Western Wear,4.5,21819,2022-05-14,Active
+SLR0664,Mahalaxmi Kart,Mary Chopra,mahalaxmikart@example.com,+91 00000 77163,Tiruppur,Tamil Nadu,641063,Winter Wear,3.9,18461,2023-06-20,Active
+SLR0665,Fashion Textiles,Manoj Khan,fashiontextiles@example.com,+91 00000 35974,Surat,Gujarat,395082,Winter Wear,4.3,1710,2016-06-11,Active
+SLR0666,Elite Creations & Sons,Karan Reddy,elitecreationsandsons@example.com,+91 00000 11782,Pune,Maharashtra,411028,Winter Wear,4.2,16614,2024-12-31,Active
+SLR0667,Silk Enterprises,Divya Reddy,silkenterprises@example.com,+91 00000 45309,Chennai,Tamil Nadu,600008,Men Bottomwear,4.2,42092,2016-09-29,Active
+SLR0668,Kalyan Enterprises Pvt Ltd,Kavita Sharma,kalyanenterprisespvtltd@example.com,+91 00000 47485,Surat,Gujarat,395075,Innerwear,4.4,46612,2017-01-28,Active
+SLR0669,Laxmi House,Ayesha Iyer,laxmihouse@example.com,+91 00000 35885,Bhagalpur,Bihar,812072,Men Bottomwear,4.2,2633,2018-04-18,Active
+SLR0670,Royal Kart Store,Vijay Joshi,royalkartstore@example.com,+91 00000 68269,Kochi,Kerala,682056,Women Ethnic Wear,4.4,15470,2022-09-08,Active
+SLR0671,Laxmi Hub,Pooja Reddy,laxmihub@example.com,+91 00000 68331,Ludhiana,Punjab,141033,Men Topwear,4.9,45460,2019-02-28,Active
+SLR0672,Ganesh Traders,Gurpreet Singh,ganeshtraders@example.com,+91 00000 98217,Chennai,Tamil Nadu,600069,Multi-category,4.3,41890,2017-03-13,Active
+SLR0673,Sai Boutique Store,Harpreet Agarwal,saiboutiquestore@example.com,+91 00000 83317,Ludhiana,Punjab,141046,Men Bottomwear,3.8,3210,2025-03-27,Active
+SLR0674,Kalyan Creations India,Suresh Desai,kalyancreationsindia@example.com,+91 00000 55633,Noida,Uttar Pradesh,201062,Men Bottomwear,4.5,24115,2024-02-23,Active
+SLR0675,Desi Exports Pvt Ltd,Ritu Joshi,desiexportspvtltd@example.com,+91 00000 90143,Noida,Uttar Pradesh,201017,Women Western Wear,4.3,37575,2018-08-31,Inactive
+SLR0676,Modern Threads Pvt Ltd,Rahul Malhotra,modernthreadspvtltd@example.com,+91 00000 72050,Bhagalpur,Bihar,812083,Winter Wear,3.8,27191,2023-06-04,Active
+SLR0677,Laxmi Creations India,Sneha Chopra,laxmicreationsindia@example.com,+91 00000 98528,Ahmedabad,Gujarat,380075,Sportswear,4.7,18248,2021-09-05,Active
+SLR0678,Style Collections,Farhan Nair,stylecollections@example.com,+91 00000 95104,Pune,Maharashtra,411039,Sportswear,4.6,12291,2020-05-09,Active
+SLR0679,Aarav Clothing Store,Arjun Kumar,aaravclothingstore@example.com,+91 00000 91982,Surat,Gujarat,395010,Innerwear,4.4,4046,2023-09-27,Active
+SLR0680,Sunrise Boutique Mart,Ajay Kumar,sunriseboutiquemart@example.com,+91 00000 68304,Kochi,Kerala,682090,Innerwear,4.8,42439,2022-09-05,Active
+SLR0681,Neel Retail,Arjun Reddy,neelretail@example.com,+91 00000 34380,Kochi,Kerala,682060,Kids Wear,4.5,25296,2016-02-13,Active
+SLR0682,Silk Kart & Sons,Sunita Pandey,silkkartandsons@example.com,+91 00000 65472,Indore,Madhya Pradesh,452067,Sportswear,4.7,1931,2022-05-09,Active
+SLR0683,Fashion Fab,Sunita Desai,fashionfab@example.com,+91 00000 59979,Tiruppur,Tamil Nadu,641075,Multi-category,4.4,11650,2016-11-18,Active
+SLR0684,Star Fab,Neha Gill,starfab@example.com,+91 00000 93470,Tiruppur,Tamil Nadu,641061,Winter Wear,4.8,43657,2022-09-28,Active
+SLR0685,Star Hub Store,Imran Nair,starhubstore@example.com,+91 00000 20517,Mumbai,Maharashtra,400080,Kids Wear,4.4,20383,2023-06-16,Active
+SLR0686,Sai Boutique Co.,Arvind Verma,saiboutiqueco@example.com,+91 00000 72720,Indore,Madhya Pradesh,452065,Women Ethnic Wear,4.1,3079,2024-11-22,Active
+SLR0687,Cotton Hub,Priya Verma,cottonhub@example.com,+91 00000 82077,Lucknow,Uttar Pradesh,226060,Kids Wear,4.9,48442,2022-04-25,Inactive
+SLR0688,Prime House Co.,Divya Mehta,primehouseco@example.com,+91 00000 29376,Tiruppur,Tamil Nadu,641027,Women Western Wear,4.0,21102,2024-01-17,Active
+SLR0689,Golden Textiles & Sons,Rohit Joshi,goldentextilesandsons@example.com,+91 00000 41868,Tiruppur,Tamil Nadu,641034,Women Western Wear,4.1,26417,2016-11-30,Active
+SLR0690,Denim Boutique,Pooja Das,denimboutique@example.com,+91 00000 59637,Ludhiana,Punjab,141097,Men Bottomwear,3.9,10536,2016-10-26,Active
+SLR0691,Classic Store,Deepak Shah,classicstore@example.com,+91 00000 43490,Bhagalpur,Bihar,812062,Men Topwear,3.9,27439,2023-02-17,Active
+SLR0692,Neel Enterprises,Deepak Banerjee,neelenterprises@example.com,+91 00000 63470,Lucknow,Uttar Pradesh,226043,Nightwear,4.4,3367,2018-07-06,Active
+SLR0693,Vogue Wear,Manoj Kulkarni,voguewear@example.com,+91 00000 81543,Ahmedabad,Gujarat,380075,Winter Wear,4.6,17881,2020-02-21,Active
+SLR0694,Pari Wear,Ajay Agarwal,pariwear@example.com,+91 00000 62905,Delhi,Delhi,110025,Men Topwear,3.5,31065,2020-10-15,Active
+SLR0695,Pari House Store,Neha Malhotra,parihousestore@example.com,+91 00000 46798,Bhagalpur,Bihar,812001,Winter Wear,3.8,30627,2016-08-12,Active
+SLR0696,Urban House,Ayesha Verma,urbanhouse@example.com,+91 00000 85884,Noida,Uttar Pradesh,201084,Multi-category,4.8,19030,2022-02-26,Active
+SLR0697,Vogue Store Pvt Ltd,Rekha Bose,voguestorepvtltd@example.com,+91 00000 40987,Bengaluru,Karnataka,560017,Kids Wear,4.1,39949,2025-04-12,Active
+SLR0698,Madhav House,Sanjay Verma,madhavhouse@example.com,+91 00000 23797,Lucknow,Uttar Pradesh,226035,Nightwear,4.4,1024,2019-03-10,Active
+SLR0699,Urban Garments,Divya Chopra,urbangarments@example.com,+91 00000 21900,Indore,Madhya Pradesh,452099,Multi-category,4.4,3977,2021-07-16,Active
+SLR0700,Mahalaxmi House,Meera Menon,mahalaxmihouse@example.com,+91 00000 20983,Surat,Gujarat,395049,Men Topwear,3.8,28598,2018-07-02,Inactive
+SLR0701,Anmol Hub & Sons,Arjun Rao,anmolhubandsons@example.com,+91 00000 49570,Surat,Gujarat,395091,Sportswear,4.9,38218,2019-10-28,Active
+SLR0702,Shree Fashions,Arjun Joshi,shreefashions@example.com,+91 00000 96768,Indore,Madhya Pradesh,452077,Winter Wear,4.4,37754,2024-02-10,Active
+SLR0703,Neel Creations,Nisha Nair,neelcreations@example.com,+91 00000 61814,Varanasi,Uttar Pradesh,221038,Kids Wear,4.4,25188,2023-02-10,Active
+SLR0704,Trendy House Pvt Ltd,Anjali Verma,trendyhousepvtltd@example.com,+91 00000 19779,Kochi,Kerala,682031,Men Topwear,4.5,16933,2018-09-08,Active
+SLR0705,Silk Enterprises India,Nitin Fernandes,silkenterprisesindia@example.com,+91 00000 71000,Bengaluru,Karnataka,560053,Nightwear,4.4,44400,2016-06-14,Active
+SLR0706,Mahalaxmi Collections Pvt Ltd,Neha Menon,mahalaxmicollectionspvtltd@example.com,+91 00000 44416,Pune,Maharashtra,411031,Innerwear,4.1,30212,2017-09-21,Active
+SLR0707,Jai Exports,Suresh Gill,jaiexports@example.com,+91 00000 73204,Jaipur,Rajasthan,302020,Sportswear,4.2,7604,2020-03-19,Active
+SLR0708,Surya Boutique,Meera Mehta,suryaboutique@example.com,+91 00000 83853,Bengaluru,Karnataka,560086,Nightwear,3.7,33927,2017-09-13,Active
+SLR0709,Kalyan Styles,Priya Khan,kalyanstyles@example.com,+91 00000 94722,Bhagalpur,Bihar,812052,Sportswear,3.2,41940,2019-01-19,Active
+SLR0710,Ruchi Retail,Ritu Reddy,ruchiretail@example.com,+91 00000 38991,Lucknow,Uttar Pradesh,226089,Women Western Wear,4.2,7907,2020-05-24,Active
+SLR0711,Elite Textiles & Sons,Ayesha Joshi,elitetextilesandsons@example.com,+91 00000 59345,Lucknow,Uttar Pradesh,226048,Multi-category,3.2,26064,2020-03-14,Active
+SLR0712,Lucky Garments Store,Swati Gupta,luckygarmentsstore@example.com,+91 00000 91432,Surat,Gujarat,395081,Winter Wear,4.0,19136,2017-09-12,Active
+SLR0713,Mahalaxmi Fashions Store,Meera Menon,mahalaxmifashionsstore@example.com,+91 00000 36572,Lucknow,Uttar Pradesh,226066,Men Bottomwear,4.3,24984,2018-12-25,Active
+SLR0714,Anmol Traders,Suresh Joshi,anmoltraders@example.com,+91 00000 27053,Tiruppur,Tamil Nadu,641033,Kids Wear,4.1,17602,2023-07-30,Inactive
+SLR0715,Balaji Traders Pvt Ltd,Sunita Khan,balajitraderspvtltd@example.com,+91 00000 25463,Kolkata,West Bengal,700054,Winter Wear,4.0,25072,2024-04-26,Active
+SLR0716,Shree Kart,Suresh Mehta,shreekart@example.com,+91 00000 48401,Kolkata,West Bengal,700077,Men Topwear,4.0,35594,2021-09-20,Active
+SLR0717,Shree Traders,Pooja Mishra,shreetraders@example.com,+91 00000 80260,Jaipur,Rajasthan,302008,Winter Wear,3.6,43233,2020-12-08,Active
+SLR0718,Rang Wear,Amit Banerjee,rangwear@example.com,+91 00000 92696,Surat,Gujarat,395045,Women Ethnic Wear,4.4,25366,2016-09-22,Inactive
+SLR0719,Sunrise Threads,Ritu Bansal,sunrisethreads@example.com,+91 00000 50347,Noida,Uttar Pradesh,201073,Winter Wear,4.3,39462,2016-08-29,Active
+SLR0720,Krishna Apparels,Deepak Kumar,krishnaapparels@example.com,+91 00000 26642,Bengaluru,Karnataka,560045,Innerwear,4.8,41188,2017-11-07,Active
+SLR0721,Sunrise Kart Mart,Imran Fernandes,sunrisekartmart@example.com,+91 00000 38238,Hyderabad,Telangana,500025,Kids Wear,4.5,30872,2020-02-05,Active
+SLR0722,Royal Apparels & Sons,Arvind Joshi,royalapparelsandsons@example.com,+91 00000 18936,Hyderabad,Telangana,500033,Women Ethnic Wear,4.3,13897,2019-01-08,Active
+SLR0723,Silk Boutique Mart,Gurpreet Kumar,silkboutiquemart@example.com,+91 00000 56366,Delhi,Delhi,110017,Men Topwear,4.2,30236,2025-06-06,Active
+SLR0724,Pari Enterprises,Rahul Iyer,parienterprises@example.com,+91 00000 60837,Ahmedabad,Gujarat,380088,Men Topwear,4.2,8467,2017-08-10,Active
+SLR0725,Mahalaxmi Hub Co.,Suresh Sharma,mahalaxmihubco@example.com,+91 00000 97744,Delhi,Delhi,110012,Winter Wear,3.8,1192,2016-06-25,Active
+SLR0726,Classic Collections India,Karan Bose,classiccollectionsindia@example.com,+91 00000 28957,Lucknow,Uttar Pradesh,226003,Women Ethnic Wear,4.9,12756,2019-10-27,Active
+SLR0727,Shree Textiles & Sons,Ajay Thomas,shreetextilesandsons@example.com,+91 00000 61996,Chennai,Tamil Nadu,600025,Winter Wear,4.3,3830,2018-01-10,Active
+SLR0728,Elite Boutique Co.,Amit Mehta,eliteboutiqueco@example.com,+91 00000 66850,Kolkata,West Bengal,700071,Innerwear,4.1,34430,2021-04-18,Active
+SLR0729,Surya Store & Sons,Ajay Fernandes,suryastoreandsons@example.com,+91 00000 61806,Indore,Madhya Pradesh,452033,Multi-category,4.4,26051,2017-01-26,Active
+SLR0730,Pari Collections & Sons,Deepak Pandey,paricollectionsandsons@example.com,+91 00000 30990,Bengaluru,Karnataka,560041,Women Western Wear,4.0,13994,2024-09-12,Active
+SLR0731,Swastik House,Farhan Mehta,swastikhouse@example.com,+91 00000 62314,Kolkata,West Bengal,700028,Women Ethnic Wear,3.8,13564,2017-08-09,Active
+SLR0732,Ganesh Styles Co.,Ajay Singh,ganeshstylesco@example.com,+91 00000 40308,Mumbai,Maharashtra,400091,Men Topwear,4.0,10229,2024-01-24,Active
+SLR0733,Kalyan Retail & Sons,Arvind Singh,kalyanretailandsons@example.com,+91 00000 53057,Noida,Uttar Pradesh,201065,Kids Wear,4.4,36402,2017-02-27,Inactive
+SLR0734,Tulsi Apparels & Sons,Gurpreet Chopra,tulsiapparelsandsons@example.com,+91 00000 22463,Tiruppur,Tamil Nadu,641061,Innerwear,4.2,5176,2020-01-17,Inactive
+SLR0735,Madhav Boutique & Sons,Ajay Iyer,madhavboutiqueandsons@example.com,+91 00000 49648,Noida,Uttar Pradesh,201065,Men Topwear,3.7,28931,2024-10-01,Active
+SLR0736,Modern Wear Co.,Fatima Gupta,modernwearco@example.com,+91 00000 60248,Kolkata,West Bengal,700009,Men Topwear,3.9,35995,2017-02-01,Active
+SLR0737,Silk Threads Store,Neha Fernandes,silkthreadsstore@example.com,+91 00000 16794,Kochi,Kerala,682091,Men Bottomwear,3.8,26905,2018-04-28,Active
+SLR0738,Cotton Styles Co.,Rekha Mehta,cottonstylesco@example.com,+91 00000 51730,Delhi,Delhi,110052,Multi-category,4.2,46573,2021-11-21,Active
+SLR0739,Ganesh Textiles Mart,Arjun Thomas,ganeshtextilesmart@example.com,+91 00000 76201,Lucknow,Uttar Pradesh,226071,Women Ethnic Wear,3.4,42530,2017-12-30,Active
+SLR0740,Laxmi House & Sons,Farhan Kumar,laxmihouseandsons@example.com,+91 00000 28423,Bhagalpur,Bihar,812085,Sportswear,4.2,9985,2017-07-23,Active
+SLR0741,Neel Store Pvt Ltd,Manoj Thomas,neelstorepvtltd@example.com,+91 00000 52277,Lucknow,Uttar Pradesh,226079,Winter Wear,4.7,46611,2024-08-17,Active
+SLR0742,Modern Apparels & Sons,Fatima Reddy,modernapparelsandsons@example.com,+91 00000 32287,Noida,Uttar Pradesh,201079,Sarees,3.8,13943,2021-05-14,Active
+SLR0743,Galaxy Clothing & Sons,Harpreet Shah,galaxyclothingandsons@example.com,+91 00000 17293,Kochi,Kerala,682052,Women Western Wear,3.6,41608,2017-12-30,Active
+SLR0744,Fashion Retail Pvt Ltd,Arjun Shah,fashionretailpvtltd@example.com,+91 00000 70080,Hyderabad,Telangana,500011,Women Western Wear,4.7,43803,2021-11-07,Active
+SLR0745,Ganesh Threads,Ravi Pandey,ganeshthreads@example.com,+91 00000 95551,Kolkata,West Bengal,700062,Sportswear,4.7,39306,2024-11-07,Inactive
+SLR0746,Galaxy Enterprises,Ajay Gill,galaxyenterprises@example.com,+91 00000 54965,Hyderabad,Telangana,500052,Innerwear,4.2,5745,2016-07-11,Active
+SLR0747,Navya Traders Mart,Imran Fernandes,navyatradersmart@example.com,+91 00000 17998,Mumbai,Maharashtra,400096,Multi-category,4.8,38893,2018-07-23,Active
+SLR0748,Vogue Styles,Ravi Kumar,voguestyles@example.com,+91 00000 45458,Jaipur,Rajasthan,302023,Sportswear,4.3,2579,2019-09-14,Inactive
+SLR0749,Madhav Clothing Co.,Shalini Desai,madhavclothingco@example.com,+91 00000 48005,Noida,Uttar Pradesh,201049,Kids Wear,4.0,28637,2022-02-11,Active
+SLR0750,Urban Threads Pvt Ltd,Pooja Bose,urbanthreadspvtltd@example.com,+91 00000 35052,Kolkata,West Bengal,700036,Winter Wear,4.7,21880,2018-05-09,Inactive
+SLR0751,Laxmi Store,Anjali Joshi,laxmistore@example.com,+91 00000 13327,Delhi,Delhi,110007,Winter Wear,4.4,41341,2022-05-10,Active
+SLR0752,Ganesh Fashions Mart,Ritu Kumar,ganeshfashionsmart@example.com,+91 00000 21674,Bhagalpur,Bihar,812031,Nightwear,4.3,3910,2018-02-08,Active
+SLR0753,Tulsi House Co.,Rekha Sharma,tulsihouseco@example.com,+91 00000 25722,Chennai,Tamil Nadu,600016,Sportswear,4.5,8834,2024-06-04,Active
+SLR0754,Shree House Store,Vijay Malhotra,shreehousestore@example.com,+91 00000 37570,Bhagalpur,Bihar,812035,Men Topwear,4.4,33355,2019-02-01,Inactive
+SLR0755,Shree Boutique,Rahul Das,shreeboutique@example.com,+91 00000 92097,Ludhiana,Punjab,141058,Winter Wear,4.4,17987,2023-06-12,Active
+SLR0756,Style Collections India,Sneha Jain,stylecollectionsindia@example.com,+91 00000 58078,Kochi,Kerala,682017,Women Ethnic Wear,4.4,47611,2021-03-02,Active
+SLR0757,Madhav Apparels,Rahul Malhotra,madhavapparels@example.com,+91 00000 15013,Bhagalpur,Bihar,812065,Multi-category,4.3,36973,2017-06-01,Inactive
+SLR0758,Rang Collections,Shalini Khan,rangcollections@example.com,+91 00000 44863,Hyderabad,Telangana,500076,Sarees,4.4,44636,2020-01-30,Active
+SLR0759,Lucky Hub & Sons,Ayesha Gill,luckyhubandsons@example.com,+91 00000 24412,Lucknow,Uttar Pradesh,226097,Multi-category,4.3,23950,2024-01-30,Active
+SLR0760,Sai Clothing Co.,Sunita Singh,saiclothingco@example.com,+91 00000 74904,Delhi,Delhi,110001,Women Western Wear,3.7,21219,2017-08-07,Active
+SLR0761,Star Exports Store,Ravi Chopra,starexportsstore@example.com,+91 00000 60446,Noida,Uttar Pradesh,201054,Nightwear,4.4,41150,2016-09-21,Active
+SLR0762,Balaji Garments & Sons,Sanjay Bose,balajigarmentsandsons@example.com,+91 00000 87126,Bhagalpur,Bihar,812069,Nightwear,4.2,49217,2020-08-12,Active
+SLR0763,Tulsi Retail India,Ajay Rao,tulsiretailindia@example.com,+91 00000 17682,Tiruppur,Tamil Nadu,641010,Men Bottomwear,4.1,37555,2024-01-23,Active
+SLR0764,Ganesh Clothing,Gurpreet Patel,ganeshclothing@example.com,+91 00000 91325,Chennai,Tamil Nadu,600058,Sarees,4.1,40791,2023-08-23,Inactive
+SLR0765,Royal Fashions,Priya Shah,royalfashions@example.com,+91 00000 99268,Jaipur,Rajasthan,302063,Women Western Wear,3.8,37336,2018-05-17,Active
+SLR0766,Tulsi Hub,Shalini Gupta,tulsihub@example.com,+91 00000 33586,Indore,Madhya Pradesh,452085,Sportswear,4.4,13617,2022-06-16,Active
+SLR0767,Tulsi Fashions India,Joseph Desai,tulsifashionsindia@example.com,+91 00000 92441,Mumbai,Maharashtra,400025,Women Western Wear,4.1,16078,2018-12-09,Active
+SLR0768,Krishna Boutique,Deepak Bose,krishnaboutique@example.com,+91 00000 49252,Ludhiana,Punjab,141092,Sarees,3.7,38375,2024-04-23,Active
+SLR0769,Classic House,Suresh Joshi,classichouse@example.com,+91 00000 16452,Chennai,Tamil Nadu,600094,Multi-category,4.2,48528,2022-08-07,Active
+SLR0770,Laxmi Styles Store,Sandeep Gill,laxmistylesstore@example.com,+91 00000 72486,Mumbai,Maharashtra,400063,Men Bottomwear,3.3,27800,2023-06-13,Active
+SLR0771,Ruchi Retail & Sons,Ritu Rao,ruchiretailandsons@example.com,+91 00000 84835,Lucknow,Uttar Pradesh,226044,Women Western Wear,3.9,7678,2019-11-29,Active
+SLR0772,Balaji Exports,Meera Singh,balajiexports@example.com,+91 00000 77220,Pune,Maharashtra,411029,Men Bottomwear,4.3,6828,2021-06-05,Active
+SLR0773,Rang Exports Pvt Ltd,Rohit Malhotra,rangexportspvtltd@example.com,+91 00000 97566,Mumbai,Maharashtra,400069,Innerwear,3.9,23847,2016-08-18,Active
+SLR0774,Desi Apparels Co.,Ritu Gill,desiapparelsco@example.com,+91 00000 26901,Bengaluru,Karnataka,560091,Innerwear,3.9,44579,2021-08-02,Active
+SLR0775,Sunrise Styles,Rohit Bansal,sunrisestyles@example.com,+91 00000 51509,Kolkata,West Bengal,700058,Nightwear,4.2,13477,2020-10-01,Active
+SLR0776,Om Apparels,Ayesha Das,omapparels@example.com,+91 00000 48967,Kolkata,West Bengal,700001,Women Western Wear,4.1,26829,2020-05-03,Active
+SLR0777,Denim Threads Store,Komal Sharma,denimthreadsstore@example.com,+91 00000 78815,Noida,Uttar Pradesh,201016,Kids Wear,4.1,8539,2020-07-24,Active
+SLR0778,Style Retail,Sandeep Reddy,styleretail@example.com,+91 00000 29527,Lucknow,Uttar Pradesh,226049,Sportswear,3.7,32567,2021-07-30,Active
+SLR0779,Trendy Threads Co.,Ritu Jain,trendythreadsco@example.com,+91 00000 98072,Ludhiana,Punjab,141079,Kids Wear,4.6,36360,2017-07-10,Active
+SLR0780,Fashion Exports Co.,Fatima Das,fashionexportsco@example.com,+91 00000 61785,Surat,Gujarat,395086,Sarees,3.9,43751,2016-09-16,Active
+SLR0781,Lucky Retail & Sons,Mary Thomas,luckyretailandsons@example.com,+91 00000 65430,Surat,Gujarat,395078,Innerwear,4.7,48366,2023-09-07,Active
+SLR0782,Neel Threads,Meera Bose,neelthreads@example.com,+91 00000 95084,Pune,Maharashtra,411084,Multi-category,4.3,9630,2017-08-25,Active
+SLR0783,Style Threads,Shalini Mehta,stylethreads@example.com,+91 00000 26037,Varanasi,Uttar Pradesh,221053,Multi-category,4.2,34615,2019-12-27,Active
+SLR0784,Swastik House India,Sandeep Banerjee,swastikhouseindia@example.com,+91 00000 52125,Surat,Gujarat,395083,Men Bottomwear,4.1,27136,2025-02-16,Active
+SLR0785,Desi Textiles & Sons,Vijay Reddy,desitextilesandsons@example.com,+91 00000 70047,Noida,Uttar Pradesh,201034,Kids Wear,4.3,25707,2016-11-29,Active
+SLR0786,Navya Hub,Meera Nair,navyahub@example.com,+91 00000 21925,Noida,Uttar Pradesh,201041,Multi-category,4.4,10884,2022-05-18,Active
+SLR0787,Silk Fab & Sons,Komal Fernandes,silkfabandsons@example.com,+91 00000 55897,Pune,Maharashtra,411097,Women Western Wear,4.1,16012,2020-01-05,Active
+SLR0788,Classic Traders,Sandeep Bansal,classictraders@example.com,+91 00000 47181,Delhi,Delhi,110056,Multi-category,4.3,42167,2024-07-23,Active
+SLR0789,Lucky Retail Store,Ravi Jain,luckyretailstore@example.com,+91 00000 30849,Tiruppur,Tamil Nadu,641007,Innerwear,4.3,7261,2025-06-04,Active
+SLR0790,Fashion Enterprises Pvt Ltd,Swati Nair,fashionenterprisespvtltd@example.com,+91 00000 53640,Kochi,Kerala,682042,Nightwear,4.9,38024,2023-05-13,Active
+SLR0791,Elite Clothing Co.,Pooja Chopra,eliteclothingco@example.com,+91 00000 20220,Mumbai,Maharashtra,400034,Women Western Wear,4.2,18165,2022-06-04,Active
+SLR0792,Pari Enterprises India,Joseph Fernandes,parienterprisesindia@example.com,+91 00000 32330,Pune,Maharashtra,411082,Men Topwear,3.5,1195,2023-07-07,Active
+SLR0793,Aarav Collections & Sons,Arvind Verma,aaravcollectionsandsons@example.com,+91 00000 50523,Bengaluru,Karnataka,560054,Women Western Wear,4.5,49686,2017-08-16,Active
+SLR0794,Golden Threads,Mary Nair,goldenthreads@example.com,+91 00000 54756,Delhi,Delhi,110067,Women Western Wear,4.2,41700,2021-08-10,Active
+SLR0795,Fashion Hub,Ajay Iyer,fashionhub@example.com,+91 00000 18793,Ludhiana,Punjab,141046,Women Western Wear,3.8,16324,2020-02-02,Active
+SLR0796,Galaxy Hub Pvt Ltd,Amit Desai,galaxyhubpvtltd@example.com,+91 00000 89542,Kolkata,West Bengal,700066,Innerwear,4.3,23709,2023-03-04,Active
+SLR0797,Star Collections India,Shalini Patel,starcollectionsindia@example.com,+91 00000 18208,Chennai,Tamil Nadu,600067,Innerwear,4.2,8919,2025-07-04,Active
+SLR0798,Ganesh Hub,Arjun Khan,ganeshhub@example.com,+91 00000 19607,Bhagalpur,Bihar,812061,Kids Wear,4.2,3673,2017-05-26,Active
+SLR0799,Urban Hub,Kavita Shah,urbanhub@example.com,+91 00000 66903,Varanasi,Uttar Pradesh,221073,Sportswear,3.9,41813,2016-05-27,Active
+SLR0800,Style Styles Store,Ritu Patel,stylestylesstore@example.com,+91 00000 93105,Delhi,Delhi,110034,Nightwear,3.9,5687,2017-02-24,Active
+SLR0801,Prime Exports India,Gurpreet Pandey,primeexportsindia@example.com,+91 00000 60148,Lucknow,Uttar Pradesh,226025,Innerwear,4.8,4507,2018-05-20,Inactive
+SLR0802,Galaxy Boutique,Arvind Rao,galaxyboutique@example.com,+91 00000 41165,Varanasi,Uttar Pradesh,221027,Kids Wear,4.2,9446,2023-01-20,Active
+SLR0803,Neel Textiles Mart,Swati Reddy,neeltextilesmart@example.com,+91 00000 77115,Lucknow,Uttar Pradesh,226059,Sarees,4.2,13765,2019-08-21,Active
+SLR0804,Laxmi Fab,Deepak Khan,laxmifab@example.com,+91 00000 40583,Kochi,Kerala,682046,Innerwear,4.5,26465,2024-01-13,Active
+SLR0805,Urban Store,Sanjay Agarwal,urbanstore@example.com,+91 00000 32410,Bhagalpur,Bihar,812030,Innerwear,4.6,38102,2016-10-21,Active
+SLR0806,Prime Garments Store,Komal Thomas,primegarmentsstore@example.com,+91 00000 31895,Chennai,Tamil Nadu,600054,Winter Wear,4.2,41672,2018-05-30,Active
+SLR0807,Anmol Apparels India,Sneha Iyer,anmolapparelsindia@example.com,+91 00000 67795,Surat,Gujarat,395093,Sarees,4.1,27940,2017-07-13,Active
+SLR0808,Prime Clothing India,Ritu Banerjee,primeclothingindia@example.com,+91 00000 54680,Delhi,Delhi,110052,Kids Wear,3.9,17973,2018-01-27,Active
+SLR0809,Vogue Collections & Sons,Karan Chopra,voguecollectionsandsons@example.com,+91 00000 76177,Pune,Maharashtra,411099,Multi-category,3.7,49695,2023-01-13,Active
+SLR0810,Om Fashions India,Sandeep Bose,omfashionsindia@example.com,+91 00000 89664,Indore,Madhya Pradesh,452019,Nightwear,3.7,29469,2016-06-21,Active
+SLR0811,Golden Textiles India,Meera Joshi,goldentextilesindia@example.com,+91 00000 64480,Kochi,Kerala,682095,Nightwear,4.0,14081,2016-10-14,Active
+SLR0812,Cotton Garments India,Priya Patel,cottongarmentsindia@example.com,+91 00000 22641,Bengaluru,Karnataka,560055,Women Western Wear,4.7,33426,2019-03-27,Active
+SLR0813,Aarav Retail Co.,Ayesha Kulkarni,aaravretailco@example.com,+91 00000 42991,Tiruppur,Tamil Nadu,641071,Winter Wear,4.4,40004,2019-08-26,Active
+SLR0814,Jai Clothing,Nisha Nair,jaiclothing@example.com,+91 00000 69253,Tiruppur,Tamil Nadu,641019,Kids Wear,4.8,19356,2020-07-23,Active
+SLR0815,Style Collections Store,Sandeep Sharma,stylecollectionsstore@example.com,+91 00000 37719,Noida,Uttar Pradesh,201015,Women Ethnic Wear,4.4,34302,2017-05-10,Inactive
+SLR0816,Om Enterprises,Suresh Bose,omenterprises@example.com,+91 00000 75070,Hyderabad,Telangana,500062,Winter Wear,4.4,1333,2020-05-17,Active
+SLR0817,Royal Exports,Gurpreet Desai,royalexports@example.com,+91 00000 86278,Jaipur,Rajasthan,302026,Multi-category,3.7,33686,2018-11-24,Active
+SLR0818,Lucky Kart,Divya Gupta,luckykart@example.com,+91 00000 10944,Lucknow,Uttar Pradesh,226038,Nightwear,4.5,5778,2023-01-14,Active
+SLR0819,Galaxy House Mart,Meera Sharma,galaxyhousemart@example.com,+91 00000 45266,Tiruppur,Tamil Nadu,641006,Winter Wear,4.7,38989,2020-06-11,Active
+SLR0820,Ganesh Apparels India,Joseph Gill,ganeshapparelsindia@example.com,+91 00000 11531,Hyderabad,Telangana,500011,Men Bottomwear,4.7,40545,2023-01-12,Active
+SLR0821,Sunrise Store & Sons,Divya Jain,sunrisestoreandsons@example.com,+91 00000 16730,Kolkata,West Bengal,700089,Multi-category,4.3,30528,2022-06-18,Active
+SLR0822,Cotton Collections,Komal Iyer,cottoncollections@example.com,+91 00000 84267,Tiruppur,Tamil Nadu,641015,Sarees,4.7,45563,2022-06-29,Active
+SLR0823,Star Styles Co.,Meera Kulkarni,starstylesco@example.com,+91 00000 63130,Lucknow,Uttar Pradesh,226055,Nightwear,4.1,1935,2018-01-10,Active
+SLR0824,Fashion Creations,Deepak Kumar,fashioncreations@example.com,+91 00000 74844,Ahmedabad,Gujarat,380048,Women Ethnic Wear,4.4,41472,2018-07-08,Active
+SLR0825,Mahalaxmi Threads India,Vikram Malhotra,mahalaxmithreadsindia@example.com,+91 00000 41828,Ludhiana,Punjab,141004,Women Western Wear,4.0,48092,2017-09-23,Active
+SLR0826,Urban Wear Pvt Ltd,Gurpreet Desai,urbanwearpvtltd@example.com,+91 00000 67318,Delhi,Delhi,110039,Women Western Wear,4.8,21223,2016-09-02,Active
+SLR0827,Navya Kart Store,Divya Reddy,navyakartstore@example.com,+91 00000 80616,Ahmedabad,Gujarat,380047,Nightwear,4.5,46814,2021-01-24,Inactive
+SLR0828,Urban Store Co.,Kavita Sharma,urbanstoreco@example.com,+91 00000 46782,Chennai,Tamil Nadu,600002,Sarees,3.8,13743,2018-04-19,Active
+SLR0829,Fashion Threads,Nisha Desai,fashionthreads@example.com,+91 00000 92326,Ludhiana,Punjab,141029,Winter Wear,4.6,24591,2020-01-21,Active
+SLR0830,Krishna Fashions,Gurpreet Mishra,krishnafashions@example.com,+91 00000 85865,Surat,Gujarat,395027,Nightwear,4.4,38617,2022-12-14,Active
+SLR0831,Anmol House & Sons,Karan Patel,anmolhouseandsons@example.com,+91 00000 77203,Delhi,Delhi,110007,Multi-category,4.0,37964,2020-12-25,Active
+SLR0832,Surya Fab Mart,Joseph Singh,suryafabmart@example.com,+91 00000 33522,Bengaluru,Karnataka,560035,Winter Wear,4.4,47872,2022-07-02,Active
+SLR0833,Surya Garments India,Joseph Menon,suryagarmentsindia@example.com,+91 00000 65854,Jaipur,Rajasthan,302034,Innerwear,4.6,6283,2024-12-12,Active
+SLR0834,Urban Hub Pvt Ltd,Ritu Sharma,urbanhubpvtltd@example.com,+91 00000 75442,Ludhiana,Punjab,141059,Women Ethnic Wear,4.0,4527,2018-04-23,Active
+SLR0835,Shree Kart Store,Kavita Iyer,shreekartstore@example.com,+91 00000 12102,Mumbai,Maharashtra,400013,Sportswear,4.3,8307,2020-05-25,Active
+SLR0836,Madhav Fab,Nisha Pandey,madhavfab@example.com,+91 00000 53768,Kolkata,West Bengal,700077,Kids Wear,4.6,11914,2025-03-13,Inactive
+SLR0837,Krishna Clothing,Fatima Agarwal,krishnaclothing@example.com,+91 00000 10506,Kochi,Kerala,682060,Sarees,4.1,32207,2024-03-10,Active
+SLR0838,Style Textiles,Rahul Kumar,styletextiles@example.com,+91 00000 96017,Chennai,Tamil Nadu,600001,Kids Wear,4.1,21081,2017-07-15,Active
+SLR0839,Mahalaxmi Traders,Fatima Chopra,mahalaxmitraders@example.com,+91 00000 18398,Jaipur,Rajasthan,302032,Kids Wear,4.1,24065,2022-02-07,Active
+SLR0840,Classic Enterprises Mart,Gurpreet Bose,classicenterprisesmart@example.com,+91 00000 69158,Bengaluru,Karnataka,560089,Sportswear,4.0,4225,2023-08-11,Active
+SLR0841,Urban Boutique,Sneha Singh,urbanboutique@example.com,+91 00000 75095,Noida,Uttar Pradesh,201016,Men Bottomwear,4.4,43745,2025-03-29,Active
+SLR0842,Royal Textiles Co.,Anjali Menon,royaltextilesco@example.com,+91 00000 14506,Pune,Maharashtra,411006,Women Western Wear,4.1,49145,2018-10-06,Active
+SLR0843,Neel Clothing India,Harpreet Shah,neelclothingindia@example.com,+91 00000 50434,Mumbai,Maharashtra,400004,Sarees,4.8,9868,2020-10-09,Active
+SLR0844,Balaji Clothing Pvt Ltd,Vikram Chopra,balajiclothingpvtltd@example.com,+91 00000 57879,Ahmedabad,Gujarat,380006,Sportswear,4.4,13432,2020-08-15,Active
+SLR0845,Cotton Hub Co.,Amit Nair,cottonhubco@example.com,+91 00000 72961,Pune,Maharashtra,411088,Innerwear,3.8,49441,2017-08-24,Active
+SLR0846,Classic Retail & Sons,Ritu Jain,classicretailandsons@example.com,+91 00000 74585,Kolkata,West Bengal,700059,Women Ethnic Wear,4.2,11013,2019-10-19,Active
+SLR0847,Modern Boutique Pvt Ltd,Vikram Kumar,modernboutiquepvtltd@example.com,+91 00000 20585,Chennai,Tamil Nadu,600087,Innerwear,4.1,24412,2024-04-15,Active
+SLR0848,Classic Fashions,Fatima Chopra,classicfashions@example.com,+91 00000 98770,Mumbai,Maharashtra,400065,Sarees,4.8,46240,2018-06-14,Active
+SLR0849,Style Store Mart,Vikram Desai,stylestoremart@example.com,+91 00000 42221,Lucknow,Uttar Pradesh,226079,Winter Wear,4.1,4693,2021-08-22,Active
+SLR0850,Pari Textiles,Ritu Bansal,paritextiles@example.com,+91 00000 50419,Ahmedabad,Gujarat,380040,Nightwear,4.5,525,2016-05-10,Active
+SLR0851,Sunrise Apparels India,Arvind Jain,sunriseapparelsindia@example.com,+91 00000 79391,Chennai,Tamil Nadu,600066,Innerwear,4.5,31850,2017-10-21,Inactive
+SLR0852,Golden Retail Mart,Rahul Joshi,goldenretailmart@example.com,+91 00000 14302,Indore,Madhya Pradesh,452013,Nightwear,3.9,36465,2019-09-16,Active
+SLR0853,Golden Kart,Rekha Sharma,goldenkart@example.com,+91 00000 95595,Bengaluru,Karnataka,560092,Women Western Wear,4.3,43110,2019-01-01,Active
+SLR0854,Madhav Styles,Nisha Malhotra,madhavstyles@example.com,+91 00000 12846,Ahmedabad,Gujarat,380076,Sportswear,3.8,42650,2018-11-08,Active
+SLR0855,Aarav House,Karan Verma,aaravhouse@example.com,+91 00000 17157,Indore,Madhya Pradesh,452093,Men Topwear,3.6,47605,2019-06-28,Active
+SLR0856,Shree Apparels,Deepak Fernandes,shreeapparels@example.com,+91 00000 50510,Surat,Gujarat,395053,Kids Wear,4.8,5045,2024-12-28,Active
+SLR0857,Ganesh Fashions Store,Gurpreet Singh,ganeshfashionsstore@example.com,+91 00000 63562,Bengaluru,Karnataka,560059,Kids Wear,3.6,31682,2020-12-22,Active
+SLR0858,Style Threads Pvt Ltd,Divya Sharma,stylethreadspvtltd@example.com,+91 00000 16087,Tiruppur,Tamil Nadu,641050,Women Ethnic Wear,4.5,40779,2024-06-21,Inactive
+SLR0859,Urban Creations,Ravi Joshi,urbancreations@example.com,+91 00000 88979,Bengaluru,Karnataka,560056,Men Bottomwear,4.1,30310,2020-01-23,Active
+SLR0860,Om Creations Pvt Ltd,Imran Patel,omcreationspvtltd@example.com,+91 00000 48595,Mumbai,Maharashtra,400040,Men Topwear,3.9,48400,2023-07-25,Active
+SLR0861,Star Garments,Rekha Jain,stargarments@example.com,+91 00000 56267,Tiruppur,Tamil Nadu,641069,Kids Wear,3.7,27911,2019-12-30,Active
+SLR0862,Madhav Textiles,Meera Rao,madhavtextiles@example.com,+91 00000 19748,Chennai,Tamil Nadu,600099,Kids Wear,4.1,13261,2018-03-13,Inactive
+SLR0863,Desi Garments Mart,Sandeep Pandey,desigarmentsmart@example.com,+91 00000 93303,Bengaluru,Karnataka,560088,Kids Wear,3.8,11741,2018-02-04,Active
+SLR0864,Golden Kart Co.,Sneha Malhotra,goldenkartco@example.com,+91 00000 76906,Varanasi,Uttar Pradesh,221079,Multi-category,4.5,45872,2018-01-26,Active
+SLR0865,Krishna Fab Co.,Arvind Mishra,krishnafabco@example.com,+91 00000 79673,Tiruppur,Tamil Nadu,641068,Innerwear,4.2,5098,2024-07-03,Active
+SLR0866,Kalyan Kart,Deepak Chopra,kalyankart@example.com,+91 00000 77077,Pune,Maharashtra,411032,Winter Wear,4.3,5367,2019-10-17,Active
+SLR0867,Navya Hub & Sons,Arvind Kulkarni,navyahubandsons@example.com,+91 00000 21805,Bhagalpur,Bihar,812059,Men Topwear,4.7,27279,2021-01-17,Active
+SLR0868,Elite Textiles Co.,Amit Verma,elitetextilesco@example.com,+91 00000 43893,Ahmedabad,Gujarat,380068,Winter Wear,4.1,13983,2018-02-02,Inactive
+SLR0869,Sai Traders Pvt Ltd,Divya Chopra,saitraderspvtltd@example.com,+91 00000 43886,Ludhiana,Punjab,141096,Women Ethnic Wear,3.9,13601,2024-03-20,Active
+SLR0870,Fashion House Co.,Karan Khan,fashionhouseco@example.com,+91 00000 42889,Ludhiana,Punjab,141074,Nightwear,4.5,36968,2023-06-10,Active
+SLR0871,Denim Textiles India,Amit Rao,denimtextilesindia@example.com,+91 00000 34801,Indore,Madhya Pradesh,452089,Innerwear,3.9,32849,2020-04-09,Active
+SLR0872,Sunrise Styles India,Meera Rao,sunrisestylesindia@example.com,+91 00000 91118,Lucknow,Uttar Pradesh,226013,Sportswear,4.5,31863,2025-02-18,Active
+SLR0873,Shree Boutique India,Neha Kulkarni,shreeboutiqueindia@example.com,+91 00000 88967,Kochi,Kerala,682069,Men Topwear,4.2,49162,2021-07-29,Active
+SLR0874,Ganesh Collections,Lakshmi Reddy,ganeshcollections@example.com,+91 00000 23883,Hyderabad,Telangana,500038,Women Western Wear,4.2,24485,2017-06-15,Inactive
+SLR0875,Balaji Textiles Mart,Karan Rao,balajitextilesmart@example.com,+91 00000 31636,Kochi,Kerala,682053,Multi-category,4.0,40671,2016-01-29,Active
+SLR0876,Cotton Textiles,Vikram Nair,cottontextiles@example.com,+91 00000 66588,Mumbai,Maharashtra,400002,Nightwear,4.1,20259,2025-06-16,Active
+SLR0877,Madhav Hub India,Sunita Khan,madhavhubindia@example.com,+91 00000 47284,Hyderabad,Telangana,500009,Sportswear,4.5,18695,2016-05-21,Active
+SLR0878,Silk Textiles & Sons,Anjali Thomas,silktextilesandsons@example.com,+91 00000 84263,Surat,Gujarat,395061,Women Western Wear,4.7,24137,2022-10-22,Active
+SLR0879,Prime Fab,Ayesha Mishra,primefab@example.com,+91 00000 26939,Hyderabad,Telangana,500044,Multi-category,4.2,36185,2021-04-25,Active
+SLR0880,Golden Exports & Sons,Lakshmi Jain,goldenexportsandsons@example.com,+91 00000 89239,Pune,Maharashtra,411043,Sportswear,4.2,15052,2023-10-15,Active
+SLR0881,Lucky Kart & Sons,Arjun Jain,luckykartandsons@example.com,+91 00000 16006,Lucknow,Uttar Pradesh,226069,Women Western Wear,4.2,22421,2019-10-05,Active
+SLR0882,Style Kart,Rohit Gill,stylekart@example.com,+91 00000 81521,Surat,Gujarat,395006,Nightwear,4.1,41435,2020-11-15,Active
+SLR0883,Balaji Styles Mart,Manoj Sharma,balajistylesmart@example.com,+91 00000 23974,Hyderabad,Telangana,500027,Women Ethnic Wear,4.1,6908,2023-12-09,Active
+SLR0884,Star Wear Store,Kavita Rao,starwearstore@example.com,+91 00000 81949,Kolkata,West Bengal,700083,Sportswear,4.5,25810,2021-02-27,Active
+SLR0885,Neel Styles,Suresh Patel,neelstyles@example.com,+91 00000 96035,Varanasi,Uttar Pradesh,221063,Kids Wear,4.3,43172,2023-03-23,Active
+SLR0886,Madhav Creations,Komal Shah,madhavcreations@example.com,+91 00000 86800,Mumbai,Maharashtra,400048,Multi-category,4.0,44928,2024-05-24,Active
+SLR0887,Fashion Fab Co.,Karan Nair,fashionfabco@example.com,+91 00000 60496,Kochi,Kerala,682070,Women Ethnic Wear,4.7,29197,2020-05-30,Active
+SLR0888,Ruchi Kart Co.,Ajay Sharma,ruchikartco@example.com,+91 00000 64014,Varanasi,Uttar Pradesh,221022,Multi-category,4.6,4872,2025-01-07,Active
+SLR0889,Trendy Creations India,Nitin Gill,trendycreationsindia@example.com,+91 00000 90362,Noida,Uttar Pradesh,201065,Men Bottomwear,4.2,48823,2016-07-02,Active
+SLR0890,Denim Kart Co.,Sunita Bansal,denimkartco@example.com,+91 00000 73735,Jaipur,Rajasthan,302029,Sarees,3.6,15373,2023-11-23,Active
+SLR0891,Neel Styles & Sons,Ritu Iyer,neelstylesandsons@example.com,+91 00000 18397,Mumbai,Maharashtra,400059,Sarees,4.4,10118,2018-09-13,Active
+SLR0892,Anmol Store India,Karan Khan,anmolstoreindia@example.com,+91 00000 96916,Ludhiana,Punjab,141013,Men Topwear,4.1,12969,2019-11-01,Active
+SLR0893,Neel Traders India,Ritu Kumar,neeltradersindia@example.com,+91 00000 85159,Hyderabad,Telangana,500028,Nightwear,5.0,29082,2024-04-19,Active
+SLR0894,Fashion Threads & Sons,Nisha Khan,fashionthreadsandsons@example.com,+91 00000 77222,Tiruppur,Tamil Nadu,641033,Kids Wear,3.9,1135,2017-11-09,Active
+SLR0895,Neel Garments India,Arjun Gill,neelgarmentsindia@example.com,+91 00000 38835,Surat,Gujarat,395052,Innerwear,4.4,15394,2020-01-28,Active
+SLR0896,Rang Wear India,Amit Pandey,rangwearindia@example.com,+91 00000 11836,Ludhiana,Punjab,141081,Women Ethnic Wear,3.4,5854,2018-05-17,Active
+SLR0897,Trendy Boutique Pvt Ltd,Komal Sharma,trendyboutiquepvtltd@example.com,+91 00000 17464,Noida,Uttar Pradesh,201045,Kids Wear,3.9,13436,2020-08-27,Active
+SLR0898,Mahalaxmi Collections India,Ritu Shah,mahalaxmicollectionsindia@example.com,+91 00000 67012,Bengaluru,Karnataka,560055,Men Bottomwear,3.9,11320,2025-05-23,Active
+SLR0899,Neel Fashions Co.,Arvind Das,neelfashionsco@example.com,+91 00000 77044,Ludhiana,Punjab,141003,Men Topwear,4.5,14035,2022-07-04,Active
+SLR0900,Ganesh Kart India,Rahul Khan,ganeshkartindia@example.com,+91 00000 25720,Indore,Madhya Pradesh,452006,Innerwear,3.7,23775,2019-04-11,Active
+SLR0901,Cotton Wear,Sunita Chopra,cottonwear@example.com,+91 00000 17692,Varanasi,Uttar Pradesh,221032,Men Bottomwear,4.7,26569,2022-11-20,Active
+SLR0902,Aarav Boutique,Ritu Banerjee,aaravboutique@example.com,+91 00000 46097,Tiruppur,Tamil Nadu,641061,Winter Wear,3.8,1115,2021-10-14,Active
+SLR0903,Aarav Garments Pvt Ltd,Rahul Bose,aaravgarmentspvtltd@example.com,+91 00000 46841,Lucknow,Uttar Pradesh,226028,Multi-category,4.1,37732,2016-07-15,Active
+SLR0904,Mahalaxmi Kart Co.,Rekha Khan,mahalaxmikartco@example.com,+91 00000 58385,Jaipur,Rajasthan,302045,Women Western Wear,4.0,21126,2018-03-23,Active
+SLR0905,Jai House,Shalini Bansal,jaihouse@example.com,+91 00000 50481,Indore,Madhya Pradesh,452023,Women Western Wear,3.5,17062,2016-11-21,Inactive
+SLR0906,Pari Creations Pvt Ltd,Harpreet Kumar,paricreationspvtltd@example.com,+91 00000 99680,Pune,Maharashtra,411001,Innerwear,4.2,34221,2023-03-12,Active
+SLR0907,Denim Apparels,Imran Das,denimapparels@example.com,+91 00000 99367,Varanasi,Uttar Pradesh,221037,Kids Wear,4.8,42287,2017-04-29,Active
+SLR0908,Neel Clothing Store,Fatima Fernandes,neelclothingstore@example.com,+91 00000 72427,Chennai,Tamil Nadu,600010,Kids Wear,3.4,587,2019-09-21,Active
+SLR0909,Trendy Fab,Ritu Nair,trendyfab@example.com,+91 00000 47849,Bengaluru,Karnataka,560058,Sportswear,3.9,10263,2017-06-04,Active
+SLR0910,Desi Enterprises & Sons,Priya Patel,desienterprisesandsons@example.com,+91 00000 33090,Noida,Uttar Pradesh,201040,Sportswear,4.0,6217,2025-03-12,Active
+SLR0911,Madhav Wear Store,Joseph Gupta,madhavwearstore@example.com,+91 00000 23700,Hyderabad,Telangana,500017,Men Topwear,4.1,36776,2019-05-17,Active
+SLR0912,Rang Store Store,Joseph Jain,rangstorestore@example.com,+91 00000 67631,Bengaluru,Karnataka,560028,Nightwear,3.7,36350,2020-06-24,Active
+SLR0913,Galaxy Creations Co.,Nisha Malhotra,galaxycreationsco@example.com,+91 00000 23953,Kolkata,West Bengal,700049,Women Western Wear,3.4,19116,2018-01-18,Active
+SLR0914,Urban Textiles Co.,Divya Iyer,urbantextilesco@example.com,+91 00000 50393,Pune,Maharashtra,411015,Men Bottomwear,3.8,38127,2021-07-07,Active
+SLR0915,Aarav Enterprises,Ajay Bansal,aaraventerprises@example.com,+91 00000 49625,Delhi,Delhi,110055,Sarees,4.4,16972,2019-02-26,Active
+SLR0916,Tulsi Collections India,Sandeep Patel,tulsicollectionsindia@example.com,+91 00000 36533,Jaipur,Rajasthan,302057,Kids Wear,4.7,20275,2020-03-23,Active
+SLR0917,Prime Styles Store,Deepak Menon,primestylesstore@example.com,+91 00000 71729,Hyderabad,Telangana,500075,Winter Wear,5.0,6418,2019-10-12,Active
+SLR0918,Style Hub India,Suresh Verma,stylehubindia@example.com,+91 00000 14581,Bengaluru,Karnataka,560061,Men Bottomwear,3.7,33684,2020-01-07,Active
+SLR0919,Modern Wear Store,Priya Bansal,modernwearstore@example.com,+91 00000 68880,Kolkata,West Bengal,700066,Nightwear,4.5,13550,2023-06-15,Active
+SLR0920,Royal Traders,Nisha Chopra,royaltraders@example.com,+91 00000 50060,Delhi,Delhi,110043,Men Bottomwear,4.0,36550,2024-10-26,Active
+SLR0921,Royal Exports India,Rohit Khan,royalexportsindia@example.com,+91 00000 86754,Kochi,Kerala,682023,Women Western Wear,4.0,47354,2019-06-14,Active
+SLR0922,Aarav Hub Co.,Anjali Fernandes,aaravhubco@example.com,+91 00000 35804,Ludhiana,Punjab,141067,Men Bottomwear,4.1,46601,2018-05-10,Active
+SLR0923,Neel Hub,Rahul Fernandes,neelhub@example.com,+91 00000 75914,Delhi,Delhi,110027,Winter Wear,3.9,14229,2019-05-19,Active
+SLR0924,Elite Fab,Sunita Nair,elitefab@example.com,+91 00000 19905,Hyderabad,Telangana,500094,Kids Wear,4.5,20250,2017-06-14,Active
+SLR0925,Royal Kart Mart,Rekha Iyer,royalkartmart@example.com,+91 00000 40508,Mumbai,Maharashtra,400050,Women Ethnic Wear,4.0,20494,2017-05-11,Active
+SLR0926,Jai House Pvt Ltd,Shalini Agarwal,jaihousepvtltd@example.com,+91 00000 76201,Delhi,Delhi,110053,Winter Wear,4.2,32841,2022-09-09,Active
+SLR0927,Silk Enterprises Co.,Fatima Menon,silkenterprisesco@example.com,+91 00000 19338,Jaipur,Rajasthan,302070,Sportswear,3.5,1502,2017-09-29,Active
+SLR0928,Urban Wear India,Rohit Verma,urbanwearindia@example.com,+91 00000 45019,Varanasi,Uttar Pradesh,221076,Men Bottomwear,3.3,48721,2020-02-19,Active
+SLR0929,Anmol House Mart,Harpreet Chopra,anmolhousemart@example.com,+91 00000 21253,Tiruppur,Tamil Nadu,641097,Kids Wear,4.0,35602,2022-06-15,Active
+SLR0930,Swastik House Mart,Rahul Khan,swastikhousemart@example.com,+91 00000 97637,Jaipur,Rajasthan,302099,Multi-category,4.4,14520,2023-06-02,Active
+SLR0931,Golden Clothing,Sneha Rao,goldenclothing@example.com,+91 00000 61709,Surat,Gujarat,395017,Nightwear,3.3,17102,2021-09-19,Active
+SLR0932,Mahalaxmi Enterprises,Nisha Agarwal,mahalaxmienterprises@example.com,+91 00000 16159,Indore,Madhya Pradesh,452079,Men Topwear,4.0,28304,2017-08-11,Active
+SLR0933,Navya Kart Mart,Lakshmi Singh,navyakartmart@example.com,+91 00000 32774,Noida,Uttar Pradesh,201005,Innerwear,4.6,19996,2021-02-18,Inactive
+SLR0934,Lucky Collections Store,Swati Khan,luckycollectionsstore@example.com,+91 00000 58603,Ahmedabad,Gujarat,380001,Sportswear,4.5,45079,2016-12-27,Inactive
+SLR0935,Sunrise Clothing India,Manoj Khan,sunriseclothingindia@example.com,+91 00000 60384,Mumbai,Maharashtra,400024,Men Topwear,4.1,11793,2021-04-19,Active
+SLR0936,Neel Enterprises & Sons,Kavita Chopra,neelenterprisesandsons@example.com,+91 00000 55418,Hyderabad,Telangana,500068,Men Bottomwear,3.7,20659,2018-04-06,Active
+SLR0937,Neel Store & Sons,Sandeep Joshi,neelstoreandsons@example.com,+91 00000 46530,Jaipur,Rajasthan,302072,Women Ethnic Wear,3.9,20122,2018-10-21,Active
+SLR0938,Lucky Apparels,Karan Kumar,luckyapparels@example.com,+91 00000 98309,Bengaluru,Karnataka,560079,Men Bottomwear,3.9,21799,2025-07-18,Active
+SLR0939,Navya Styles,Pooja Kumar,navyastyles@example.com,+91 00000 59721,Kochi,Kerala,682021,Multi-category,4.2,27340,2024-08-08,Active
+SLR0940,Modern Traders,Meera Mehta,moderntraders@example.com,+91 00000 53644,Chennai,Tamil Nadu,600096,Multi-category,4.6,8314,2018-01-10,Inactive
+SLR0941,Mahalaxmi Textiles,Neha Singh,mahalaxmitextiles@example.com,+91 00000 21208,Ludhiana,Punjab,141070,Women Western Wear,4.2,12391,2021-01-27,Inactive
+SLR0942,Krishna Collections,Sunita Desai,krishnacollections@example.com,+91 00000 48838,Pune,Maharashtra,411025,Multi-category,3.5,29361,2023-02-15,Active
+SLR0943,Swastik Clothing Pvt Ltd,Meera Bansal,swastikclothingpvtltd@example.com,+91 00000 81201,Tiruppur,Tamil Nadu,641028,Kids Wear,3.3,49210,2024-09-30,Active
+SLR0944,Shree House Pvt Ltd,Gurpreet Das,shreehousepvtltd@example.com,+91 00000 77486,Surat,Gujarat,395026,Sarees,3.6,6233,2016-12-11,Inactive
+SLR0945,Lucky Fashions Store,Nisha Chopra,luckyfashionsstore@example.com,+91 00000 50133,Pune,Maharashtra,411033,Innerwear,3.9,21627,2017-10-01,Active
+SLR0946,Krishna House Store,Rahul Patel,krishnahousestore@example.com,+91 00000 66045,Pune,Maharashtra,411075,Kids Wear,3.9,16473,2016-08-17,Active
+SLR0947,Ruchi Wear,Rahul Joshi,ruchiwear@example.com,+91 00000 52176,Jaipur,Rajasthan,302051,Men Bottomwear,3.5,9124,2016-05-06,Active
+SLR0948,Jai Garments Store,Nisha Bansal,jaigarmentsstore@example.com,+91 00000 56557,Lucknow,Uttar Pradesh,226057,Winter Wear,4.6,47408,2020-11-11,Active
+SLR0949,Om Retail Pvt Ltd,Vikram Bose,omretailpvtltd@example.com,+91 00000 47696,Chennai,Tamil Nadu,600007,Sportswear,4.5,11249,2020-11-02,Active
+SLR0950,Elite Hub Co.,Arvind Verma,elitehubco@example.com,+91 00000 55790,Indore,Madhya Pradesh,452039,Women Ethnic Wear,4.6,2133,2019-12-30,Active
+SLR0951,Swastik Garments Pvt Ltd,Farhan Rao,swastikgarmentspvtltd@example.com,+91 00000 30137,Lucknow,Uttar Pradesh,226056,Sarees,4.9,1116,2018-06-21,Active
+SLR0952,Sai Exports,Nitin Patel,saiexports@example.com,+91 00000 15948,Indore,Madhya Pradesh,452013,Sportswear,3.4,17524,2020-03-25,Active
+SLR0953,Fashion Styles & Sons,Sandeep Rao,fashionstylesandsons@example.com,+91 00000 89881,Ludhiana,Punjab,141021,Sportswear,4.9,27856,2023-12-02,Active
+SLR0954,Sai Fashions,Swati Iyer,saifashions@example.com,+91 00000 88409,Hyderabad,Telangana,500040,Winter Wear,3.5,5752,2016-08-25,Active
+SLR0955,Fashion Threads India,Divya Mishra,fashionthreadsindia@example.com,+91 00000 17881,Ludhiana,Punjab,141081,Men Bottomwear,3.7,29393,2022-08-11,Active
+SLR0956,Urban Clothing Pvt Ltd,Meera Fernandes,urbanclothingpvtltd@example.com,+91 00000 13274,Chennai,Tamil Nadu,600052,Winter Wear,4.0,7767,2024-11-11,Active
+SLR0957,Denim Boutique Mart,Pooja Malhotra,denimboutiquemart@example.com,+91 00000 81717,Jaipur,Rajasthan,302012,Men Topwear,3.8,6589,2018-02-27,Inactive
+SLR0958,Om Exports,Harpreet Joshi,omexports@example.com,+91 00000 20036,Delhi,Delhi,110065,Women Ethnic Wear,4.4,27337,2016-09-07,Active
+SLR0959,Aarav Store Co.,Farhan Thomas,aaravstoreco@example.com,+91 00000 38254,Tiruppur,Tamil Nadu,641069,Women Western Wear,4.8,38675,2020-11-25,Active
+SLR0960,Jai Fashions Pvt Ltd,Swati Reddy,jaifashionspvtltd@example.com,+91 00000 75467,Kolkata,West Bengal,700003,Men Topwear,3.6,5145,2020-05-24,Inactive
+SLR0961,Fashion Boutique,Ritu Joshi,fashionboutique@example.com,+91 00000 39068,Tiruppur,Tamil Nadu,641012,Women Western Wear,4.1,27049,2021-05-07,Active
+SLR0962,Balaji Fab,Arvind Khan,balajifab@example.com,+91 00000 38427,Kolkata,West Bengal,700093,Women Western Wear,4.9,10375,2023-09-06,Active
+SLR0963,Navya Textiles,Harpreet Menon,navyatextiles@example.com,+91 00000 27862,Noida,Uttar Pradesh,201007,Sportswear,3.7,1505,2020-01-28,Active
+SLR0964,Shree Collections Mart,Vikram Chopra,shreecollectionsmart@example.com,+91 00000 10589,Surat,Gujarat,395029,Women Western Wear,4.1,27553,2021-05-26,Active
+SLR0965,Mahalaxmi Retail,Arvind Fernandes,mahalaxmiretail@example.com,+91 00000 37827,Jaipur,Rajasthan,302061,Sportswear,4.3,27717,2016-06-20,Active
+SLR0966,Trendy Fashions Mart,Rekha Malhotra,trendyfashionsmart@example.com,+91 00000 48891,Surat,Gujarat,395089,Women Ethnic Wear,3.9,2177,2017-04-07,Active
+SLR0967,Tulsi Boutique,Sunita Das,tulsiboutique@example.com,+91 00000 88561,Lucknow,Uttar Pradesh,226067,Sarees,4.3,15743,2022-07-12,Inactive
+SLR0968,Elite Hub Store,Swati Reddy,elitehubstore@example.com,+91 00000 48193,Ludhiana,Punjab,141001,Men Topwear,4.9,33594,2025-04-18,Active
+SLR0969,Golden Wear,Rohit Kulkarni,goldenwear@example.com,+91 00000 58610,Ludhiana,Punjab,141032,Kids Wear,3.3,44220,2020-07-20,Active
+SLR0970,Tulsi Exports,Farhan Reddy,tulsiexports@example.com,+91 00000 15051,Mumbai,Maharashtra,400012,Sportswear,3.7,6755,2025-06-17,Active
+SLR0971,Urban Apparels,Vikram Bansal,urbanapparels@example.com,+91 00000 12393,Pune,Maharashtra,411032,Kids Wear,4.3,5297,2020-12-22,Active
+SLR0972,Navya Threads,Arjun Desai,navyathreads@example.com,+91 00000 81683,Hyderabad,Telangana,500049,Women Ethnic Wear,3.9,32272,2018-09-01,Active
+SLR0973,Fashion Creations Pvt Ltd,Vikram Shah,fashioncreationspvtltd@example.com,+91 00000 51553,Mumbai,Maharashtra,400022,Sarees,4.7,25266,2016-12-31,Active
+SLR0974,Swastik Threads,Meera Bose,swastikthreads@example.com,+91 00000 16940,Varanasi,Uttar Pradesh,221032,Men Bottomwear,4.2,14002,2018-09-20,Active
+SLR0975,Rang Retail Co.,Sanjay Verma,rangretailco@example.com,+91 00000 32935,Bengaluru,Karnataka,560023,Nightwear,4.5,22342,2016-06-17,Active
+SLR0976,Elite Fab Mart,Sandeep Thomas,elitefabmart@example.com,+91 00000 97235,Chennai,Tamil Nadu,600044,Women Ethnic Wear,4.6,38767,2022-04-25,Active
+SLR0977,Sai Retail Co.,Deepak Rao,sairetailco@example.com,+91 00000 83676,Surat,Gujarat,395083,Multi-category,3.7,27388,2022-10-24,Inactive
+SLR0978,Denim Fab,Komal Banerjee,denimfab@example.com,+91 00000 27226,Pune,Maharashtra,411020,Men Topwear,4.1,15136,2019-04-15,Active
+SLR0979,Sai Enterprises Co.,Farhan Kumar,saienterprisesco@example.com,+91 00000 48935,Delhi,Delhi,110054,Men Bottomwear,4.8,41756,2017-01-21,Active
+SLR0980,Sai Textiles & Sons,Nitin Kulkarni,saitextilesandsons@example.com,+91 00000 25206,Ahmedabad,Gujarat,380029,Winter Wear,4.0,44812,2022-09-25,Active
+SLR0981,Mahalaxmi Collections & Sons,Joseph Iyer,mahalaxmicollectionsandsons@example.com,+91 00000 71473,Tiruppur,Tamil Nadu,641030,Men Topwear,4.8,2736,2024-01-19,Active
+SLR0982,Aarav Enterprises & Sons,Meera Kumar,aaraventerprisesandsons@example.com,+91 00000 13517,Jaipur,Rajasthan,302064,Nightwear,3.5,7211,2020-02-05,Active
+SLR0983,Neel House Pvt Ltd,Ritu Mehta,neelhousepvtltd@example.com,+91 00000 70790,Kolkata,West Bengal,700010,Women Ethnic Wear,3.7,1441,2022-01-05,Active
+SLR0984,Fashion Apparels Co.,Joseph Reddy,fashionapparelsco@example.com,+91 00000 95219,Lucknow,Uttar Pradesh,226075,Sportswear,4.7,9255,2020-07-29,Inactive
+SLR0985,Classic Enterprises & Sons,Neha Das,classicenterprisesandsons@example.com,+91 00000 25378,Noida,Uttar Pradesh,201007,Innerwear,4.5,16568,2025-06-24,Active
+SLR0986,Madhav Fashions,Arvind Khan,madhavfashions@example.com,+91 00000 70795,Chennai,Tamil Nadu,600070,Men Topwear,3.8,25838,2023-07-21,Active
+SLR0987,Silk Enterprises Mart,Ravi Mehta,silkenterprisesmart@example.com,+91 00000 26193,Varanasi,Uttar Pradesh,221007,Men Bottomwear,4.6,2161,2025-07-18,Active
+SLR0988,Laxmi Threads Co.,Sandeep Kumar,laxmithreadsco@example.com,+91 00000 18126,Indore,Madhya Pradesh,452092,Women Ethnic Wear,4.5,40153,2022-06-15,Active
+SLR0989,Krishna Hub,Joseph Khan,krishnahub@example.com,+91 00000 39160,Indore,Madhya Pradesh,452080,Innerwear,4.2,9730,2016-12-29,Inactive
+SLR0990,Desi Exports & Sons,Harpreet Nair,desiexportsandsons@example.com,+91 00000 15425,Chennai,Tamil Nadu,600046,Kids Wear,3.8,42343,2023-05-06,Active
+SLR0991,Krishna Collections Pvt Ltd,Sneha Reddy,krishnacollectionspvtltd@example.com,+91 00000 22893,Hyderabad,Telangana,500059,Women Western Wear,4.1,23847,2016-05-24,Active
+SLR0992,Sai Wear Mart,Rohit Bose,saiwearmart@example.com,+91 00000 28702,Bengaluru,Karnataka,560007,Men Topwear,4.4,44277,2016-05-27,Active
+SLR0993,Jai Boutique,Manoj Gupta,jaiboutique@example.com,+91 00000 24776,Delhi,Delhi,110093,Sportswear,4.1,48283,2017-07-27,Active
+SLR0994,Swastik Apparels & Sons,Rahul Malhotra,swastikapparelsandsons@example.com,+91 00000 19888,Varanasi,Uttar Pradesh,221005,Women Western Wear,4.8,23722,2016-08-15,Inactive
+SLR0995,Modern Boutique & Sons,Karan Gill,modernboutiqueandsons@example.com,+91 00000 98389,Mumbai,Maharashtra,400061,Sportswear,4.7,1851,2021-05-04,Active
+SLR0996,Royal Creations & Sons,Farhan Bansal,royalcreationsandsons@example.com,+91 00000 28489,Ludhiana,Punjab,141093,Women Ethnic Wear,4.3,29398,2022-01-16,Active
+SLR0997,Desi Threads Pvt Ltd,Harpreet Verma,desithreadspvtltd@example.com,+91 00000 75516,Chennai,Tamil Nadu,600047,Winter Wear,4.8,28537,2018-06-17,Active
+SLR0998,Vogue Boutique Mart,Lakshmi Singh,vogueboutiquemart@example.com,+91 00000 24993,Varanasi,Uttar Pradesh,221086,Nightwear,4.5,43246,2020-06-04,Active
+SLR0999,Pari Styles Store,Lakshmi Rao,paristylesstore@example.com,+91 00000 17435,Ahmedabad,Gujarat,380088,Men Bottomwear,4.2,30183,2024-05-03,Active
+SLR1000,Kalyan Retail Pvt Ltd,Joseph Banerjee,kalyanretailpvtltd@example.com,+91 00000 29300,Tiruppur,Tamil Nadu,641018,Women Ethnic Wear,3.9,4646,2023-04-27,Active
+SLR1001,Lucky Exports Pvt Ltd,Sandeep Nair,luckyexportspvtltd@example.com,+91 00000 36826,Lucknow,Uttar Pradesh,226016,Women Ethnic Wear,4.3,8512,2022-08-03,Active
+SLR1002,Tulsi Hub Store,Ajay Mehta,tulsihubstore@example.com,+91 00000 24721,Bhagalpur,Bihar,812065,Men Topwear,3.4,30162,2023-03-02,Active
+SLR1003,Style House,Manoj Verma,stylehouse@example.com,+91 00000 82900,Noida,Uttar Pradesh,201033,Men Bottomwear,4.8,31106,2016-01-01,Active
+SLR1004,Sai Fab Co.,Ritu Menon,saifabco@example.com,+91 00000 58560,Varanasi,Uttar Pradesh,221092,Nightwear,4.1,28193,2018-08-06,Active
+SLR1005,Star House Store,Gurpreet Rao,starhousestore@example.com,+91 00000 64871,Delhi,Delhi,110049,Men Bottomwear,4.9,1010,2019-01-06,Active
+SLR1006,Ruchi Store Store,Arvind Khan,ruchistorestore@example.com,+91 00000 44253,Pune,Maharashtra,411062,Sarees,4.0,25310,2022-06-05,Active
+SLR1007,Golden Wear India,Pooja Verma,goldenwearindia@example.com,+91 00000 54256,Ludhiana,Punjab,141026,Nightwear,3.9,32701,2022-07-08,Active
+SLR1008,Lucky Clothing India,Arjun Nair,luckyclothingindia@example.com,+91 00000 91788,Bhagalpur,Bihar,812037,Women Western Wear,4.3,39562,2019-12-24,Active
+SLR1009,Pari Store,Kavita Iyer,paristore@example.com,+91 00000 35688,Bengaluru,Karnataka,560035,Nightwear,4.0,11296,2021-08-27,Active
+SLR1010,Elite Creations Mart,Mary Sharma,elitecreationsmart@example.com,+91 00000 24187,Bengaluru,Karnataka,560060,Women Western Wear,3.8,12368,2021-11-23,Inactive
+SLR1011,Sunrise Garments Pvt Ltd,Swati Menon,sunrisegarmentspvtltd@example.com,+91 00000 30386,Hyderabad,Telangana,500083,Multi-category,3.7,40288,2020-02-29,Active
+SLR1012,Surya House Pvt Ltd,Nitin Sharma,suryahousepvtltd@example.com,+91 00000 64267,Chennai,Tamil Nadu,600096,Innerwear,3.6,25109,2019-03-17,Active
+SLR1013,Surya Retail India,Suresh Jain,suryaretailindia@example.com,+91 00000 52923,Indore,Madhya Pradesh,452038,Women Western Wear,3.8,3034,2022-08-05,Active
+SLR1014,Swastik Boutique,Pooja Banerjee,swastikboutique@example.com,+91 00000 23232,Delhi,Delhi,110099,Women Ethnic Wear,3.8,17274,2025-04-27,Active
+SLR1015,Laxmi Store & Sons,Arjun Jain,laxmistoreandsons@example.com,+91 00000 86621,Ludhiana,Punjab,141098,Men Topwear,4.1,30826,2024-04-24,Active
+SLR1016,Om Boutique,Rekha Khan,omboutique@example.com,+91 00000 55178,Ahmedabad,Gujarat,380055,Innerwear,3.3,15071,2024-02-25,Active
+SLR1017,Sai Threads India,Anjali Chopra,saithreadsindia@example.com,+91 00000 76873,Ahmedabad,Gujarat,380035,Kids Wear,4.0,38260,2023-05-31,Active
+SLR1018,Pari Exports,Amit Nair,pariexports@example.com,+91 00000 24587,Delhi,Delhi,110012,Women Ethnic Wear,3.9,46632,2019-01-23,Active
+SLR1019,Silk Exports Store,Mary Verma,silkexportsstore@example.com,+91 00000 85120,Bengaluru,Karnataka,560055,Nightwear,3.7,13721,2017-12-14,Active
+SLR1020,Neel Enterprises Pvt Ltd,Joseph Gill,neelenterprisespvtltd@example.com,+91 00000 51486,Mumbai,Maharashtra,400020,Multi-category,4.1,41968,2020-10-26,Active
+SLR1021,Vogue Apparels Pvt Ltd,Gurpreet Fernandes,vogueapparelspvtltd@example.com,+91 00000 51694,Surat,Gujarat,395036,Men Bottomwear,4.3,22811,2023-07-04,Active
+SLR1022,Kalyan Hub India,Ajay Banerjee,kalyanhubindia@example.com,+91 00000 55974,Indore,Madhya Pradesh,452077,Innerwear,4.7,22580,2022-02-07,Active
+SLR1023,Cotton Wear Mart,Vikram Fernandes,cottonwearmart@example.com,+91 00000 92590,Chennai,Tamil Nadu,600095,Men Topwear,4.1,1620,2023-10-24,Active
+SLR1024,Galaxy Kart Co.,Ritu Bansal,galaxykartco@example.com,+91 00000 98364,Pune,Maharashtra,411062,Women Ethnic Wear,3.8,3980,2022-02-01,Active
+SLR1025,Ruchi House & Sons,Rahul Mishra,ruchihouseandsons@example.com,+91 00000 56492,Mumbai,Maharashtra,400071,Innerwear,4.3,26170,2016-01-15,Active
+SLR1026,Star House India,Ravi Singh,starhouseindia@example.com,+91 00000 76747,Jaipur,Rajasthan,302046,Multi-category,4.5,18713,2017-12-12,Active
+SLR1027,Balaji Textiles Pvt Ltd,Sneha Shah,balajitextilespvtltd@example.com,+91 00000 61896,Noida,Uttar Pradesh,201054,Sportswear,4.2,18848,2019-09-30,Active
+SLR1028,Prime Traders,Nitin Patel,primetraders@example.com,+91 00000 63906,Surat,Gujarat,395067,Women Western Wear,3.9,13776,2022-09-30,Active
+SLR1029,Rang Kart,Sandeep Sharma,rangkart@example.com,+91 00000 23106,Varanasi,Uttar Pradesh,221036,Men Topwear,3.4,6770,2021-06-04,Active
+SLR1030,Aarav Exports & Sons,Pooja Nair,aaravexportsandsons@example.com,+91 00000 86231,Pune,Maharashtra,411025,Sportswear,3.9,9404,2020-05-31,Active
+SLR1031,Navya Exports Co.,Sanjay Jain,navyaexportsco@example.com,+91 00000 14405,Kolkata,West Bengal,700054,Women Western Wear,4.2,28366,2021-06-01,Active
+SLR1032,Ruchi Threads & Sons,Farhan Kulkarni,ruchithreadsandsons@example.com,+91 00000 54399,Kolkata,West Bengal,700047,Men Bottomwear,3.5,11373,2018-09-02,Active
+SLR1033,Cotton Fab,Nisha Joshi,cottonfab@example.com,+91 00000 33039,Jaipur,Rajasthan,302080,Nightwear,3.8,3219,2024-04-22,Active
+SLR1034,Ruchi Store Co.,Kavita Jain,ruchistoreco@example.com,+91 00000 13394,Delhi,Delhi,110035,Sportswear,4.3,44819,2017-03-02,Inactive
+SLR1035,Shree Fashions Pvt Ltd,Pooja Mishra,shreefashionspvtltd@example.com,+91 00000 67894,Surat,Gujarat,395064,Kids Wear,4.3,17795,2017-10-15,Active
+SLR1036,Star Threads,Ayesha Agarwal,starthreads@example.com,+91 00000 98015,Lucknow,Uttar Pradesh,226071,Women Ethnic Wear,4.5,19236,2025-05-06,Active
+SLR1037,Star Boutique,Rohit Desai,starboutique@example.com,+91 00000 10964,Indore,Madhya Pradesh,452031,Men Bottomwear,3.9,8324,2018-02-24,Active
+SLR1038,Surya Clothing,Ajay Iyer,suryaclothing@example.com,+91 00000 64897,Delhi,Delhi,110056,Kids Wear,4.2,38967,2018-03-24,Active
+SLR1039,Fashion Wear,Ajay Reddy,fashionwear@example.com,+91 00000 75377,Bhagalpur,Bihar,812045,Sarees,4.3,29251,2019-04-10,Active
+SLR1040,Sunrise Traders & Sons,Swati Gupta,sunrisetradersandsons@example.com,+91 00000 42405,Delhi,Delhi,110021,Winter Wear,3.7,25436,2018-05-10,Inactive
+SLR1041,Balaji Fashions,Harpreet Rao,balajifashions@example.com,+91 00000 40520,Bengaluru,Karnataka,560086,Women Ethnic Wear,4.3,44381,2021-10-21,Inactive
+SLR1042,Sunrise Traders Mart,Amit Bansal,sunrisetradersmart@example.com,+91 00000 93682,Kolkata,West Bengal,700007,Women Ethnic Wear,3.6,10721,2018-10-02,Inactive
+SLR1043,Anmol Styles Store,Sanjay Kumar,anmolstylesstore@example.com,+91 00000 44891,Kochi,Kerala,682064,Sarees,3.6,43108,2019-07-29,Active
+SLR1044,Tulsi Kart,Komal Desai,tulsikart@example.com,+91 00000 58193,Lucknow,Uttar Pradesh,226005,Innerwear,4.4,43018,2016-02-17,Active
+SLR1045,Laxmi Garments,Lakshmi Sharma,laxmigarments@example.com,+91 00000 55583,Bhagalpur,Bihar,812026,Multi-category,4.2,37823,2016-04-06,Active
+SLR1046,Pari Boutique Pvt Ltd,Harpreet Malhotra,pariboutiquepvtltd@example.com,+91 00000 31076,Lucknow,Uttar Pradesh,226015,Multi-category,4.2,38273,2019-07-29,Active
+SLR1047,Aarav Fashions Store,Nitin Kumar,aaravfashionsstore@example.com,+91 00000 88293,Mumbai,Maharashtra,400016,Innerwear,4.7,15593,2022-02-22,Active
+SLR1048,Kalyan Threads,Kavita Shah,kalyanthreads@example.com,+91 00000 44755,Ahmedabad,Gujarat,380012,Men Topwear,4.7,10474,2023-01-04,Active
+SLR1049,Fashion Boutique India,Ritu Shah,fashionboutiqueindia@example.com,+91 00000 68944,Noida,Uttar Pradesh,201027,Multi-category,3.8,48313,2019-12-20,Active
+SLR1050,Surya Fashions,Rekha Nair,suryafashions@example.com,+91 00000 16070,Kolkata,West Bengal,700029,Men Bottomwear,4.3,31378,2022-04-02,Active
+SLR1051,Denim Garments,Lakshmi Sharma,denimgarments@example.com,+91 00000 50641,Bengaluru,Karnataka,560054,Women Western Wear,4.2,41235,2019-04-24,Active
+SLR1052,Galaxy Fab India,Harpreet Khan,galaxyfabindia@example.com,+91 00000 60250,Tiruppur,Tamil Nadu,641052,Kids Wear,4.5,2584,2023-12-23,Active
+SLR1053,Laxmi Retail,Swati Mehta,laxmiretail@example.com,+91 00000 24360,Noida,Uttar Pradesh,201046,Sportswear,4.4,46310,2024-05-08,Active
+SLR1054,Style Store Store,Sunita Sharma,stylestorestore@example.com,+91 00000 96242,Jaipur,Rajasthan,302072,Winter Wear,3.7,12760,2021-12-08,Active
+SLR1055,Classic Fashions Mart,Ravi Bose,classicfashionsmart@example.com,+91 00000 54232,Bengaluru,Karnataka,560043,Sarees,3.7,45745,2024-08-14,Active
+SLR1056,Fashion Fashions,Ajay Iyer,fashionfashions@example.com,+91 00000 60396,Lucknow,Uttar Pradesh,226063,Men Bottomwear,3.8,10657,2019-04-14,Active
+SLR1057,Kalyan Styles Mart,Karan Kumar,kalyanstylesmart@example.com,+91 00000 63388,Chennai,Tamil Nadu,600080,Innerwear,4.0,16563,2017-07-06,Active
+SLR1058,Prime Store,Mary Sharma,primestore@example.com,+91 00000 92984,Lucknow,Uttar Pradesh,226085,Innerwear,4.0,24553,2024-10-31,Active
+SLR1059,Ganesh Fashions Co.,Karan Joshi,ganeshfashionsco@example.com,+91 00000 97949,Bengaluru,Karnataka,560090,Nightwear,3.9,26604,2019-11-17,Active
+SLR1060,Neel Apparels,Ajay Desai,neelapparels@example.com,+91 00000 81684,Kochi,Kerala,682012,Women Western Wear,4.2,1026,2016-03-17,Active
+SLR1061,Aarav Boutique Pvt Ltd,Mary Verma,aaravboutiquepvtltd@example.com,+91 00000 90980,Pune,Maharashtra,411039,Men Topwear,4.0,32847,2023-03-02,Active
+SLR1062,Kalyan Fab Pvt Ltd,Rekha Singh,kalyanfabpvtltd@example.com,+91 00000 58598,Bhagalpur,Bihar,812066,Men Bottomwear,4.2,13002,2025-07-06,Active
+SLR1063,Vogue Fashions,Ajay Thomas,voguefashions@example.com,+91 00000 87099,Kochi,Kerala,682004,Multi-category,4.6,173,2022-07-28,Active
+SLR1064,Lucky Traders Mart,Joseph Gill,luckytradersmart@example.com,+91 00000 51436,Ahmedabad,Gujarat,380009,Multi-category,4.3,39174,2024-03-23,Active
+SLR1065,Pari Fashions India,Anjali Gill,parifashionsindia@example.com,+91 00000 41058,Hyderabad,Telangana,500019,Winter Wear,4.2,34913,2024-06-13,Active
+SLR1066,Galaxy Clothing Mart,Ajay Jain,galaxyclothingmart@example.com,+91 00000 21528,Hyderabad,Telangana,500083,Men Bottomwear,4.4,24672,2018-11-02,Active
+SLR1067,Vogue Wear Co.,Kavita Kulkarni,voguewearco@example.com,+91 00000 37489,Jaipur,Rajasthan,302040,Men Bottomwear,3.5,26173,2021-05-28,Active
+SLR1068,Vogue Textiles Mart,Lakshmi Verma,voguetextilesmart@example.com,+91 00000 12153,Hyderabad,Telangana,500011,Sarees,4.4,1367,2017-07-30,Active
+SLR1069,Krishna Exports,Gurpreet Kumar,krishnaexports@example.com,+91 00000 24952,Ahmedabad,Gujarat,380004,Sportswear,4.7,29904,2021-12-28,Active
+SLR1070,Ganesh Enterprises,Arvind Thomas,ganeshenterprises@example.com,+91 00000 52437,Surat,Gujarat,395035,Men Bottomwear,4.3,34533,2019-06-06,Active
+SLR1071,Royal Exports Co.,Deepak Fernandes,royalexportsco@example.com,+91 00000 47600,Kolkata,West Bengal,700098,Innerwear,4.6,20059,2022-11-27,Active
+SLR1072,Jai Traders Pvt Ltd,Manoj Patel,jaitraderspvtltd@example.com,+91 00000 66927,Indore,Madhya Pradesh,452023,Men Topwear,4.8,16718,2024-05-05,Active
+SLR1073,Style Retail Co.,Deepak Khan,styleretailco@example.com,+91 00000 19353,Jaipur,Rajasthan,302012,Winter Wear,4.7,45018,2021-04-23,Active
+SLR1074,Pari Collections Store,Swati Das,paricollectionsstore@example.com,+91 00000 35166,Kolkata,West Bengal,700007,Women Western Wear,3.6,29312,2021-12-21,Active
+SLR1075,Golden Styles Store,Shalini Bansal,goldenstylesstore@example.com,+91 00000 45105,Tiruppur,Tamil Nadu,641025,Kids Wear,4.4,1463,2016-08-03,Active
+SLR1076,Laxmi Store Store,Karan Das,laxmistorestore@example.com,+91 00000 36138,Delhi,Delhi,110028,Nightwear,4.7,20482,2022-11-06,Active
+SLR1077,Fashion House Mart,Lakshmi Pandey,fashionhousemart@example.com,+91 00000 75184,Bhagalpur,Bihar,812057,Women Ethnic Wear,4.7,9592,2022-11-13,Inactive
+SLR1078,Elite Fashions Co.,Ritu Das,elitefashionsco@example.com,+91 00000 50887,Lucknow,Uttar Pradesh,226005,Multi-category,4.5,15537,2021-11-19,Active
+SLR1079,Galaxy Fashions,Meera Kumar,galaxyfashions@example.com,+91 00000 89744,Pune,Maharashtra,411057,Sarees,4.1,43174,2018-01-08,Inactive
+SLR1080,Rang Collections Mart,Ritu Nair,rangcollectionsmart@example.com,+91 00000 99422,Bhagalpur,Bihar,812083,Winter Wear,4.5,16164,2024-07-09,Active
+SLR1081,Star Exports & Sons,Lakshmi Reddy,starexportsandsons@example.com,+91 00000 50801,Tiruppur,Tamil Nadu,641078,Men Bottomwear,4.4,19407,2022-04-09,Inactive
+SLR1082,Neel Fashions India,Gurpreet Menon,neelfashionsindia@example.com,+91 00000 83431,Mumbai,Maharashtra,400007,Winter Wear,3.7,45408,2017-05-23,Active
+SLR1083,Sunrise House & Sons,Pooja Reddy,sunrisehouseandsons@example.com,+91 00000 58991,Bengaluru,Karnataka,560001,Nightwear,4.6,32059,2016-09-30,Active
+SLR1084,Classic Hub,Arjun Fernandes,classichub@example.com,+91 00000 73137,Surat,Gujarat,395009,Men Bottomwear,4.6,45614,2021-08-13,Active
+SLR1085,Modern Textiles,Priya Patel,moderntextiles@example.com,+91 00000 97230,Tiruppur,Tamil Nadu,641009,Women Western Wear,4.0,48582,2018-07-15,Active
+SLR1086,Anmol Kart Mart,Manoj Gupta,anmolkartmart@example.com,+91 00000 12531,Indore,Madhya Pradesh,452033,Women Ethnic Wear,3.6,38368,2023-08-20,Active
+SLR1087,Rang Collections Store,Sneha Bansal,rangcollectionsstore@example.com,+91 00000 29040,Bengaluru,Karnataka,560072,Women Western Wear,4.4,20869,2022-12-21,Active
+SLR1088,Urban Fab,Sanjay Thomas,urbanfab@example.com,+91 00000 33262,Bengaluru,Karnataka,560063,Nightwear,4.5,11077,2019-05-21,Active
+SLR1089,Pari Store & Sons,Sandeep Singh,paristoreandsons@example.com,+91 00000 63910,Hyderabad,Telangana,500070,Nightwear,3.8,21343,2018-01-25,Active
+SLR1090,Fashion Clothing,Divya Verma,fashionclothing@example.com,+91 00000 62596,Bengaluru,Karnataka,560030,Men Bottomwear,4.1,21357,2022-08-01,Active
+SLR1091,Madhav Kart,Karan Singh,madhavkart@example.com,+91 00000 35702,Noida,Uttar Pradesh,201012,Sportswear,4.1,6345,2017-04-09,Inactive
+SLR1092,Anmol Fashions Store,Rohit Desai,anmolfashionsstore@example.com,+91 00000 62843,Delhi,Delhi,110078,Nightwear,4.0,32395,2024-01-04,Active
+SLR1093,Prime House Pvt Ltd,Swati Rao,primehousepvtltd@example.com,+91 00000 37702,Mumbai,Maharashtra,400072,Sportswear,3.3,46432,2021-02-13,Active
+SLR1094,Prime Textiles Mart,Ajay Shah,primetextilesmart@example.com,+91 00000 71955,Bhagalpur,Bihar,812005,Women Ethnic Wear,4.4,46974,2016-11-24,Inactive
+SLR1095,Aarav Clothing Mart,Farhan Jain,aaravclothingmart@example.com,+91 00000 31414,Kolkata,West Bengal,700045,Nightwear,4.6,22662,2022-04-11,Inactive
+SLR1096,Denim Boutique India,Arvind Fernandes,denimboutiqueindia@example.com,+91 00000 59219,Ahmedabad,Gujarat,380045,Nightwear,4.5,93,2022-02-28,Active
+SLR1097,Mahalaxmi Hub Mart,Vikram Desai,mahalaxmihubmart@example.com,+91 00000 49132,Pune,Maharashtra,411030,Multi-category,3.6,44113,2018-09-19,Active
+SLR1098,Pari Hub,Ritu Khan,parihub@example.com,+91 00000 22761,Tiruppur,Tamil Nadu,641008,Kids Wear,3.9,48663,2019-08-03,Active
+SLR1099,Fashion Fab & Sons,Imran Mishra,fashionfabandsons@example.com,+91 00000 57028,Kolkata,West Bengal,700013,Winter Wear,4.5,2964,2017-09-13,Inactive
+SLR1100,Royal Fab,Ravi Das,royalfab@example.com,+91 00000 50824,Bengaluru,Karnataka,560037,Men Bottomwear,4.3,19205,2023-06-26,Active
+SLR1101,Swastik Apparels Co.,Neha Chopra,swastikapparelsco@example.com,+91 00000 68403,Hyderabad,Telangana,500047,Multi-category,3.9,4088,2025-03-02,Active
+SLR1102,Denim Garments Store,Divya Singh,denimgarmentsstore@example.com,+91 00000 77583,Jaipur,Rajasthan,302036,Innerwear,4.6,47633,2023-03-25,Inactive
+SLR1103,Rang Collections Co.,Nitin Thomas,rangcollectionsco@example.com,+91 00000 42024,Tiruppur,Tamil Nadu,641037,Women Western Wear,4.8,23554,2018-06-03,Inactive
+SLR1104,Balaji Apparels,Swati Kulkarni,balajiapparels@example.com,+91 00000 60905,Noida,Uttar Pradesh,201069,Sportswear,4.0,24902,2024-12-23,Active
+SLR1105,Om Clothing,Vikram Agarwal,omclothing@example.com,+91 00000 69695,Chennai,Tamil Nadu,600064,Multi-category,4.4,8281,2022-05-12,Active
+SLR1106,Modern Fashions,Joseph Khan,modernfashions@example.com,+91 00000 67887,Ludhiana,Punjab,141056,Women Ethnic Wear,4.8,13551,2025-03-19,Active
+SLR1107,Vogue Garments Co.,Nisha Bose,voguegarmentsco@example.com,+91 00000 22390,Kolkata,West Bengal,700092,Winter Wear,5.0,48943,2024-07-01,Active
+SLR1108,Ganesh Threads Mart,Manoj Fernandes,ganeshthreadsmart@example.com,+91 00000 63434,Bengaluru,Karnataka,560046,Multi-category,4.6,18609,2020-08-04,Inactive
+SLR1109,Classic Garments Pvt Ltd,Ayesha Rao,classicgarmentspvtltd@example.com,+91 00000 88125,Varanasi,Uttar Pradesh,221018,Innerwear,3.9,33841,2020-07-15,Active
+SLR1110,Classic Fashions & Sons,Arjun Verma,classicfashionsandsons@example.com,+91 00000 78762,Kochi,Kerala,682026,Women Western Wear,4.5,14693,2023-04-06,Active
+SLR1111,Star Apparels Co.,Karan Mehta,starapparelsco@example.com,+91 00000 71708,Jaipur,Rajasthan,302040,Men Topwear,4.4,49378,2025-05-13,Active
+SLR1112,Neel Collections Mart,Arvind Kulkarni,neelcollectionsmart@example.com,+91 00000 77764,Tiruppur,Tamil Nadu,641048,Winter Wear,4.2,23552,2023-11-07,Active
+SLR1113,Krishna Exports India,Divya Iyer,krishnaexportsindia@example.com,+91 00000 43780,Pune,Maharashtra,411029,Innerwear,4.3,26920,2022-09-10,Active
+SLR1114,Silk Hub & Sons,Nitin Kumar,silkhubandsons@example.com,+91 00000 15832,Chennai,Tamil Nadu,600093,Sarees,3.7,30193,2022-09-05,Active
+SLR1115,Galaxy House Store,Imran Banerjee,galaxyhousestore@example.com,+91 00000 26229,Hyderabad,Telangana,500039,Sportswear,4.2,30159,2021-11-27,Active
+SLR1116,Jai Threads,Ritu Chopra,jaithreads@example.com,+91 00000 91909,Bengaluru,Karnataka,560044,Sportswear,4.5,27489,2024-08-13,Active
+SLR1117,Desi Traders Mart,Joseph Mishra,desitradersmart@example.com,+91 00000 99405,Bhagalpur,Bihar,812078,Innerwear,3.4,9166,2023-09-25,Inactive
+SLR1118,Prime House Store,Sandeep Patel,primehousestore@example.com,+91 00000 99406,Kolkata,West Bengal,700020,Winter Wear,4.1,38466,2024-10-26,Active
+SLR1119,Neel Creations & Sons,Ravi Jain,neelcreationsandsons@example.com,+91 00000 59148,Surat,Gujarat,395011,Men Bottomwear,4.6,18352,2024-04-09,Active
+SLR1120,Ruchi Textiles India,Sandeep Patel,ruchitextilesindia@example.com,+91 00000 11036,Chennai,Tamil Nadu,600049,Nightwear,3.7,9423,2020-06-22,Inactive
+SLR1121,Silk Apparels & Sons,Priya Mehta,silkapparelsandsons@example.com,+91 00000 70098,Bengaluru,Karnataka,560016,Women Ethnic Wear,4.1,15646,2020-05-13,Active
+SLR1122,Swastik Retail,Gurpreet Singh,swastikretail@example.com,+91 00000 62157,Kolkata,West Bengal,700065,Women Western Wear,3.7,6681,2017-09-30,Active
+SLR1123,Silk Apparels India,Suresh Chopra,silkapparelsindia@example.com,+91 00000 81220,Jaipur,Rajasthan,302090,Kids Wear,4.4,43386,2016-12-16,Active
+SLR1124,Rang Store Co.,Ajay Thomas,rangstoreco@example.com,+91 00000 32946,Bhagalpur,Bihar,812044,Innerwear,4.4,30269,2024-03-14,Active
+SLR1125,Madhav Fab & Sons,Rekha Reddy,madhavfabandsons@example.com,+91 00000 32305,Kochi,Kerala,682077,Innerwear,4.1,16910,2024-02-07,Active
+SLR1126,Anmol Enterprises,Priya Verma,anmolenterprises@example.com,+91 00000 79012,Tiruppur,Tamil Nadu,641024,Multi-category,3.5,46425,2024-01-07,Active
+SLR1127,Star Fab & Sons,Vijay Pandey,starfabandsons@example.com,+91 00000 14218,Hyderabad,Telangana,500081,Women Ethnic Wear,4.4,13893,2016-05-10,Active
+SLR1128,Shree Apparels Store,Rohit Das,shreeapparelsstore@example.com,+91 00000 61085,Kochi,Kerala,682096,Sarees,4.8,9527,2021-04-07,Active
+SLR1129,Navya Wear India,Arjun Pandey,navyawearindia@example.com,+91 00000 81711,Jaipur,Rajasthan,302093,Multi-category,3.9,8878,2025-02-02,Active
+SLR1130,Vogue House Co.,Arjun Patel,voguehouseco@example.com,+91 00000 12600,Bengaluru,Karnataka,560068,Sportswear,4.3,6212,2023-07-14,Active
+SLR1131,Modern Exports Co.,Lakshmi Thomas,modernexportsco@example.com,+91 00000 51272,Jaipur,Rajasthan,302037,Sarees,4.2,43521,2017-04-02,Active
+SLR1132,Tulsi Kart Mart,Rahul Banerjee,tulsikartmart@example.com,+91 00000 49158,Ahmedabad,Gujarat,380088,Sarees,4.2,20917,2021-11-09,Inactive
+SLR1133,Royal House Pvt Ltd,Komal Malhotra,royalhousepvtltd@example.com,+91 00000 24012,Noida,Uttar Pradesh,201018,Women Ethnic Wear,4.6,48712,2018-01-24,Active
+SLR1134,Sai Exports & Sons,Vikram Kumar,saiexportsandsons@example.com,+91 00000 35164,Chennai,Tamil Nadu,600086,Innerwear,4.2,38964,2017-02-16,Inactive
+SLR1135,Tulsi Fab Co.,Ravi Gill,tulsifabco@example.com,+91 00000 19344,Ahmedabad,Gujarat,380098,Kids Wear,3.9,7616,2019-12-17,Active
+SLR1136,Urban Hub India,Ravi Nair,urbanhubindia@example.com,+91 00000 33443,Kolkata,West Bengal,700077,Kids Wear,4.0,26252,2019-03-04,Active
+SLR1137,Navya Hub Pvt Ltd,Nisha Joshi,navyahubpvtltd@example.com,+91 00000 90555,Surat,Gujarat,395039,Sportswear,4.6,16553,2023-06-30,Active
+SLR1138,Krishna Store Co.,Amit Patel,krishnastoreco@example.com,+91 00000 24148,Indore,Madhya Pradesh,452056,Nightwear,4.3,41564,2021-10-10,Active
+SLR1139,Star Boutique India,Amit Agarwal,starboutiqueindia@example.com,+91 00000 57556,Jaipur,Rajasthan,302060,Kids Wear,4.3,21396,2017-09-16,Active
+SLR1140,Prime Boutique,Arvind Agarwal,primeboutique@example.com,+91 00000 29914,Chennai,Tamil Nadu,600016,Sarees,4.4,37561,2017-11-02,Active
+SLR1141,Cotton Exports,Anjali Bansal,cottonexports@example.com,+91 00000 55991,Chennai,Tamil Nadu,600010,Innerwear,4.8,39313,2024-11-15,Active
+SLR1142,Shree Fashions Store,Divya Reddy,shreefashionsstore@example.com,+91 00000 64777,Chennai,Tamil Nadu,600085,Winter Wear,4.5,34088,2018-05-07,Inactive
+SLR1143,Sunrise Clothing & Sons,Joseph Bose,sunriseclothingandsons@example.com,+91 00000 76918,Tiruppur,Tamil Nadu,641079,Men Bottomwear,3.4,11343,2020-04-04,Active
+SLR1144,Golden Fashions,Manoj Desai,goldenfashions@example.com,+91 00000 20721,Surat,Gujarat,395041,Sportswear,3.6,19098,2022-01-31,Active
+SLR1145,Royal Retail,Rohit Singh,royalretail@example.com,+91 00000 72775,Ahmedabad,Gujarat,380084,Women Ethnic Wear,3.7,17743,2024-02-12,Active
+SLR1146,Rang Styles,Sneha Bose,rangstyles@example.com,+91 00000 66490,Pune,Maharashtra,411044,Kids Wear,4.8,7779,2017-10-18,Active
+SLR1147,Aarav Exports Co.,Pooja Mehta,aaravexportsco@example.com,+91 00000 68708,Ludhiana,Punjab,141089,Men Topwear,4.4,11513,2024-06-18,Active
+SLR1148,Shree Enterprises & Sons,Karan Nair,shreeenterprisesandsons@example.com,+91 00000 33708,Lucknow,Uttar Pradesh,226055,Men Topwear,4.5,3652,2025-04-26,Inactive
+SLR1149,Neel Creations Pvt Ltd,Sandeep Verma,neelcreationspvtltd@example.com,+91 00000 57902,Lucknow,Uttar Pradesh,226057,Women Ethnic Wear,4.1,14644,2017-06-01,Active
+SLR1150,Aarav Creations Co.,Rohit Joshi,aaravcreationsco@example.com,+91 00000 82310,Bhagalpur,Bihar,812014,Multi-category,4.2,30564,2023-07-21,Active
+SLR1151,Star Exports India,Anjali Bansal,starexportsindia@example.com,+91 00000 69856,Lucknow,Uttar Pradesh,226013,Innerwear,4.0,32916,2016-04-13,Active
+SLR1152,Madhav Fab Co.,Harpreet Iyer,madhavfabco@example.com,+91 00000 97973,Kolkata,West Bengal,700037,Nightwear,3.9,15626,2018-01-09,Active
+SLR1153,Tulsi Threads,Lakshmi Iyer,tulsithreads@example.com,+91 00000 55639,Ahmedabad,Gujarat,380074,Nightwear,4.4,16606,2018-10-29,Active
+SLR1154,Madhav Styles India,Komal Khan,madhavstylesindia@example.com,+91 00000 39281,Chennai,Tamil Nadu,600026,Winter Wear,4.0,28305,2020-03-08,Active
+SLR1155,Galaxy Textiles,Ritu Malhotra,galaxytextiles@example.com,+91 00000 65388,Surat,Gujarat,395091,Winter Wear,4.3,48482,2025-01-25,Active
+SLR1156,Fashion Kart Store,Vijay Patel,fashionkartstore@example.com,+91 00000 63674,Kolkata,West Bengal,700041,Men Bottomwear,4.8,21408,2020-03-07,Active
+SLR1157,Vogue Fashions Pvt Ltd,Ravi Sharma,voguefashionspvtltd@example.com,+91 00000 39840,Ludhiana,Punjab,141065,Nightwear,4.4,25295,2019-10-18,Active
+SLR1158,Pari Styles Co.,Sanjay Rao,paristylesco@example.com,+91 00000 94499,Kochi,Kerala,682074,Sportswear,4.7,39937,2022-07-02,Active
+SLR1159,Kalyan Exports,Imran Chopra,kalyanexports@example.com,+91 00000 52966,Ludhiana,Punjab,141018,Innerwear,4.1,44679,2023-01-16,Active
+SLR1160,Silk Fashions,Ajay Chopra,silkfashions@example.com,+91 00000 92534,Indore,Madhya Pradesh,452031,Nightwear,3.9,2182,2016-11-05,Active
+SLR1161,Elite Boutique Store,Sandeep Malhotra,eliteboutiquestore@example.com,+91 00000 91864,Pune,Maharashtra,411048,Men Bottomwear,4.4,39478,2025-07-01,Active
+SLR1162,Prime Collections Co.,Divya Bose,primecollectionsco@example.com,+91 00000 30655,Lucknow,Uttar Pradesh,226005,Nightwear,3.7,48809,2023-11-25,Active
+SLR1163,Golden Threads Store,Karan Mishra,goldenthreadsstore@example.com,+91 00000 33528,Bhagalpur,Bihar,812025,Sarees,4.6,22452,2022-11-27,Active
+SLR1164,Silk Boutique Pvt Ltd,Gurpreet Bose,silkboutiquepvtltd@example.com,+91 00000 88917,Ahmedabad,Gujarat,380048,Multi-category,4.3,40923,2019-07-25,Active
+SLR1165,Fashion Retail Mart,Sneha Chopra,fashionretailmart@example.com,+91 00000 21190,Kolkata,West Bengal,700098,Sportswear,4.3,13039,2018-06-06,Active
+SLR1166,Urban Boutique Co.,Arjun Agarwal,urbanboutiqueco@example.com,+91 00000 56161,Noida,Uttar Pradesh,201047,Multi-category,4.2,8904,2021-01-10,Active
+SLR1167,Galaxy Hub & Sons,Pooja Mishra,galaxyhubandsons@example.com,+91 00000 40678,Jaipur,Rajasthan,302011,Innerwear,4.6,24393,2018-05-10,Active
+SLR1168,Sai Collections,Farhan Desai,saicollections@example.com,+91 00000 56596,Kolkata,West Bengal,700001,Nightwear,4.5,25252,2017-01-20,Active
+SLR1169,Rang Boutique Mart,Vijay Banerjee,rangboutiquemart@example.com,+91 00000 69041,Noida,Uttar Pradesh,201059,Nightwear,4.3,30905,2023-04-29,Active
+SLR1170,Madhav Textiles & Sons,Nisha Chopra,madhavtextilesandsons@example.com,+91 00000 15130,Indore,Madhya Pradesh,452067,Sarees,3.8,40411,2019-12-21,Active
+SLR1171,Prime Kart Mart,Lakshmi Nair,primekartmart@example.com,+91 00000 43925,Jaipur,Rajasthan,302076,Kids Wear,4.0,15629,2020-02-09,Active
+SLR1172,Om Enterprises Store,Arvind Rao,omenterprisesstore@example.com,+91 00000 38687,Hyderabad,Telangana,500090,Men Bottomwear,4.4,40784,2023-06-02,Active
+SLR1173,Lucky Exports Mart,Deepak Gupta,luckyexportsmart@example.com,+91 00000 93725,Ahmedabad,Gujarat,380003,Men Bottomwear,3.8,46763,2024-02-11,Active
+SLR1174,Trendy Apparels,Imran Sharma,trendyapparels@example.com,+91 00000 37549,Bengaluru,Karnataka,560079,Sportswear,4.2,18770,2017-12-24,Active
+SLR1175,Surya Fab & Sons,Farhan Gill,suryafabandsons@example.com,+91 00000 68464,Delhi,Delhi,110051,Men Bottomwear,3.8,6468,2019-12-24,Active
+SLR1176,Vogue Textiles Pvt Ltd,Farhan Joshi,voguetextilespvtltd@example.com,+91 00000 23549,Ludhiana,Punjab,141010,Men Topwear,4.9,38870,2024-11-09,Active
+SLR1177,Cotton Exports & Sons,Harpreet Jain,cottonexportsandsons@example.com,+91 00000 34140,Varanasi,Uttar Pradesh,221059,Nightwear,4.1,6462,2017-06-16,Active
+SLR1178,Cotton Apparels India,Lakshmi Menon,cottonapparelsindia@example.com,+91 00000 41068,Hyderabad,Telangana,500021,Multi-category,4.1,37954,2023-08-01,Active
+SLR1179,Rang Apparels Co.,Manoj Malhotra,rangapparelsco@example.com,+91 00000 30765,Lucknow,Uttar Pradesh,226013,Multi-category,4.1,13242,2017-09-27,Active
+SLR1180,Krishna Apparels & Sons,Deepak Menon,krishnaapparelsandsons@example.com,+91 00000 48026,Hyderabad,Telangana,500072,Sportswear,4.1,22363,2022-07-24,Active
+SLR1181,Rang Traders India,Anjali Menon,rangtradersindia@example.com,+91 00000 16496,Noida,Uttar Pradesh,201084,Women Ethnic Wear,4.3,35723,2024-08-30,Active
+SLR1182,Navya Store,Sunita Desai,navyastore@example.com,+91 00000 81894,Hyderabad,Telangana,500051,Kids Wear,3.9,46065,2020-05-27,Active
+SLR1183,Denim Enterprises,Farhan Singh,denimenterprises@example.com,+91 00000 75202,Hyderabad,Telangana,500016,Men Bottomwear,4.6,21334,2019-07-17,Inactive
+SLR1184,Navya Creations India,Amit Patel,navyacreationsindia@example.com,+91 00000 74822,Kochi,Kerala,682093,Women Western Wear,4.4,13479,2024-06-18,Inactive
+SLR1185,Navya Creations Store,Divya Chopra,navyacreationsstore@example.com,+91 00000 66300,Indore,Madhya Pradesh,452049,Multi-category,4.1,8785,2021-04-03,Active
+SLR1186,Classic Store Mart,Priya Chopra,classicstoremart@example.com,+91 00000 93627,Delhi,Delhi,110076,Kids Wear,4.4,28948,2025-07-07,Active
+SLR1187,Anmol Threads Mart,Anjali Pandey,anmolthreadsmart@example.com,+91 00000 83204,Kolkata,West Bengal,700043,Innerwear,3.5,4012,2019-08-11,Inactive
+SLR1188,Swastik Garments & Sons,Ayesha Bose,swastikgarmentsandsons@example.com,+91 00000 78318,Noida,Uttar Pradesh,201079,Women Ethnic Wear,4.2,44614,2020-06-04,Active
+SLR1189,Sunrise Enterprises,Ayesha Reddy,sunriseenterprises@example.com,+91 00000 29360,Kolkata,West Bengal,700067,Innerwear,4.5,826,2017-05-25,Active
+SLR1190,Desi House,Lakshmi Nair,desihouse@example.com,+91 00000 91378,Indore,Madhya Pradesh,452070,Winter Wear,4.2,26702,2016-07-02,Active
+SLR1191,Swastik Exports,Shalini Menon,swastikexports@example.com,+91 00000 92299,Surat,Gujarat,395048,Kids Wear,4.2,47665,2019-11-02,Active
+SLR1192,Ganesh Clothing Store,Suresh Khan,ganeshclothingstore@example.com,+91 00000 81424,Lucknow,Uttar Pradesh,226046,Men Topwear,4.0,865,2020-08-15,Active
+SLR1193,Tulsi House India,Ravi Bose,tulsihouseindia@example.com,+91 00000 56926,Mumbai,Maharashtra,400073,Sportswear,3.8,37515,2018-02-06,Active
+SLR1194,Lucky Exports Store,Gurpreet Khan,luckyexportsstore@example.com,+91 00000 51442,Chennai,Tamil Nadu,600026,Innerwear,4.6,31889,2019-10-25,Active
+SLR1195,Ganesh Store Store,Rohit Agarwal,ganeshstorestore@example.com,+91 00000 96761,Hyderabad,Telangana,500087,Men Bottomwear,3.9,15418,2018-01-16,Active
+SLR1196,Balaji Garments Pvt Ltd,Nitin Verma,balajigarmentspvtltd@example.com,+91 00000 54422,Pune,Maharashtra,411041,Women Western Wear,4.2,37456,2021-12-01,Active
+SLR1197,Sunrise Fashions,Manoj Singh,sunrisefashions@example.com,+91 00000 14121,Delhi,Delhi,110043,Winter Wear,3.9,48853,2020-10-09,Active
+SLR1198,Classic Wear,Arvind Iyer,classicwear@example.com,+91 00000 41577,Varanasi,Uttar Pradesh,221095,Women Western Wear,4.4,24103,2021-05-29,Active
+SLR1199,Shree Garments,Suresh Nair,shreegarments@example.com,+91 00000 78763,Bengaluru,Karnataka,560099,Kids Wear,4.4,24275,2019-05-05,Inactive
+SLR1200,Sai Enterprises Store,Pooja Khan,saienterprisesstore@example.com,+91 00000 34615,Noida,Uttar Pradesh,201071,Men Topwear,3.8,38330,2019-02-02,Active

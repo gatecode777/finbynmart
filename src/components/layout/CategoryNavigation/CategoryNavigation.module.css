@@ -1,5 +1,6 @@
 .nav {
-  background: var(--navy);
+  background: #fff;
+  border-bottom: 1px solid var(--border);
   display: none;
 }
 
@@ -20,7 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text-primary);
   font-size: var(--fs-sm);
   font-weight: 500;
   white-space: nowrap;
@@ -28,12 +29,12 @@
 }
 
 .link:hover {
-  color: #fff;
+  color: var(--primary);
 }
 
 .first {
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 @media (min-width: 1024px) {

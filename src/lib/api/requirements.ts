@@ -6,7 +6,7 @@ export type SubmitRequirementResult =
 
 /**
  * Not wired to a real backend yet. There is no confirmed requirement/inquiry
- * API for Finbyn Kart's B2B relaunch at this stage of the project, so this
+ * API for Finbyn Mart's B2B relaunch at this stage of the project, so this
  * deliberately does not report success — see docs/EXISTING_WEBSITE_AUDIT.md
  * and docs/API_INTEGRATION.md once those exist. Replace this implementation
  * when the real endpoint is confirmed.

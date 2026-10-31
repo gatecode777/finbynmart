@@ -1,0 +1,119 @@
+id,name,department,product_type
+1,Boys Blazers,Boys,Blazers
+2,Boys Booties,Boys,Booties
+3,Boys Capris,Boys,Capris
+4,Boys Churidar,Boys,Churidar
+5,Boys Clothing Set,Boys,Clothing Set
+6,Boys Innerwear Vests,Boys,Innerwear Vests
+7,Boys Jackets,Boys,Jackets
+8,Boys Jeans,Boys,Jeans
+9,Boys Kurta Sets,Boys,Kurta Sets
+10,Boys Kurtas,Boys,Kurtas
+11,Boys Leggings,Boys,Leggings
+12,Boys Rompers,Boys,Rompers
+13,Boys Shirts,Boys,Shirts
+14,Boys Shorts,Boys,Shorts
+15,Boys Sweatshirts,Boys,Sweatshirts
+16,Boys Trousers,Boys,Trousers
+17,Boys Tshirts,Boys,Tshirts
+18,Boys Waistcoat,Boys,Waistcoat
+19,Girls Booties,Girls,Booties
+20,Girls Capris,Girls,Capris
+21,Girls Clothing Set,Girls,Clothing Set
+22,Girls Dresses,Girls,Dresses
+23,Girls Innerwear Vests,Girls,Innerwear Vests
+24,Girls Jeans,Girls,Jeans
+25,Girls Leggings,Girls,Leggings
+26,Girls Lehenga Choli,Girls,Lehenga Choli
+27,Girls Rompers,Girls,Rompers
+28,Girls Salwar,Girls,Salwar
+29,Girls Shirts,Girls,Shirts
+30,Girls Shorts,Girls,Shorts
+31,Girls Skirts,Girls,Skirts
+32,Girls Tops,Girls,Tops
+33,Girls Trousers,Girls,Trousers
+34,Girls Tshirts,Girls,Tshirts
+35,Men Belts,Men,Belts
+36,Men Blazers,Men,Blazers
+37,Men Boxers,Men,Boxers
+38,Men Briefs,Men,Briefs
+39,Men Churidar,Men,Churidar
+40,Men Innerwear Vests,Men,Innerwear Vests
+41,Men Jackets,Men,Jackets
+42,Men Jeans,Men,Jeans
+43,Men Kurtas,Men,Kurtas
+44,Men Kurtis,Men,Kurtis
+45,Men Lounge Pants,Men,Lounge Pants
+46,Men Lounge Shorts,Men,Lounge Shorts
+47,Men Nehru Jackets,Men,Nehru Jackets
+48,Men Night suits,Men,Night suits
+49,Men Rain Jacket,Men,Rain Jacket
+50,Men Rain Trousers,Men,Rain Trousers
+51,Men Shirts,Men,Shirts
+52,Men Shorts,Men,Shorts
+53,Men Suspenders,Men,Suspenders
+54,Men Sweaters,Men,Sweaters
+55,Men Sweatshirts,Men,Sweatshirts
+56,Men Tights,Men,Tights
+57,Men Tops,Men,Tops
+58,Men Track Pants,Men,Track Pants
+59,Men Tracksuits,Men,Tracksuits
+60,Men Trousers,Men,Trousers
+61,Men Trunk,Men,Trunk
+62,Men Tshirts,Men,Tshirts
+63,Men Tunics,Men,Tunics
+64,Men Waistcoat,Men,Waistcoat
+65,Unisex Jackets,Unisex,Jackets
+66,Unisex Jeans,Unisex,Jeans
+67,Unisex Rain Jacket,Unisex,Rain Jacket
+68,Unisex Sweatshirts,Unisex,Sweatshirts
+69,Unisex Swimwear,Unisex,Swimwear
+70,Unisex Track Pants,Unisex,Track Pants
+71,Unisex Tshirts,Unisex,Tshirts
+72,Women Baby Dolls,Women,Baby Dolls
+73,Women Bath Robe,Women,Bath Robe
+74,Women Blazers,Women,Blazers
+75,Women Bra,Women,Bra
+76,Women Briefs,Women,Briefs
+77,Women Camisoles,Women,Camisoles
+78,Women Capris,Women,Capris
+79,Women Churidar,Women,Churidar
+80,Women Dresses,Women,Dresses
+81,Women Dupatta,Women,Dupatta
+82,Women Innerwear Vests,Women,Innerwear Vests
+83,Women Jackets,Women,Jackets
+84,Women Jeans,Women,Jeans
+85,Women Jeggings,Women,Jeggings
+86,Women Jumpsuit,Women,Jumpsuit
+87,Women Kurta Sets,Women,Kurta Sets
+88,Women Kurtas,Women,Kurtas
+89,Women Kurtis,Women,Kurtis
+90,Women Leggings,Women,Leggings
+91,Women Lehenga Choli,Women,Lehenga Choli
+92,Women Lounge Pants,Women,Lounge Pants
+93,Women Lounge Shorts,Women,Lounge Shorts
+94,Women Lounge Tshirts,Women,Lounge Tshirts
+95,Women Night suits,Women,Night suits
+96,Women Nightdress,Women,Nightdress
+97,Women Patiala,Women,Patiala
+98,Women Robe,Women,Robe
+99,Women Salwar,Women,Salwar
+100,Women Salwar and Dupatta,Women,Salwar and Dupatta
+101,Women Sarees,Women,Sarees
+102,Women Shapewear,Women,Shapewear
+103,Women Shirts,Women,Shirts
+104,Women Shorts,Women,Shorts
+105,Women Shrug,Women,Shrug
+106,Women Skirts,Women,Skirts
+107,Women Stockings,Women,Stockings
+108,Women Sweaters,Women,Sweaters
+109,Women Sweatshirts,Women,Sweatshirts
+110,Women Swimwear,Women,Swimwear
+111,Women Tights,Women,Tights
+112,Women Tops,Women,Tops
+113,Women Track Pants,Women,Track Pants
+114,Women Tracksuits,Women,Tracksuits
+115,Women Trousers,Women,Trousers
+116,Women Tshirts,Women,Tshirts
+117,Women Tunics,Women,Tunics
+118,Women Waistcoat,Women,Waistcoat

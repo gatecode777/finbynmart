@@ -10,7 +10,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "sample-1",
     name: "Sample Buyer One",
     businessName: "Purchase Manager, Sample Industries",
-    quote: "Finbyn Kart helped us find reliable suppliers quickly. Highly recommended!",
+    quote: "Finbyn Mart helped us find reliable suppliers quickly. Highly recommended!",
     rating: 5,
   },
   {

@@ -15,14 +15,14 @@ export function AppPromotion() {
         <div className={styles.panel}>
           <div className={styles.phoneWrap}>
             {/* Real app screenshot pending a published app — see docs/MISSING_ASSETS.md */}
-            <div className={styles.phone} role="img" aria-label="Finbyn Kart app preview, coming soon">
+            <div className={styles.phone} role="img" aria-label="Finbyn Mart app preview, coming soon">
               <Smartphone size={40} strokeWidth={1.25} aria-hidden />
             </div>
           </div>
 
           <div>
             <h2 id="app-promo-heading" className={styles.title}>
-              Take Finbyn Kart on the Go
+              Take Finbyn Mart on the Go
             </h2>
             <p className={styles.description}>
               Connect with suppliers, get quotes and manage your business

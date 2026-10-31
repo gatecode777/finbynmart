@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ClipboardList, UserRound, BriefcaseBusiness } from "lucide-react";
+import { ClipboardList, BriefcaseBusiness } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SearchBar } from "@/components/layout/SearchBar";
+import { AccountLink } from "./AccountLink";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import styles from "./MainHeader.module.css";
 
@@ -15,12 +16,12 @@ export function MainHeader() {
             <MobileNavigation />
           </div>
 
-          <Link href="/" className={styles.logoLink} aria-label="Finbyn Kart home">
+          <Link href="/" className={styles.logoLink} aria-label="Finbyn Mart home">
             <Image
-              src="/finbyn-kart-logo.png"
-              alt="Finbyn Kart"
-              width={193}
-              height={53}
+              src="/images/brand/finbyn-mart-logo.png"
+              alt="Finbyn Mart"
+              width={600}
+              height={132}
               className={styles.logo}
               priority
             />
@@ -41,15 +42,7 @@ export function MainHeader() {
               </span>
             </Link>
 
-            <Link href="/sign-in" className={styles.actionLink}>
-              <span className={styles.actionIcon}>
-                <UserRound size={18} strokeWidth={2} aria-hidden />
-              </span>
-              <span className={styles.actionText}>
-                <span className={styles.actionTitle}>Sign In</span>
-                <span className={styles.actionSubtitle}>Join Free</span>
-              </span>
-            </Link>
+            <AccountLink />
 
             <Link href="/register-supplier" className={styles.actionLink}>
               <span className={styles.actionIcon}>
