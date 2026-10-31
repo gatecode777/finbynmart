@@ -1,0 +1,22 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.button:hover {
+  background: var(--background-soft);
+}
+
+.onDark {
+  color: #fff;
+}
+
+.onDark:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

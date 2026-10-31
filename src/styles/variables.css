@@ -1,0 +1,75 @@
+:root {
+  /* Brand colors — B2B marketplace palette (docs/references/b2b-homepage-reference.png) */
+  --primary: #0647a8;
+  --primary-dark: #062b61;
+  --primary-deep: #071f45;
+  --primary-light: #eaf3ff;
+
+  --navy: #071f45;
+  --navy-secondary: #0b2c58;
+
+  --background: #ffffff;
+  --background-soft: #f5f8fc;
+  --surface: #ffffff;
+  --surface-blue: #eaf3ff;
+
+  --text-primary: #10233f;
+  --text-secondary: #53647b;
+  --text-muted: #8190a4;
+
+  --border: #e2e9f2;
+  --border-strong: #cbd8e8;
+
+  --success: #07845f;
+  --success-light: #e3f6ef;
+
+  --warning: #d58a21;
+  --danger: #c74747;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --container-width: 1440px;
+
+  --shadow-card: 0 3px 12px rgba(12, 43, 85, 0.06);
+  --shadow-hover: 0 8px 22px rgba(12, 43, 85, 0.11);
+
+  --transition-fast: 160ms ease;
+  --transition-normal: 220ms ease;
+
+  /* Typography */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-manrope), var(--font-sans);
+
+  --fs-xs: clamp(0.75rem, 0.73rem + 0.1vw, 0.8125rem);
+  --fs-sm: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --fs-base: clamp(0.9375rem, 0.91rem + 0.14vw, 1rem);
+  --fs-lg: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
+  --fs-xl: clamp(1.25rem, 1.18rem + 0.35vw, 1.5rem);
+  --fs-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 2rem);
+  --fs-3xl: clamp(1.875rem, 1.6rem + 1.4vw, 2.75rem);
+  --fs-4xl: clamp(2.25rem, 1.85rem + 2vw, 3.5rem);
+
+  /* 4px spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --container-pad: clamp(16px, 3vw, 40px);
+}
+
+/* Breakpoints (reference only — CSS custom properties can't drive @media queries):
+   xs 320  sm 480  md 768  lg 991  xl 1200  xxl 1440  xxxl 1920 */

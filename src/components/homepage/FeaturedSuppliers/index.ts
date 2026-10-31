@@ -1,0 +1,1 @@
+export { FeaturedSuppliers } from "./FeaturedSuppliers";

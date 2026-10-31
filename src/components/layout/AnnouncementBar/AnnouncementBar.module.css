@@ -1,0 +1,53 @@
+.bar {
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: var(--fs-xs);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.inner::-webkit-scrollbar {
+  display: none;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  white-space: nowrap;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.optional {
+  display: none;
+}
+
+.divider {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.right a:hover {
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .optional {
+    display: inline-flex;
+  }
+}

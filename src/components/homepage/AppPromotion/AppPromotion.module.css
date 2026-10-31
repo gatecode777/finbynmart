@@ -1,0 +1,95 @@
+.section {
+  padding-block: var(--space-6) var(--space-12);
+}
+
+.panel {
+  background: var(--surface-blue);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.phoneWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.phone {
+  width: 140px;
+  aspect-ratio: 9 / 18;
+  border-radius: 24px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  border: 6px solid var(--navy-secondary);
+}
+
+.title {
+  font-size: var(--fs-xl);
+}
+
+.description {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+  max-width: 28rem;
+}
+
+.storeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.storeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+
+.featureLabel {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    grid-template-columns: auto 1.4fr 1fr;
+  }
+}

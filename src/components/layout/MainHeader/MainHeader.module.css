@@ -1,0 +1,88 @@
+.header {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: var(--space-3);
+}
+
+.logoLink {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.searchSlot {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 620px;
+}
+
+.actions {
+  flex: 0 0 auto;
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.actionLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-primary);
+}
+
+.actionLink:hover {
+  color: var(--primary);
+}
+
+.actionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-blue);
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+
+.actionText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.actionTitle {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.actionSubtitle {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.mobileToggle {
+  display: inline-flex;
+}
+
+@media (min-width: 1024px) {
+  .actions {
+    display: flex;
+  }
+
+  .mobileToggle {
+    display: none;
+  }
+}

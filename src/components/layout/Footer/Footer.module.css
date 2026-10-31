@@ -1,0 +1,128 @@
+.footer {
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.top {
+  padding-block: var(--space-16) var(--space-10);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+}
+
+.brandCol {
+  grid-column: 1 / -1;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  margin-bottom: var(--space-3);
+}
+
+.tagline {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: var(--fs-xs);
+  margin-bottom: var(--space-3);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: var(--fs-sm);
+  max-width: 32rem;
+  margin-bottom: var(--space-4);
+}
+
+.social {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.social a {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.social a:hover {
+  color: #fff;
+}
+
+.colTitle {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: var(--space-4);
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.linkList a {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.linkList a:hover {
+  color: #fff;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-3);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.contactPlaceholder {
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-block: var(--space-5);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.legalLinks a:hover {
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .top {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .brandCol {
+    grid-column: span 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .top {
+    grid-template-columns: 1.6fr repeat(5, 1fr);
+  }
+
+  .brandCol {
+    grid-column: span 1;
+  }
+}

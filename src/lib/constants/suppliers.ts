@@ -1,0 +1,82 @@
+import { Shirt, Settings, Package, Pill, Wrench, Wheat } from "lucide-react";
+import type { Supplier } from "@/types";
+
+/**
+ * Sample supplier records for visual development only — per spec section 16,
+ * production must render actual supplier records from the backend.
+ * See docs/MISSING_ASSETS.md.
+ */
+export const FEATURED_SUPPLIERS: Supplier[] = [
+  {
+    id: "shree-textiles",
+    name: "Shree Textiles",
+    city: "Surat",
+    state: "Gujarat",
+    categoryLabel: "Apparel & Fashion",
+    verified: true,
+    rating: 4.9,
+    reviewCount: 230,
+    href: "/suppliers/shree-textiles",
+    tile: { icon: Shirt, tint: "slate" },
+  },
+  {
+    id: "abc-engineering-works",
+    name: "ABC Engineering Works",
+    city: "Ludhiana",
+    state: "Punjab",
+    categoryLabel: "Machinery & Equipment",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 185,
+    href: "/suppliers/abc-engineering-works",
+    tile: { icon: Settings, tint: "navy" },
+  },
+  {
+    id: "sunrise-packaging",
+    name: "Sunrise Packaging",
+    city: "Delhi",
+    state: "Delhi",
+    categoryLabel: "Packaging & Printing",
+    verified: true,
+    rating: 4.7,
+    reviewCount: 198,
+    href: "/suppliers/sunrise-packaging",
+    tile: { icon: Package, tint: "blue" },
+  },
+  {
+    id: "medico-pharma",
+    name: "Medico Pharma",
+    city: "Ahmedabad",
+    state: "Gujarat",
+    categoryLabel: "Health & Pharma",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 142,
+    href: "/suppliers/medico-pharma",
+    tile: { icon: Pill, tint: "slate" },
+  },
+  {
+    id: "buildright-solutions",
+    name: "BuildRight Solutions",
+    city: "Mumbai",
+    state: "Maharashtra",
+    categoryLabel: "Construction & Real Estate",
+    verified: true,
+    rating: 4.6,
+    reviewCount: 176,
+    href: "/suppliers/buildright-solutions",
+    tile: { icon: Wrench, tint: "navy" },
+  },
+  {
+    id: "agro-fresh-foods",
+    name: "Agro Fresh Foods",
+    city: "Indore",
+    state: "Madhya Pradesh",
+    categoryLabel: "Food & Beverages",
+    verified: true,
+    rating: 4.8,
+    reviewCount: 210,
+    href: "/suppliers/agro-fresh-foods",
+    tile: { icon: Wheat, tint: "blue" },
+  },
+];
