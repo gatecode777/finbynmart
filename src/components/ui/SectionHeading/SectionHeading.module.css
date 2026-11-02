@@ -11,18 +11,20 @@
   display: block;
   font-size: var(--fs-xs);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: var(--space-2);
 }
 
 .title {
-  font-size: var(--fs-2xl);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  line-height: 1.05;
+  color: var(--primary-deep);
 }
 
 .highlight {
-  color: var(--primary);
+  color: var(--primary-bright);
 }
 
 .subtitle {

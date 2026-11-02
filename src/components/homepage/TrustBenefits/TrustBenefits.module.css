@@ -1,21 +1,25 @@
+/* Overlaps the bottom of the hero, as in the approved design */
 .section {
-  padding-block: var(--space-6);
+  position: relative;
+  z-index: 2;
+  padding-block: 0 var(--space-6);
 }
 
 .card {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-hover);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  margin-top: calc(-1 * var(--space-10));
 }
 
 .item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-5);
+  padding: var(--space-5);
   border-bottom: 1px solid var(--border);
 }
 
@@ -27,22 +31,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--success-light);
-  color: var(--success);
+  width: 44px;
+  height: 44px;
+  color: var(--primary);
   flex: 0 0 auto;
 }
 
 .title {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   font-weight: 700;
+  color: var(--text-primary);
 }
 
 .subtitle {
   font-size: var(--fs-xs);
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 @media (min-width: 768px) {

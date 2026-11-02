@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ScrollSlider } from "@/components/ui/ScrollSlider";
 import { FEATURED_SUPPLIERS } from "@/lib/constants/suppliers";
 import { SupplierCard } from "./SupplierCard";
 import styles from "./FeaturedSuppliers.module.css";
@@ -14,11 +15,11 @@ export function FeaturedSuppliers() {
           actionLabel="View All Suppliers"
           actionHref="/suppliers"
         />
-        <div className={styles.grid}>
+        <ScrollSlider label="featured suppliers">
           {FEATURED_SUPPLIERS.map((supplier) => (
             <SupplierCard key={supplier.id} supplier={supplier} />
           ))}
-        </div>
+        </ScrollSlider>
       </Container>
     </section>
   );

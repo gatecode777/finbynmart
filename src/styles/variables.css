@@ -47,8 +47,8 @@
   --transition-normal: 220ms ease;
 
   /* Typography */
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
-  --font-heading: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  --font-heading: var(--font-anton), Impact, "Arial Narrow", sans-serif;
 
   --fs-xs: clamp(0.75rem, 0.73rem + 0.1vw, 0.8125rem);
   --fs-sm: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);

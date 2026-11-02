@@ -17,7 +17,7 @@
 }
 
 .logo {
-  height: 40px;
+  height: 48px;
   width: auto;
 }
 
@@ -51,10 +51,28 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: var(--radius-sm);
-  background: var(--surface-blue);
-  color: var(--primary);
+  background: transparent;
+  color: var(--primary-dark);
   flex: 0 0 auto;
+}
+
+/* Gold "Get Best Price" button, as in the approved header design */
+.cta {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--primary-deep);
+  box-shadow: 0 1px 3px rgba(2, 51, 48, 0.15);
+  transition: background-color var(--transition-fast);
+}
+
+.cta:hover {
+  background: var(--accent-hover);
+  color: var(--primary-deep);
+}
+
+.cta .actionSubtitle {
+  color: var(--primary-dark);
 }
 
 .actionText {

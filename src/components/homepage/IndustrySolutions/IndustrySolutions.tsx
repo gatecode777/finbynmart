@@ -19,8 +19,9 @@ export function IndustrySolutions() {
           {INDUSTRY_SOLUTIONS.map((industry) => (
             <Link key={industry.id} href={industry.href} className={styles.card}>
               <div className={styles.tileWrap}>
-                <MediaTile tile={industry} alt={industry.name} iconSize={28} />
+                <MediaTile tile={industry} alt="" iconSize={28} />
               </div>
+              <span className={styles.overlay} aria-hidden />
               <span className={styles.name}>{industry.name}</span>
             </Link>
           ))}

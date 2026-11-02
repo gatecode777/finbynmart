@@ -1,46 +1,55 @@
 .section {
-  padding-block: var(--space-10);
+  padding-block: var(--space-12);
   background: #fff;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius-md);
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
-  background: #fff;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
-  border-color: var(--primary);
+  background: var(--primary-deep);
+  isolation: isolate;
 }
 
 .tileWrap {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: var(--background-soft);
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.tileWrap img {
+  transition: transform 0.5s ease;
+}
+
+.card:hover .tileWrap img,
+.card:focus-visible .tileWrap img {
+  transform: scale(1.06);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(2, 51, 48, 0) 45%, rgba(2, 51, 48, 0.85) 100%);
 }
 
 .name {
-  display: block;
-  padding: var(--space-3) var(--space-2);
-  font-size: var(--fs-sm);
+  position: absolute;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-3);
+  font-size: var(--fs-base);
   font-weight: 600;
-  text-align: center;
-  color: var(--text-primary);
-  background: #fff;
+  line-height: 1.2;
+  color: #fff;
 }
 
 @media (min-width: 640px) {

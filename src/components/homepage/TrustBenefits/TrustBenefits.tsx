@@ -12,7 +12,7 @@ export function TrustBenefits() {
             return (
               <div key={benefit.label} className={styles.item}>
                 <span className={styles.icon}>
-                  <Icon size={20} strokeWidth={2} aria-hidden />
+                  <Icon size={30} strokeWidth={1.75} aria-hidden />
                 </span>
                 <span>
                   <span className={styles.title}>{benefit.label}</span>

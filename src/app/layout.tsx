@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Anton, Montserrat } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { CategoryNavigation } from "@/components/layout/CategoryNavigation";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-const poppins = Poppins({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const anton = Anton({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-playfair",
+  weight: "400",
+  variable: "--font-anton",
   display: "swap",
 });
 
@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${anton.variable}`}>
+      <body>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

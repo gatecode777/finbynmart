@@ -21,7 +21,7 @@ The business then pivoted to B2B, first under a navy/blue "Finbyn Kart" identity
 - Next.js App Router + TypeScript, `src/` layout.
 - Vanilla CSS + CSS Modules only. **No Tailwind, ever.**
 - Icons: **Lucide React exclusively** — no emoji, no other icon libraries, no brand/social logos (Lucide dropped brand icons; social links render as text, not glyphs).
-- Fonts: Poppins (body/UI) + Playfair Display (headings), via `next/font/google`, wired in `src/app/layout.tsx`.
+- Fonts: Montserrat (body/UI, 400–700) + Anton (h1/h2 display headings, single 400 weight, uppercase), via `next/font/google`, wired in `src/app/layout.tsx`. Replaced Poppins + Playfair Display at the user's request (homepage visual redesign).
 - `next/image` for all images.
 - Server Components by default; Client Components only where interaction/state/browser APIs require it (search input, mobile nav drawer, requirement form).
 - No fake data shipped as if real. Sample/placeholder content is allowed for visual development (the spec itself does this with example supplier names), but must be clearly flagged in a code comment and tracked in `docs/MISSING_ASSETS.md` — never presented as confirmed business fact (stats, testimonials, contact info, verification badges).

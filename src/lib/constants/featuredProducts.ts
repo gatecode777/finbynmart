@@ -14,7 +14,6 @@ const FEATURED_PRODUCT_IDS = [
   "mens-cotton-tshirt",
   "corrugated-packaging-boxes",
   "stainless-steel-pipes",
-  "pharma-tablets",
 ];
 
 export const FEATURED_PRODUCTS: B2BProduct[] = FEATURED_PRODUCT_IDS.flatMap((id) => {

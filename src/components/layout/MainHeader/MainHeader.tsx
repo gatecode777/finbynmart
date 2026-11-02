@@ -32,7 +32,7 @@ export function MainHeader() {
           </div>
 
           <nav className={styles.actions} aria-label="Account actions">
-            <Link href="/post-requirement" className={styles.actionLink}>
+            <Link href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
               <span className={styles.actionIcon}>
                 <ClipboardList size={18} strokeWidth={2} aria-hidden />
               </span>

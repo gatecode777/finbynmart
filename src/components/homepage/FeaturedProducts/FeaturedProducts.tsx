@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ScrollSlider } from "@/components/ui/ScrollSlider";
 import { ProductCard } from "@/components/category/ProductCard";
 import { FEATURED_PRODUCTS } from "@/lib/constants/featuredProducts";
 import styles from "./FeaturedProducts.module.css";
@@ -12,11 +13,11 @@ export function FeaturedProducts() {
           eyebrow="Featured"
           title={<span id="featured-products-heading">Featured Products</span>}
         />
-        <div className={styles.grid}>
+        <ScrollSlider label="featured products">
           {FEATURED_PRODUCTS.map((product) => (
             <ProductCard key={product.id} product={product} view="grid" />
           ))}
-        </div>
+        </ScrollSlider>
       </Container>
     </section>
   );

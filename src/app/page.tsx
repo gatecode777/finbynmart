@@ -8,7 +8,6 @@ import { HowItWorks } from "@/components/homepage/HowItWorks";
 import { IndiaNetworkBanner } from "@/components/homepage/IndiaNetworkBanner";
 import { IndustrySolutions } from "@/components/homepage/IndustrySolutions";
 import { Testimonials } from "@/components/homepage/Testimonials";
-import { AppPromotion } from "@/components/homepage/AppPromotion";
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       <IndiaNetworkBanner />
       <IndustrySolutions />
       <Testimonials />
-      <AppPromotion />
     </>
   );
 }
