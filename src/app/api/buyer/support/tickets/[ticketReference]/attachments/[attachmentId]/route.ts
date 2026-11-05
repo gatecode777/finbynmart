@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { fail } from "@/lib/auth/http";
 import { requireBuyerApi } from "@/lib/auth/guards";
 import { TICKET_REFERENCE_PATTERN } from "@/lib/support/ticketRules";
-import { readBuyerTicketAttachment } from "@/lib/support/ticketService";
+import { readBuyerTicketAttachment } from "@/lib/support/conversationService";
 import { withApiPerf } from "@/lib/perf/instrument";
 
 export const dynamic = "force-dynamic";

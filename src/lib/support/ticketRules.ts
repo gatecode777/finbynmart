@@ -121,7 +121,7 @@ export type TicketResult = { ok: true; value: TicketInput } | { ok: false; field
 
 const clean = (v: unknown, max: number) => (typeof v === "string" ? v.normalize("NFKC").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").replace(/[ \t]+/g, " ").trim().slice(0, max + 1) : "");
 /** Multiline text: line breaks are kept (at most one blank line in a row), other control characters removed. */
-const cleanMultiline = (v: unknown, max: number) => (typeof v === "string" ? v.normalize("NFKC").replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim().slice(0, max + 1) : "");
+export const cleanMultiline = (v: unknown, max: number) => (typeof v === "string" ? v.normalize("NFKC").replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "").replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim().slice(0, max + 1) : "");
 
 export const IDEMPOTENCY_KEY = /^[A-Za-z0-9_-]{16,64}$/;
 const REFERENCE_LIKE = /^[A-Za-z0-9_.-]{1,80}$/;

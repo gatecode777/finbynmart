@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { fail } from "@/lib/auth/http";
 import { requireBuyerApi } from "@/lib/auth/guards";
 import { buyerGuard, json } from "@/lib/buyer/api";
-import { attachmentLimits, createBuyerTicket, listBuyerTickets, type UploadedFile } from "@/lib/support/ticketService";
+import { attachmentLimits, createBuyerTicket, listBuyerTickets } from "@/lib/support/ticketService";
+import { readSupportUpload } from "@/lib/support/uploadRequest";
 import { FORBIDDEN_TICKET_FIELDS, parseTicketQuery, validateTicket } from "@/lib/support/ticketRules";
 import { withApiPerf } from "@/lib/perf/instrument";
 
@@ -38,41 +39,9 @@ async function handlePOST(request: Request) {
   const guard = await buyerGuard({ key: "support-ticket", limit: 10, windowSeconds: 3600 });
   if ("response" in guard) return guard.response;
   const limits = attachmentLimits();
-
-  const declared = Number(request.headers.get("content-length") ?? "0");
-  if (declared > limits.maxFiles * limits.maxBytes + 256 * 1024) return json({ ok: false, message: `The upload is too large: at most ${limits.maxFiles} files of ${limits.maxMb} MB.`, fields: { attachments: "Too large." } }, 413);
-
-  let payload: unknown;
-  const files: UploadedFile[] = [];
-  const type = request.headers.get("content-type") ?? "";
-  if (type.startsWith("multipart/form-data")) {
-    let form: FormData;
-    try {
-      form = await request.formData();
-    } catch {
-      return json({ ok: false, message: "Send the ticket as a form upload." }, 400);
-    }
-    const raw = form.get("payload");
-    try {
-      payload = typeof raw === "string" && raw.length <= 8_000 ? JSON.parse(raw) : null;
-    } catch {
-      payload = null;
-    }
-    const sent = form.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
-    if (sent.length > limits.maxFiles) return json({ ok: false, message: `You can attach at most ${limits.maxFiles} files.`, fields: { attachments: `At most ${limits.maxFiles} files.` } }, 400);
-    for (const f of sent) {
-      if (f.size > limits.maxBytes) return json({ ok: false, message: `${f.name.slice(0, 60)} is larger than ${limits.maxMb} MB.`, fields: { attachments: `Each file can be at most ${limits.maxMb} MB.` } }, 413);
-      files.push({ name: f.name, bytes: Buffer.from(await f.arrayBuffer()) });
-    }
-  } else {
-    try {
-      const text = await request.text();
-      payload = text.length <= 8_000 ? JSON.parse(text) : null;
-    } catch {
-      payload = null;
-    }
-  }
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return json({ ok: false, message: "Send the ticket details." }, 400);
+  const upload = await readSupportUpload(request, limits);
+  if (!upload.ok) return upload.response;
+  const { payload, files } = upload;
   for (const key of FORBIDDEN_TICKET_FIELDS) if (key in (payload as Record<string, unknown>)) return json({ ok: false, message: "Check the highlighted fields.", fields: { [key]: "This value cannot be sent." } }, 400);
 
   const checked = validateTicket(payload);

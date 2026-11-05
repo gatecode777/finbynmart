@@ -107,3 +107,7 @@ Cookie: `finbyn_session`, `HttpOnly`, `SameSite=Lax`, `Secure` in production, 7 
 ## Buyer support (Page 36, 2026-11-05)
 
 `GET /api/buyer/support/summary`, `/categories`, `/related`, `GET|POST /api/buyer/support/tickets`, `GET /api/buyer/support/tickets/[ticketReference]` and `.../attachments/[attachmentId]`; public `GET /api/public/faqs`, `/api/public/faqs/categories`, `/api/public/support/channels`. Buyer routes need a buyer session, are `private, no-store`, and creation is limited to 10 per buyer per hour. Details: `docs/backend/PAGE_36_SUPPORT_API_REFERENCE.md`.
+
+## Buyer ticket conversation (Page 37, 2026-11-05)
+
+Under `/api/buyer/support/tickets/[ticketReference]/`: `GET` overview (with server-calculated capabilities), `messages` (GET paged, POST reply), `timeline`, `attachments` (list; `/[attachmentId]` download), `related`, `reopen` (POST), `feedback` (POST). Reply 30/h, reopen 5/h, feedback 10/h per buyer. Details: `docs/backend/PAGE_37_TICKET_DETAIL_API.md`.

@@ -1,12 +1,11 @@
 import { randomBytes } from "node:crypto";
 import { ObjectId, type Collection, type Document, type Filter, type Sort } from "mongodb";
 import { getDb } from "@/lib/db/mongo";
-import { claimedExtension, detectType, displayFilename, readStored, removeStored, saveFile, storageConfigured } from "@/lib/buyer/documentStorage";
+import { claimedExtension, detectType, displayFilename, removeStored, saveFile, storageConfigured } from "@/lib/buyer/documentStorage";
 import { notifyTicketCreated } from "@/lib/buyer/notifications";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
 import { resolveProduct } from "@/lib/catalog/productRef";
 import { sendEmail, emailConfigured } from "@/lib/email/provider";
-import { formatSubmitted } from "@/lib/inquiries/confirmation";
 import { inquiriesCollection } from "@/lib/inquiries/service";
 import { ordersCollection } from "@/lib/orders/service";
 import { quotationsCollection } from "@/lib/quotations/service";
@@ -44,11 +43,13 @@ export interface AttachmentMeta {
 }
 
 export interface TicketEvent {
-  type: "CREATED" | "STATUS_CHANGED";
+  type: "CREATED" | "STATUS_CHANGED" | "REOPENED" | "FEEDBACK_SUBMITTED";
   at: Date;
   actor: "buyer" | "support" | "system";
   status?: TicketStatus;
   from?: TicketStatus;
+  /** An event only the support side may see: never part of any buyer answer. */
+  internal?: true;
 }
 
 export interface TicketDoc {
@@ -70,6 +71,8 @@ export interface TicketDoc {
   updatedAt: Date;
   resolvedAt?: Date;
   closedAt?: Date;
+  /** Set only by a support side (none exists yet) when it writes a buyer-visible reply; the page says "no support reply yet" while it is absent. */
+  lastSupportReplyAt?: Date;
   /** What really happened to the optional alert to a configured support inbox. The in-app confirmation is the buyer's own notification. */
   notification: { supportEmail: "sent" | "failed" | "not_configured" | "pending" };
 }
@@ -381,39 +384,4 @@ export async function getBuyerTicketSummary(buyerId: string): Promise<TicketSumm
   return out;
 }
 
-// ---------- details ----------
-export interface TicketDetail extends TicketDto {
-  description: string;
-  createdLabel: string;
-  updatedLabel: string;
-  attachments: { id: string; name: string; mime: string; size: number; href: string }[];
-  /** The buyer-visible history: creation and status changes. There are no replies yet (Page 37). */
-  events: { label: string; atLabel: string; actor: string }[];
-  capabilities: { reply: false; reopen: false; close: false; attachmentsDownload: boolean };
-}
-
-const ACTOR = { buyer: "You", support: "Support", system: "Finbyn Mart" } as const;
-
-export async function getBuyerTicketDetail(buyerId: string, reference: string): Promise<TicketDetail | null> {
-  const d = await (await ticketsCollection()).findOne({ ticketReference: reference, buyerId: new ObjectId(buyerId) });
-  if (!d || !isTicketStatus(d.status)) return null;
-  return {
-    ...toDto(d),
-    description: d.description,
-    createdLabel: formatSubmitted(d.createdAt.toISOString()),
-    updatedLabel: formatSubmitted(d.updatedAt.toISOString()),
-    attachments: d.attachments.map((a) => ({ id: a.id, name: a.name, mime: a.mime, size: a.size, href: `/api/buyer/support/tickets/${d.ticketReference}/attachments/${a.id}` })),
-    events: d.events.map((e) => ({ label: e.type === "CREATED" ? "Ticket raised" : `Status: ${e.status ? STATUS_LABEL[e.status] : ""}`, atLabel: formatSubmitted(e.at.toISOString()), actor: ACTOR[e.actor] })),
-    capabilities: { reply: false, reopen: false, close: false, attachmentsDownload: storageConfigured() },
-  };
-}
-
-/** One attachment, only for the ticket's own buyer; the bytes are re-checked by content on every read. */
-export async function readBuyerTicketAttachment(buyerId: string, reference: string, attachmentId: string): Promise<{ bytes: Buffer; mime: string; name: string } | null> {
-  if (!/^[a-f0-9]{16}$/.test(attachmentId)) return null;
-  const d = await (await ticketsCollection()).findOne({ ticketReference: reference, buyerId: new ObjectId(buyerId) }, { projection: { attachments: 1 } });
-  const meta = d?.attachments.find((a) => a.id === attachmentId);
-  if (!meta) return null;
-  const stored = await readStored(meta.ref);
-  return stored ? { bytes: stored.bytes, mime: stored.mime, name: meta.name } : null;
-}
+// The ticket page (details, conversation, timeline, files, reopen, feedback) lives in conversationService.ts and ticketActions.ts (Page 37).

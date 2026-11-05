@@ -1,0 +1,10 @@
+# Page 37 — Reopen policy
+
+No reopening policy existed. This is the one implemented (`reopenState`, `reopenBuyerTicket`); it is a policy of this application and is documented so it can be changed in one place (`REOPEN_WINDOW_DAYS`, `MAX_REOPENS` in `conversationRules.ts`).
+
+**Allowed when** all hold: the ticket is the buyer's; status is RESOLVED or CLOSED; the last resolution/closure (the last STATUS_CHANGED event to RESOLVED or CLOSED, else `closedAt`/`resolvedAt`, else the last update) is at most **30 days** ago; the ticket has been reopened fewer than **3** times; a reason of 10–1,000 characters is given. `canTransition(status, "REOPENED")` must also hold (it does only from RESOLVED and CLOSED).
+**Result**: status REOPENED; a REOPENED event (actor buyer, from the old status); the reason is saved as a `reopen` message in the conversation; `resolvedAt`/`closedAt` are cleared; the last update moves. Earlier messages, files and events are untouched. A reopened ticket takes replies, cannot be reopened again until it is resolved or closed again, and counts as Open in the summary cards.
+**Atomicity**: the reason message is inserted first under a key that exists once per reopening (`reopen-<n>`); the status change is conditional on the status that was read; if it loses a race the reason is removed again. Four simultaneous requests give one 200 and three 409 (tested).
+**Refused (409)** with a reason in words: not resolved/closed; more than 30 days; three reopenings already ("Raise a new ticket instead."). The page shows the reason instead of a button. Viewing a ticket never reopens it. Rate limit 5 per buyer per hour.
+**Buyers cannot** close, resolve, assign or set any other status: no route accepts one, PUT/PATCH/DELETE answer 405, a status in any body is refused 400. Buyer-requested closure has no policy and is BLOCKED (`canRequestClosure` is always false). If the support side is built, it will close tickets through `STATUS_TRANSITIONS`.
+**Notification**: the optional support-inbox e-mail ("A buyer reopened ticket X", no reason text) is sent only when configured; otherwise nothing, and the answer says `supportNotified:false`.

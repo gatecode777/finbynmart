@@ -23,3 +23,6 @@ Creation response includes `supportNotified: false` and the message "No support 
 
 ## Not built (no backing system)
 Replies, reopen, close, assign, status change, attachment add after creation, admin FAQ management: BLOCKED until a support side exists.
+
+## Superseded in part by Page 37 (2026-11-05)
+`GET /api/buyer/support/tickets/[ticketReference]` no longer returns the description, attachments and history: it returns the ticket overview with the buyer's capabilities, and the conversation, timeline, files, related record, reply, reopen and feedback have their own routes (`docs/backend/PAGE_37_TICKET_DETAIL_API.md`). The attachment download route now also serves files sent with replies. Replies, reopening and feedback are no longer "not built"; a support side, agent replies and status changes by support still are.

@@ -78,6 +78,15 @@ interface Props {
  * go through the buyer-scoped API and keep the choices in the address. A ticket is shown only after the server saved it; the cards
  * count real stored tickets. No ticket, reply, agent or contact detail is ever made up.
  */
+/** The list's search and filters, kept for this browser tab so a ticket page's "Back to All Tickets" returns to the same view. */
+function remember(search: string) {
+  try {
+    sessionStorage.setItem("support-list-query", search);
+  } catch {
+    /* storage blocked: Back goes to the plain list */
+  }
+}
+
 export function BuyerSupportPage({ initial, initialParams, initialSummary, config, faqs, faqCategories, channels, today, renderedAt }: Props) {
   const [params, setParams] = useState(initialParams);
   const [search, setSearch] = useState(initialParams.q);
@@ -111,6 +120,7 @@ export function BuyerSupportPage({ initial, initialParams, initialSummary, confi
     setData({ tickets: body.tickets, meta: body.meta });
     const qs = toQuery(p).toString();
     window.history.replaceState(window.history.state, "", qs ? `/buyer/support?${qs}` : "/buyer/support");
+    remember(qs ? `?${qs}` : "");
   }, []);
 
   const loadSummary = useCallback(async () => {
@@ -122,6 +132,10 @@ export function BuyerSupportPage({ initial, initialParams, initialSummary, confi
     }
     setSummary(body.data.summary);
     setSummaryFailed(false);
+  }, []);
+
+  useEffect(() => {
+    remember(window.location.search);
   }, []);
 
   useEffect(() => {
