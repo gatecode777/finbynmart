@@ -1,1 +1,0 @@
-export { SupplierProfileCard } from "./SupplierProfileCard";

@@ -1,3 +1,8 @@
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
 .form {
   display: flex;
   align-items: stretch;
@@ -12,8 +17,13 @@
   border-color: var(--primary);
 }
 
-.typeSelect {
-  flex: 0 0 auto;
+.typeButton {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 40%;
+  min-height: 44px;
   border: none;
   border-right: 1px solid var(--border);
   background: var(--background-soft);
@@ -21,15 +31,81 @@
   font-size: var(--fs-sm);
   font-weight: 500;
   color: var(--text-secondary);
-  appearance: none;
   cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.typeButton:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.typeButton:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.typeChevron {
+  flex: 0 0 auto;
+  transition: transform var(--transition-fast);
+}
+
+.typeChevronOpen {
+  transform: rotate(180deg);
+}
+
+.typeMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: var(--z-overlay);
+  min-width: 190px;
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+}
+
+.typeMenu:focus {
+  outline: none;
+}
+
+.typeMenu[hidden] {
+  display: none;
+}
+
+.typeOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.typeOptionActive,
+.typeOption:hover {
+  background: var(--primary-light);
+}
+
+.typeOptionOn {
+  color: var(--primary);
+  font-weight: var(--fw-bold);
 }
 
 .input {
   flex: 1 1 auto;
   min-width: 0;
   border: none;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-2) var(--space-3) var(--space-4);
   font-size: var(--fs-sm);
   color: var(--text-primary);
 }
@@ -44,6 +120,9 @@
 
 .submit {
   flex: 0 0 auto;
+  min-width: 44px;
+  justify-content: center;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -66,4 +145,98 @@
 .large .input {
   padding: var(--space-4) var(--space-5);
   font-size: var(--fs-base);
+}
+
+/* Very narrow phones: the button keeps its icon and accessible name, the word hides. */
+@media (max-width: 399px) {
+  .submitLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .submit {
+    padding: 0 var(--space-4);
+  }
+
+  .typeButton {
+    padding: 0 var(--space-2);
+  }
+}
+
+.clear {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--primary);
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: var(--z-overlay);
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  max-height: 340px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+}
+
+.suggestions[hidden] {
+  display: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.option svg {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+}
+
+.optionActive,
+.option:hover {
+  background: var(--primary-light);
+}
+
+.optionLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionKind {
+  flex: 0 0 auto;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--primary);
 }

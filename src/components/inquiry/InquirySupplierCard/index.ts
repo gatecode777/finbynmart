@@ -1,0 +1,1 @@
+export { InquirySupplierCard } from "./InquirySupplierCard";

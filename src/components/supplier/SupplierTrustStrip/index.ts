@@ -1,1 +1,0 @@
-export { SupplierTrustStrip } from "./SupplierTrustStrip";

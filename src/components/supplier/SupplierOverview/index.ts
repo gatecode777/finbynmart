@@ -1,1 +1,0 @@
-export { SupplierOverview } from "./SupplierOverview";

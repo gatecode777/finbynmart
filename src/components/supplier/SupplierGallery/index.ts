@@ -1,1 +1,0 @@
-export { SupplierGallery } from "./SupplierGallery";

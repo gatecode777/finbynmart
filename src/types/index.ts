@@ -113,6 +113,8 @@ export interface Testimonial {
   businessName: string;
   quote: string;
   rating?: number;
+  /** Photo of the customer, only with their permission. Initials-free generic avatar is shown when absent. */
+  avatarSrc?: string;
 }
 
 export interface ProcessStep {
@@ -225,4 +227,33 @@ export interface ProductFilterState {
   cities: string[];
   minRating: number | null;
   verifiedOnly: boolean;
+}
+
+/** One discoverable category on /categories. Serializable, so it can be passed to Client Components. */
+export interface CategoryNode {
+  /** Slug path: "apparel-fashion" > "apparel-fashion/men" > "apparel-fashion/men/men-tshirts". */
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  parentId: string | null;
+  childIds: string[];
+  /** Eligible active products behind this category; matches what its listing page shows. */
+  productCount: number;
+  /** Listing page this category opens. */
+  href: string;
+  isActive: boolean;
+  imageSrc?: string;
+  /** True for hot-linked product photos, which next/image must not optimise. */
+  imageRemote?: boolean;
+  imageAlt: string;
+  /** Lucide icon key for the sidebar (main categories only). */
+  iconKey?: string;
+  /** "Curated" = the homepage top categories; "catalog" = derived from the product catalog. */
+  source: "curated" | "catalog";
+}
+
+export interface CategoryDirectory {
+  nodes: CategoryNode[];
+  totals: { mainCategories: number; subcategories: number; products: number };
 }

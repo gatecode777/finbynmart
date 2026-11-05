@@ -16,6 +16,8 @@
 }
 
 .clearAll {
+  min-height: 32px;
+  padding-inline: var(--space-2);
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--primary);
@@ -88,6 +90,7 @@
 .option {
   display: flex;
   align-items: center;
+  min-height: 32px;
   gap: var(--space-2);
   font-size: var(--fs-sm);
   color: var(--text-secondary);
@@ -96,8 +99,8 @@
 
 .option input {
   accent-color: var(--primary);
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
 }
 
 .optionCount {

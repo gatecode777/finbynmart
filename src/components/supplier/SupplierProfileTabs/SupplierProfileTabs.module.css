@@ -1,0 +1,42 @@
+/* One row; scrolls sideways on narrow screens */
+.tabs {
+  margin-top: var(--space-6);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.tab,
+.on {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: #fff;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.tab:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.on {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}

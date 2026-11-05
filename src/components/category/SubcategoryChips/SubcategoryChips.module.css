@@ -1,0 +1,102 @@
+/* Floats over the bottom edge of the hero, like the search card on All Categories */
+.panel {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: calc(-1 * var(--space-10));
+  padding: var(--space-3) var(--space-4);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-hover);
+}
+
+.label {
+  flex: 0 0 auto;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+/* One row that scrolls sideways on narrow screens; wraps when expanded */
+.row {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.row > li {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.wrap {
+  flex-wrap: wrap;
+  overflow-x: visible;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.chip:hover {
+  border-color: var(--primary-bright);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.active,
+.active:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+
+.chevron {
+  transition: transform var(--transition-fast);
+}
+
+.open {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 900px) {
+  .panel {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-3) var(--space-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip,
+  .chevron {
+    transition: none;
+  }
+}

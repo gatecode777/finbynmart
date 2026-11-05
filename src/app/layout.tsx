@@ -4,6 +4,9 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { CategoryNavigation } from "@/components/layout/CategoryNavigation";
 import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ToastHost } from "@/components/ui/Toast";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -33,15 +36,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} ${anton.variable}`}>
-      <body>
+      {/* Extensions (password managers, dark-mode tools) often add attributes to <body> before hydration. */}
+      <body suppressHydrationWarning>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <AnnouncementBar />
-        <MainHeader />
-        <CategoryNavigation />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <SiteChrome
+          top={
+            <>
+              <AnnouncementBar />
+              <MainHeader />
+              <CategoryNavigation />
+            </>
+          }
+          bottom={<Footer />}
+        >
+          {children}
+        </SiteChrome>
+        <ToastHost />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -8,7 +8,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
@@ -20,6 +20,7 @@
   overflow: hidden;
   background: var(--primary-deep);
   isolation: isolate;
+  container-type: inline-size;
 }
 
 .tileWrap {
@@ -50,15 +51,17 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-3);
+  gap: 6px;
+  padding: clamp(8px, 5cqw, 14px);
 }
 
 .name {
-  font-size: var(--fs-sm);
+  min-width: 0;
+  font-size: clamp(0.6875rem, 6.2cqw, 1rem);
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  overflow-wrap: break-word;
   text-transform: uppercase;
   color: #fff;
 }
@@ -68,8 +71,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: clamp(28px, 15cqw, 38px);
+  height: clamp(28px, 15cqw, 38px);
   border-radius: 50%;
   background: #fff;
   color: var(--primary-deep);
@@ -84,17 +87,14 @@
 
 @media (min-width: 640px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-4);
   }
 }
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .name {
-    font-size: var(--fs-base);
-  }
 }

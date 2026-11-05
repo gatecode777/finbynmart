@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
-import { fail, readJson, str } from "@/lib/auth/http";
+import { fail, readJson, str, tooMany } from "@/lib/auth/http";
+import { clientIp, rateLimit } from "@/lib/security/rateLimit";
 import { hashPassword } from "@/lib/auth/password";
 import { startSession } from "@/lib/auth/session";
 import { createUser, toPublicUser } from "@/lib/auth/users";
 import { validateSignUp, validateSupplierRegistration } from "@/lib/validations/account";
+import { withApiPerf } from "@/lib/perf/instrument";
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
+  // Limit account creation: 10 per hour per address.
+  const limit = await rateLimit(`register:${clientIp(request)}`, 10, 3600);
+  if (!limit.ok) return tooMany(limit.retryAfterSeconds);
+
   const body = await readJson(request);
   if (!body) return fail("Invalid request.");
 
@@ -58,3 +64,5 @@ export async function POST(request: Request) {
     return fail("Registration is unavailable right now. Please try again.", 503);
   }
 }
+
+export const POST = withApiPerf("POST api/auth/register", handlePOST);

@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -24,7 +25,8 @@
 
 .badgeOverlay {
   position: absolute;
-  top: var(--space-2);
+  /* below the round compare button that sits in the corner */
+  top: calc(var(--space-2) * 2 + 40px);
   left: var(--space-2);
 }
 
@@ -41,6 +43,7 @@
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.35;
+  min-height: 2.7em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -83,6 +86,8 @@
 }
 
 .supplierName {
+  display: block;
+  line-height: 32px;
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--text-secondary);
@@ -175,4 +180,77 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+/* Whole-card link: the main link stretches over the card; inner links and buttons stay clickable above it. */
+.name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.supplierName,
+.cta {
+  position: relative;
+  z-index: 1;
+}
+
+.card:has(.name:focus-visible) {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.card:has(.name) {
+  cursor: pointer;
+}
+
+/* A product with no photo file yet says so, instead of looking broken */
+.noPhoto {
+  position: absolute;
+  left: var(--space-2);
+  bottom: var(--space-2);
+  z-index: var(--z-raised);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+}
+
+.ctaRow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  /* two buttons side by side while each keeps room for its words, otherwise one under the other */
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.ctaRow .cta {
+  margin-top: 0;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  white-space: nowrap;
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--primary);
+}
+
+.ctaSecondary:hover {
+  background: var(--primary-light);
 }

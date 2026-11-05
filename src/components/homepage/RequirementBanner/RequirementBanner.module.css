@@ -5,7 +5,13 @@
 .panel {
   background: var(--surface-blue);
   border-radius: var(--radius-lg);
-  padding: var(--space-8);
+  padding: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .panel {
+    padding: var(--space-8);
+  }
 }
 
 .top {
@@ -17,6 +23,7 @@
 
 .heading {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   gap: var(--space-3);
 }

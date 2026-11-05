@@ -1,5 +1,7 @@
+import Form from "next/form";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { FilterDrawer } from "@/components/ui/FilterDrawer";
 import styles from "./FilterBar.module.css";
 
 export type FilterField =
@@ -15,10 +17,14 @@ interface FilterBarProps {
   resetHref: string;
 }
 
-/** Server-rendered GET form: filters live in the URL and work without JavaScript. */
+/**
+ * GET form: filters live in the URL and work without JavaScript. With JavaScript, next/form turns the submit
+ * into a client-side navigation (no full page reload). The key makes the fields follow the URL after each navigation.
+ */
 export function FilterBar({ action, fields, hidden = {}, resetHref }: FilterBarProps) {
   return (
-    <form className={styles.bar} method="get" action={action} role="search">
+    <FilterDrawer breakpoint="md">
+    <Form key={JSON.stringify([fields.map((f) => f.value ?? ""), hidden])} className={styles.bar} action={action} role="search">
       {Object.entries(hidden).map(([name, value]) =>
         value ? <input key={name} type="hidden" name={name} value={value} /> : null,
       )}
@@ -57,6 +63,7 @@ export function FilterBar({ action, fields, hidden = {}, resetHref }: FilterBarP
           Reset
         </Link>
       </div>
-    </form>
+    </Form>
+    </FilterDrawer>
   );
 }

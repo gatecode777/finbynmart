@@ -1,0 +1,1292 @@
+{
+  "label": "after-steady",
+  "base": "http://localhost:3100",
+  "when": "2026-11-03T07:14:10.953Z",
+  "node": "v26.5.0",
+  "n": 120,
+  "levels": [
+    1
+  ],
+  "targets": [
+    {
+      "name": "GET /api/public/products (page 1, limit 20)",
+      "path": "/api/public/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 524.5,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 42.3,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.1,
+            "p95": 56.9,
+            "p99": 75.5,
+            "max": 84.7
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 44.5,
+            "p99": 58.5,
+            "max": 74
+          },
+          "db": {
+            "p50": 0,
+            "p95": 43.4,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (deep page 500)",
+      "path": "/api/public/products?limit=20&page=500",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 18.2,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 83,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 11.9,
+            "p95": 19.1,
+            "p99": 22.9,
+            "max": 25.4
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.4,
+            "p95": 0.9,
+            "p99": 1.2,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (text search)",
+      "path": "/api/public/products?q=shirt&limit=20",
+      "kind": "api",
+      "category": "search",
+      "cold": {
+        "ms": 41.5,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 79.6,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 13.7,
+            "p95": 18.3,
+            "p99": 26.2,
+            "max": 26.8
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.4,
+            "p95": 0.7,
+            "p99": 0.7,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (sort price)",
+      "path": "/api/public/products?sort=price-asc&limit=20",
+      "kind": "api",
+      "category": "filtered",
+      "cold": {
+        "ms": 35.1,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 40,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.6,
+            "p95": 51.6,
+            "p99": 63.7,
+            "max": 79.9
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.7,
+            "p95": 36.3,
+            "p99": 46.7,
+            "max": 62
+          },
+          "db": {
+            "p50": 0,
+            "p95": 34.8,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27967
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/suggest",
+      "path": "/api/public/products/suggest?q=jack",
+      "kind": "api",
+      "category": "simple",
+      "cold": {
+        "ms": 62.2,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 40.4,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.7,
+            "p95": 50.7,
+            "p99": 53.5,
+            "max": 67.6
+          },
+          "server": {
+            "n": 120,
+            "p50": 1.5,
+            "p95": 36.4,
+            "p99": 37.9,
+            "max": 52.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 34.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/:slug (catalogue)",
+      "path": "/api/public/products/lotto-men-white-collared-jacket-1758",
+      "kind": "api",
+      "category": "detail",
+      "cold": {
+        "ms": 14,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 68.2,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 15.9,
+            "p95": 18,
+            "p99": 19.8,
+            "max": 25.3
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.4,
+            "p95": 0.7,
+            "p99": 0.9,
+            "max": 1.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1693
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/:slug (sample)",
+      "path": "/api/public/products/cotton-fabric",
+      "kind": "api",
+      "category": "detail",
+      "cold": {
+        "ms": 17.4,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 67.4,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 15.9,
+            "p95": 17.9,
+            "p99": 25.3,
+            "max": 26.4
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 0.8,
+            "p99": 1,
+            "max": 1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/:slug/related",
+      "path": "/api/public/products/lotto-men-white-collared-jacket-1758/related",
+      "kind": "api",
+      "category": "simple",
+      "cold": {
+        "ms": 16,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 33.7,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.9,
+            "p95": 65.2,
+            "p99": 133.3,
+            "max": 256.5
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.7,
+            "p95": 57.4,
+            "p99": 120.5,
+            "max": 243
+          },
+          "db": {
+            "p50": 0,
+            "p95": 56.1,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 5775
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers (directory)",
+      "path": "/api/public/suppliers?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 138.5,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 22.3,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.8,
+            "p95": 138.2,
+            "p99": 377.9,
+            "max": 382.4
+          },
+          "server": {
+            "n": 120,
+            "p50": 2.6,
+            "p95": 124.7,
+            "p99": 354.7,
+            "max": 377.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 119.6,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug (sample)",
+      "path": "/api/public/suppliers/shree-textiles",
+      "kind": "api",
+      "category": "detail",
+      "cold": {
+        "ms": 18.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 72.5,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16,
+            "p95": 17.8,
+            "p99": 18.6,
+            "max": 19
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.4,
+            "p99": 0.5,
+            "max": 0.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1303
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/products (merged)",
+      "path": "/api/public/suppliers/shree-textiles/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 20.2,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 77.2,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 15.5,
+            "p95": 18,
+            "p99": 18.8,
+            "max": 26.1
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 0.8,
+            "p99": 1,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/products (catalogue)",
+      "path": "/api/public/suppliers/sunrise-hub/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 21.5,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 30.6,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.7,
+            "p95": 84.1,
+            "p99": 117,
+            "max": 168.3
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 73.1,
+            "p99": 108.8,
+            "max": 163.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 72.5,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/reviews",
+      "path": "/api/public/suppliers/shree-textiles/reviews",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 1044.6,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 20.9,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.4,
+            "p95": 139.6,
+            "p99": 549.2,
+            "max": 592.9
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.6,
+            "p95": 131.7,
+            "p99": 530.1,
+            "max": 575.3
+          },
+          "db": {
+            "p50": 0,
+            "p95": 130.8,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 5168
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/reviews/summary",
+      "path": "/api/public/suppliers/shree-textiles/reviews/summary",
+      "kind": "api",
+      "category": "simple",
+      "cold": {
+        "ms": 18.2,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 68,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 15.7,
+            "p95": 18.5,
+            "p99": 24.8,
+            "max": 25.1
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 0.7,
+            "p99": 0.9,
+            "max": 1.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/certifications",
+      "path": "/api/public/suppliers/shree-textiles/certifications",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 242.9,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 24.4,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 17.2,
+            "p95": 94.6,
+            "p99": 298.1,
+            "max": 440.3
+          },
+          "server": {
+            "n": 120,
+            "p50": 1.1,
+            "p95": 89.2,
+            "p99": 281.1,
+            "max": 428.3
+          },
+          "db": {
+            "p50": 0,
+            "p95": 87.5,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 4537
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /",
+      "path": "/",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 52.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 66.1,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.1,
+            "p95": 19.6,
+            "p99": 22.1,
+            "max": 24.1
+          },
+          "server": null,
+          "db": null,
+          "payload": {
+            "bytes": 244752
+          },
+          "cacheControl": "s-maxage=31536000"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products",
+      "path": "/products",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 117.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 36.7,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 28.3,
+            "p95": 37.9,
+            "p99": 45.2,
+            "max": 49.8
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.2,
+            "p95": 0.3,
+            "p99": 0.4,
+            "max": 0.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products?page=500",
+      "path": "/products?page=500",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 50.9,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 42.5,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 21.3,
+            "p95": 34.4,
+            "p99": 40.3,
+            "max": 44.3
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.2,
+            "p95": 0.3,
+            "p99": 0.4,
+            "max": 0.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /search?q=shirt",
+      "path": "/search?q=shirt",
+      "kind": "page",
+      "category": "search",
+      "cold": {
+        "ms": 41.6,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 58.4,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.2,
+            "p95": 25.7,
+            "p99": 29.8,
+            "max": 31.1
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 0.7,
+            "max": 0.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products/:slug (sample)",
+      "path": "/products/cotton-fabric",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 26,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 60,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.2,
+            "p95": 25,
+            "p99": 30.3,
+            "max": 30.6
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.6,
+            "max": 0.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products/:slug (catalogue)",
+      "path": "/products/lotto-men-white-collared-jacket-1758",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 27,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 56.5,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.3,
+            "p95": 29.3,
+            "p99": 41.8,
+            "max": 45.1
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.4,
+            "p95": 0.7,
+            "p99": 1.1,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers",
+      "path": "/suppliers",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 36.6,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 51.5,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.9,
+            "p95": 31.3,
+            "p99": 34.5,
+            "max": 34.6
+          },
+          "server": {
+            "n": 120,
+            "p50": 1.1,
+            "p95": 2.1,
+            "p99": 2.6,
+            "max": 2.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 197639
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers/:slug (profile)",
+      "path": "/suppliers/shree-textiles",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 149.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 59,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.1,
+            "p95": 24.5,
+            "p99": 29.5,
+            "max": 30.5
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.9,
+            "max": 0.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 135132
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers/:slug/products (merged)",
+      "path": "/suppliers/shree-textiles/products",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 28.7,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 60.4,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.3,
+            "p95": 22.2,
+            "p99": 25.4,
+            "max": 28.4
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.6,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 158348
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers/:slug/products (catalogue)",
+      "path": "/suppliers/sunrise-hub/products",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 103.8,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 60.8,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.2,
+            "p95": 20,
+            "p99": 26.3,
+            "max": 27.7
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.4,
+            "p99": 0.5,
+            "max": 0.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 144213
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers/:slug/reviews",
+      "path": "/suppliers/shree-textiles/reviews",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 628.1,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 43.9,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 19.1,
+            "p95": 34.4,
+            "p99": 36.6,
+            "max": 45.1
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.4,
+            "p95": 0.8,
+            "p99": 0.9,
+            "max": 1.3
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 266481
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /suppliers/:slug/certifications",
+      "path": "/suppliers/shree-textiles/certifications",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 80,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 58.7,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.3,
+            "p95": 25.2,
+            "p99": 27.6,
+            "max": 27.8
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.5,
+            "p95": 0.8,
+            "p99": 1.3,
+            "max": 1.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 157604
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /inquiry/:slug",
+      "path": "/inquiry/shree-textiles",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 29.8,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 64.7,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16,
+            "p95": 20.4,
+            "p99": 26.3,
+            "max": 30.4
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 0.7,
+            "max": 0.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 96379
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /categories",
+      "path": "/categories",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 22.4,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 61.1,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 16.1,
+            "p95": 23.3,
+            "p99": 27,
+            "max": 27.7
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.1,
+            "p95": 0.3,
+            "p99": 0.4,
+            "max": 0.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 154470
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /categories/:slug",
+      "path": "/categories/apparel-fashion",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 46.2,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 120,
+          "rps": 42.3,
+          "errors": 0,
+          "statuses": {
+            "200": 120
+          },
+          "client": {
+            "p50": 21,
+            "p95": 34.5,
+            "p99": 37.9,
+            "max": 38
+          },
+          "server": {
+            "n": 120,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.7,
+            "max": 0.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 255857
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

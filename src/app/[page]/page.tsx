@@ -7,6 +7,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { PageBody } from "@/components/ui/PageBody";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { FOOTER_COLUMNS, LEGAL_LINKS } from "@/lib/constants/footer";
+import { withPagePerf } from "@/lib/perf/instrument";
 
 /**
  * Footer pages whose real content (policies, contact details, guides, pricing)
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: PlannedPageProps): Promise<Me
   return label ? { title: `${label} | Finbyn Mart`, robots: { index: false } } : {};
 }
 
-export default async function PlannedPage({ params }: PlannedPageProps) {
+async function PlannedPage({ params }: PlannedPageProps) {
   const { page } = await params;
   const label = PLANNED_PAGES.get(page);
 
@@ -58,3 +59,5 @@ export default async function PlannedPage({ params }: PlannedPageProps) {
     </Container>
   );
 }
+
+export default withPagePerf("page :page", PlannedPage);

@@ -1,0 +1,449 @@
+/* Grid and list views of the saved products. The list-page controls (tabs, search, select, pager) reuse the inquiries styles. */
+.viewToggle {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+.viewButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: #fff;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.viewButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.viewActive {
+  background: var(--primary);
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-4);
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heart {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--danger);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(2, 51, 48, 0.18);
+}
+
+.heart:hover {
+  background: #fff;
+}
+
+.heart:focus-visible,
+.name a:focus-visible,
+.supplier a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.categoryTag {
+  justify-self: start;
+  max-width: 100%;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  overflow-wrap: anywhere;
+}
+
+.name {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
+}
+
+.desc {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow-wrap: anywhere;
+}
+
+.supplier {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+.supplier a {
+  color: var(--text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  color: var(--success);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.price {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+}
+
+.unit {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.actions a,
+.actions button {
+  flex: 1 1 120px;
+  white-space: nowrap;
+}
+
+.gone {
+  border-style: dashed;
+  background: var(--background-soft);
+}
+
+.goneNote {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- list view ---------- */
+.list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-3);
+  list-style: none;
+}
+
+.list .card {
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--space-4);
+  padding-right: calc(var(--space-4) + 48px);
+}
+
+.list .image {
+  grid-row: 1 / span 6;
+  width: 112px;
+  aspect-ratio: 1;
+}
+
+.list .card > :not(.image):not(.heart) {
+  grid-column: 2;
+}
+
+@media (max-width: 479.98px) {
+  .list .card {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  .list .image {
+    width: 80px;
+  }
+}
+
+/* Saved Suppliers: initials badge (same footprint as the product image), small fact lines. */
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  letter-spacing: 0.04em;
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+.facts li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---------- Saved Suppliers (selection, badges, category chips, list view) ---------- */
+.select {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.select input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.select input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.select input:disabled {
+  cursor: not-allowed;
+}
+
+.supplierCard {
+  padding-top: calc(var(--space-4) + 36px);
+}
+
+.supplierCard .avatar {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+.picked {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light), var(--shadow-card);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.unverified {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+}
+
+.typeTag {
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--primary-deep);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  overflow-wrap: anywhere;
+}
+
+.supplier svg {
+  vertical-align: -2px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.moreTag {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  align-self: center;
+}
+
+.selectionBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--primary-light);
+}
+
+.selectAll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.selectAll input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primary);
+}
+
+.topActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+}
+
+.hint {
+  margin: 0 0 var(--space-3);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.supplierList {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-3);
+  list-style: none;
+}
+
+.supplierList .supplierCard {
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4) calc(var(--space-4) + 48px) var(--space-4) calc(var(--space-4) + 44px);
+}
+
+.supplierList .supplierCard .avatar {
+  grid-row: 1 / span 8;
+  margin-top: 0;
+}
+
+.supplierList .supplierCard > :not(.avatar):not(.heart):not(.select) {
+  grid-column: 2;
+}
+
+.supplierList .supplierCard .actions a {
+  flex: 0 1 auto;
+}
+
+/* On a phone the list rows would leave almost no room for the text beside the badge: they stack like the grid cards. */
+@media (max-width: 575.98px) {
+  .supplierList .supplierCard {
+    grid-template-columns: minmax(0, 1fr);
+    padding: calc(var(--space-4) + 36px) var(--space-4) var(--space-4);
+  }
+
+  .supplierList .supplierCard .avatar {
+    grid-row: auto;
+    margin-top: calc(var(--space-2) * -1);
+  }
+
+  .supplierList .supplierCard > :not(.avatar):not(.heart):not(.select) {
+    grid-column: 1;
+  }
+}
+
+/* Space between the summary cards and the search toolbar below them. */
+ul.summaryGap {
+  margin-bottom: var(--space-6);
+}

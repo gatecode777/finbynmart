@@ -58,3 +58,15 @@ a {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Browser autofill paints inputs lavender/blue; keep them white with readable text. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: var(--text-primary);
+  caret-color: var(--text-primary);
+  transition: background-color 9999s ease-out 0s;
+}

@@ -2,7 +2,7 @@ import type { SignInValues, SignUpValues, SupplierRegistrationValues } from "@/l
 
 export type AccountResult =
   | { status: "ok"; user: { id: string; name: string; email: string; role: "buyer" | "supplier" } }
-  | { status: "error"; message: string; fields?: Record<string, string> };
+  | { status: "error"; message: string; fields?: Record<string, string>; code?: string };
 
 async function post(url: string, body: unknown): Promise<AccountResult> {
   try {
@@ -13,7 +13,7 @@ async function post(url: string, body: unknown): Promise<AccountResult> {
     });
     const data = await response.json();
     if (response.ok && data.ok) return { status: "ok", user: data.user };
-    return { status: "error", message: data.message ?? "Something went wrong.", fields: data.fields };
+    return { status: "error", message: data.message ?? "Something went wrong.", fields: data.fields, code: data.code };
   } catch {
     return { status: "error", message: "Couldn't reach the server. Check your connection and try again." };
   }

@@ -1,0 +1,386 @@
+/* Quotation-specific pieces; the list-page controls reuse the inquiries styles and the details layout reuses the inquiry details styles. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.pill_ACTIVE {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.pill_EXPIRING_SOON {
+  background: var(--accent-light);
+  color: var(--primary-deep);
+}
+
+.pill_REVISION_REQUESTED {
+  background: #e6efff;
+  color: #1d3f8a;
+}
+
+.pill_ACCEPTED {
+  background: var(--primary);
+  color: #fff;
+}
+
+.pill_REJECTED,
+.pill_EXPIRED {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.pill_WITHDRAWN,
+.pill_SUPERSEDED {
+  border: 1px solid var(--border-strong);
+  background: var(--background-soft);
+  color: var(--text-secondary);
+}
+
+.selectCell {
+  width: 44px;
+}
+
+.check {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--primary);
+}
+
+.check:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.total {
+  font-weight: var(--fw-bold);
+}
+
+.small {
+  display: block;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
+}
+
+.selectBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.selectBar p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- price table ---------- */
+.priceRows {
+  display: grid;
+  margin: 0;
+}
+
+.priceRows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.priceRows dt {
+  color: var(--text-secondary);
+}
+
+.priceRows dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: var(--fw-semibold);
+  text-align: right;
+}
+
+.priceRows .strong {
+  margin-top: var(--space-2);
+  padding: 12px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+}
+
+.priceRows .strong dt,
+.priceRows .strong dd {
+  color: var(--text-primary);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+}
+
+.termRows {
+  display: grid;
+  margin: 0;
+}
+
+.termRows > div {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.termRows dt {
+  color: var(--text-secondary);
+  font-weight: var(--fw-semibold);
+}
+
+.termRows dd {
+  margin: 0;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.missing {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.notice {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+}
+
+.noticeInfo {
+  background: var(--primary-light);
+}
+
+.noticeDanger {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.specTable th,
+.specTable td {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.specTable th {
+  width: 40%;
+  background: var(--background-soft);
+  color: var(--text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.featureList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+  font-size: var(--fs-sm);
+}
+
+.versionTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.versionTable th,
+.versionTable td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.versionTable th {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+/* ---------- comparison ---------- */
+.compareWrap {
+  overflow-x: auto;
+}
+
+.compareTable {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.compareTable th,
+.compareTable td {
+  padding: 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.compareTable thead th {
+  background: var(--background-soft);
+  font-size: var(--fs-sm);
+}
+
+.compareTable tbody th {
+  width: 14rem;
+  background: var(--background-soft);
+  color: var(--text-secondary);
+  font-weight: var(--fw-semibold);
+}
+
+.differs {
+  background: var(--accent-light);
+}
+
+.differsMark {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--primary-deep);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+
+.compareCards {
+  display: none;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compareCard {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.fieldLabel {
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.textarea {
+  min-height: 110px;
+  padding: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-sm);
+  resize: vertical;
+}
+
+.textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.formError {
+  margin: 0;
+  color: var(--danger);
+  font-size: var(--fs-xs);
+}
+
+.summaryList {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--background-soft);
+  font-size: var(--fs-sm);
+  list-style: none;
+}
+
+@media (max-width: 899.98px) {
+  .compareWrap {
+    display: none;
+  }
+
+  .compareCards {
+    display: grid;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .termRows > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+
+ul.kpis {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.tabs {
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--space-5);
+}
+
+.plainList {
+  padding-left: 0;
+  list-style: none;
+}
+
+.afterTable {
+  margin-top: var(--space-5);
+}
+
+/* The reference plus "V2 (current)" can be wider than a 320px card: let it wrap instead of clipping. */
+h2.refTitle {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

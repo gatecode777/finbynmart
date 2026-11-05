@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { Send } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { SignInPrompt } from "@/components/ui/SignInPrompt";
 import {
   validateRequirementForm,
   type RequirementFormErrors,
@@ -18,13 +19,29 @@ const initialValues: RequirementFormValues = {
   city: "",
 };
 
-export function RequirementForm() {
-  const [values, setValues] = useState(initialValues);
+interface RequirementFormProps {
+  /** Prefills the product/service field (for example from a category page). */
+  defaultProduct?: string;
+  /** Stored with the requirement so suppliers see where it came from. */
+  category?: string;
+  subcategory?: string;
+  /** Prefills the quantity (for example from a product page). */
+  defaultQuantity?: string;
+  /** Unit of the prefilled quantity, stored with the requirement. */
+  unit?: string;
+  /** Addresses the requirement to one supplier (from a supplier profile). */
+  supplierId?: string;
+  supplierName?: string;
+}
+
+export function RequirementForm({ defaultProduct = "", category, subcategory, defaultQuantity = "", unit, supplierId, supplierName }: RequirementFormProps) {
+  const [values, setValues] = useState({ ...initialValues, product: defaultProduct, quantity: defaultQuantity });
   const [errors, setErrors] = useState<RequirementFormErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">(
     "idle"
   );
   const [statusMessage, setStatusMessage] = useState("");
+  const [needsSignIn, setNeedsSignIn] = useState(false);
 
   function updateField(field: keyof RequirementFormValues, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -41,7 +58,8 @@ export function RequirementForm() {
     }
 
     setStatus("submitting");
-    const result = await submitRequirement(values);
+    setNeedsSignIn(false);
+    const result = await submitRequirement(values, { category, subcategory, unit, supplierId });
 
     if (result.status === "ok") {
       setStatus("ok");
@@ -50,11 +68,18 @@ export function RequirementForm() {
     } else {
       setStatus("error");
       setStatusMessage(result.message);
+      setNeedsSignIn(Boolean(result.needsSignIn));
+      if (result.fields) setErrors(result.fields);
     }
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      {supplierName && (
+        <p className={styles.supplierNote}>
+          This requirement is addressed to <strong>{supplierName}</strong>.
+        </p>
+      )}
       <Input
         label="Product / service name"
         hideLabel
@@ -93,6 +118,7 @@ export function RequirementForm() {
           {statusMessage}
         </p>
       )}
+      {needsSignIn && <SignInPrompt className={styles.status} />}
     </form>
   );
 }

@@ -13,9 +13,10 @@
   color: var(--text-primary);
 }
 
+/* Buttons share one width and centre their text; they sit side by side only when there is room. */
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
 }
 
@@ -23,12 +24,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2) var(--space-5);
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--primary);
   border-radius: var(--radius-md);
   background: #fff;
   font-size: var(--fs-sm);
   font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
   color: var(--primary);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
@@ -36,4 +40,12 @@
 .actions a:hover {
   background: var(--primary);
   color: #fff;
+}
+
+@media (min-width: 520px) {
+  .actions {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: none;
+  }
 }

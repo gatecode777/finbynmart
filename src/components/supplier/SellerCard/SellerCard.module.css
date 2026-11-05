@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -30,6 +31,8 @@
 }
 
 .name {
+  display: block;
+  line-height: 32px;
   font-size: var(--fs-base);
   font-weight: 700;
   color: var(--text-primary);
@@ -85,4 +88,25 @@
 .cta:hover {
   background: var(--primary);
   color: #fff;
+}
+
+/* Whole-card link: the main link stretches over the card; inner links and buttons stay clickable above it. */
+.name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cta {
+  position: relative;
+  z-index: 1;
+}
+
+.card:has(.name:focus-visible) {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.card {
+  cursor: pointer;
 }

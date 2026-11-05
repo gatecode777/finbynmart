@@ -13,7 +13,9 @@ export function SupplierCard({ supplier }: { supplier: Supplier }) {
       </div>
       <div className={styles.body}>
         <div className={styles.nameRow}>
-          <span className={styles.name}>{supplier.name}</span>
+          <Link href={supplier.href} className={styles.name}>
+            {supplier.name}
+          </Link>
           {supplier.verified && <Badge variant="success" icon>Verified</Badge>}
         </div>
 

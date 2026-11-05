@@ -2,15 +2,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   color: var(--text-primary);
+  cursor: pointer;
 }
 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(7, 31, 69, 0.45);
+  background: rgba(2, 51, 48, 0.55);
   z-index: 100;
   animation: fade 0.2s ease;
 }
@@ -41,9 +42,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   color: var(--text-primary);
+  cursor: pointer;
 }
 
 .section {
@@ -63,13 +65,14 @@
 .navList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-1);
 }
 
 .navLink {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 44px;
   font-size: var(--fs-sm);
   font-weight: 500;
   color: var(--text-primary);

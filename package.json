@@ -10,6 +10,7 @@
     "catalog:build": "node --disable-warning=ExperimentalWarning scripts/build-catalog.mjs"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.7",
     "lucide-react": "^1.16.0",

@@ -1,0 +1,5 @@
+/* "Filter Certifications" is longer than "Filter Products": a notch smaller keeps it on one line in the 270px sidebar */
+.tight .heading {
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}

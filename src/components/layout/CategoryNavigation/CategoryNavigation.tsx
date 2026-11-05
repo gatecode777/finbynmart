@@ -13,7 +13,7 @@ export function CategoryNavigation() {
           {CATEGORY_NAV.map((item, index) => {
             const isMenuTrigger = item.label === "All Categories" || item.label === "More";
             return (
-              <li key={item.href}>
+              <li key={item.href} className={index === 5 || index === 6 ? styles.wideOnly : undefined}>
                 <Link
                   href={item.href}
                   className={clsx(styles.link, index === 0 && styles.first)}

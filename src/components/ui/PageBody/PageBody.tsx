@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
-import { Container } from "@/components/ui/Container";
 import styles from "./PageBody.module.css";
 
-/** Standard content column for a full page: container, vertical rhythm and bottom spacing. */
+/**
+ * Standard content column for a full page: vertical rhythm and bottom spacing.
+ * It must sit inside the page's own <Container> (next to the breadcrumb), so the breadcrumb and the
+ * content share one left edge. Do not wrap it in a second Container: padding would be applied twice.
+ */
 export function PageBody({ children }: { children: ReactNode }) {
-  return (
-    <Container>
-      <div className={styles.body}>{children}</div>
-    </Container>
-  );
+  return <div className={styles.body}>{children}</div>;
 }

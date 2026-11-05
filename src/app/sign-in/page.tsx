@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { AccountShell } from "@/components/account/AccountShell";
-import { AccountSwitch } from "@/components/account/AccountSwitch";
-import { SignInForm } from "@/components/account/SignInForm";
+import { AuthLayout } from "@/components/auth/AuthLayout";
+import { SignInForm } from "@/components/auth/SignInForm";
+import styles from "@/components/auth/Auth.module.css";
+import { safeNext } from "@/lib/inquiries/rules";
+import { withPagePerf } from "@/lib/perf/instrument";
 
 export const metadata: Metadata = { title: "Sign In | Finbyn Mart", robots: { index: false } };
 
-export default function SignInPage() {
+async function SignInPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  // Where to go after signing in: a path on this site only (never another address).
+  const raw = (await searchParams).next;
+  const next = safeNext(Array.isArray(raw) ? raw[0] : raw) ?? undefined;
   return (
-    <AccountShell title="Sign In" subtitle="Sign in to manage your requirements and inquiries.">
-      <SignInForm />
-      <AccountSwitch title="Don't have an account?">
-        <Link href="/sign-up">Sign up as a buyer</Link>
-        <Link href="/register-supplier">Register as a supplier</Link>
-      </AccountSwitch>
-    </AccountShell>
+    <AuthLayout breadcrumb="Sign In" variant="signin">
+      <h1 className={styles.heading}>Sign In</h1>
+      <p className={styles.subheading}>Sign in to manage your requirements and inquiries. Fields marked * are required.</p>
+      <SignInForm next={next} />
+    </AuthLayout>
   );
 }
+
+export default withPagePerf("page sign-in", SignInPage);

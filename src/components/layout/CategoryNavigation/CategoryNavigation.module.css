@@ -20,6 +20,7 @@
 .link {
   display: inline-flex;
   align-items: center;
+  min-height: 40px;
   gap: 6px;
   color: #fff;
   font-size: var(--fs-sm);
@@ -40,5 +41,22 @@
 @media (min-width: 1024px) {
   .nav {
     display: block;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .list {
+    gap: var(--space-4);
+  }
+
+  .link {
+    font-size: var(--fs-xs);
+  }
+}
+
+/* Below 1400px the two lower-priority entries drop out so every remaining item fits; All Categories and More still reach them. */
+@media (max-width: 1399px) {
+  .wideOnly {
+    display: none;
   }
 }

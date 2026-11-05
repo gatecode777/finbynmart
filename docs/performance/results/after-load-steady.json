@@ -1,0 +1,2525 @@
+{
+  "label": "after-load-steady",
+  "base": "http://localhost:3100",
+  "when": "2026-11-03T07:22:28.389Z",
+  "node": "v26.5.0",
+  "n": 200,
+  "levels": [
+    1,
+    5,
+    10,
+    25,
+    50
+  ],
+  "targets": [
+    {
+      "name": "GET /api/public/products (page 1, limit 20)",
+      "path": "/api/public/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 413.1,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 58.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 13.8,
+            "p95": 48,
+            "p99": 52.7,
+            "max": 57.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.6,
+            "p95": 35.8,
+            "p99": 37.7,
+            "max": 41.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 34.3,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 372.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 7.5,
+            "p95": 13.5,
+            "p99": 63.5,
+            "max": 231.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 57.5,
+            "max": 225.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 380.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 10.5,
+            "p95": 96.6,
+            "p99": 239.7,
+            "max": 349.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 87.6,
+            "p99": 231.7,
+            "max": 346.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 86.8,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 667.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 32.2,
+            "p95": 36.1,
+            "p99": 62.9,
+            "max": 66.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.4,
+            "p99": 30.6,
+            "max": 34.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 347.2,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 22.9,
+            "p95": 273.3,
+            "p99": 379.8,
+            "max": 446.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 265.2,
+            "p99": 359.3,
+            "max": 439.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 264.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27931
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (deep page 500)",
+      "path": "/api/public/products?limit=20&page=500",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 19.7,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 69.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 15.9,
+            "p95": 18.9,
+            "p99": 46.2,
+            "max": 50.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 31.1,
+            "max": 32.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 394.1,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 6,
+            "p95": 42.9,
+            "p99": 48.5,
+            "max": 51.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 32.5,
+            "p99": 36.4,
+            "max": 37.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 31.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 652.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 13.7,
+            "p95": 18.5,
+            "p99": 45.6,
+            "max": 47.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.5,
+            "p99": 30.7,
+            "max": 31
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 423.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 31.5,
+            "p95": 82.6,
+            "p99": 93,
+            "max": 266
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 69.3,
+            "p99": 77.6,
+            "max": 235.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 68.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 693.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 60.5,
+            "p95": 70.2,
+            "p99": 95.7,
+            "max": 118.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.5,
+            "p99": 30.3,
+            "max": 31.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27897
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (text search)",
+      "path": "/api/public/products?q=shirt&limit=20",
+      "kind": "api",
+      "category": "search",
+      "cold": {
+        "ms": 23.4,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 50.2,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 16.2,
+            "p95": 48.2,
+            "p99": 55.6,
+            "max": 84.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 34.1,
+            "p99": 42.9,
+            "max": 69.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 33.4,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 458.1,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 9.2,
+            "p95": 16.9,
+            "p99": 44.4,
+            "max": 56.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.7,
+            "p99": 32,
+            "max": 45.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 384.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 20.3,
+            "p95": 48.6,
+            "p99": 75.5,
+            "max": 79.8
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 35.4,
+            "p99": 38.7,
+            "max": 62.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 34.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 638.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 31.7,
+            "p95": 52.3,
+            "p99": 75.3,
+            "max": 78.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.5,
+            "p99": 30.3,
+            "max": 31.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 317.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 100.4,
+            "p95": 191.6,
+            "p99": 205.5,
+            "max": 383.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 122.1,
+            "p99": 137.1,
+            "max": 307.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 121.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 19674
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products (sort price)",
+      "path": "/api/public/products?sort=price-asc&limit=20",
+      "kind": "api",
+      "category": "filtered",
+      "cold": {
+        "ms": 35.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 72.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 15.1,
+            "p95": 19.1,
+            "p99": 47.9,
+            "max": 61.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 0.9,
+            "p99": 36,
+            "max": 58.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27967
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 192.7,
+          "errors": 1,
+          "statuses": {
+            "200": 199,
+            "429": 1
+          },
+          "client": {
+            "p50": 6.4,
+            "p95": 47.9,
+            "p99": 551.8,
+            "max": 552.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 38.2,
+            "p99": 547.3,
+            "max": 547.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 37.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27967
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 603.2,
+          "errors": 5,
+          "statuses": {
+            "200": 195,
+            "429": 5
+          },
+          "client": {
+            "p50": 12.9,
+            "p95": 26.7,
+            "p99": 53.2,
+            "max": 73.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 1.5,
+            "p99": 40.2,
+            "max": 53.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 101
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 412.6,
+          "errors": 11,
+          "statuses": {
+            "200": 189,
+            "429": 11
+          },
+          "client": {
+            "p50": 30.3,
+            "p95": 88.3,
+            "p99": 99.3,
+            "max": 297.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 63.8,
+            "p99": 73.5,
+            "max": 272.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 63.4,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 27967
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 421,
+          "errors": 35,
+          "statuses": {
+            "200": 165,
+            "429": 35
+          },
+          "client": {
+            "p50": 49.7,
+            "p95": 125.1,
+            "p99": 131.2,
+            "max": 276.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 73,
+            "p99": 83.2,
+            "max": 230.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 72.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 101
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/suggest",
+      "path": "/api/public/products/suggest?q=jack",
+      "kind": "api",
+      "category": "simple",
+      "cold": {
+        "ms": 49.3,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 36,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 16.7,
+            "p95": 55.4,
+            "p99": 76.9,
+            "max": 90
+          },
+          "server": {
+            "n": 200,
+            "p50": 1.4,
+            "p95": 44.5,
+            "p99": 61,
+            "max": 80.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 43.5,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 413.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 11.6,
+            "p95": 17.9,
+            "p99": 19.1,
+            "max": 20.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.8,
+            "p95": 1.4,
+            "p99": 2,
+            "max": 2.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 594.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 16.4,
+            "p95": 21.7,
+            "p99": 23.6,
+            "max": 24.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.5,
+            "max": 1.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 361.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 51.4,
+            "p95": 128.3,
+            "p99": 136.9,
+            "max": 141.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.7,
+            "p95": 2,
+            "p99": 2.6,
+            "max": 2.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 463.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 58.4,
+            "p95": 189.8,
+            "p99": 211.1,
+            "max": 416.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.7,
+            "p95": 167.7,
+            "p99": 197.3,
+            "max": 346.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 166.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1123
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/products/:slug (sample)",
+      "path": "/api/public/products/cotton-fabric",
+      "kind": "api",
+      "category": "detail",
+      "cold": {
+        "ms": 47.1,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 52.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 15.9,
+            "p95": 47.3,
+            "p99": 56.6,
+            "max": 74.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 33.6,
+            "p99": 44.9,
+            "max": 71.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 32.8,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 442.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 10.4,
+            "p95": 14.1,
+            "p99": 37.6,
+            "max": 38
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 30.8,
+            "max": 32.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 613.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 9.9,
+            "p95": 45.7,
+            "p99": 52.9,
+            "max": 58.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 37.6,
+            "p99": 42,
+            "max": 52.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 37.3,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 735,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 27.6,
+            "p95": 36.9,
+            "p99": 62.9,
+            "max": 64.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.3,
+            "p99": 38.2,
+            "max": 39.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 364.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 123.8,
+            "p95": 241.2,
+            "p99": 253.5,
+            "max": 278.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 185.1,
+            "p99": 193.1,
+            "max": 194.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 184.6,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 1299
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers (directory)",
+      "path": "/api/public/suppliers?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 56.7,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 49.2,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 16.1,
+            "p95": 49.4,
+            "p99": 51,
+            "max": 64.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 2,
+            "p95": 34.3,
+            "p99": 36.7,
+            "max": 49.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 31.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 226.8,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 18.2,
+            "p95": 37.3,
+            "p99": 57.5,
+            "max": 62.8
+          },
+          "server": {
+            "n": 200,
+            "p50": 1.7,
+            "p95": 3.4,
+            "p99": 34.2,
+            "max": 34.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 259.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 32.8,
+            "p95": 81.6,
+            "p99": 90.5,
+            "max": 99.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 1.6,
+            "p95": 60.2,
+            "p99": 68.4,
+            "max": 74.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 57.8,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 276.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 83.8,
+            "p95": 99.1,
+            "p99": 118.8,
+            "max": 156.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 1.5,
+            "p95": 2.9,
+            "p99": 32.5,
+            "max": 33.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 248.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 161.4,
+            "p95": 353.7,
+            "p99": 414.6,
+            "max": 444.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 1.8,
+            "p95": 278,
+            "p99": 338,
+            "max": 362
+          },
+          "db": {
+            "p50": 0,
+            "p95": 276.3,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 18846
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/products (merged)",
+      "path": "/api/public/suppliers/shree-textiles/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 8.9,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 81.1,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 10.7,
+            "p95": 18.5,
+            "p99": 49.9,
+            "max": 73.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 1.2,
+            "p99": 34.9,
+            "max": 61.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 362.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 7.5,
+            "p95": 45.8,
+            "p99": 55.3,
+            "max": 56.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 36.3,
+            "p99": 39.9,
+            "max": 45
+          },
+          "db": {
+            "p50": 0,
+            "p95": 35.9,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 489.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 18.3,
+            "p95": 32.9,
+            "p99": 46,
+            "max": 49.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 32.5,
+            "max": 33.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 570.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 34.2,
+            "p95": 84.6,
+            "p99": 90.5,
+            "max": 107.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 60.5,
+            "p99": 62,
+            "max": 64.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 60,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 177.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 206,
+            "p95": 433.7,
+            "p99": 455.3,
+            "max": 460.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 2.2,
+            "p99": 36.4,
+            "max": 36.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 16426
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/products (catalogue)",
+      "path": "/api/public/suppliers/sunrise-hub/products?limit=20",
+      "kind": "api",
+      "category": "listing",
+      "cold": {
+        "ms": 13.9,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 52.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 15.5,
+            "p95": 47.6,
+            "p99": 54.1,
+            "max": 56.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 33.4,
+            "p99": 39.6,
+            "max": 43.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 32.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 361.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 13.6,
+            "p95": 17.3,
+            "p99": 50.1,
+            "max": 50.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 37.1,
+            "max": 39.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 242.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 25.7,
+            "p95": 140.6,
+            "p99": 243.4,
+            "max": 248.8
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 61.2,
+            "p99": 220.6,
+            "max": 225.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 60.6,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 250,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 77.5,
+            "p95": 201.9,
+            "p99": 231.6,
+            "max": 232.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 0.8,
+            "p99": 36.6,
+            "max": 37
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 322.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 116.2,
+            "p95": 268.5,
+            "p99": 291.2,
+            "max": 298.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 164.9,
+            "p99": 173.7,
+            "max": 176.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 164.6,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 7909
+          },
+          "cacheControl": "public, s-maxage=300, stale-while-revalidate=600"
+        }
+      ]
+    },
+    {
+      "name": "GET /api/public/suppliers/:slug/reviews/summary",
+      "path": "/api/public/suppliers/shree-textiles/reviews/summary",
+      "kind": "api",
+      "category": "simple",
+      "cold": {
+        "ms": 107.7,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 49.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 15.8,
+            "p95": 50.7,
+            "p99": 60.8,
+            "max": 68.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 35.5,
+            "p99": 44.9,
+            "max": 50.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 34.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 386.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 10.8,
+            "p95": 20,
+            "p99": 56.7,
+            "max": 58.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 40.4,
+            "max": 41.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 309,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 26.8,
+            "p95": 63.8,
+            "p99": 84.2,
+            "max": 95.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 44.7,
+            "p99": 50.2,
+            "max": 51.3
+          },
+          "db": {
+            "p50": 0,
+            "p95": 44.2,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 349.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 58.1,
+            "p95": 93.5,
+            "p99": 116.9,
+            "max": 119.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 0.6,
+            "p99": 37.3,
+            "max": 38.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 302.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 101.1,
+            "p95": 313.5,
+            "p99": 366.7,
+            "max": 449.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 181.1,
+            "p99": 203.5,
+            "max": 281.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 180.7,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 511
+          },
+          "cacheControl": "public, s-maxage=60, stale-while-revalidate=60"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products",
+      "path": "/products",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 59.8,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 24.2,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 42.2,
+            "p95": 53.5,
+            "p99": 55.7,
+            "max": 56.1
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 0.6,
+            "p99": 0.9,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 32.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 156.2,
+            "p95": 185.9,
+            "p99": 203.7,
+            "max": 205
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.6,
+            "max": 0.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 33.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 281.8,
+            "p95": 372.5,
+            "p99": 559.5,
+            "max": 574.8
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.9,
+            "max": 3.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 32.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 750.6,
+            "p95": 804.4,
+            "p99": 810.9,
+            "max": 845.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.4,
+            "p99": 0.6,
+            "max": 1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 41.8,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 1172.2,
+            "p95": 1307,
+            "p99": 1325.5,
+            "max": 1329
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.2,
+            "p95": 0.3,
+            "p99": 0.5,
+            "max": 0.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 225747
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products?page=500",
+      "path": "/products?page=500",
+      "kind": "page",
+      "category": "listing",
+      "cold": {
+        "ms": 32.4,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 27.1,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 35.6,
+            "p95": 53.5,
+            "p99": 62.8,
+            "max": 183.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.7,
+            "p99": 1.3,
+            "max": 2.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 35.2,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 149.1,
+            "p95": 170.3,
+            "p99": 177.7,
+            "max": 182.9
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.4,
+            "p99": 0.6,
+            "max": 0.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 33.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 300.5,
+            "p95": 332.5,
+            "p99": 340.4,
+            "max": 344.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.6,
+            "max": 0.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 29.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 826.2,
+            "p95": 1010.8,
+            "p99": 1017.6,
+            "max": 1020.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.6,
+            "p99": 0.7,
+            "max": 0.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 30.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 1633.1,
+            "p95": 1717.3,
+            "p99": 1744.6,
+            "max": 1756.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.3,
+            "p95": 0.5,
+            "p99": 0.6,
+            "max": 0.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 223007
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /search?q=shirt",
+      "path": "/search?q=shirt",
+      "kind": "page",
+      "category": "search",
+      "cold": {
+        "ms": 30.1,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 30.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 32.2,
+            "p95": 46.1,
+            "p99": 52.2,
+            "max": 59.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.6,
+            "p95": 1.2,
+            "p99": 1.4,
+            "max": 2.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 40,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 129.6,
+            "p95": 152.7,
+            "p99": 157.5,
+            "max": 159.8
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.6,
+            "p95": 0.9,
+            "p99": 1.1,
+            "max": 1.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 43.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 235.4,
+            "p95": 262.6,
+            "p99": 270.4,
+            "max": 271.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.3,
+            "max": 1.5
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 47.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 514.2,
+            "p95": 605.3,
+            "p99": 610.2,
+            "max": 610.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.8,
+            "p99": 1.3,
+            "max": 2.3
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 39.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 1200.3,
+            "p95": 1452.4,
+            "p99": 1457.8,
+            "max": 1567.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 1,
+            "p99": 10.1,
+            "max": 15.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 166883
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products/:slug (sample)",
+      "path": "/products/cotton-fabric",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 28.9,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 34.1,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 29.2,
+            "p95": 43.1,
+            "p99": 50.3,
+            "max": 61.4
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.6,
+            "p95": 1,
+            "p99": 1.3,
+            "max": 1.4
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 50.3,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 100.5,
+            "p95": 125.8,
+            "p99": 132.8,
+            "max": 147.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.3,
+            "max": 1.8
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 50.8,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 197.7,
+            "p95": 225.5,
+            "p99": 236.9,
+            "max": 237.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.8,
+            "p99": 0.9,
+            "max": 1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 50.7,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 478.7,
+            "p95": 666.8,
+            "p99": 669.3,
+            "max": 670.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.2,
+            "max": 8.7
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 47.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 993.2,
+            "p95": 1264.5,
+            "p99": 1269.7,
+            "max": 1271.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.2,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 139466
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "name": "PAGE /products/:slug (catalogue)",
+      "path": "/products/lotto-men-white-collared-jacket-1758",
+      "kind": "page",
+      "category": "detail",
+      "cold": {
+        "ms": 28.7,
+        "status": 200
+      },
+      "levels": [
+        {
+          "concurrency": 1,
+          "requests": 200,
+          "rps": 38.5,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 26.5,
+            "p95": 37.5,
+            "p99": 42.1,
+            "max": 43.7
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.6,
+            "p95": 1.2,
+            "p99": 1.3,
+            "max": 1.6
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 5,
+          "requests": 200,
+          "rps": 61.8,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 80.2,
+            "p95": 101.7,
+            "p99": 107.7,
+            "max": 109.2
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1,
+            "max": 1.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 10,
+          "requests": 200,
+          "rps": 59.9,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 166.9,
+            "p95": 193,
+            "p99": 198.1,
+            "max": 246.3
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1.1,
+            "max": 4.9
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 25,
+          "requests": 200,
+          "rps": 61.6,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 419.1,
+            "p95": 451.5,
+            "p99": 453.5,
+            "max": 578.6
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.4,
+            "p95": 0.9,
+            "p99": 1,
+            "max": 1.1
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "concurrency": 50,
+          "requests": 200,
+          "rps": 59.4,
+          "errors": 0,
+          "statuses": {
+            "200": 200
+          },
+          "client": {
+            "p50": 839.5,
+            "p95": 906.5,
+            "p99": 916.8,
+            "max": 1169.5
+          },
+          "server": {
+            "n": 200,
+            "p50": 0.5,
+            "p95": 0.9,
+            "p99": 1,
+            "max": 16.2
+          },
+          "db": {
+            "p50": 0,
+            "p95": 0,
+            "opsMedian": 0
+          },
+          "payload": {
+            "bytes": 120347
+          },
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

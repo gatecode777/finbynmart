@@ -1,0 +1,1 @@
+export { SupplierProfileView } from "./SupplierProfileView";

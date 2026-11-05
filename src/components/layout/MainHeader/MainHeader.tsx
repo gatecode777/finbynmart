@@ -42,7 +42,9 @@ export function MainHeader() {
               </span>
             </Link>
 
-            <AccountLink />
+            <span className={styles.accountSlot}>
+              <AccountLink />
+            </span>
 
             <Link href="/register-supplier" className={styles.actionLink}>
               <span className={styles.actionIcon}>

@@ -1,6 +1,7 @@
 .form {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  align-items: end;
   gap: var(--space-3);
   background: #fff;
   border-radius: var(--radius-lg);
@@ -29,9 +30,11 @@
   color: var(--success);
 }
 
-@media (min-width: 768px) {
-  .form {
-    grid-template-columns: 1.4fr 1fr 1fr auto;
-    align-items: end;
-  }
+
+.supplierNote {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
 }

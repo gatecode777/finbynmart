@@ -1,0 +1,5 @@
+/* "Filter Reviews" fits the sidebar, but a notch smaller keeps it on one line next to the count and Clear All */
+.tight .heading {
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}

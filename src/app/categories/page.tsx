@@ -1,59 +1,75 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { PageIntro } from "@/components/ui/PageIntro";
-import { PageBody } from "@/components/ui/PageBody";
-import { ResultGrid } from "@/components/ui/ResultGrid";
-import { TileLinkCard } from "@/components/ui/TileLinkCard";
-import { TOP_CATEGORIES } from "@/lib/constants/categories";
-import { resolveCategorySlug } from "@/lib/constants/categoryAliases";
-import { getProductFacets } from "@/lib/catalog/queries";
-import { formatCount } from "@/lib/utils/format";
-import styles from "./categories.module.css";
+import { CategoriesHero } from "@/components/category/CategoriesHero";
+import { CategoryExplorer } from "@/components/category/CategoryExplorer";
+import { TrustBenefits } from "@/components/homepage/TrustBenefits";
+import { getCategoryDirectory } from "@/lib/catalog/categories";
+import { siteUrl } from "@/lib/site";
+import { withPagePerf } from "@/lib/perf/instrument";
 
-export const metadata: Metadata = {
-  title: "All Categories | Finbyn Mart",
-  description: "Browse every product category on Finbyn Mart.",
-};
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-export default function CategoriesPage() {
-  const { departments } = getProductFacets();
+const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  const sp = await searchParams;
+  const base = siteUrl();
+  // A selected category or a search is a view of this same page: one canonical URL, kept out of the index.
+  const isView = Boolean(first(sp.c) || first(sp.q));
+  return {
+    title: "All Categories | Finbyn Mart",
+    description:
+      "Browse every product category on Finbyn Mart, search by name and open the category that matches what you need to source.",
+    ...(base ? { alternates: { canonical: `${base}/categories` } } : {}),
+    ...(isView ? { robots: { index: false, follow: true } } : {}),
+  };
+}
+
+async function CategoriesPage({ searchParams }: { searchParams: SearchParams }) {
+  const sp = await searchParams;
+  const { nodes, totals } = getCategoryDirectory();
+
+  // Only a category that has children can be "explored"; ignore anything else in the URL.
+  const requested = first(sp.c);
+  const requestedNode = requested ? nodes.find((node) => node.id === requested) : undefined;
+  const initialSelected = requestedNode && requestedNode.childIds.length > 0 ? requestedNode.id : null;
+  const initialQuery = (first(sp.q) ?? "").slice(0, 80);
+
+  const base = siteUrl() ?? "";
+  const mains = nodes.filter((node) => node.parentId === null);
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "All Categories", item: `${base}/categories` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Finbyn Mart product categories",
+      itemListElement: mains.map((node, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: node.name,
+        url: `${base}${node.href}`,
+      })),
+    },
+  ];
 
   return (
-    <Container>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "All Categories" }]} />
-      <PageBody>
-        <PageIntro title="All Categories" subtitle="Browse suppliers and products by category." />
-
-        <ResultGrid variant="category">
-          {TOP_CATEGORIES.map((category) => (
-            <TileLinkCard
-              key={category.id}
-              href={`/category/${resolveCategorySlug(category.id)}`}
-              name={category.name}
-              tile={category}
-            />
-          ))}
-        </ResultGrid>
-
-        <section className={styles.catalog} aria-labelledby="apparel-catalog">
-          <h2 id="apparel-catalog" className={styles.heading}>
-            Browse the apparel catalog
-          </h2>
-          <p className={styles.note}>Every product in the catalog is apparel. Jump straight to a department.</p>
-          <ul className={styles.departments}>
-            {departments.map((department) => (
-              <li key={department.name}>
-                <Link href={`/products?department=${encodeURIComponent(department.name)}`} className={styles.department}>
-                  <span className={styles.departmentName}>{department.name}</span>
-                  <span className={styles.departmentCount}>{formatCount(department.count)} products</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </PageBody>
-    </Container>
+    <>
+      <script
+        type="application/ld+json"
+        // JSON-LD built from our own data; "<" is escaped so it can never close the tag.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
+      <CategoriesHero totals={totals} />
+      <CategoryExplorer nodes={nodes.map((node) => (node.source === "curated" ? node : { ...node, description: "" }))} initialSelected={initialSelected} initialQuery={initialQuery} />
+      <TrustBenefits overlap={false} />
+    </>
   );
 }
+
+export default withPagePerf("page categories", CategoriesPage);

@@ -1,0 +1,124 @@
+/* A small pill at the top centre: a gold tick, one line of text, a quiet close button. */
+.region {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: var(--z-toast);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  width: min(440px, calc(100vw - 24px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 100%;
+  padding: 6px 6px 6px 8px;
+  border-radius: 999px;
+  background: var(--primary-dark);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(2, 51, 48, 0.28);
+  pointer-events: auto;
+  animation: toast-in var(--transition-normal) both;
+}
+
+.iconWrap {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--primary-deep);
+}
+
+.text {
+  min-width: 0;
+  margin: 0;
+  padding: 4px 0;
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  overflow-wrap: anywhere;
+}
+
+.error {
+  background: #8f1f1f;
+}
+
+.error .iconWrap {
+  background: #fff;
+  color: #8f1f1f;
+}
+
+.info .iconWrap {
+  background: #fff;
+  color: var(--primary);
+}
+
+.close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.close:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.leaving {
+  animation: toast-out 200ms ease-in forwards;
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast,
+  .leaving {
+    animation: none;
+  }
+}
+
+@media print {
+  .region {
+    display: none;
+  }
+}

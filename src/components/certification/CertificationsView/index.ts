@@ -1,0 +1,1 @@
+export { CertificationsView } from "./CertificationsView";

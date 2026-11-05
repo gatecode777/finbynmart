@@ -24,19 +24,20 @@
 
 .control {
   width: 100%;
-  height: 40px;
+  min-height: 44px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   padding: 0 var(--space-3);
   background: #fff;
   font-family: var(--font-sans);
-  font-size: var(--fs-sm);
+  font-size: max(1rem, var(--fs-sm));
   color: var(--text-primary);
 }
 
-.control:focus {
+.control:focus-visible {
   outline: none;
   border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(5, 119, 124, 0.2);
 }
 
 .actions {
@@ -50,7 +51,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  height: 40px;
+  min-height: 44px;
   padding: 0 var(--space-5);
   border: 0;
   border-radius: var(--radius-md);
@@ -68,6 +69,9 @@
 }
 
 .reset {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--text-secondary);

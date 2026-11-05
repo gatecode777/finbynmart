@@ -1,34 +1,60 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X, ClipboardList, UserRound, BriefcaseBusiness } from "lucide-react";
 import { SearchBar } from "@/components/layout/SearchBar";
 import { CATEGORY_NAV } from "@/lib/constants/navigation";
 import styles from "./MobileNavigation.module.css";
+import { lockBodyScroll } from "@/lib/utils/scrollLock";
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
 
+    const trigger = triggerRef.current;
+    const focusables = () =>
+      Array.from(panelRef.current?.querySelectorAll<HTMLElement>("a[href], button, input, select") ?? []);
+    focusables()[0]?.focus();
+
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      // Keep keyboard focus inside the open dialog.
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    const unlock = lockBodyScroll();
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      unlock();
+      trigger?.focus();
     };
   }, [open]);
 
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         className={styles.trigger}
         aria-label="Open menu"
@@ -43,6 +69,7 @@ export function MobileNavigation() {
         <>
           <div className={styles.overlay} onClick={() => setOpen(false)} />
           <div
+            ref={panelRef}
             id="mobile-nav-panel"
             className={styles.panel}
             role="dialog"

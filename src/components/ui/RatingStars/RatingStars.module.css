@@ -1,0 +1,28 @@
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  vertical-align: middle;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  flex: none;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  color: var(--border-strong);
+}
+
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  overflow: hidden;
+}
+
+.full {
+  color: var(--accent);
+  max-width: none;
+}

@@ -3,15 +3,22 @@ import { MapPin, Star } from "lucide-react";
 import clsx from "clsx";
 import { MediaTile } from "@/components/ui/MediaTile";
 import { Badge } from "@/components/ui/Badge";
+import { CompareButton } from "@/components/ui/CompareButton";
+import { WishlistButton } from "@/components/ui/WishlistButton";
 import { formatPriceRange, formatCount } from "@/lib/utils/format";
 import type { ProductCardData, ViewMode } from "@/types";
 import styles from "./ProductCard.module.css";
 
-export function ProductCard({ product, view }: { product: ProductCardData; view: ViewMode }) {
+export function ProductCard({ product, view, inquiry = false }: { product: ProductCardData; view: ViewMode; /** Also offers "Add Inquiry" (a written question) next to the quote button. */ inquiry?: boolean }) {
+  const hasPhoto = Boolean((product.tile as { imageSrc?: string }).imageSrc);
   return (
     <article className={clsx(styles.card, view === "list" && styles.listCard)}>
       <div className={styles.tileWrap}>
-        <MediaTile tile={product.tile} alt={product.name} iconSize={30} />
+        {/* With no photo the tile is the light mint one (the dark gradient read as a broken image) */}
+        <MediaTile tile={hasPhoto ? product.tile : { ...product.tile, tint: "blue" }} alt={product.name} iconSize={30} />
+        {!hasPhoto && <span className={styles.noPhoto}>Photo not added yet</span>}
+        <WishlistButton productId={product.id} productName={product.name} />
+        <CompareButton productId={product.id} productName={product.name} variant="icon" />
         {product.badge && (
           <span className={styles.badgeOverlay}>
             <Badge variant="neutral">{product.badge}</Badge>
@@ -56,9 +63,20 @@ export function ProductCard({ product, view }: { product: ProductCardData; view:
           </span>
         )}
 
-        <Link href={product.href} className={styles.cta}>
-          Get Best Quote
-        </Link>
+        {inquiry ? (
+          <div className={styles.ctaRow}>
+            <Link href={`${product.href}#get-best-quote`} className={styles.cta}>
+              Get Best Quote
+            </Link>
+            <Link href={`${product.href}#send-inquiry`} className={styles.ctaSecondary}>
+              Add Inquiry
+            </Link>
+          </div>
+        ) : (
+          <Link href={`${product.href}#get-best-quote`} className={styles.cta}>
+            Get Best Quote
+          </Link>
+        )}
       </div>
     </article>
   );

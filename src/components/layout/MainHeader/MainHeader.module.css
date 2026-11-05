@@ -3,10 +3,12 @@
   border-bottom: 1px solid var(--border);
 }
 
+/* Below 1024px the search drops to its own full-width row; the toggle, logo and account link share the first. */
 .inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-3);
   padding-block: var(--space-3);
 }
 
@@ -17,27 +19,31 @@
 }
 
 .logo {
-  height: 48px;
+  height: 36px;
   width: auto;
+  max-width: none;
+  object-fit: contain;
 }
 
 .searchSlot {
-  flex: 1 1 auto;
+  order: 3;
+  flex: 1 0 100%;
   min-width: 0;
-  max-width: 620px;
 }
 
 .actions {
   flex: 0 0 auto;
-  display: none;
+  display: flex;
   align-items: center;
   gap: var(--space-6);
+  margin-left: auto;
 }
 
 .actionLink {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 44px;
   color: var(--text-primary);
 }
 
@@ -95,16 +101,6 @@
   display: inline-flex;
 }
 
-@media (min-width: 1024px) {
-  .actions {
-    display: flex;
-  }
-
-  .mobileToggle {
-    display: none;
-  }
-}
-
 .actionButton {
   border: 0;
   background: none;
@@ -112,4 +108,75 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+}
+
+/* Tablet and mobile: the other actions live in the menu drawer. */
+@media (max-width: 1023px) {
+  .actions > :not(.accountSlot) {
+    display: none;
+  }
+}
+
+/* Phones: account link collapses to its icon (text stays available to screen readers). */
+@media (max-width: 639px) {
+  .accountSlot .actionText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .accountSlot .actionIcon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (min-width: 640px) {
+  .logo {
+    height: 44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    flex-wrap: nowrap;
+    gap: var(--space-6);
+  }
+
+  .logo {
+    height: 48px;
+  }
+
+  .searchSlot {
+    order: 0;
+    flex: 1 1 280px;
+    min-width: 240px;
+    max-width: 620px;
+  }
+
+  .actions {
+    margin-left: 0;
+  }
+
+  .mobileToggle {
+    display: none;
+  }
+}
+
+/* Laptops: trim the action labels so the search keeps room. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .actions {
+    gap: var(--space-3);
+  }
+
+  .actionSubtitle {
+    display: none;
+  }
+
+  .cta {
+    padding: var(--space-2) var(--space-3);
+  }
 }

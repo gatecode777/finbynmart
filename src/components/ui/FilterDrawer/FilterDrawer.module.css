@@ -1,0 +1,163 @@
+/* Wide screens: transparent wrapper, content inline. */
+.trigger,
+.panelHeader,
+.panelFooter {
+  display: none;
+}
+
+.panelBody {
+  min-width: 0;
+}
+
+.trigger {
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.trigger:hover {
+  background: var(--primary-light);
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--primary-deep);
+  font-size: var(--fs-xs);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(2, 51, 48, 0.55);
+  animation: fade 0.2s ease;
+}
+
+.panelTitle {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.done {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+.done:hover {
+  background: var(--primary-dark);
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Narrow screens: button + drawer. Two breakpoints because the category page
+   keeps its sidebar until 991px while the GET-form filter bars collapse at 768px. */
+@media (max-width: 767px) {
+  .md .trigger { display: inline-flex; }
+  .md .panel {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 111;
+    display: flex;
+    flex-direction: column;
+    width: min(92vw, 400px);
+    background: #fff;
+    box-shadow: var(--shadow-hover);
+    transform: translateX(-102%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .md .panel.open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.25s ease;
+  }
+  .md .panelHeader,
+  .md .panelFooter { display: flex; }
+}
+
+@media (max-width: 990px) {
+  .lg .trigger { display: inline-flex; }
+  .lg .panel {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 111;
+    display: flex;
+    flex-direction: column;
+    width: min(92vw, 400px);
+    background: #fff;
+    box-shadow: var(--shadow-hover);
+    transform: translateX(-102%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .lg .panel.open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.25s ease;
+  }
+  .lg .panelHeader,
+  .lg .panelFooter { display: flex; }
+}
+
+.panelHeader {
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.panelFooter {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 767px) {
+  .md .panelBody { flex: 1; overflow-y: auto; padding: var(--space-4); }
+}
+
+@media (max-width: 990px) {
+  .lg .panelBody { flex: 1; overflow-y: auto; padding: var(--space-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .overlay { transition: none; animation: none; }
+}

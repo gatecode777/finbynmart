@@ -1,156 +1,111 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { PageIntro } from "@/components/ui/PageIntro";
-import { PageBody } from "@/components/ui/PageBody";
-import { FilterBar } from "@/components/ui/FilterBar";
-import { ResultGrid } from "@/components/ui/ResultGrid";
-import { ResultSummary } from "@/components/ui/ResultSummary";
-import { Pagination } from "@/components/ui/Pagination";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { ProductCard } from "@/components/category/ProductCard";
-import { getCatalogTotals, getProductFacets, getSellerBySlug, listProducts } from "@/lib/catalog/queries";
-import { toProductCard } from "@/lib/catalog/mappers";
-import { formatCount } from "@/lib/utils/format";
-import { first, oneOf, toInt, type SearchParams } from "@/lib/utils/searchParams";
+import { Boxes, Layers3, Users } from "lucide-react";
+import { CategoryListingPage } from "@/components/category/CategoryListingPage";
+import { PageHero } from "@/components/ui/PageHero";
+import { SearchPanel } from "@/components/ui/SearchPanel";
+import { getCategoryDirectory } from "@/lib/catalog/categories";
+import { PRODUCTS_PAGE_SIZE, getProductListing, listingHref, listingParams, parseListingQuery, type ListingQuery } from "@/lib/catalog/categoryListing";
+import { getSellerBySlug } from "@/lib/catalog/queries";
+import { slugify } from "@/lib/catalog/slug";
+import { siteUrl } from "@/lib/site";
+import type { SearchParams } from "@/lib/utils/searchParams";
+import { withPagePerf } from "@/lib/perf/instrument";
 
-export const metadata: Metadata = {
-  title: "Browse Products | Finbyn Mart",
-  description: "Browse apparel products from suppliers on Finbyn Mart by category, colour and price.",
-};
+const TITLE = "All Products — Browse Products from Suppliers | Finbyn Mart";
+const DESCRIPTION =
+  "Browse products from suppliers across multiple industries and categories. Search by name or keyword, filter by category, price, MOQ and location, and request quotes.";
 
-const PAGE_SIZE = 24;
-const SORTS = ["relevance", "price-asc", "price-desc", "name"] as const;
+/**
+ * Older links used `?category=<name>` for a product category such as "Men Tshirts" (the product page
+ * breadcrumb) and now `category` means a main category id. A value that is not a main category is read
+ * as a subcategory, so those links keep working.
+ */
+function withLegacyCategory(query: ListingQuery): ListingQuery {
+  const mains = new Set(getCategoryDirectory().nodes.filter((node) => node.parentId === null).map((node) => node.id));
+  const legacy = query.category.filter((value) => !mains.has(value)).map(slugify);
+  if (legacy.length === 0) return query;
+  return { ...query, category: query.category.filter((value) => mains.has(value)), sub: [...new Set([...query.sub, ...legacy])] };
+}
 
-export default async function ProductsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
-  const sp = await searchParams;
-  const q = first(sp.q);
-  const department = first(sp.department);
-  const category = first(sp.category);
-  const colour = first(sp.colour);
-  const minPrice = toInt(first(sp.minPrice));
-  const maxPrice = toInt(first(sp.maxPrice));
-  const sort = oneOf(first(sp.sort), SORTS);
-  const sellerSlug = first(sp.seller);
-  const seller = sellerSlug ? getSellerBySlug(sellerSlug) : undefined;
+export async function generateMetadata({ searchParams }: { searchParams: Promise<SearchParams> }): Promise<Metadata> {
+  const query = parseListingQuery(await searchParams);
+  const base = siteUrl();
+  // Search, filters, sort, list view and page size are the same listing under another URL: one canonical, kept
+  // out of the index. Plain pagination keeps its own canonical so every page of results can be found.
+  const filtered = listingHref("/products", query, { page: 1 }) !== "/products";
+  return {
+    title: TITLE,
+    description: DESCRIPTION,
+    ...(base ? { alternates: { canonical: query.page > 1 && !filtered ? `${base}/products?page=${query.page}` : `${base}/products` } } : {}),
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+    openGraph: { title: TITLE, description: DESCRIPTION, type: "website", ...(base ? { url: `${base}/products` } : {}) },
+  };
+}
 
-  const facets = getProductFacets();
-  const totals = getCatalogTotals();
-  const result = listProducts({
-    q,
-    department,
-    category,
-    colour,
-    sellerId: seller?.id,
-    minPrice,
-    maxPrice,
-    sort,
-    page: toInt(first(sp.page)),
-    pageSize: PAGE_SIZE,
-  });
+async function ProductsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const query = withLegacyCategory(parseListingQuery(await searchParams));
+  const listing = getProductListing(query, { pageSize: PRODUCTS_PAGE_SIZE });
+  const { applied, totals, facets } = listing;
 
-  const categoryOptions = facets.categories.filter((c) => !department || c.department === department);
+  const sellerName = applied.seller ? (getSellerBySlug(applied.seller)?.name ?? listing.results.items[0]?.card.supplierName) : undefined;
+
+  // The requirement form opens with what the buyer was looking for.
+  const oneCategory = applied.category.length === 1 ? facets.categories.find((option) => option.value === applied.category[0])?.label : undefined;
+  const requirement = new URLSearchParams();
+  if (applied.q) requirement.set("product", applied.q);
+  if (oneCategory) requirement.set("category", oneCategory);
+  const requirementHref = requirement.size ? `/post-requirement?${requirement}` : "/post-requirement";
+
+  const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Products" }];
 
   return (
-    <Container>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products" }]} />
-      <PageBody>
-        <PageIntro
-          title="Browse Products"
-          subtitle={`${formatCount(totals.products)} apparel products from ${formatCount(totals.sellers)} sellers. Prices shown are estimates.`}
-        />
-
-        {seller && (
-          <p>
-            Showing products from <strong>{seller.name}</strong>.{" "}
-            <Link href="/products">Show all products</Link>
-          </p>
-        )}
-
-        <FilterBar
-          action="/products"
-          resetHref={seller ? `/products?seller=${seller.slug}` : "/products"}
-          hidden={{ seller: seller?.slug }}
-          fields={[
-            { kind: "search", name: "q", label: "Search", placeholder: "Product, brand or colour", value: q },
-            {
-              kind: "select",
-              name: "department",
-              label: "Department",
-              value: department,
-              options: [
-                { label: "All departments", value: "" },
-                ...facets.departments.map((f) => ({ label: `${f.name} (${formatCount(f.count)})`, value: f.name })),
-              ],
-            },
-            {
-              kind: "select",
-              name: "category",
-              label: "Category",
-              value: category,
-              options: [
-                { label: "All categories", value: "" },
-                ...categoryOptions.map((f) => ({ label: `${f.name} (${formatCount(f.count)})`, value: f.name })),
-              ],
-            },
-            {
-              kind: "select",
-              name: "colour",
-              label: "Colour",
-              value: colour,
-              options: [
-                { label: "All colours", value: "" },
-                ...facets.colours.map((f) => ({ label: `${f.name} (${formatCount(f.count)})`, value: f.name })),
-              ],
-            },
-            { kind: "number", name: "minPrice", label: "Min price (₹)", placeholder: "0", value: minPrice?.toString() },
-            { kind: "number", name: "maxPrice", label: "Max price (₹)", placeholder: "Any", value: maxPrice?.toString() },
-            {
-              kind: "select",
-              name: "sort",
-              label: "Sort by",
-              value: sort,
-              options: [
-                { label: "Featured", value: "relevance" },
-                { label: "Price: low to high", value: "price-asc" },
-                { label: "Price: high to low", value: "price-desc" },
-                { label: "Name A–Z", value: "name" },
-              ],
-            },
+    <CategoryListingPage
+      basePath="/products"
+      query={query}
+      listing={listing}
+      breadcrumbs={breadcrumbs}
+      name="All"
+      heading="All Products"
+      filtersVariant="global"
+      sellerName={sellerName}
+      hero={
+        <PageHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Explore Our Product Range"
+          title="All"
+          accent="Products"
+          headingId="products-heading"
+          description="Browse a wide range of products from suppliers across multiple industries and categories."
+          stats={[
+            { label: totals.products === 1 ? "Product" : "Products", value: totals.products, icon: Boxes },
+            { label: totals.suppliers === 1 ? "Supplier" : "Suppliers", value: totals.suppliers, icon: Users },
+            { label: totals.categories === 1 ? "Category" : "Categories", value: totals.categories, icon: Layers3 },
           ]}
+          image={{ src: "/images/industries/retail-wholesale.jpg", alt: "A warehouse aisle with stocked shelving" }}
         />
-
-        <ResultSummary page={result.page} pageSize={PAGE_SIZE} total={result.total} noun="products" />
-
-        {result.items.length > 0 ? (
-          <ResultGrid variant="product">
-            {result.items.map((product) => (
-              <ProductCard key={product.id} product={toProductCard(product)} view="grid" />
-            ))}
-          </ResultGrid>
-        ) : (
-          <EmptyState title="No products match these filters" actions={<Link href="/products">Clear filters</Link>}>
-            Try a different search or widen the price range.
-          </EmptyState>
-        )}
-
-        <Pagination
-          page={result.page}
-          totalPages={result.totalPages}
-          basePath="/products"
-          params={{
-            q,
-            department,
-            category,
-            colour,
-            sort,
-            seller: seller?.slug,
-            minPrice: minPrice?.toString(),
-            maxPrice: maxPrice?.toString(),
-          }}
+      }
+      search={
+        <SearchPanel
+          action="/products"
+          label="Search Products"
+          placeholder="Enter product name, brand, model or keyword (e.g. T-Shirt, Air Compressor, Corrugated Box...)"
+          value={applied.q}
+          hidden={listingParams(applied, { q: "", page: 1 })}
         />
-      </PageBody>
-    </Container>
+      }
+      noMatchHint={
+        applied.q
+          ? `Nothing matches “${applied.q}”. Check the spelling, try a more general word, remove a filter, or post your requirement and suppliers will respond.`
+          : undefined
+      }
+      cta={{
+        heading: "Can't Find the Right Product?",
+        description: "Post your requirement and get quotes from suppliers in minutes.",
+        href: requirementHref,
+      }}
+      requirementHref={requirementHref}
+    />
   );
 }
+
+export default withPagePerf("page products", ProductsPage);

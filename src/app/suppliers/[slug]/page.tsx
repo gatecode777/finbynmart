@@ -1,111 +1,79 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/Container";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { SupplierHero } from "@/components/supplier/SupplierHero";
-import { SupplierProfileCard } from "@/components/supplier/SupplierProfileCard";
-import { SupplierTabs } from "@/components/supplier/SupplierTabs";
-import { SupplierContentLayout } from "@/components/supplier/SupplierContentLayout";
-import { SupplierOverview } from "@/components/supplier/SupplierOverview";
-import { SupplierProductsGrid } from "@/components/supplier/SupplierProductsGrid";
-import { SupplierGallery } from "@/components/supplier/SupplierGallery";
-import { SupplierInquiryForm } from "@/components/supplier/SupplierInquiryForm";
-import { SupplierInfoCard } from "@/components/supplier/SupplierInfoCard";
-import { SupplierTrustStrip } from "@/components/supplier/SupplierTrustStrip";
-import { getSupplierProfile } from "@/lib/constants/supplierProfiles";
-import { getProductsBySupplier } from "@/lib/constants/categoryPages";
-import { getSellerBySlug, getSellerProducts } from "@/lib/catalog/queries";
-import { sellerToSupplierProfile, toProductCard } from "@/lib/catalog/mappers";
-import type { ProductCardData, SupplierProfile } from "@/types";
+import { TrustBenefits } from "@/components/homepage/TrustBenefits";
+import { SupplierProfileHeader } from "@/components/supplier/SupplierProfileHeader";
+import { SupplierProfileView } from "@/components/supplier/SupplierProfileView";
+import { getPublicSupplierBySlug } from "@/lib/catalog/supplierDetail";
+import { countPublicCertificationsSafe } from "@/lib/certifications/store";
+import { getReviewHeadlineSafe } from "@/lib/reviews/store";
+import { siteUrl } from "@/lib/site";
+import { withPagePerf } from "@/lib/perf/instrument";
+
+export const dynamic = "force-dynamic";
 
 interface SupplierPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const CATALOG_PREVIEW_COUNT = 24;
-
-interface ResolvedSupplier {
-  supplier: SupplierProfile;
-  products: ProductCardData[];
-  totalCount?: number;
-  viewAllHref?: string;
-}
-
-/** The hand-built sample profile wins for its slug; everything else comes from the catalog. */
-function resolveSupplier(slug: string): ResolvedSupplier | undefined {
-  const sample = getSupplierProfile(slug);
-  if (sample) {
-    return { supplier: sample, products: getProductsBySupplier(sample.href) };
-  }
-
-  const seller = getSellerBySlug(slug);
-  if (!seller) return undefined;
-
-  const all = getSellerProducts(seller.id);
-  return {
-    supplier: sellerToSupplierProfile(seller),
-    products: all.slice(0, CATALOG_PREVIEW_COUNT).map(toProductCard),
-    totalCount: all.length,
-    viewAllHref: `/products?seller=${seller.slug}`,
-  };
-}
-
 export async function generateMetadata({ params }: SupplierPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const resolved = resolveSupplier(slug);
+  const supplier = getPublicSupplierBySlug(slug);
+  if (!supplier) return { title: "Supplier not found | Finbyn Mart", robots: { index: false } };
 
-  if (!resolved) {
-    return {};
-  }
+  const base = siteUrl();
+  const kind = supplier.supplierType ?? supplier.industry ?? "Supplier";
+  const title = `${supplier.name} — ${kind}, ${supplier.city} | Finbyn Mart`;
+  const description = `${supplier.name} in ${supplier.city}, ${supplier.state}: ${supplier.productCount} ${supplier.productCount === 1 ? "product" : "products"} on Finbyn Mart. Send an inquiry or request a quote.`;
+  const image = supplier.images[0];
+  const imageUrl = image ? (image.remote ? image.src : base ? `${base}${image.src}` : undefined) : undefined;
 
-  const { supplier } = resolved;
-  const kind = supplier.businessType ?? supplier.categoryLabel;
   return {
-    title: `${supplier.name} — ${kind}, ${supplier.city} | Finbyn Mart`,
-    description: supplier.description,
+    title,
+    description,
+    ...(base ? { alternates: { canonical: `${base}${supplier.url}` } } : {}),
+    openGraph: { title, description, type: "website", ...(base ? { url: `${base}${supplier.url}` } : {}), ...(imageUrl ? { images: [{ url: imageUrl }] } : {}) },
   };
 }
 
-export default async function SupplierPage({ params }: SupplierPageProps) {
+async function SupplierPage({ params }: SupplierPageProps) {
   const { slug } = await params;
-  const resolved = resolveSupplier(slug);
+  const supplier = getPublicSupplierBySlug(slug);
+  if (!supplier) notFound();
 
-  if (!resolved) {
-    notFound();
-  }
-
-  const { supplier, products, totalCount, viewAllHref } = resolved;
+  const [certificationCount, reviewHeadline] = await Promise.all([countPublicCertificationsSafe(supplier.slug), getReviewHeadlineSafe(supplier.slug)]);
+  const base = siteUrl() ?? "";
+  // Structured data carries only supported facts: no rating, review, certification or verification claim.
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${base}/` },
+        { "@type": "ListItem", position: 2, name: "Suppliers", item: `${base}/suppliers` },
+        { "@type": "ListItem", position: 3, name: supplier.name, item: `${base}${supplier.url}` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: supplier.name,
+      url: `${base}${supplier.url}`,
+      address: { "@type": "PostalAddress", addressLocality: supplier.city, addressRegion: supplier.state, addressCountry: "IN" },
+    },
+  ];
 
   return (
     <>
-      <Container>
-        <Breadcrumb
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Suppliers", href: "/suppliers" },
-            { label: supplier.name },
-          ]}
-        />
-      </Container>
-      <SupplierHero supplier={supplier} />
-      <SupplierProfileCard supplier={supplier} />
-      <SupplierTabs />
-      <SupplierContentLayout
-        main={
-          <>
-            <SupplierOverview supplier={supplier} />
-            <SupplierProductsGrid products={products} totalCount={totalCount} viewAllHref={viewAllHref} />
-            <SupplierGallery images={supplier.galleryImages ?? []} />
-          </>
-        }
-        sidebar={
-          <>
-            <SupplierInquiryForm supplierId={supplier.id} supplierName={supplier.name} products={products} />
-            <SupplierInfoCard supplier={supplier} />
-          </>
-        }
+      <script
+        type="application/ld+json"
+        // JSON-LD built from our own data; "<" is escaped so it can never close the tag.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
-      <SupplierTrustStrip verified={supplier.verified} />
+      <SupplierProfileHeader supplier={supplier} />
+      <SupplierProfileView supplier={supplier} certificationCount={certificationCount} reviewCount={reviewHeadline?.count} />
+      <TrustBenefits overlap={false} />
     </>
   );
 }
+
+export default withPagePerf("page suppliers/:slug", SupplierPage);

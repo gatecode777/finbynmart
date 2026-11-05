@@ -1,0 +1,169 @@
+.intro {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-top: var(--space-8);
+}
+
+.introIcon {
+  display: inline-flex;
+  flex: none;
+  color: var(--primary);
+}
+
+.introTitle {
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 1.15rem + 1vw, 2rem);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-primary);
+}
+
+.introText {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* DOM order is Write a Review, filters, reviews, guidelines: that is also the order on a phone, so the CTA stays near the top */
+.layout,
+.layoutSingle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+  padding-block: 0 var(--space-8);
+}
+
+.write {
+  grid-area: write;
+}
+
+.filters {
+  grid-area: filters;
+  min-width: 0;
+}
+
+.main {
+  grid-area: main;
+  min-width: 0;
+}
+
+.guide {
+  grid-area: guide;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.layout,
+.layoutSingle {
+  grid-template-areas:
+    "write"
+    "filters"
+    "main"
+    "guide";
+}
+
+.guideTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-primary);
+}
+
+.guideTitle svg {
+  color: var(--primary);
+}
+
+.guideList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.guideList li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-primary);
+}
+
+.guideList svg {
+  flex: none;
+  margin-top: 1px;
+  color: var(--success);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.list > li {
+  min-width: 0;
+}
+
+.after {
+  height: var(--space-8);
+}
+
+/* Medium widths: filters on the left, Write a Review above the reviews, guidelines below them */
+@media (min-width: 991px) {
+  .layout {
+    grid-template-columns: 270px minmax(0, 1fr);
+    grid-template-areas:
+      "filters write"
+      "filters main"
+      "filters guide";
+    gap: var(--space-6);
+  }
+
+  .layoutSingle {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    grid-template-areas:
+      "main write"
+      "main guide";
+    gap: var(--space-6);
+  }
+}
+
+/* Wide: filters | reviews | Write a Review and guidelines */
+@media (min-width: 1280px) {
+  .layout {
+    grid-template-columns: 270px minmax(0, 1fr) 320px;
+    grid-template-areas:
+      "filters main write"
+      "filters main guide"
+      "filters main .";
+  }
+
+  .layoutSingle {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+@media (max-width: 479px) {
+  .intro {
+    align-items: flex-start;
+    padding-top: var(--space-6);
+  }
+
+  .introIcon svg {
+    width: 32px;
+    height: 32px;
+  }
+}

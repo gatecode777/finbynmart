@@ -1,0 +1,168 @@
+/* Order-specific pieces; the list-page controls reuse the inquiries styles and the details layout reuses the inquiry details styles. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.pill_processing {
+  background: var(--accent-soft);
+  color: var(--primary-deep);
+  border: 1px solid var(--accent-light);
+}
+
+.pill_in_transit {
+  background: #e6efff;
+  color: #1d3f8a;
+}
+
+.pill_delivered {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.pill_issues {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.pill_other {
+  background: var(--background-soft);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+}
+
+.amount {
+  display: grid;
+  gap: 2px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.small {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
+}
+
+.moreItems {
+  display: block;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+
+.paymentBox {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.paymentIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.paymentTitle {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.paymentText {
+  margin: var(--space-1) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.toolbarExport {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 var(--space-3);
+}
+
+.eventList {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eventList li {
+  display: grid;
+  gap: 2px;
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--primary-light);
+  overflow-wrap: anywhere;
+}
+
+.itemList {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.itemList li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  min-width: 0;
+}
+
+.itemText {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.notice {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--accent-light);
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+}
+
+/* The reference plus nothing else can still be wider than a 320px card: let it wrap instead of clipping. */
+h2.wrap {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* The order total line on the details page: a sentence, so it wraps (the list's .amount stays on one line). */
+.totalLine {
+  display: grid;
+  gap: 2px;
+  margin: var(--space-3) 0 0;
+  font-weight: var(--fw-bold);
+  overflow-wrap: anywhere;
+}

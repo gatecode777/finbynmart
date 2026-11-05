@@ -1,0 +1,22 @@
+# Page 27 — Test report (shared with Page 28)
+
+Run on 2026-11-04 against production builds on the throwaway database `finbynmart_test` (dropped at the end of the batch). Chrome headless via puppeteer-core, no email provider.
+
+| Suite | Result |
+|---|---|
+| `docs/page-reports/tools/27-list-rules-unit-test.mjs` | 28 passed, 0 failed |
+| `docs/page-reports/tools/27-28-buyer-inquiries-test.mjs` (API + browser) with the performance group | **100/100 passed on the final build** (one earlier full run on the final code failed a single responsive check, a clipped reference in the details overview at 1280 and 1366px; fixed, then 100/100) |
+| `docs/page-reports/tools/27-inquiry-explain.mjs` | no collection scan, no blocking sort (performance report) |
+| Page 13 suite after moving the list and links (`13-contact-inquiry-test.mjs`) | 241/241 |
+| Page 14 suite (`14-inquiry-confirmation-test.mjs`) | 124/124 |
+| Page 22 dashboard, 23 profile, 24 addresses, 25-26 settings & notifications (after the shell, toast and dialog changes) | 96/96, 102/102, 85/85, 91/91 |
+| `npx tsc --noEmit`, `npx eslint src`, production build | passed |
+
+## Coverage of the 98 checks
+Access (A): 401 on five routes with no-store, supplier 403, suspended 401, sign-in redirect for both pages, supplier page, private headers · Ownership (B): own 14 and not B's or the guest inquiry that uses the buyer's e-mail, B's own 3, identical 404 for another buyer's / unknown / malformed (API and page), cross-buyer cancel by reference and id, `buyerId` ignored, guest inquiry unreachable, raw id refused for referenced records · Listing and status (C): every tab (14, 4, 1, 6, 1, 1, 3, 2, 1) and its counts, awaiting group, capitals, 400 for an unsupported status, status mapping and `canCancel` per status, row contents without private fields, old record (status `new`, no reference, no `updatedAt`), general inquiry and unlisted product, no quotation field, no contact or internal fields · Search (D): reference (exact and prefix), product, supplier, case, empty, spaces, no match, `.*` literal, buyer scope, B finds its own, 61 characters 400, search with a tab and the tab counts, operator-looking input · Filters (E): types (with the old `quote` type), suppliers, categories, combinations, presets, India-midnight boundaries (23:59:59.999 vs 00:00:00.000), nine invalid filters · Sorting (F): newest/oldest reverse each other, recently updated, same-millisecond tie-break stable across page sizes, invalid sorts · Paging (G): 5/5/4/0 with meta, no repeats, default 20 and max 50, invalid pages, filter and search kept · Summary (H): the four numbers, facets limited to the buyer's history, zeros for a buyer with none · Cancellation (J): eligible by reference with history entry and record kept, twice 409, closed/replied/quoted/rejected 409, summary moves, bad ids 404, no direct status edit (405), old record · Details API and page (M, Page 28): see its report · List page in the browser (L): shell and gold active item, cards, tab counts, table columns, tab click with URL, debounced search with URL, clear, Filters dialog (accessible, buyer's suppliers only), Apply with chips and badge, reload restores, Clear all, server sort, row menu, View Details, **Back shows the list the address names**, cancel dialog and confirm with toast and card update, no-match state, summary failure keeps the table, offline error with Try again, empty state, pager on 45 inquiries · Responsive (O): both pages at 16 widths without overflow, clipping or controls outside the viewport; cards with touch-sized buttons on a phone; the filter sheet fits · Performance (P): see the performance report.
+
+## Bugs found by the tests and fixed
+Clipped reference in the details overview at 1280 and 1366px (a four-column overview in a narrow card; now four columns only from 1500px); a closed or cancelled inquiry still said "Waiting for the supplier" on steps that never happened (wording fixed in the shared timeline); stale list after Back (router cache vs. address); the Modal focused its close button instead of "Keep inquiry"; native confirm boxes replaced by the shared dialog; wrong expectations in my own test (counts, selectors).
+
+## Not run
+Lighthouse, a contrast tool, Firefox, Safari, real devices, landscape, browser zoom 80–200%, screen readers, concurrent-buyer load, a hosted staging database. Screenshots: `docs/page-reports/screenshots/27-buyer-my-inquiries-{desktop-1440,tablet-820,mobile-390}.png`.

@@ -1,59 +1,72 @@
-.section {
+.state {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding-top: var(--space-4);
+  padding-block: var(--space-8) var(--space-12);
 }
 
-.heading {
-  font-size: var(--fs-xl);
+.stateTitle {
+  font-family: var(--font-sans);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  text-transform: none;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 
-.count {
-  font-size: var(--fs-base);
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.none {
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-}
-
-.viewAll {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  align-self: flex-start;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--primary);
-}
-
-.viewAll:hover {
-  color: var(--primary-dark);
-}
-
-.chips {
+.chips,
+.hintLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
-  list-style: none;
+  gap: var(--space-3);
+}
+
+.hintLinks {
+  margin-top: var(--space-3);
+  justify-content: center;
 }
 
 .chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-5);
   border: 1px solid var(--border-strong);
   border-radius: 999px;
-  padding: var(--space-2) var(--space-4);
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
   background: #fff;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
 }
 
 .chip:hover {
+  border-color: var(--primary);
   background: var(--primary-light);
-  color: var(--primary-dark);
+  color: var(--primary);
+}
+
+.chipCount {
+  color: var(--text-muted);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  font-weight: var(--fw-semibold);
+  color: var(--primary);
+}
+
+.notice {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
 }

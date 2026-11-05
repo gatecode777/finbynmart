@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { FOOTER_COLUMNS, LEGAL_LINKS } from "@/lib/constants/footer";
+import { SocialIcon } from "./SocialIcon";
 import styles from "./Footer.module.css";
 
 const SOCIAL_LINKS = [
@@ -37,8 +38,9 @@ export function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer noopener"
+                  aria-label={`Finbyn Mart on ${link.label}`}
                 >
-                  {link.label}
+                  <SocialIcon name={link.label} />
                 </a>
               ))}
             </div>

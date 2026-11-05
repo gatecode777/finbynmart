@@ -1,24 +1,37 @@
 import type { RequirementFormValues } from "@/lib/validations/requirement";
 
 export type SubmitRequirementResult =
-  | { status: "ok" }
-  | { status: "error"; message: string };
+  | { status: "ok"; id: string }
+  | { status: "error"; message: string; needsSignIn?: boolean; fields?: Record<string, string> };
 
-/**
- * Not wired to a real backend yet. There is no confirmed requirement/inquiry
- * API for Finbyn Mart's B2B relaunch at this stage of the project, so this
- * deliberately does not report success — see docs/EXISTING_WEBSITE_AUDIT.md
- * and docs/API_INTEGRATION.md once those exist. Replace this implementation
- * when the real endpoint is confirmed.
- */
+export interface RequirementContext {
+  category?: string;
+  subcategory?: string;
+  unit?: string;
+  /** Supplier slug or id the requirement is addressed to; the server resolves it. */
+  supplierId?: string;
+}
+
+/** Posts the requirement to /api/requirements. Success is reported only when the server stored it. */
 export async function submitRequirement(
-  values: RequirementFormValues
+  values: RequirementFormValues,
+  context: RequirementContext = {},
 ): Promise<SubmitRequirementResult> {
-  void values;
-
-  return {
-    status: "error",
-    message:
-      "Requirement submission isn't connected to a backend yet. This form is UI-only until the real API is wired up.",
-  };
+  try {
+    const response = await fetch("/api/requirements", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...values, ...context }),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (response.ok && data.ok) return { status: "ok", id: data.id };
+    return {
+      status: "error",
+      message: data.message ?? "Something went wrong. Please try again.",
+      needsSignIn: response.status === 401,
+      fields: data.fields,
+    };
+  } catch {
+    return { status: "error", message: "Couldn't reach the server. Check your connection and try again." };
+  }
 }

@@ -1,1 +1,0 @@
-export { SupplierHero } from "./SupplierHero";

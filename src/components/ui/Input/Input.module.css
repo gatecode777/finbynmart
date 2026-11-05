@@ -1,41 +1,55 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 6px;
+  min-width: 0;
   text-align: left;
 }
 
 .label {
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .input {
   width: 100%;
+  min-height: 48px;
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--fs-sm);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-4);
+  /* 16px stops iOS from zooming the page when a field is focused */
+  font-size: max(1rem, var(--fs-sm));
   background: #fff;
   color: var(--text-primary);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .input::placeholder {
   color: var(--text-muted);
 }
 
+.input:hover {
+  border-color: var(--primary-bright);
+}
+
 .input:focus-visible {
   border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(5, 119, 124, 0.2);
   outline: none;
 }
 
 .invalid {
   border-color: var(--danger);
+  background: #fffafa;
+}
+
+.invalid:focus-visible {
+  box-shadow: 0 0 0 3px rgba(190, 40, 40, 0.18);
 }
 
 .error {
   font-size: var(--fs-xs);
+  font-weight: 500;
   color: var(--danger);
 }

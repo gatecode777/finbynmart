@@ -1,25 +1,35 @@
-import type { SupplierInquiryFormValues } from "@/lib/validations/supplierInquiry";
-
 export type SubmitSupplierInquiryResult =
-  | { status: "ok" }
-  | { status: "error"; message: string };
+  | { status: "ok"; id: string }
+  | { status: "error"; message: string; needsSignIn?: boolean; fields?: Record<string, string> };
 
-/**
- * Not wired to a real backend yet. There is no confirmed inquiry/quotation
- * API for Finbyn Mart's B2B relaunch at this stage of the project, so this
- * deliberately does not report success — mirrors src/lib/api/requirements.ts.
- * Replace this implementation when the real endpoint is confirmed.
- */
-export async function submitSupplierInquiry(
-  supplierId: string,
-  values: SupplierInquiryFormValues
-): Promise<SubmitSupplierInquiryResult> {
-  void supplierId;
-  void values;
+export interface InquiryPayload {
+  /** Product key (catalog id or sample slug). Omit for a general inquiry to the supplier. */
+  productId?: string;
+  supplierId?: string;
+  quantity: string;
+  unit?: string;
+  message?: string;
+  /** "quote" (Get Best Quote, the default) or "inquiry" (Send Inquiry, which needs a message). */
+  type?: "quote" | "inquiry";
+}
 
-  return {
-    status: "error",
-    message:
-      "Inquiry submission isn't connected to a backend yet. This form is UI-only until the real API is wired up.",
-  };
+/** Posts an inquiry to /api/inquiries. Success is reported only when the server stored it. */
+export async function postInquiry(payload: InquiryPayload): Promise<SubmitSupplierInquiryResult> {
+  try {
+    const response = await fetch("/api/inquiries", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (response.ok && data.ok) return { status: "ok", id: data.id };
+    return {
+      status: "error",
+      message: data.message ?? "Something went wrong. Please try again.",
+      needsSignIn: response.status === 401,
+      fields: data.fields,
+    };
+  } catch {
+    return { status: "error", message: "Couldn't reach the server. Check your connection and try again." };
+  }
 }

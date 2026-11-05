@@ -1,1 +1,0 @@
-export { SupplierContentLayout } from "./SupplierContentLayout";

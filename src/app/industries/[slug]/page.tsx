@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { MediaTile } from "@/components/ui/MediaTile";
 import { INDUSTRY_SOLUTIONS } from "@/lib/constants/industries";
 import styles from "./industry.module.css";
+import { withPagePerf } from "@/lib/perf/instrument";
 
 interface IndustryPageProps {
   params: Promise<{ slug: string }>;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
   return industry ? { title: `${industry.name} | Finbyn Mart` } : {};
 }
 
-export default async function IndustryPage({ params }: IndustryPageProps) {
+async function IndustryPage({ params }: IndustryPageProps) {
   const { slug } = await params;
   const industry = INDUSTRY_SOLUTIONS.find((item) => item.id === slug);
 
@@ -53,3 +54,5 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
     </Container>
   );
 }
+
+export default withPagePerf("page industries/:slug", IndustryPage);

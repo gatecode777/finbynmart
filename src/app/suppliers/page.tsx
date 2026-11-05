@@ -1,110 +1,73 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { PageIntro } from "@/components/ui/PageIntro";
-import { PageBody } from "@/components/ui/PageBody";
-import { FilterBar } from "@/components/ui/FilterBar";
-import { ResultGrid } from "@/components/ui/ResultGrid";
-import { ResultSummary } from "@/components/ui/ResultSummary";
-import { Pagination } from "@/components/ui/Pagination";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { SellerCard } from "@/components/supplier/SellerCard";
-import { getSellerFacets, listSellers } from "@/lib/catalog/queries";
-import { formatCount } from "@/lib/utils/format";
-import { first, oneOf, toInt, type SearchParams } from "@/lib/utils/searchParams";
+import { Building2, Factory, MapPin } from "lucide-react";
+import { SupplierListingView } from "@/components/supplier/SupplierListingView";
+import { PageHero } from "@/components/ui/PageHero";
+import { SearchPanel } from "@/components/ui/SearchPanel";
+import { getSupplierListing, parseSupplierQuery, supplierHref, supplierParams, SUPPLIER_PAGE_SIZE } from "@/lib/catalog/supplierListing";
+import { siteUrl } from "@/lib/site";
+import type { SearchParams } from "@/lib/utils/searchParams";
+import { withPagePerf } from "@/lib/perf/instrument";
 
-export const metadata: Metadata = {
-  title: "Find Suppliers | Finbyn Mart",
-  description: "Browse apparel suppliers on Finbyn Mart by specialization and location.",
-};
+const TITLE = "Find Suppliers | Finbyn Mart";
+const DESCRIPTION = "Browse suppliers on Finbyn Mart by company name, product, category or location, and send an inquiry or post your requirement.";
 
-const PAGE_SIZE = 24;
-const SORTS = ["rating", "products", "name"] as const;
+export async function generateMetadata({ searchParams }: { searchParams: Promise<SearchParams> }): Promise<Metadata> {
+  const query = parseSupplierQuery(await searchParams);
+  const base = siteUrl();
+  // Search, filters, sort, list view and page size are the same directory under another URL: one canonical, kept out
+  // of the index. Plain pagination keeps its own canonical so every page of suppliers can be found.
+  const filtered = supplierHref("/suppliers", query, { page: 1 }) !== "/suppliers";
+  return {
+    title: TITLE,
+    description: DESCRIPTION,
+    ...(base ? { alternates: { canonical: query.page > 1 && !filtered ? `${base}/suppliers?page=${query.page}` : `${base}/suppliers` } } : {}),
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+    openGraph: { title: TITLE, description: DESCRIPTION, type: "website", ...(base ? { url: `${base}/suppliers` } : {}) },
+  };
+}
 
-export default async function SuppliersPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
-  const sp = await searchParams;
-  const q = first(sp.q);
-  const specialization = first(sp.specialization);
-  const state = first(sp.state);
-  const sort = oneOf(first(sp.sort), SORTS);
+async function SuppliersPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  const query = parseSupplierQuery(await searchParams);
+  const listing = getSupplierListing(query, { pageSize: SUPPLIER_PAGE_SIZE });
+  const { totals, applied } = listing;
 
-  const facets = getSellerFacets();
-  const result = listSellers({ q, specialization, state, sort, page: toInt(first(sp.page)), pageSize: PAGE_SIZE });
-  const total = facets.specializations.reduce((sum, f) => sum + f.count, 0);
+  const requirement = new URLSearchParams();
+  if (applied.q) requirement.set("product", applied.q);
+  const requirementHref = requirement.size ? `/post-requirement?${requirement}` : "/post-requirement";
+  const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Suppliers" }];
 
   return (
-    <Container>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Suppliers" }]} />
-      <PageBody>
-        <PageIntro
-          title="Find Suppliers"
-          subtitle={`Browse ${formatCount(total)} sellers by what they specialize in and where they are based.`}
-        />
-
-        <FilterBar
-          action="/suppliers"
-          resetHref="/suppliers"
-          fields={[
-            { kind: "search", name: "q", label: "Search", placeholder: "Seller name or city", value: q },
-            {
-              kind: "select",
-              name: "specialization",
-              label: "Specialization",
-              value: specialization,
-              options: [
-                { label: "All specializations", value: "" },
-                ...facets.specializations.map((f) => ({ label: `${f.name} (${f.count})`, value: f.name })),
-              ],
-            },
-            {
-              kind: "select",
-              name: "state",
-              label: "State",
-              value: state,
-              options: [
-                { label: "All states", value: "" },
-                ...facets.states.map((f) => ({ label: `${f.name} (${f.count})`, value: f.name })),
-              ],
-            },
-            {
-              kind: "select",
-              name: "sort",
-              label: "Sort by",
-              value: sort,
-              options: [
-                { label: "Top rated", value: "rating" },
-                { label: "Most products", value: "products" },
-                { label: "Name A–Z", value: "name" },
-              ],
-            },
+    <SupplierListingView
+      basePath="/suppliers"
+      query={query}
+      listing={listing}
+      requirementHref={requirementHref}
+      hero={
+        <PageHero
+          breadcrumbs={breadcrumbs}
+          eyebrow="Discover Suppliers"
+          accent="Suppliers"
+          headingId="suppliers-heading"
+          description="Connect with suppliers across multiple industries and find the right business for your needs."
+          stats={[
+            { label: totals.suppliers === 1 ? "Supplier" : "Suppliers", value: totals.suppliers, icon: Building2 },
+            { label: totals.industries === 1 ? "Industry" : "Industries", value: totals.industries, icon: Factory },
+            { label: totals.cities === 1 ? "City" : "Cities", value: totals.cities, icon: MapPin },
           ]}
+          image={{ src: "/images/industries/manufacturing.jpg", alt: "A manufacturing workshop" }}
         />
-
-        <ResultSummary page={result.page} pageSize={PAGE_SIZE} total={result.total} noun="suppliers" />
-
-        {result.items.length > 0 ? (
-          <ResultGrid variant="seller">
-            {result.items.map((seller) => (
-              <SellerCard key={seller.id} seller={seller} />
-            ))}
-          </ResultGrid>
-        ) : (
-          <EmptyState
-            title="No suppliers match these filters"
-            actions={<Link href="/suppliers">Clear filters</Link>}
-          >
-            Try a different search or remove a filter.
-          </EmptyState>
-        )}
-
-        <Pagination
-          page={result.page}
-          totalPages={result.totalPages}
-          basePath="/suppliers"
-          params={{ q, specialization, state, sort }}
+      }
+      search={
+        <SearchPanel
+          action="/suppliers"
+          label="Search Suppliers"
+          placeholder="Enter company name, product, category or location (e.g. Ruchi House, Sarees, Mumbai...)"
+          value={applied.q}
+          hidden={supplierParams(applied, { q: "", page: 1 })}
         />
-      </PageBody>
-    </Container>
+      }
+    />
   );
 }
+
+export default withPagePerf("page suppliers", SuppliersPage);

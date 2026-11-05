@@ -1,0 +1,214 @@
+{
+  "base": "http://localhost:3100",
+  "when": "2026-11-03T06:13:42.602Z",
+  "pages": [
+    {
+      "mode": "guest",
+      "path": "/",
+      "note": "home",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/products",
+      "note": "all products",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/products/cotton-fabric",
+      "note": "product detail",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/suppliers",
+      "note": "supplier directory",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/suppliers/shree-textiles",
+      "note": "supplier profile",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 3,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/suppliers/shree-textiles/products",
+      "note": "supplier products",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 3,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/suppliers/shree-textiles/reviews",
+      "note": "supplier reviews",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/search?q=shirt",
+      "note": "search results",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "guest",
+      "path": "/inquiry/shree-textiles",
+      "note": "contact supplier",
+      "requests": {
+        "GET /api/auth/me": 1
+      },
+      "total": 1,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/",
+      "note": "home",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/products",
+      "note": "all products",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/products/cotton-fabric",
+      "note": "product detail",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/suppliers",
+      "note": "supplier directory",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/suppliers/shree-textiles",
+      "note": "supplier profile",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 3,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/suppliers/shree-textiles/products",
+      "note": "supplier products",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 3,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/suppliers/shree-textiles/reviews",
+      "note": "supplier reviews",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist/suppliers": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/search?q=shirt",
+      "note": "search results",
+      "requests": {
+        "GET /api/auth/me": 1,
+        "GET /api/buyer/wishlist": 1
+      },
+      "total": 2,
+      "duplicates": []
+    },
+    {
+      "mode": "signed-in",
+      "path": "/inquiry/shree-textiles",
+      "note": "contact supplier",
+      "requests": {
+        "GET /api/auth/me": 1
+      },
+      "total": 1,
+      "duplicates": []
+    }
+  ],
+  "typing": {
+    "typed": "jacket",
+    "delayMsPerKey": 60,
+    "suggestionRequests": 1,
+    "queries": [
+      "?q=jacket"
+    ]
+  }
+}

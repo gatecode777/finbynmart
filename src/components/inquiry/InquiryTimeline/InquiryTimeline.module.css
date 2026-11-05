@@ -1,0 +1,110 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+/* the line joining one marker to the next */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.done:not(:last-child)::before {
+  background: var(--success);
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border-strong);
+  border-radius: 50%;
+  background: #fff;
+  color: #fff;
+}
+
+.done .marker {
+  border-color: var(--success);
+  background: var(--success);
+}
+
+.current .marker {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.stopped .marker {
+  border-color: var(--border-strong);
+  background: var(--background-soft);
+  color: var(--text-muted);
+}
+
+.body {
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-primary);
+}
+
+.upcoming .title,
+.stopped .title {
+  color: var(--text-secondary);
+}
+
+.text {
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.when {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: calc(var(--space-1) * -1);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+@media (min-width: 560px) {
+  .step {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+  }
+
+  .when {
+    grid-column: 3;
+    justify-self: end;
+    margin-top: 0;
+    align-self: start;
+  }
+}

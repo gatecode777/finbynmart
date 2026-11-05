@@ -1,0 +1,24 @@
+# Pages 25-26 — Test report
+
+Run on 2026-11-03 and 2026-11-04 against production builds on the throwaway database `finbynmart_test` (dropped at the end of the batch). Chrome headless via puppeteer-core, no email provider configured.
+
+| Suite | Result |
+|---|---|
+| `docs/page-reports/tools/25-26-rules-unit-test.mjs` | 15 passed, 0 failed |
+| `docs/page-reports/tools/25-26-settings-notifications-test.mjs` (API + browser), final build, performance group skipped | **91/91 passed** |
+| same suite with the performance group (K-01 to K-03) | 92 of 94 in the last full run; the two failures are the documented performance misses: **K-02** (mark all on 20,000 unread: requests of up to 200 take about 1.3 s p95 against a 500 ms target) and, in earlier full runs, **K-01** (a single list p95 spike at 10,000 or 20,000 rows). One full run failed only L-04 (a real bug, fixed: see below) plus K-02 |
+| `docs/page-reports/tools/25-26-notification-explain.mjs` | no SORT stage or collection scan for any list; see the performance report |
+| Page 22 dashboard suite after the shell changes (gold active item, icon-only top bar, bell panel, minimized sidebar) | 96/96 (one earlier run died on a puppeteer "frame was detached" error mid-run and passed on re-run: not a check failure) |
+| Page 23 profile suite | 102/102 |
+| Page 24 address suite | 85/85 |
+| `npx tsc --noEmit`, `npx eslint` on the changed folders, production build | passed |
+
+## Coverage (91 checks)
+Access (A): 401 on every route with no-store, supplier 403, suspended session, sign-in redirect back to the same tab, page not cached · Settings (B): defaults at version 0 with no document created by reading, seven refusals (account category, buyerId, custom period, unsupported setting, non-boolean, bad version, operator object), first save, versioned save, stale 409, three simultaneous first saves (200, 409, 409), buyer isolation, unique index, audit by names, 31st write 429 · Events (C): empty start, inquiry creates one honest notification, replay creates none, guest creates none, database refuses a duplicate, preference off creates none (inquiries and company), password change creates a required notice and signs the other device out, sign-out-everywhere (second login revoked, this device kept, notice created), document upload notice says Pending/not verified, unsafe stored link returned as no link, no personal data in notices · List and read state (D): 120 notifications with pages, filters (status, category, combinations), page past the end, 7 refused queries plus the ignored bracket parameter, buyerId ignored, isolation, mark one (idempotent, keeps first time), IDOR and bad ids identical 404, category mark-all, other buyer's mark-all, bad category, read-all then nothing unread, unread count and its cap (100), indexes, 180-day expiry, 121st write 429 · Settings page (F): shell, sections, only real switches, locked required category, Save disabled until a change, unsaved-changes guard, save persists and survives reload, dashboard period applied and overridden by the address, profile menu link, sign-out-everywhere flow · Notifications page (G): empty state, bell label, active sidebar item, 20 per page, Next, filters and URL, mark one, restore from address, category mark-all, mark all, safe links, empty filter state, offline error with Try again, invalid address fallback · Bell panel (P): count, popup contents, click opens page and marks read, click without page marks read, All view, Escape and focus return, outside click, mark all, empty state, fits 320 to 1440 · Sign-in (L): wrong password shows no toast, success toast and header update without reload, dismiss, auto-dismiss at six seconds, sign-out toast from the dashboard menu, gold active sidebar item · Responsive (J): both tabs at 16 widths (320 to 2560), no overflow, touch targets at 320.
+
+## Bugs found by the tests and fixed
+Blocking sort and `readAt` filter (explain), unsorted "more" lookup (timing), bulk `updateMany` too slow (now bounded), sign-out toast lost on full reload (L-04), header kept showing "Sign In" after a client-side sign-in (the header read the session once; it now re-reads after navigation and auth events), two wrong expectations in my own tests (inquiry minimum quantity, bracket-style parameter).
+
+## Not run
+Lighthouse, a contrast tool (new colours: dark teal text on the gold active item reuses the palette; not measured), Firefox, Safari, real devices, landscape, browser zoom 80–200%, screen-reader testing, concurrent-user load, the email-verified event (not built), notifications against a hosted staging database.
+Screenshots: `docs/page-reports/screenshots/25-26-{settings,notifications}-{desktop-1440,tablet-820,mobile-390}.png`, `25-26-bell-panel-{1440,320}.png`, `25-26-settings-desktop-gold-active.png`, `22-sidebar-minimized.png`, `22-sidebar-hover-expanded.png`.

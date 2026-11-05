@@ -1,0 +1,200 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-5);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.card:has(.name:focus-visible) {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  /* leave room for the heart in the corner */
+  padding-right: var(--space-8);
+}
+
+.logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  color: var(--primary);
+}
+
+.head {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Whole-card link: the name stretches over the card; the heart and the buttons stay above it */
+.name {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  line-height: 1.25;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.name:hover {
+  color: var(--primary);
+}
+
+.desc {
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.desc strong {
+  color: var(--text-primary);
+}
+
+.photo {
+  position: relative;
+  display: none;
+  flex: 0 0 auto;
+  width: 120px;
+  height: 96px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--background-soft);
+}
+
+.photoImage {
+  object-fit: cover;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  list-style: none;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta svg {
+  color: var(--primary);
+}
+
+.actions {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-align: center;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--primary-deep);
+}
+
+.secondary {
+  background: #fff;
+  color: var(--primary);
+}
+
+.secondary:hover {
+  background: var(--primary-light);
+}
+
+@media (min-width: 480px) {
+  .photo {
+    display: block;
+  }
+}
+
+@media (max-width: 479px) {
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* List view: a wide row */
+@media (min-width: 900px) {
+  .listCard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--space-6);
+  }
+
+  .listCard .top {
+    grid-column: 1;
+  }
+
+  .listCard .meta {
+    grid-column: 1;
+  }
+
+  .listCard .actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    grid-template-columns: 1fr;
+    min-width: 180px;
+    margin-top: 0;
+  }
+}

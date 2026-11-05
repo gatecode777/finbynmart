@@ -8,7 +8,7 @@ interface PaginationProps {
   totalPages: number;
   basePath: string;
   /** Current filters; blank values are dropped from the links. */
-  params?: Record<string, string | undefined>;
+  params?: Record<string, string | string[] | undefined>;
 }
 
 function pageWindow(page: number, totalPages: number): (number | "gap")[] {
@@ -28,7 +28,8 @@ export function Pagination({ page, totalPages, basePath, params = {} }: Paginati
   function hrefFor(target: number): string {
     const search = new URLSearchParams();
     for (const [key, value] of Object.entries(params)) {
-      if (value) search.set(key, value);
+      if (Array.isArray(value)) value.forEach((v) => v && search.append(key, v));
+      else if (value) search.set(key, value);
     }
     if (target > 1) search.set("page", String(target));
     const qs = search.toString();

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { CATEGORY_PAGES } from "@/lib/constants/categoryPages";
 import { FEATURED_SUPPLIERS } from "@/lib/constants/suppliers";
 import type { CatalogProduct, CatalogSeller } from "@/types";
 import { parseCSV } from "./csv";
@@ -28,6 +29,16 @@ export interface Catalog {
 
 const SEED_DIR = path.join(process.cwd(), "db", "seed");
 
+/**
+ * Sample suppliers that are also one seller of the seed catalogue (sample supplier slug -> seller id). Shree Textiles
+ * has 8 sample fabric listings without photographs; the seed seller of the same name (SLR0216, 21 products with
+ * photos) is that company's catalogue. The seller takes the sample supplier's slug and location, so its products
+ * carry the supplier's own page on every route (cards, product pages, search, the supplier's product list) instead of
+ * a second "Shree Textiles" in another city. Listed in docs/MISSING_ASSETS.md as sample data.
+ */
+export const ADOPTED_SELLERS: Record<string, string> = { "shree-textiles": "SLR0216" };
+const ADOPTED_SLUG_BY_SELLER = new Map(Object.entries(ADOPTED_SELLERS).map(([slug, id]) => [id, slug]));
+
 function readSeed(file: string): Record<string, string>[] {
   return parseCSV(fs.readFileSync(path.join(SEED_DIR, file), "utf8"));
 }
@@ -44,20 +55,26 @@ function load(): Catalog {
     else sizesByProduct.set(row.product_id, [row.size]);
   }
 
-  // Sample suppliers on the homepage own these slugs, so catalog sellers may not reuse them.
-  const takenSlugs = new Set(FEATURED_SUPPLIERS.map((s) => s.id));
+  // Sample suppliers (the homepage ones and the suppliers of the sample listings) own these slugs, so a catalog
+  // seller with the same name gets a suffixed slug instead of taking over a sample supplier's page.
+  const takenSlugs = new Set([
+    ...FEATURED_SUPPLIERS.map((s) => s.id),
+    ...Object.values(CATEGORY_PAGES).flatMap((page) => page.products.map((p) => p.supplierHref.replace(/^\/suppliers\//, ""))),
+  ]);
   const sellers: CatalogSeller[] = [];
   for (const row of readSeed("sellers.csv")) {
     if (row.status !== "Active") continue;
-    let slug = slugify(row.name);
-    if (!slug || takenSlugs.has(slug)) slug = `${slug}-${row.id.toLowerCase()}`;
+    const adoptedSlug = ADOPTED_SLUG_BY_SELLER.get(row.id);
+    const home = adoptedSlug ? FEATURED_SUPPLIERS.find((s) => s.id === adoptedSlug) : undefined;
+    let slug = adoptedSlug ?? slugify(row.name);
+    if (!adoptedSlug && (!slug || takenSlugs.has(slug))) slug = `${slug}-${row.id.toLowerCase()}`;
     takenSlugs.add(slug);
     sellers.push({
       id: row.id,
       slug,
       name: row.name,
-      city: row.city,
-      state: row.state,
+      city: home?.city ?? row.city,
+      state: home?.state ?? row.state,
       specialization: row.specialization,
       rating: Number(row.rating),
       joinedDate: row.joined_date,
@@ -69,7 +86,9 @@ function load(): Catalog {
 
   const products: CatalogProduct[] = [];
   const productsBySeller = new Map<string, CatalogProduct[]>();
-  for (const row of readSeed("products.csv")) {
+  // FINBYN_CATALOG_LIMIT keeps only the first N products: a test aid for measuring a smaller catalogue (never set in production).
+  const productLimit = Number(process.env.FINBYN_CATALOG_LIMIT) || Infinity;
+  for (const row of readSeed("products.csv").slice(0, productLimit)) {
     const category = categories.get(row.category_id);
     const seller = sellerById.get(row.seller_id);
     if (!category || !seller) continue;
@@ -107,9 +126,23 @@ function load(): Catalog {
   };
 }
 
-const globalForCatalog = globalThis as unknown as { __finbynCatalog?: Catalog };
+// The cached catalogue, indexes and directories live on globalThis so dev hot reloads reuse them. Change the "V2" suffix
+// of their names whenever the shape of what they hold changes, so a running dev server rebuilds them instead of
+// reading an object built by older code.
+const globalForCatalog = globalThis as unknown as { __finbynCatalogV2?: Catalog };
 
 export function getCatalog(): Catalog {
-  globalForCatalog.__finbynCatalog ??= load();
-  return globalForCatalog.__finbynCatalog;
+  globalForCatalog.__finbynCatalogV2 ??= load();
+  return globalForCatalog.__finbynCatalogV2;
+}
+
+/** The catalogue seller that is the catalogue of a sample supplier, if it has one. */
+export function adoptedSeller(slug: string): CatalogSeller | undefined {
+  const id = ADOPTED_SELLERS[slug];
+  return id ? getCatalog().sellerById.get(id) : undefined;
+}
+
+/** Number of sample listings of a supplier (the hand-written ones, not the seed catalogue). */
+export function sampleListingCount(slug: string): number {
+  return Object.values(CATEGORY_PAGES).reduce((sum, page) => sum + page.products.filter((p) => p.supplierHref === `/suppliers/${slug}`).length, 0);
 }

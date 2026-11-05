@@ -1,0 +1,1 @@
+export { InquiryPageView } from "./InquiryPageView";
