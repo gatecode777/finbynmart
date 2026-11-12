@@ -1,0 +1,20 @@
+// run: node --import ./docs/page-reports/tools/alias-register.mjs docs/page-reports/tools/42-inventory-rules-unit-test.mjs
+import assert from "node:assert/strict";
+const r = await import("../../../src/lib/supplier/inventoryRules.ts");
+assert.equal(r.parseQtyMilli("12"), 12000);
+assert.equal(r.parseQtyMilli("0.125"), 125);
+assert.equal(r.parseQtyMilli("1.2345"), null);
+for (const bad of ["", "-1", "1e3", "abc"]) assert.equal(r.parseQtyMilli(bad), null, bad);
+assert.equal(r.formatQty(12500), "12.5");
+assert.equal(r.stockStatus(0, 100), "OUT_OF_STOCK");
+assert.equal(r.stockStatus(100, 100), "LOW_STOCK", "inclusive boundary");
+assert.equal(r.stockStatus(101, 100), "IN_STOCK");
+assert.equal(r.stockStatus(5, null), "IN_STOCK", "no level, never low");
+assert.deepEqual(r.movementEffect("OPENING", 5000, null), { delta: 5000, result: 5000 });
+assert.ok("error" in r.movementEffect("OPENING", 5000, 1000));
+assert.ok("error" in r.movementEffect("ADD", 5000, null), "untracked needs opening balance");
+assert.ok("error" in r.movementEffect("REMOVE", 6000, 5000), "no negative stock");
+assert.deepEqual(r.movementEffect("REMOVE", 5000, 5000), { delta: -5000, result: 0 });
+assert.ok(r.validateAdjust({ productRef: "x", kind: "ADD", quantity: "0", reason: "LOSS", note: "", reorderLevel: "" }).quantity);
+assert.ok(r.validateAdjust({ productRef: "x", kind: "ADD", quantity: "1", reason: "OTHER", note: "", reorderLevel: "" }).note);
+console.log("ok");

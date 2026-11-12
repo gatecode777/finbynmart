@@ -1,0 +1,107 @@
+/* Access Denied (Page 77): one centred card on the soft background, official teal and gold, same on every portal. */
+.wrap {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+  padding: var(--space-8) var(--space-4);
+  background: var(--background-soft);
+}
+
+.card {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 520px;
+  padding: clamp(var(--space-6), 5vw, var(--space-8)) clamp(var(--space-5), 5vw, var(--space-8));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.logo {
+  width: auto;
+  max-width: 100%;
+  height: 44px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--primary);
+}
+
+.title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.text {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-base);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.primary:hover {
+  background: var(--accent-hover, var(--accent));
+}
+
+.secondary {
+  min-height: 44px;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 480px) {
+  .actions {
+    justify-items: center;
+  }
+
+  .primary {
+    width: auto;
+    min-width: 280px;
+  }
+}

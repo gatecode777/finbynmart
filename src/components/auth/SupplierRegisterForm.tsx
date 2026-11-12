@@ -1,8 +1,8 @@
 "use client";
 
+import { resolvePostLoginPath } from "@/lib/auth/portals";
 import { FormEvent, ReactNode, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { MailCheck, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -10,6 +10,7 @@ import { PHONE_COUNTRIES } from "@/lib/inquiries/rules";
 import { validateSupplierSignup } from "@/lib/auth/supplierRegistration";
 import { CONSENT_VERSION, PRIVACY_PATH, TERMS_PATH } from "@/lib/legal";
 import { postAuth } from "@/lib/api/auth";
+import { announceAuthChange, flashToast } from "@/components/ui/Toast";
 import { PasswordField } from "./PasswordField";
 import styles from "./Auth.module.css";
 
@@ -17,7 +18,6 @@ type Fields = "businessName" | "contactName" | "email" | "phone" | "city" | "off
 const ORDER: Fields[] = ["businessName", "contactName", "email", "phone", "city", "offering", "password", "confirmPassword", "consent"];
 
 export function SupplierRegisterForm() {
-  const router = useRouter();
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState({ businessName: "", contactName: "", email: "", countryCode: "+91", number: "", city: "", offering: "", password: "", confirmPassword: "" });
@@ -70,8 +70,9 @@ export function SupplierRegisterForm() {
     const result = await postAuth("/api/auth/register/supplier", payload());
     if (result.ok) {
       if (result.data.signedIn === true) {
-        router.push("/");
-        router.refresh();
+        announceAuthChange();
+        flashToast("success", "Supplier account created. Welcome to Finbyn Mart!", { deferred: true });
+        window.location.assign(resolvePostLoginPath("supplier", null));
         return;
       }
       setSentTo({ email: checked.value.email, failed: result.data.verification === "email_failed" });

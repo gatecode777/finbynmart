@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireBuyerApi } from "@/lib/auth/guards";
+import { requireBuyerApi, requireSupportApi } from "@/lib/auth/guards";
 import { tooMany } from "@/lib/auth/http";
 import { rateLimit } from "@/lib/security/rateLimit";
 import type { PublicUser } from "@/lib/auth/users";
@@ -46,4 +46,15 @@ const ADDRESS_TEXT: Record<string, [number, string]> = {
 export function addressFailure(code: string) {
   const [status, message] = ADDRESS_TEXT[code] ?? [409, "The address could not be saved."];
   return json({ ok: false, message, code }, status);
+}
+
+/** Same as buyerGuard for the support-ticket routes, which a supplier may also use for their own tickets. */
+export async function supportGuard(write?: { key: string; limit: number; windowSeconds: number }): Promise<{ user: PublicUser } | { response: NextResponse }> {
+  const guard = await requireSupportApi();
+  if ("response" in guard) return guard;
+  if (write) {
+    const limit = await rateLimit(`${write.key}:${guard.user.id}`, write.limit, write.windowSeconds);
+    if (!limit.ok) return { response: tooMany(limit.retryAfterSeconds) };
+  }
+  return guard;
 }

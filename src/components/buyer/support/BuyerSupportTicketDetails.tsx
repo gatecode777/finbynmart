@@ -37,6 +37,8 @@ interface Props {
   initialRelated: RelatedDetails | null | undefined;
   buyerName: string;
   initialTab: TicketTab;
+  /** Where the support list lives for this portal. Default is the buyer's; the supplier portal passes /supplier/support. */
+  supportBase?: string;
 }
 
 const api = (ref: string, tail = "") => `/api/buyer/support/tickets/${ref}${tail}`;
@@ -54,10 +56,11 @@ function merge(current: MessageDto[], incoming: MessageDto[]): MessageDto[] {
  * allowed (the capability flags come from it, never from the browser). The tabs load their own data the first time they are opened, and
  * one failing tab does not blank the others. The reply draft lives here, so it survives switching tabs.
  */
-export function BuyerSupportTicketDetails({ initialOverview, initialMessages, initialRelated, buyerName, initialTab }: Props) {
+export function BuyerSupportTicketDetails({ initialOverview, initialMessages, initialRelated, buyerName, initialTab, supportBase = "/buyer/support" }: Props) {
+  const isSupplier = supportBase !== "/buyer/support";
   const id = useId();
   const [overview, setOverview] = useState(initialOverview);
-  const [tab, setTab] = useState<TicketTab>(initialTab);
+  const [tab, setTab] = useState<TicketTab>(isSupplier ? "conversation" : initialTab);
   const [messages, setMessages] = useState<MessageDto[] | null>(initialMessages ? initialMessages.messages : null);
   const [meta, setMeta] = useState(initialMessages?.meta ?? { hasMore: false, nextCursor: null as string | null });
   const [messagesError, setMessagesError] = useState<string | null>(initialMessages ? null : "The conversation could not be loaded. Use Refresh to try again.");
@@ -67,25 +70,25 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
   const [draftFiles, setDraftFiles] = useState<File[]>([]);
   const [reopening, setReopening] = useState(false);
   const [version, setVersion] = useState(0);
-  const [backHref, setBackHref] = useState("/buyer/support");
+  const [backHref, setBackHref] = useState(supportBase);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const lastRefresh = useRef(Date.now());
   const messagesRef = useRef(messages);
   messagesRef.current = messages;
   const ref = overview.reference;
 
-  const timeline = usePagedFetch<TimelineItem>(api(ref, "/timeline"), tab === "timeline", version, (b) => (b as { data: { items: TimelineItem[] } }).data.items);
+  const timeline = usePagedFetch<TimelineItem>(api(ref, "/timeline"), isSupplier || tab === "timeline", version, (b) => (b as { data: { items: TimelineItem[] } }).data.items);
   const files = usePagedFetch<FileItem>(api(ref, "/attachments"), tab === "attachments", version, (b) => (b as { data: { files: FileItem[] } }).data.files);
 
   // return to the list with the search and filters it had
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(LIST_KEY);
-      if (saved !== null && /^(\?[A-Za-z0-9_=&%.\-:,+]*)?$/.test(saved)) setBackHref(`/buyer/support${saved}`);
+      if (saved !== null && /^(\?[A-Za-z0-9_=&%.\-:,+]*)?$/.test(saved)) setBackHref(`${supportBase}${saved}`);
     } catch {
       /* storage blocked: the plain list */
     }
-  }, []);
+  }, [supportBase]);
 
   function chooseTab(next: TicketTab) {
     setTab(next);
@@ -202,32 +205,41 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
   return (
     <>
       <div className={`${d.headerActions} ${d.noPrint}`}>
-        <Link href={backHref} className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to All Tickets</Link>
+        <Link href={backHref} className={d.btn}><ArrowLeft size={18} aria-hidden /> {supportBase === "/buyer/support" ? "Back to All Tickets" : "Back to Support"}</Link>
         {cap.canReopen && <button type="button" className={`${d.btn} ${inq.btnPrimary}`} onClick={() => setReopening(true)}><RotateCcw size={18} aria-hidden /> Reopen Ticket</button>}
       </div>
 
-      <section className={d.card} aria-label="Ticket summary">
-        <dl className={t.summary}>
-          <div className={t.summaryItem}>
-            <dt>Ticket ID</dt>
-            <dd>
-              <span className={t.reference}>{ref}
-                <button type="button" className={t.copyBtn} onClick={() => void copyReference()} aria-label={`Copy ticket ID ${ref}`}><Copy size={16} aria-hidden /></button>
-              </span>
-            </dd>
-          </div>
-          <div className={t.summaryItem}><dt>Subject</dt><dd>{overview.subject}</dd></div>
-          <div className={t.summaryItem}><dt>Category</dt><dd><span className={styles.catTag}>{overview.category.label}</span></dd></div>
-          <div className={t.summaryItem}><dt>Status</dt><dd><SupportTicketStatusBadge label={overview.statusLabel} group={overview.statusGroup} status={overview.status} /></dd></div>
-          <div className={t.summaryItem}><dt>Created On</dt><dd><time dateTime={overview.createdAt}>{overview.createdLabel}</time></dd></div>
-          <div className={t.summaryItem}><dt>Last Updated</dt><dd><time dateTime={overview.updatedAt}>{overview.updatedLabel}</time></dd></div>
-        </dl>
-      </section>
+      {isSupplier ? (
+        <header className={t.pageHead}>
+          <h1 className={t.pageTitle}>{overview.subject} <SupportTicketStatusBadge label={overview.statusLabel} group={overview.statusGroup} status={overview.status} /></h1>
+          <p className={t.pageRef}>Reference: <span className={t.reference}>{ref}
+            <button type="button" className={t.copyBtn} onClick={() => void copyReference()} aria-label={`Copy ticket ID ${ref}`}><Copy size={16} aria-hidden /></button>
+          </span></p>
+        </header>
+      ) : (
+        <section className={d.card} aria-label="Ticket summary">
+          <dl className={t.summary}>
+            <div className={t.summaryItem}>
+              <dt>Ticket ID</dt>
+              <dd>
+                <span className={t.reference}>{ref}
+                  <button type="button" className={t.copyBtn} onClick={() => void copyReference()} aria-label={`Copy ticket ID ${ref}`}><Copy size={16} aria-hidden /></button>
+                </span>
+              </dd>
+            </div>
+            <div className={t.summaryItem}><dt>Subject</dt><dd>{overview.subject}</dd></div>
+            <div className={t.summaryItem}><dt>Category</dt><dd><span className={styles.catTag}>{overview.category.label}</span></dd></div>
+            <div className={t.summaryItem}><dt>Status</dt><dd><SupportTicketStatusBadge label={overview.statusLabel} group={overview.statusGroup} status={overview.status} /></dd></div>
+            <div className={t.summaryItem}><dt>Created On</dt><dd><time dateTime={overview.createdAt}>{overview.createdLabel}</time></dd></div>
+            <div className={t.summaryItem}><dt>Last Updated</dt><dd><time dateTime={overview.updatedAt}>{overview.updatedLabel}</time></dd></div>
+          </dl>
+        </section>
+      )}
 
       <div className={t.layout}>
         <div className={t.col}>
           <section className={d.card} aria-label="Ticket conversation, timeline, files and related details">
-            <div className={d.tabList} role="tablist" aria-label="Ticket sections">
+            {!isSupplier && (<div className={d.tabList} role="tablist" aria-label="Ticket sections">
               {TICKET_TABS.map((item, i) => (
                 <button
                   key={item.key}
@@ -245,9 +257,10 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
                   <item.icon size={18} aria-hidden /> {item.label}
                 </button>
               ))}
-            </div>
+            </div>)}
 
             <div id={`${id}-conversation-panel`} role="tabpanel" aria-labelledby={`${id}-conversation-tab`} hidden={tab !== "conversation"} className={d.panel}>
+              {isSupplier && <h2 className={d.cardTitle}>Conversation</h2>}
               <SupportConversation messages={messages} hasMore={meta.hasMore} loadingOlder={loadingOlder} error={messagesError} hasSupportReply={overview.hasSupportReply || (messages?.some((m) => m.sender === "support") ?? false)} buyerName={buyerName} refreshing={refreshing} onLoadOlder={() => void loadOlder()} onRefresh={() => void refreshAll()} />
               {cap.canReply ? (
                 <SupportReplyComposer reference={ref} limits={overview.limits} text={draft} files={draftFiles} onText={setDraft} onFiles={setDraftFiles} onSent={onSent} />
@@ -263,6 +276,7 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
               )}
             </div>
 
+            {!isSupplier && (<>
             <div id={`${id}-timeline-panel`} role="tabpanel" aria-labelledby={`${id}-timeline-tab`} hidden={tab !== "timeline"} className={d.panel}>
               <SupportTicketTimeline state={timeline} />
             </div>
@@ -274,12 +288,13 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
             <div id={`${id}-related-panel`} role="tabpanel" aria-labelledby={`${id}-related-tab`} hidden={tab !== "related"} className={d.panel}>
               <SupportRelatedDetails related={initialRelated} />
             </div>
+            </>)}
           </section>
         </div>
 
         <aside className={t.col} aria-label="Ticket information">
           <section className={d.card} aria-labelledby={`${id}-info`}>
-            <h2 id={`${id}-info`} className={d.cardTitle}>Ticket Information</h2>
+            <h2 id={`${id}-info`} className={d.cardTitle}>{isSupplier ? "Ticket details" : "Ticket Information"}</h2>
             <dl className={t.info}>
               <div className={t.infoRow}><dt>Ticket ID</dt><dd>{ref}</dd></div>
               <div className={t.infoRow}><dt>Status</dt><dd><SupportTicketStatusBadge label={overview.statusLabel} group={overview.statusGroup} status={overview.status} /></dd></div>
@@ -301,6 +316,13 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
             <section className={d.card} aria-labelledby={`${id}-related`}>
               <h2 id={`${id}-related`} className={d.cardTitle}>Related {overview.related.typeLabel}</h2>
               <SupportRelatedDetails related={initialRelated} compact />
+            </section>
+          )}
+
+          {isSupplier && (
+            <section className={d.card} aria-labelledby={`${id}-activity`}>
+              <h2 id={`${id}-activity`} className={d.cardTitle}>Ticket activity</h2>
+              <SupportTicketTimeline state={timeline} />
             </section>
           )}
 

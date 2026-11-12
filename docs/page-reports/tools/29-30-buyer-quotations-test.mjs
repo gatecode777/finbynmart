@@ -424,7 +424,7 @@ async function main() {
   await ip.context.close();
   const ie = await open("/buyer/quotations", { session: C.s });
   const et = await content(ie);
-  check("G-26 a buyer with no quotations sees 'No Quotations Yet' with the honest reason (suppliers cannot send quotations yet) and a link to My Inquiries, zeros in the cards", /No Quotations Yet/.test(et) && /cannot send quotations through Finbyn Mart yet/.test(et) && /Total Quotations\s*0/.test(et) && ie.errs.length === 0);
+  check("G-26 a buyer with no quotations sees 'No Quotations Yet' with the honest reason (none received yet; no claim that suppliers cannot send) and a link to My Inquiries, zeros in the cards", /No Quotations Yet/.test(et) && /You have not received any yet/.test(et) && !/cannot send quotations/.test(et) && /Total Quotations\s*0/.test(et) && ie.errs.length === 0);
   await ie.context.close();
 
   // ================= R: responsive

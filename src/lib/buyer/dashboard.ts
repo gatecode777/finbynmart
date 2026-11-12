@@ -89,7 +89,7 @@ export interface Statistics {
   totalOrderValue: Unavailable;
 }
 
-const NO_QUOTATIONS: Unavailable = { available: false, reason: "Supplier quotations are not connected yet." };
+const NO_QUOTATIONS: Unavailable = { available: false, reason: "Quotation figures are not shown on this dashboard yet. Open Quotations in the sidebar for the ones you have received." };
 const NO_ORDERS: Unavailable = { available: false, reason: "Order tracking is not available yet." };
 
 function statistics(facets: Facets): Statistics {

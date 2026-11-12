@@ -189,3 +189,13 @@ export const notifyPasswordChanged = (buyerId: string, sessionVersion: number) =
 
 export const notifySignedOutEverywhere = (buyerId: string, sessionVersion: number) =>
   notifyBuyer(buyerId, { category: "account", type: "SIGNED_OUT_EVERYWHERE", title: "Signed out of all devices", body: "You signed out of every device. Other devices must sign in again.", link: "/buyer/settings?tab=settings", dedupeKey: `signout:${sessionVersion}` });
+
+// ---------- Page 38: account security (category "account": required, cannot be switched off) ----------
+export const notifyNewDeviceSignIn = (buyerId: string, deviceLabel: string, sessionPublicId: string) =>
+  notifyBuyer(buyerId, { category: "account", type: "NEW_DEVICE_SIGN_IN", title: "New device signed in", body: `Your account was signed in from ${deviceLabel}, which has not been used with it before. If this was not you, change your password and sign out other devices.`, link: "/buyer/security?tab=alerts", dedupeKey: `newdevice:${sessionPublicId}` });
+
+export const notifyRepeatedFailedLogins = (buyerId: string, hourBucket: number, count: number) =>
+  notifyBuyer(buyerId, { category: "account", type: "REPEATED_FAILED_LOGINS", title: "Repeated failed sign-in attempts", body: `There were ${count} failed sign-in attempts on your account in a short time. If this was not you, consider changing your password.`, link: "/buyer/security?tab=alerts", dedupeKey: `failed:${hourBucket}` });
+
+export const notifyDeviceSignedOut = (buyerId: string, sessionPublicId: string) =>
+  notifyBuyer(buyerId, { category: "account", type: "DEVICE_SIGNED_OUT", title: "A device was signed out", body: "A signed-in device was signed out from your account security page.", link: "/buyer/security?tab=sessions", dedupeKey: `revoked:${sessionPublicId}` });

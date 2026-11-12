@@ -4,6 +4,7 @@ import { formatSubmitted, toConfirmationDto, type ConfirmationDto } from "./conf
 import { BUYER_CANCELLABLE, REFERENCE_PATTERN, normaliseStatus, type InquiryStatus } from "./rules";
 import { inquiriesCollection } from "./service";
 import { listInquiryQuotations, type InquiryQuotationItem } from "@/lib/quotations/service";
+import { listMessages, type MessageDto } from "./messages";
 
 /**
  * The buyer's view of ONE of their inquiries (the "Inquiry Details" page). Reuses the confirmation page's builder (supplier, product,
@@ -23,9 +24,11 @@ export interface InquiryDetailDto extends ConfirmationDto {
   key: string;
   history: { from: InquiryStatus | null; to: InquiryStatus; toLabel: string; actor: string; at: string; atLabel: string; reason: string | null }[];
   /** What this deployment can really do for this inquiry. A flag is true only when the backend behind it exists. */
-  capabilities: { messaging: false; supplierResponses: false; quotations: true; revisionRequests: true; quotationSelection: true; attachments: false; cancellation: boolean; print: true; pdfExport: false };
+  capabilities: { messaging: false; supplierResponses: boolean; quotations: true; revisionRequests: true; quotationSelection: true; attachments: false; cancellation: boolean; print: true; pdfExport: false };
   /** The buyer's current quotations for this inquiry (read from the quotation module); null when they could not be read, never a guessed empty list. */
   quotations: InquiryQuotationItem[] | null;
+  /** The supplier's responses and clarification questions on this inquiry (newest first, at most 20); null when they could not be read. Replying from here is not built. */
+  responses: MessageDto[] | null;
 }
 
 /** By reference (the normal case) or by id for an old record that never got a reference. Never an id for a record that has one. */
@@ -35,7 +38,7 @@ export async function getBuyerInquiryDetail(buyerId: string, key: string): Promi
   const doc = await (await inquiriesCollection()).findOne({ ...(byReference ? { reference: key } : { _id: new ObjectId(key), reference: { $exists: false } }), buyerId: new ObjectId(buyerId) });
   if (!doc) return null;
 
-  const [base, quotations] = await Promise.all([toConfirmationDto(doc, "buyer"), listInquiryQuotations(buyerId, doc._id!).catch(() => null)]);
+  const [base, quotations, responses] = await Promise.all([toConfirmationDto(doc, "buyer"), listInquiryQuotations(buyerId, doc._id!).catch(() => null), listMessages(doc._id!, { buyerId: new ObjectId(buyerId) }, { limit: 20, cursor: null }).then((p) => p.items, () => null)]);
   const status = normaliseStatus(doc.status);
   const lastChange = doc.statusHistory?.at(-1)?.at;
   const updated = (doc.updatedAt ?? lastChange ?? doc.createdAt).toISOString();
@@ -49,6 +52,7 @@ export async function getBuyerInquiryDetail(buyerId: string, key: string): Promi
     key: doc.reference ?? doc._id!.toString(),
     history: (doc.statusHistory ?? []).map((e) => ({ from: e.from, to: e.to, toLabel: BUSINESS_LABEL[e.to] ?? e.to, actor: e.actor, at: e.at.toISOString(), atLabel: formatSubmitted(e.at.toISOString()), reason: e.reason ?? null })),
     quotations,
-    capabilities: { messaging: false, supplierResponses: false, quotations: true, revisionRequests: true, quotationSelection: true, attachments: false, cancellation: BUYER_CANCELLABLE.includes(status), print: true, pdfExport: false },
+    responses,
+    capabilities: { messaging: false, supplierResponses: true, quotations: true, revisionRequests: true, quotationSelection: true, attachments: false, cancellation: BUYER_CANCELLABLE.includes(status), print: true, pdfExport: false },
   };
 }

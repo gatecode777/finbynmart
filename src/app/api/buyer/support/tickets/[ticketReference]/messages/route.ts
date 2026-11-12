@@ -1,6 +1,6 @@
 import { fail } from "@/lib/auth/http";
-import { requireBuyerApi } from "@/lib/auth/guards";
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { requireSupportApi } from "@/lib/auth/guards";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { FORBIDDEN_CONVERSATION_FIELDS, parsePageQuery, validateReply } from "@/lib/support/conversationRules";
 import { createBuyerReply, listBuyerMessages } from "@/lib/support/conversationService";
 import { TICKET_REFERENCE_PATTERN } from "@/lib/support/ticketRules";
@@ -18,7 +18,7 @@ const NOT_FOUND = () => fail("That ticket was not found.", 404);
  * is the first message and appears with the last (oldest) page.
  */
 async function handleGET(request: Request, { params }: Ctx) {
-  const guard = await requireBuyerApi();
+  const guard = await requireSupportApi();
   if ("response" in guard) return guard.response;
   const { ticketReference } = await params;
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) return NOT_FOUND();
@@ -39,7 +39,7 @@ async function handleGET(request: Request, { params }: Ctx) {
  * answer is the message as saved, sent only after it was saved. 30 replies per buyer per hour.
  */
 async function handlePOST(request: Request, { params }: Ctx) {
-  const guard = await buyerGuard({ key: "support-reply", limit: 30, windowSeconds: 3600 });
+  const guard = await supportGuard({ key: "support-reply", limit: 30, windowSeconds: 3600 });
   if ("response" in guard) return guard.response;
   const { ticketReference } = await params;
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) return NOT_FOUND();

@@ -150,11 +150,13 @@
     height: 48px;
   }
 
+  /* fills the row so nothing is left empty after the account button; the gap after the logo is kept */
   .searchSlot {
     order: 0;
     flex: 1 1 280px;
     min-width: 240px;
-    max-width: 620px;
+    max-width: none;
+    margin-left: var(--space-6);
   }
 
   .actions {

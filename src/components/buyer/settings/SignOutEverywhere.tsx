@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { LogOut } from "lucide-react";
 import { ConfirmDialog } from "@/components/ui/Modal";
@@ -8,7 +9,7 @@ import dash from "../Dashboard.module.css";
 import profile from "../profile/Profile.module.css";
 import styles from "./Settings.module.css";
 
-/** The only session control that exists (cookies are stateless): sign out of every other device, stay signed in here. */
+/** Sign out of every other device in one step (the same service as Account Security, where each device is listed and can be ended on its own). */
 export function SignOutEverywhere() {
   const [busy, setBusy] = useState(false);
   const [ask, setAsk] = useState(false);
@@ -28,7 +29,7 @@ export function SignOutEverywhere() {
   return (
     <section className={dash.card} aria-labelledby="devices-title">
       <h2 id="devices-title" className={dash.cardTitle}><LogOut size={20} aria-hidden /> Signed-in devices</h2>
-      <p className={styles.sectionIntro}>A list of your signed-in devices is not available. You can sign out of every other device at once; this device stays signed in.</p>
+      <p className={styles.sectionIntro}>You can sign out of every other device at once; this device stays signed in. To see each signed-in device, sign-in activity and security alerts, open <Link href="/buyer/security?tab=sessions" className={dash.viewAll}>Account Security</Link>.</p>
       {banner && <p className={clsx(profile.banner, banner.ok ? profile.bannerOk : profile.bannerError)} role={banner.ok ? "status" : "alert"}>{banner.text}</p>}
       <button type="button" className={profile.dangerButton} onClick={() => setAsk(true)} disabled={busy}>
         <LogOut size={18} aria-hidden /> {busy ? "Signing out..." : "Sign out of all other devices"}

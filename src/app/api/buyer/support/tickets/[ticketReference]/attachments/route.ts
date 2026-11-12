@@ -1,5 +1,5 @@
 import { fail } from "@/lib/auth/http";
-import { requireBuyerApi } from "@/lib/auth/guards";
+import { requireSupportApi } from "@/lib/auth/guards";
 import { json } from "@/lib/buyer/api";
 import { parsePageQuery } from "@/lib/support/conversationRules";
 import { listBuyerFiles } from "@/lib/support/conversationService";
@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 /** GET /api/buyer/support/tickets/<ref>/attachments?limit=&after=: file names, sizes, who sent them and an owner-checked download link (never a storage path). */
 async function handleGET(request: Request, { params }: { params: Promise<{ ticketReference: string }> }) {
-  const guard = await requireBuyerApi();
+  const guard = await requireSupportApi();
   if ("response" in guard) return guard.response;
   const { ticketReference } = await params;
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) return fail("That ticket was not found.", 404);

@@ -1,4 +1,5 @@
 import { ObjectId, type Collection, type Document } from "mongodb";
+import { countActiveSessions } from "@/lib/auth/sessionRegistry";
 import { getDb } from "@/lib/db/mongo";
 import { emailConfigured } from "@/lib/email/provider";
 import { DOCUMENT_TYPES, documentLabel, computeCompletion, type CompanyInput, type CompletionItem, type DocumentStatus, type DocumentType, type PersonalInput } from "./profileRules";
@@ -450,11 +451,12 @@ export interface SecurityDto {
   phoneVerified: boolean;
   lastLoginAt: string | null;
   passwordChangedAt: string | null;
-  sessions: { available: false; reason: string };
+  /** Active sessions come from the session registry (Page 38); the list and revocation are on the Account Security page. */
+  sessions: { available: true; activeCount: number | null; reason: string };
 }
 
 export async function getBuyerSecurity(userId: string): Promise<SecurityDto | null> {
   const user = await getBuyerUser(userId);
   if (!user) return null;
-  return { accountStatus: user.accountStatus ?? "ACTIVE", emailVerified: user.emailVerified === true, phoneVerified: user.phoneVerified === true, lastLoginAt: user.lastLoginAt?.toISOString() ?? null, passwordChangedAt: user.passwordChangedAt?.toISOString() ?? null, sessions: { available: false, reason: "A list of signed-in devices is not available. Changing your password signs you out of every other device." } };
+  return { accountStatus: user.accountStatus ?? "ACTIVE", emailVerified: user.emailVerified === true, phoneVerified: user.phoneVerified === true, lastLoginAt: user.lastLoginAt?.toISOString() ?? null, passwordChangedAt: user.passwordChangedAt?.toISOString() ?? null, sessions: { available: true, activeCount: await countActiveSessions(user._id, user.sessionVersion ?? 0).catch(() => null), reason: "See and sign out your signed-in devices on the Account Security page. Changing your password signs you out of every other device." } };
 }

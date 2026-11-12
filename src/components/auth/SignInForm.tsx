@@ -11,7 +11,7 @@ import { signIn } from "@/lib/api/account";
 import { PasswordField } from "./PasswordField";
 import styles from "./Auth.module.css";
 
-/** `next` is a path on this site (checked by the page); the buyer returns there after signing in. */
+/** `next` is a path on this site (checked by the page). The SERVER decides where this account lands (its portal home, or `next` when the role may open it). */
 export function SignInForm({ next }: { next?: string }) {
   const id = useId();
   const [values, setValues] = useState({ email: "", password: "" });
@@ -31,14 +31,14 @@ export function SignInForm({ next }: { next?: string }) {
     if (Object.keys(found).length > 0) return;
 
     setBusy(true);
-    const result = await signIn(values);
+    const result = await signIn(values, next);
     if (result.status === "ok") {
       // The server confirmed the sign-in (the session cookie is set). Show it at once, keep the form locked, and leave with a full
       // page load: it cannot be cancelled by a refresh, it shows the signed-in header from the first paint, and it works the same
       // when the next page is slow to build. The confirmation toast waits for that page (deferred) and is shown there.
       setSignedIn(true);
       flashToast("success", "You are signed in.", { deferred: true });
-      window.location.assign(next ?? "/");
+      window.location.assign(result.redirectTo ?? "/");
       return;
     }
     setErrors(result.fields ?? {});

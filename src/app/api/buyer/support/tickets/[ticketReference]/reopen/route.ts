@@ -1,5 +1,5 @@
 import { fail, readSmallJson } from "@/lib/auth/http";
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { FORBIDDEN_CONVERSATION_FIELDS, validateReopen } from "@/lib/support/conversationRules";
 import { reopenBuyerTicket } from "@/lib/support/ticketActions";
 import { TICKET_REFERENCE_PATTERN } from "@/lib/support/ticketRules";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
  * new status is read from the request. 5 per buyer per hour.
  */
 async function handlePOST(request: Request, { params }: { params: Promise<{ ticketReference: string }> }) {
-  const guard = await buyerGuard({ key: "support-reopen", limit: 5, windowSeconds: 3600 });
+  const guard = await supportGuard({ key: "support-reopen", limit: 5, windowSeconds: 3600 });
   if ("response" in guard) return guard.response;
   const { ticketReference } = await params;
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) return fail("That ticket was not found.", 404);

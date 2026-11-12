@@ -13,6 +13,7 @@ Official visual references, one per page (`<id>-<slug>-reference.png`).
 | `07-product-search-results-reference.jpg` | 07 Product Search Results | Page 07 design (1536×1024). |
 | `08-supplier-listing-reference.jpg` | 08 Supplier Listing | Page 08 design (1536×1024). |
 | `09-supplier-profile-reference.jpg` | 09 Supplier Profile | Page 09 design (1536×1024). |
+| `45-supplier-orders-reference.png` | 45 Supplier Orders (supplier portal; tracker ID 112) | Owner design image, desktop and mobile. Its text wordmark stands in for the real logo (the shared shell uses the original asset); its records, counts, the INR figures and the "Payment status unavailable" column are illustrative. |
 
 Files are named by the owner's PRD page number, which differs from the tracker ID for some pages (see the crosswalk in `docs/PAGE_TRACKER.md`). Pages 02 and 04–09 were recovered from the session transcript, so they are the JPEG versions the PRDs were sent with.
 

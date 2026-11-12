@@ -15,7 +15,7 @@ import { INQUIRY_TYPES, normaliseStatus, type InquiryStatus } from "./rules";
  *   - Closed: CLOSED only (cancelled and rejected are their own groups).
  */
 /** Flip to true when supplier replies and quotations really exist (then the summary note disappears). */
-export const REPLIES_CONNECTED = false;
+export const REPLIES_CONNECTED = true;
 
 export const AWAITING_STATUSES = ["NEW", "NOTIFIED", "IN_PROGRESS"] as const;
 export const REPLIED_OR_QUOTED_STATUSES = ["REPLIED", "QUOTED"] as const;

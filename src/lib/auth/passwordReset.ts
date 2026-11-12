@@ -1,3 +1,4 @@
+import type { ObjectId } from "mongodb";
 import { getDb } from "@/lib/db/mongo";
 import { hashToken, isTokenShape, inspectToken, type TokenDoc, type TokenState } from "./tokens";
 import type { UserDoc, UserRole } from "./users";
@@ -14,14 +15,14 @@ import type { UserDoc, UserRole } from "./users";
  * The password hash is computed by the caller BEFORE the transaction (scrypt is deliberately slow; it must not hold a
  * transaction open), after the token was checked, so an invalid link never costs a hash.
  */
-export type ResetOutcome = { ok: true; role: UserRole; eventId: string; ms: { transaction: number } } | { ok: false; state: TokenState };
+export type ResetOutcome = { ok: true; role: UserRole; userId: ObjectId; eventId: string; ms: { transaction: number } } | { ok: false; state: TokenState };
 
 export async function resetPasswordWithToken(rawToken: unknown, passwordHash: string, clientAddressHash: string): Promise<ResetOutcome> {
   if (!isTokenShape(rawToken)) return { ok: false, state: "INVALID" };
   const db = await getDb();
   const session = db.client.startSession();
   const started = performance.now();
-  let committed: { role: UserRole; eventId: string } | null = null;
+  let committed: { role: UserRole; userId: ObjectId; eventId: string } | null = null;
   try {
     await session.withTransaction(async () => {
       committed = null;
@@ -48,13 +49,13 @@ export async function resetPasswordWithToken(rawToken: unknown, passwordHash: st
       await tokens.updateMany({ userId: token.userId, usedAt: null, revokedAt: null }, { $set: { revokedAt: now } }, { session });
       // sessionsRevoked is true by construction: the session version was bumped in this same transaction (see PAGE_20_SESSION_REVOCATION.md)
       const event = await db.collection("security_events").insertOne({ userId: token.userId, type: "PASSWORD_RESET", at: now, ipHash: clientAddressHash, role: updated.role, sessionsRevoked: true }, { session });
-      committed = { role: updated.role, eventId: event.insertedId.toString() };
+      committed = { role: updated.role, userId: token.userId, eventId: event.insertedId.toString() };
     });
   } finally {
     await session.endSession();
   }
-  const finished = committed as { role: UserRole; eventId: string } | null;
-  if (finished) return { ok: true, role: finished.role, eventId: finished.eventId, ms: { transaction: Math.round(performance.now() - started) } };
+  const finished = committed as { role: UserRole; userId: ObjectId; eventId: string } | null;
+  if (finished) return { ok: true, role: finished.role, userId: finished.userId, eventId: finished.eventId, ms: { transaction: Math.round(performance.now() - started) } };
   // Not committed. Say why, from the stored state (a concurrent request that won shows as ALREADY_USED).
   const state = await inspectToken(rawToken, "reset_password");
   return { ok: false, state: state === "VALID" ? "ACCOUNT_UNAVAILABLE" : state };

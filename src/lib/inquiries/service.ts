@@ -195,7 +195,7 @@ export interface BuyerInquiry {
   createdAt: string;
   cancelledAt: string | null;
   canCancel: boolean;
-  /** Suppliers cannot reply through the platform yet, so there is never a response to show. */
+  /** The list never shows a latest response: replies are read from the inquiry details page (`inquiry_messages`), not copied into this summary. */
   latestResponse: null;
 }
 

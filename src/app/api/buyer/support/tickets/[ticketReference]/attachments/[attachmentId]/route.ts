@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { fail } from "@/lib/auth/http";
-import { requireBuyerApi } from "@/lib/auth/guards";
+import { requireSupportApi } from "@/lib/auth/guards";
 import { TICKET_REFERENCE_PATTERN } from "@/lib/support/ticketRules";
 import { readBuyerTicketAttachment } from "@/lib/support/conversationService";
 import { withApiPerf } from "@/lib/perf/instrument";
@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
  * the same 404.
  */
 async function handleGET(_request: Request, { params }: { params: Promise<{ ticketReference: string; attachmentId: string }> }) {
-  const guard = await requireBuyerApi();
+  const guard = await requireSupportApi();
   if ("response" in guard) return guard.response;
   const { ticketReference, attachmentId } = await params;
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) return fail("That file was not found.", 404);

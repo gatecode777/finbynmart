@@ -1,4 +1,4 @@
-import { BadgeHelp, Building2, Heart, LayoutDashboard, LayoutGrid, MapPin, MessageSquareText, Package, Scale, Settings, Store, FileText, UserRound, type LucideIcon } from "lucide-react";
+import { BadgeHelp, Building2, Heart, LayoutDashboard, LayoutGrid, MapPin, MessageSquareText, Package, Scale, Settings, ShieldCheck, Store, FileText, UserRound, type LucideIcon } from "lucide-react";
 
 /**
  * The buyer workspace navigation, in one place. An item with no `href` has no page yet: it stays in the architecture but is
@@ -27,6 +27,7 @@ export const BUYER_NAV: BuyerNavItem[] = [
   { key: "profile", label: "Profile & Company", icon: Building2, href: "/buyer/profile" },
   { key: "address-book", label: "Address Book", icon: MapPin, href: "/buyer/addresses" },
   { key: "settings", label: "Settings & Notifications", icon: Settings, href: "/buyer/settings" },
+  { key: "security", label: "Account Security", icon: ShieldCheck, href: "/buyer/security" },
 ];
 
 export const BUYER_NAV_FOOTER: BuyerNavItem[] = [{ key: "support", label: "Help & Support", icon: BadgeHelp, href: "/buyer/support" }];

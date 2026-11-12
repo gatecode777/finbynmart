@@ -34,7 +34,7 @@ export function usePagedFetch<T>(url: string, enabled: boolean, version: number,
       else setLoadingMore(true);
       setError(null);
       try {
-        const response = await fetch(`${url}${cursor ? `?${cursorName}=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store" });
+        const response = await fetch(`${url}${cursor ? `${url.includes("?") ? "&" : "?"}${cursorName}=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store" });
         const body = await response.json().catch(() => null);
         if (mine !== counter.current) return;
         if (!response.ok || !body?.ok) throw new Error(body?.message ?? "This could not be loaded.");

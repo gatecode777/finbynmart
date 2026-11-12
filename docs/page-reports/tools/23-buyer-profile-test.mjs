@@ -287,7 +287,7 @@ async function full() {
 
   // ================= G: security
   const sec = (await A.s.call("GET", "/api/buyer/security")).json.data.security;
-  check("G-01 security summary: status, flags, last sign-in, sessions 'not available' with the reason; no hash, token or session data", sec.accountStatus === "ACTIVE" && sec.sessions.available === false && !/passwordHash|token|finbyn_session/.test(JSON.stringify(sec)));
+  check("G-01 security summary: status, flags, last sign-in, the real number of signed-in devices (from the session registry, Page 38) and where to manage them; no hash, token or session data", sec.accountStatus === "ACTIVE" && sec.sessions.available === true && typeof sec.sessions.activeCount === "number" && /Account Security/.test(sec.sessions.reason) && !/passwordHash|token|finbyn_session|sidHash/.test(JSON.stringify(sec)));
   const dev1 = await login(A.email);
   const dev2 = await login(A.email);
   const cp = (s, body) => s.call("POST", "/api/auth/change-password", body);
@@ -427,7 +427,7 @@ async function full() {
   await clickText(ps, "#buyer-content form button", "Change Password");
   await sleep(2000);
   check("I-26 a correct change from the browser shows success, clears the fields, and the new password works", /Your password was changed/.test(await content(ps)) && (await login(A.email, "ui changed passphrase 4")).r.status === 200 && ps.errs.length === 0, ps.errs.join("|"));
-  check("I-27 the security tab says the device list is not available (no fake sessions)", /not available/i.test(await content(ps)) && !/Chrome on|Windows 11|iPhone/.test(await content(ps)));
+  check("I-27 the security tab shows the real count of signed-in devices and a link to Account Security (it lists no device itself and invents none)", /Signed-in devices/.test(await content(ps)) && /Account Security/.test(await content(ps)) && !/Chrome on|Windows 11|iPhone/.test(await content(ps)));
   await ps.context.close();
   const deep = await open("/buyer/profile?tab=bogus", { session: (await login(A.email, "ui changed passphrase 4")).s });
   check("I-28 an unknown ?tab= falls back to Personal Details", /Personal Details/.test(await content(deep)) && (await deep.evaluate(() => document.querySelector("nav[aria-label='Profile sections'] a[aria-current='page']")?.textContent.trim())) === "Personal Details");

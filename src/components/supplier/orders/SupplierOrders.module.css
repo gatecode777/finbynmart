@@ -1,0 +1,325 @@
+/* Supplier orders (Page 45). Reuses the supplier dashboard's page / header classes and Page 42's table, tab, toolbar, filter, card and pager classes
+   (imported as `q` in the components); everything below is specific to orders: the quiet metrics strip, the order status pills and the unavailable payment text. */
+
+/* ---------- metrics: one calm strip, big numbers, thin dividers (no decorative boxes) ---------- */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.metric {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-4) var(--space-5);
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 -1px -1px 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.metric:hover {
+  background: var(--primary-light);
+}
+
+.metric:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.metricActive {
+  background: var(--primary-light);
+  box-shadow: inset 0 -3px 0 var(--primary);
+}
+
+.metricIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.metricLabel {
+  display: block;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.metricValue {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+}
+
+.scopeNote {
+  margin: calc(var(--space-2) * -1) 0 var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- order status pills (text + icon, never colour alone) ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.pill_awaiting,
+.pill_ready {
+  background: var(--accent-light);
+  color: #5a3c00;
+}
+
+.pill_in_progress,
+.pill_shipped {
+  background: var(--primary-light);
+  border-color: var(--border);
+  color: var(--primary);
+}
+
+.pill_delivered {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.pill_cancelled,
+.pill_attention {
+  background: #fbe9e9;
+  color: #8f2323;
+}
+
+.fulfil {
+  display: block;
+  color: var(--text-primary);
+}
+
+.payment {
+  display: block;
+  max-width: 14ch;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  white-space: normal;
+}
+
+.buyerCell {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- detail ---------- */
+.detailLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 1100px) {
+  .detailLayout {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+.itemRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+
+.itemRow:last-child {
+  border-bottom: 0;
+}
+
+.itemName {
+  font-weight: var(--fw-semibold);
+}
+
+.historyItem {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.historyItem:last-child {
+  border-bottom: 0;
+}
+
+.historyReason {
+  margin: var(--space-1) 0 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric {
+    transition: none;
+  }
+}
+
+/* ---------- layout fixes ---------- */
+/* four equal cards only when each has room for its label beside the icon; otherwise two columns, so no card is taller than its neighbours */
+.metrics { grid-auto-rows: 1fr; }
+@media (min-width: 900px) and (max-width: 1279.98px) {
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.metricLabel { overflow-wrap: anywhere; }
+
+/* status chips wrap onto more lines instead of sliding sideways */
+.chipsWrap { flex-wrap: wrap; overflow: visible; padding-bottom: 0; margin-block: var(--space-4); }
+
+/* search on its own full-width row, filters in an even grid beneath it */
+.toolbarStack { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 700px) { .toolbarStack { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- reference match ---------- */
+/* quiet metrics strip: four across from 900px, a plain selected tint, no heavy marks */
+@media (min-width: 900px) { .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+.metricActive { box-shadow: none; background: var(--primary-light); }
+
+/* status tabs: plain text on a hairline, the selected one a filled teal pill */
+.chipsWrap { gap: var(--space-1); padding-bottom: var(--space-2); border-bottom: 1px solid var(--border); margin-block: var(--space-4); }
+.chipsWrap > button { border: 0; background: transparent; border-radius: 8px; min-height: 40px; padding: 0 var(--space-4); color: var(--text-primary); font-weight: var(--fw-semibold); }
+.chipsWrap > button:hover { background: var(--primary-light); }
+.chipsWrap > button[aria-pressed="true"] { background: var(--primary); color: #fff; }
+
+/* one toolbar row: search, status, date range, (currency, sort), clear filters. Labels stay for screen readers. */
+@media (min-width: 900px) {
+  .toolbarStack { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .toolbarStack > div:first-child { flex: 1 1 320px; min-width: 0; }
+  .toolbarStack [role="group"] { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .toolbarStack [role="group"] > div { flex: 0 1 190px; min-width: 150px; }
+  .toolbarStack [role="group"] label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .toolbarStack [role="group"] button:not([role="combobox"]) { min-height: 44px; padding: 0 var(--space-4); border: 1px solid var(--primary); border-radius: var(--radius-md); background: #fff; color: var(--primary); font: inherit; font-weight: var(--fw-semibold); cursor: pointer; text-decoration: none; }
+  .toolbarStack [role="group"] button:not([role="combobox"]):disabled { opacity: .5; cursor: not-allowed; }
+}
+
+/* table: mint header row, gold View button */
+.refTable thead th { background: var(--primary-light); }
+.viewBtn { background: var(--accent); border-color: var(--accent); color: var(--text-primary); }
+.viewBtn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.fulfil { display: block; margin-top: var(--space-1); }
+
+.infoBanner { display: block; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--primary-light); color: var(--text-primary); }
+
+/* ---------- specificity pass: these must beat the quotations stylesheet, which loads later ---------- */
+/* metrics: four equal cells, one hairline between them, no bottom borders, content vertically centred */
+ul.metrics { grid-auto-rows: 1fr; align-items: stretch; }
+ul.metrics > li { display: flex; }
+ul.metrics button.metric { height: 100%; border-bottom: 0; margin: 0; align-items: center; }
+ul.metrics > li:not(:last-child) button.metric { border-right: 1px solid var(--border); }
+ul.metrics > li:last-child button.metric { border-right: 0; }
+@media (max-width: 899.98px) {
+  ul.metrics > li:nth-child(odd) button.metric { border-right: 1px solid var(--border); }
+  ul.metrics > li:nth-child(even) button.metric { border-right: 0; }
+  ul.metrics > li:nth-child(-n+2) button.metric { border-bottom: 1px solid var(--border); }
+}
+
+/* tabs: compact so all fit one row on a normal desktop */
+div.chipsWrap > button { font-size: var(--fs-sm); padding: 0 var(--space-3); white-space: nowrap; }
+
+/* one toolbar row: search grows, selects and Clear filters sit beside it */
+@media (min-width: 900px) {
+  div.toolbarStack { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--space-3); }
+  div.toolbarStack > :first-child { flex: 1 1 260px; min-width: 200px; }
+  div.toolbarStack > :last-child { flex: 0 1 auto; min-width: 0; }
+  div.toolbarStack [role="group"] { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--space-3); padding: 0; }
+  div.toolbarStack [role="group"] > div { flex: 0 1 150px; min-width: 110px; }
+}
+
+/* the bottom note: full width, icon beside the text */
+p.infoBanner { display: flex; gap: var(--space-2); align-items: flex-start; width: 100%; max-width: none; }
+p.infoBanner svg { flex: none; margin-top: 3px; }
+
+/* ---------- filter row polish: roomier fields, custom select arrow, no clipped text ---------- */
+div.toolbarStack select {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 48px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2304534F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+div.toolbarStack select:hover { border-color: var(--primary); }
+div.toolbarStack select:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(253, 179, 4, .45); }
+/* the opened list is drawn by the browser; these are the parts it lets us style */
+div.toolbarStack select option, div.toolbarStack select optgroup { font-family: inherit; font-size: 1rem; color: var(--text-primary); background: #fff; padding: 10px 14px; }
+div.toolbarStack select { accent-color: var(--primary); }
+
+div.toolbarStack input[type="search"] { min-height: 48px; padding-left: 46px; padding-right: 40px; }
+div.toolbarStack [role="search"] svg:first-child { left: 16px; }
+
+@media (min-width: 900px) {
+  div.toolbarStack { flex-wrap: wrap; row-gap: var(--space-3); padding-inline: 0; }
+  div.toolbarStack > :first-child { flex: 1 1 280px; }
+  div.toolbarStack [role="group"] { flex-wrap: wrap; }
+  div.toolbarStack [role="group"] > div { flex: 0 0 auto; min-width: 0; }
+  div.toolbarStack [role="group"] select { min-width: 168px; }
+  div.toolbarStack [role="group"] button:not([role="combobox"]) { min-height: 48px; padding: 0 var(--space-5); border-radius: var(--radius-md); }
+  div.toolbarStack [role="group"] button:not([role="combobox"]):disabled { color: var(--primary); opacity: .45; }
+}
+
+/* thin gold focus ring on the filter fields (1px gold border plus a 0.5px halo; still clearly visible) */
+div.toolbarStack select:focus-visible,
+div.toolbarStack input[type="search"]:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.5px var(--accent);
+}
+
+/* the custom Dropdown has its own width inside the filter row */
+@media (min-width: 900px) { div.toolbarStack [role="group"] > div { width: 190px; } }

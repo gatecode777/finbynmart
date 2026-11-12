@@ -10,11 +10,16 @@ import { lockBodyScroll } from "@/lib/utils/scrollLock";
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<{ name: string; role: "buyer" | "supplier" } | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
+    fetch("/api/auth/me", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => setUser(data.user ?? null))
+      .catch(() => undefined);
 
     const trigger = triggerRef.current;
     const focusables = () =>
@@ -111,18 +116,38 @@ export function MobileNavigation() {
             <div className={styles.section}>
               <p className={styles.sectionTitle}>Account</p>
               <nav className={styles.navList} aria-label="Account actions">
-                <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
-                  <ClipboardList size={17} strokeWidth={2} aria-hidden />
-                  Get Best Price
-                </Link>
-                <Link href="/sign-in" className={styles.navLink} onClick={() => setOpen(false)}>
-                  <UserRound size={17} strokeWidth={2} aria-hidden />
-                  Sign In / Join Free
-                </Link>
-                <Link href="/register-supplier" className={styles.navLink} onClick={() => setOpen(false)}>
-                  <BriefcaseBusiness size={17} strokeWidth={2} aria-hidden />
-                  For Suppliers
-                </Link>
+                {user?.role === "supplier" ? (
+                  <Link href="/supplier/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <BriefcaseBusiness size={17} strokeWidth={2} aria-hidden />
+                    Supplier Dashboard ({user.name.split(" ")[0]})
+                  </Link>
+                ) : user?.role === "buyer" ? (
+                  <>
+                    <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
+                      <ClipboardList size={17} strokeWidth={2} aria-hidden />
+                      Get Best Price
+                    </Link>
+                    <Link href="/buyer/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
+                      <UserRound size={17} strokeWidth={2} aria-hidden />
+                      My Dashboard ({user.name.split(" ")[0]})
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
+                      <ClipboardList size={17} strokeWidth={2} aria-hidden />
+                      Get Best Price
+                    </Link>
+                    <Link href="/sign-in" className={styles.navLink} onClick={() => setOpen(false)}>
+                      <UserRound size={17} strokeWidth={2} aria-hidden />
+                      Sign In / Join Free
+                    </Link>
+                    <Link href="/register-supplier" className={styles.navLink} onClick={() => setOpen(false)}>
+                      <BriefcaseBusiness size={17} strokeWidth={2} aria-hidden />
+                      For Suppliers
+                    </Link>
+                  </>
+                )}
               </nav>
             </div>
           </div>

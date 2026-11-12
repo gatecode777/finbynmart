@@ -60,6 +60,17 @@ function timedDb(db: Db): Db {
   });
 }
 
+/** Server-only. The shared client itself, for the few operations that need a session (multi-document transactions). Prefer getDb(). */
+export async function getMongoClient(): Promise<MongoClient> {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error("MONGODB_URI is not set (see .env.example)");
+  globalForMongo.__finbynMongo ??= new MongoClient(uri, OPTIONS).connect();
+  return globalForMongo.__finbynMongo.catch((error) => {
+    globalForMongo.__finbynMongo = undefined;
+    throw error;
+  });
+}
+
 /** Server-only. */
 export async function getDb(): Promise<Db> {
   const uri = process.env.MONGODB_URI;

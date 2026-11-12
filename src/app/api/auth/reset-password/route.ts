@@ -5,6 +5,7 @@ import { checkBuyerPassword } from "@/lib/auth/buyerRegistration";
 import { hashPassword } from "@/lib/auth/password";
 import { createHash } from "node:crypto";
 import { endSession } from "@/lib/auth/session";
+import { revokeSessions } from "@/lib/auth/sessionRegistry";
 import { inspectToken, isTokenShape } from "@/lib/auth/tokens";
 import { ensureSecurityEventIndexes, resetPasswordWithToken } from "@/lib/auth/passwordReset";
 import { LOGIN_PATH, RESET_MESSAGES, toPublicState } from "@/lib/auth/resetMessages";
@@ -63,6 +64,8 @@ async function handlePOST(request: Request) {
     stages.transactionMs = outcome.ms.transaction;
     await ensureSecurityEventIndexes().catch(() => undefined);
     await endSession();
+    // every registered session of the account is ended too (the version bump already refuses their cookies; this keeps the device list true)
+    await revokeSessions(outcome.userId, "password_reset").catch(() => undefined);
     if (process.env.FINBYN_PERF === "1") console.log(JSON.stringify({ type: "perf", kind: "reset-stages", route: "POST api/auth/reset-password", ...stages, totalMs: Math.round(performance.now() - t0) }));
     const redirectTo = outcome.role === "supplier" ? LOGIN_PATH.supplier : LOGIN_PATH.buyer;
     // Proof for the success page, issued only now that the transaction has committed (see lib/auth/resetConfirmation.ts).

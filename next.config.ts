@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.finbynkart.com",
       },
+      { protocol: "https", hostname: "ik.imagekit.io" },
     ],
   },
 };

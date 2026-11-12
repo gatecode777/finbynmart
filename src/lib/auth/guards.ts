@@ -2,20 +2,79 @@ import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "./session";
 import type { PublicUser } from "./users";
+import { resolveSupplierContext, type SupplierContext } from "@/lib/supplier/company";
 
 /**
- * Buyer-only access. The identity always comes from the signed session cookie (and the account must be ACTIVE: getCurrentUser
- * returns nothing for a suspended account or a revoked session). A request body, query string or header never names the buyer.
+ * Portal access control (owner decision, CLAUDE.md section L). The identity ALWAYS comes from the verified session cookie and the account
+ * must be ACTIVE (getCurrentUser returns nothing for a suspended account or a revoked session). A request body, query string or header
+ * never names the user, the role or the company.
+ *
+ * Pages (browser navigation): an anonymous visitor is sent to sign-in; an authenticated user in the WRONG portal is redirected to
+ * /forbidden?portal=... BEFORE any protected data is read. APIs: 401 when anonymous, a real HTTP 403 with a safe JSON error when the role
+ * or company is wrong. Hidden navigation is never protection; every service still scopes its queries.
+ */
+const NO_STORE = { "Cache-Control": "private, no-store" };
+const FORBIDDEN_MESSAGE = "You do not have permission to access this resource.";
+
+/** The safe 403 body: no role, company or internal detail. `ok` and `message` are kept for the older clients of this project's APIs. */
+export const forbiddenResponse = () =>
+  NextResponse.json({ success: false, ok: false, message: FORBIDDEN_MESSAGE, error: { code: "FORBIDDEN", message: FORBIDDEN_MESSAGE } }, { status: 403, headers: NO_STORE });
+
+const unauthorizedResponse = () => NextResponse.json({ ok: false, message: "Sign in to continue." }, { status: 401, headers: NO_STORE });
+
+const signInPath = (nextPath: string) => `/sign-in?next=${encodeURIComponent(nextPath)}`;
+
+/**
+ * Buyer-only page access. Anonymous → sign-in. A signed-in non-buyer → /forbidden?portal=buyer (never a 200 notice on the buyer URL).
+ * The "NOT_A_BUYER" member of the return type is kept only so older callers still compile; it is never returned (the redirect throws first).
  */
 export async function requireBuyerPage(nextPath: string): Promise<PublicUser | "NOT_A_BUYER"> {
   const user = await getCurrentUser().catch(() => null);
-  if (!user) redirect(`/sign-in?next=${encodeURIComponent(nextPath)}`);
-  return user.role === "buyer" ? user : "NOT_A_BUYER";
+  if (!user) redirect(signInPath(nextPath));
+  if (user.role !== "buyer") redirect("/forbidden?portal=buyer");
+  return user;
 }
 
 export async function requireBuyerApi(): Promise<{ user: PublicUser } | { response: NextResponse }> {
   const user = await getCurrentUser().catch(() => null);
-  if (!user) return { response: NextResponse.json({ ok: false, message: "Sign in to continue." }, { status: 401, headers: { "Cache-Control": "private, no-store" } }) };
-  if (user.role !== "buyer") return { response: NextResponse.json({ ok: false, message: "This area is for buyer accounts." }, { status: 403, headers: { "Cache-Control": "private, no-store" } }) };
+  if (!user) return { response: unauthorizedResponse() };
+  if (user.role !== "buyer") return { response: forbiddenResponse() };
   return { user };
+}
+
+/**
+ * Supplier-only page access. The company is resolved from the session's own account (one login per company today: the owner), never from
+ * the request. A signed-in non-supplier, or a supplier whose company is not active, → /forbidden?portal=supplier.
+ */
+export async function requireSupplierPage(nextPath: string): Promise<{ user: PublicUser; context: SupplierContext }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) redirect(signInPath(nextPath));
+  if (user.role !== "supplier") redirect("/forbidden?portal=supplier");
+  const context = await resolveSupplierContext(user.id).catch(() => null);
+  if (!context || context.company.status !== "ACTIVE") redirect("/forbidden?portal=supplier");
+  return { user, context };
+}
+
+export async function requireSupplierApi(): Promise<{ user: PublicUser; context: SupplierContext } | { response: NextResponse }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) return { response: unauthorizedResponse() };
+  if (user.role !== "supplier") return { response: forbiddenResponse() };
+  const context = await resolveSupplierContext(user.id).catch(() => null);
+  if (!context || context.company.status !== "ACTIVE") return { response: forbiddenResponse() };
+  return { user, context };
+}
+
+/**
+ * Support-ticket APIs: the ticket services scope every query to the signed-in account (reference AND that account), so both a buyer and a
+ * supplier whose company is active may use them for their OWN tickets. Any other role is refused with 403.
+ */
+export async function requireSupportApi(): Promise<{ user: PublicUser } | { response: NextResponse }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) return { response: unauthorizedResponse() };
+  if (user.role === "buyer") return { user };
+  if (user.role === "supplier") {
+    const context = await resolveSupplierContext(user.id).catch(() => null);
+    if (context && context.company.status === "ACTIVE") return { user };
+  }
+  return { response: forbiddenResponse() };
 }

@@ -70,6 +70,23 @@ export interface QuotationDoc {
   updatedAt: Date;
   decision?: { type: "ACCEPTED" | "REJECTED"; at: Date; reason: string | null };
   events: { type: "SENT" | "REVISION_REQUESTED" | "ACCEPTED" | "REJECTED" | "SUPERSEDED" | "WITHDRAWN"; at: Date; actor: "supplier" | "buyer" | "system"; reason?: string; message?: string }[];
+  // ---- additive, optional fields written by the supplier create-quotation workflow (Page 43); the buyer side ignores them ----
+  /** Optimistic-concurrency counter of a draft: every save adds 1 and a save must name the revision it started from. */
+  revision?: number;
+  schemaVersion?: number;
+  supplierCompanyId?: ObjectId;
+  /** The supplier's working copy while status is DRAFT (decimal strings exactly as entered, see quoteRules.QuoteInput). Removed on submission. */
+  draft?: { input: unknown; complete: boolean; savedAt: Date };
+  /** `${inquiryId}:${supplierKey}` while this lineage is open (draft, sent, revision requested, accepted): a partial unique index allows one per inquiry and seller. */
+  openKey?: string;
+  /** A revision draft (Page 44): the version it was copied from and the supplier's reason. A revision stays isCurrent:false until it is submitted; then the previous current version becomes SUPERSEDED. */
+  revisionOf?: number;
+  revisionReason?: string;
+  /** The immutable commercial snapshot written at submission: policy version, tax rule id + version, the exact inputs and the authoritative amounts (decimal strings). */
+  snapshot?: { policyVersion: string; taxRule: { id: string; version: string; kind: string; label: string; bp: number | null }; input: unknown; amounts: { subtotal: string; discount: string; taxable: string; tax: string | null; freight: string; otherCharges: string; total: string }; submittedAt: Date };
+  createdBy?: ObjectId;
+  updatedBy?: ObjectId;
+  submittedBy?: ObjectId;
 }
 
 let indexReady: Promise<unknown> | undefined;
@@ -100,7 +117,7 @@ const initialsOf = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 
 const money = (minor: number, currency: string) => formatMoney(minor, currency);
 const dayRange = (min?: number | null, max?: number | null) => (min && max && min !== max ? `${min} - ${max} days` : min || max ? `${min ?? max} days` : null);
 
-function totals(doc: QuotationDoc) {
+export function totals(doc: QuotationDoc) {
   const result = priceBreakdown({ unitPriceMinor: doc.unitPriceMinor, quantity: doc.quantity, discount: doc.discount ?? null, tax: doc.tax ?? null, charges: doc.charges ?? [] });
   return result.ok ? result.value : null;
 }
@@ -265,7 +282,7 @@ async function inquiryOf(doc: QuotationDoc): Promise<InquiryDoc | null> {
 
 const row = (label: string, value: string | null) => ({ label, value });
 
-function termsRows(doc: QuotationDoc) {
+export function termsRows(doc: QuotationDoc) {
   const t = doc.terms ?? {};
   return [
     row("Minimum Order Quantity", doc.moq ? `${doc.moq.quantity.toLocaleString("en-IN")} ${doc.moq.unit}` : null),
@@ -281,7 +298,7 @@ function termsRows(doc: QuotationDoc) {
   ];
 }
 
-function breakdownRows(doc: QuotationDoc) {
+export function breakdownRows(doc: QuotationDoc) {
   const t = totals(doc);
   if (!t) return { error: "The saved amounts could not be calculated.", rows: [] as { label: string; value: string; strong?: boolean }[] };
   const m = (n: number) => money(n, doc.currency);
@@ -337,7 +354,7 @@ export interface QuotationDetail {
 
 const REVISION_LABEL: Record<string, string> = { PRICE: "Price negotiation", QUANTITY: "Quantity changes", DELIVERY: "Delivery timeline", PAYMENT: "Payment terms", SPECIFICATIONS: "Product specifications", OTHER: "Other" };
 
-function changesBetween(older: QuotationDoc, newer: QuotationDoc): string[] {
+export function changesBetween(older: QuotationDoc, newer: QuotationDoc): string[] {
   const out: string[] = [];
   if (older.unitPriceMinor !== newer.unitPriceMinor || older.currency !== newer.currency) out.push("Unit price");
   if (older.quantity !== newer.quantity || older.unit !== newer.unit) out.push("Quantity");

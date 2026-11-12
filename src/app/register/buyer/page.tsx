@@ -4,6 +4,7 @@ import { AuthLayout } from "@/components/auth/AuthLayout";
 import { BuyerRegisterForm } from "@/components/auth/BuyerRegisterForm";
 import authStyles from "@/components/auth/Auth.module.css";
 import { getCurrentUser } from "@/lib/auth/session";
+import { resolvePostLoginPath } from "@/lib/auth/portals";
 import { safeNext } from "@/lib/inquiries/rules";
 import { withPagePerf } from "@/lib/perf/instrument";
 
@@ -14,7 +15,8 @@ async function BuyerRegistrationPage({ searchParams }: { searchParams: Promise<R
   const raw = (await searchParams).next;
   const next = safeNext(Array.isArray(raw) ? raw[0] : raw) ?? undefined;
   // someone who is already signed in has no use for a registration form
-  if (await getCurrentUser()) redirect(next ?? "/");
+  const user = await getCurrentUser().catch(() => null);
+  if (user) redirect(resolvePostLoginPath(user.role, next));
   return (
     <AuthLayout breadcrumb="Create Buyer Account" variant="buyer">
       <h1 className={authStyles.heading}>Create Your Buyer Account</h1>

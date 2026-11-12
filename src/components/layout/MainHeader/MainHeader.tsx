@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ClipboardList, BriefcaseBusiness } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SearchBar } from "@/components/layout/SearchBar";
-import { AccountLink } from "./AccountLink";
+import { HeaderActions } from "./HeaderActions";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import styles from "./MainHeader.module.css";
 
@@ -31,31 +30,7 @@ export function MainHeader() {
             <SearchBar />
           </div>
 
-          <nav className={styles.actions} aria-label="Account actions">
-            <Link href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
-              <span className={styles.actionIcon}>
-                <ClipboardList size={18} strokeWidth={2} aria-hidden />
-              </span>
-              <span className={styles.actionText}>
-                <span className={styles.actionTitle}>Get Best Price</span>
-                <span className={styles.actionSubtitle}>Post Your Requirement</span>
-              </span>
-            </Link>
-
-            <span className={styles.accountSlot}>
-              <AccountLink />
-            </span>
-
-            <Link href="/register-supplier" className={styles.actionLink}>
-              <span className={styles.actionIcon}>
-                <BriefcaseBusiness size={18} strokeWidth={2} aria-hidden />
-              </span>
-              <span className={styles.actionText}>
-                <span className={styles.actionTitle}>For Suppliers</span>
-                <span className={styles.actionSubtitle}>Grow Your Business</span>
-              </span>
-            </Link>
-          </nav>
+          <HeaderActions />
         </div>
       </Container>
     </header>

@@ -423,10 +423,13 @@ async function main() {
   await clickText(lp, "button[type=submit]", "Sign In");
   await sleep(3500);
   const afterLogin = await lp.evaluate(() => ({ path: location.pathname, toast: document.querySelector("[aria-label='Notifications from the site'] [role=status]")?.textContent ?? "", header: [...document.querySelectorAll("header button, header a")].map((e) => e.textContent.trim().replace(/\s+/g, " ")).filter((t) => /Sign Out|Sign In|My Dashboard/.test(t)), dash: document.querySelector("header a[href='/buyer/dashboard']")?.textContent.trim().replace(/\s+/g, " ") ?? "" }));
-  check("L-02 after a successful sign-in a confirmation toast appears ('You are signed in.') as a polite status message, and the header changes from Sign In to the buyer's first name linking to My Dashboard, with no Sign Out in the header (without a manual reload)", afterLogin.path === "/" && /You are signed in\./.test(afterLogin.toast) && /My Dashboard/.test(afterLogin.dash) && !afterLogin.header.some((t) => /Sign Out|^Sign In/.test(t)), JSON.stringify(afterLogin));
+  check("L-02 after a successful sign-in the buyer is sent by the server to their own dashboard (/buyer/dashboard) and a confirmation toast appears ('You are signed in.') as a polite status message", afterLogin.path === "/buyer/dashboard" && /You are signed in\./.test(afterLogin.toast), JSON.stringify(afterLogin));
   await lp.evaluate(() => document.querySelector("[aria-label='Dismiss message']")?.click());
   await sleep(400);
   check("L-03 the toast can be dismissed with its close button", await lp.evaluate(() => !document.querySelector("[aria-label='Notifications from the site'] [role=status]")));
+  await lp.goto(BASE + "/", { waitUntil: "networkidle2" });
+  const publicHeader = await lp.evaluate(() => ({ header: [...document.querySelectorAll("header button, header a")].map((e) => e.textContent.trim().replace(/\s+/g, " ")).filter((t) => /Sign Out|Sign In|My Dashboard/.test(t)), dash: document.querySelector("header a[href='/buyer/dashboard']")?.textContent.trim().replace(/\s+/g, " ") ?? "" }));
+  check("L-02b on the public site the header shows the buyer's first name linking to My Dashboard, with no Sign In and no Sign Out in the header", /My Dashboard/.test(publicHeader.dash) && !publicHeader.header.some((t) => /Sign Out|^Sign In/.test(t)), JSON.stringify(publicHeader));
   await lp.evaluate(() => document.querySelector("header a[href='/buyer/dashboard']").click());
   await sleep(3500);
   await lp.evaluate(() => document.querySelector("button[aria-controls='buyer-profile-menu']").click());

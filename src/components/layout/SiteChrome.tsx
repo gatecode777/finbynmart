@@ -2,21 +2,21 @@
 
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { portalOfPath } from "@/lib/auth/portals";
 
 /**
- * Decision (CLAUDE.md section D asks that different chrome be raised, and the owner's Page 22 PRD and reference require it):
- * signed-in buyer workspace pages (/buyer/...) bring their own sidebar and top bar (components/buyer/BuyerShell), so the
- * marketplace announcement bar, header, category navigation and footer are not rendered there. Every other route keeps the
- * single global chrome exactly as before. The chrome itself is still built once, in the root layout.
+ * Portal pages (/buyer/..., /supplier/..., /admin/...) bring their own specialized workspace shell and topbar,
+ * so the marketplace announcement bar, main header, category navigation, and footer are suppressed there.
+ * Public marketplace pages keep the standard global chrome.
  */
 export function SiteChrome({ top, bottom, children }: { top: ReactNode; bottom: ReactNode; children: ReactNode }) {
   const pathname = usePathname();
-  const workspace = pathname === "/buyer" || pathname.startsWith("/buyer/");
+  const isPortal = portalOfPath(pathname) !== "PUBLIC";
   return (
     <>
-      {!workspace && top}
+      {!isPortal && top}
       <main id="main-content">{children}</main>
-      {!workspace && bottom}
+      {!isPortal && bottom}
     </>
   );
 }

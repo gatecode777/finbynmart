@@ -111,7 +111,7 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
             <p className={styles.muted}>No attachments. Files cannot be added to an inquiry yet.</p>
           </section>
 
-          <InquiryTabs quotations={d.quotations} />
+          <InquiryTabs quotations={d.quotations} responses={d.responses} />
 
           <section className={styles.card} aria-labelledby="history-title">
             <h2 id="history-title" className={styles.cardTitle}><History size={20} aria-hidden /> Inquiry History</h2>

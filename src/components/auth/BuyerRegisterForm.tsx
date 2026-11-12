@@ -1,14 +1,15 @@
 "use client";
 
+import { resolvePostLoginPath } from "@/lib/auth/portals";
 import { FormEvent, ReactNode, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { MailCheck, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PHONE_COUNTRIES, validateBuyerRegistration } from "@/lib/auth/buyerRegistration";
 import { CONSENT_VERSION, PRIVACY_PATH, TERMS_PATH } from "@/lib/legal";
 import { postAuth } from "@/lib/api/auth";
+import { announceAuthChange, flashToast } from "@/components/ui/Toast";
 import { PasswordField } from "./PasswordField";
 import styles from "./Auth.module.css";
 
@@ -16,7 +17,6 @@ type Fields = "name" | "email" | "phone" | "companyName" | "password" | "confirm
 
 /** `next` is a path on this site (checked by the page); a buyer who is signed in straight away goes there. */
 export function BuyerRegisterForm({ next }: { next?: string }) {
-  const router = useRouter();
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState({ name: "", email: "", countryCode: "+91", number: "", companyName: "", password: "", confirmPassword: "" });
@@ -70,8 +70,9 @@ export function BuyerRegisterForm({ next }: { next?: string }) {
     const result = await postAuth("/api/auth/register/buyer", payload());
     if (result.ok) {
       if (result.data.signedIn === true) {
-        router.push(next ?? "/");
-        router.refresh();
+        announceAuthChange();
+        flashToast("success", "Buyer account created. Welcome to Finbyn Mart!", { deferred: true });
+        window.location.assign(resolvePostLoginPath("buyer", next));
         return;
       }
       setSentTo({ email: checked.value.email, failed: result.data.verification === "email_failed" });

@@ -1,0 +1,393 @@
+/* Page 38: Account Security. Cards, tabs and buttons reuse the dashboard, inquiry-detail and inquiries styles; only what is new lives here. */
+.actionsGap {
+  margin-bottom: var(--space-5);
+}
+
+ul.summaryGap {
+  margin-bottom: var(--space-5);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.intro {
+  margin: 0 0 var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.note {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  background: var(--background-soft);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+.banner {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+}
+
+.bannerOk {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.bannerError {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.select {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-sm);
+}
+
+.select:focus-visible,
+.rowBtn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.linkBtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkBtn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.rowBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--danger);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.rowBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- badges (an icon and words, never colour alone) ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.badgeOk {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.badgeFail {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.badgeInfo {
+  background: var(--background-soft);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.badgeWarn {
+  background: var(--accent-light);
+  color: var(--text-primary);
+}
+
+/* ---------- sessions and login activity: a compact table from 900px, cards below ---------- */
+.tableWrap {
+  display: none;
+  overflow-x: auto;
+}
+
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+table.table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+table.table th {
+  padding: var(--space-3);
+  background: var(--background-soft);
+  color: var(--text-primary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  text-align: left;
+}
+
+table.table td {
+  padding: var(--space-3);
+  border-top: 1px solid var(--border);
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+.cardTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.cardName {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: var(--fw-bold);
+  overflow-wrap: anywhere;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+.facts dt {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 900px) {
+  .tableWrap {
+    display: block;
+  }
+
+  .cards {
+    display: none;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- the security timeline ---------- */
+.timeline {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+}
+
+.event::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  bottom: 0;
+  left: 13px;
+  width: 2px;
+  background: var(--border);
+}
+
+.event:last-child::before {
+  display: none;
+}
+
+.dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.dotFail {
+  background: #fdf0f0;
+  color: var(--danger);
+}
+
+.eventTitle {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
+.eventText,
+.eventMeta {
+  margin: var(--space-1) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- alerts and recovery ---------- */
+.alerts {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alert {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.alertWarn {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.recovery {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recoveryRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.recoveryRow:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.recoveryName {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: var(--fw-bold);
+}
+
+.recoveryNote {
+  margin: var(--space-1) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  overflow-wrap: anywhere;
+}
+
+.skeleton {
+  height: 64px;
+  border-radius: var(--radius-md);
+  background: var(--background-soft);
+}
+
+.skeletonList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+}

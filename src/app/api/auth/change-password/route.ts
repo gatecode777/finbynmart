@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { fail, readSmallJson, tooMany } from "@/lib/auth/http";
 import { checkBuyerPassword } from "@/lib/auth/buyerRegistration";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
-import { getCurrentUser, startSession } from "@/lib/auth/session";
+import { currentSessionRef, getCurrentUser, rotateSession } from "@/lib/auth/session";
+import { revokeSessions } from "@/lib/auth/sessionRegistry";
 import { changePasswordHash, findUserById } from "@/lib/auth/users";
 import { rateLimit } from "@/lib/security/rateLimit";
 import { recordProfileEvent } from "@/lib/buyer/profile";
 import { ObjectId } from "mongodb";
 import { notifyPasswordChanged } from "@/lib/buyer/notifications";
+import { raiseAlert } from "@/lib/buyer/security";
 import { withApiPerf } from "@/lib/perf/instrument";
 
 export const dynamic = "force-dynamic";
@@ -18,8 +20,8 @@ const NO_STORE = { "Cache-Control": "private, no-store" };
  * POST { currentPassword, newPassword, confirmPassword } for the signed-in account (buyer or supplier).
  * The current password must be right (checked with the shared scrypt verify; each attempt that gets that far counts against a
  * limit of 5 per 10 minutes), the new one must pass the same policy as registration and reset and differ from the current one. The hash is
- * replaced and the session version bumped in one update, so every OTHER device is signed out; this device gets a fresh cookie
- * with the new version and stays signed in.
+ * replaced and the session version bumped in one update, so every OTHER device is signed out (their registry records are ended too);
+ * this device gets a NEW session id (the old one is retired) with the new version and stays signed in.
  */
 async function handlePOST(request: Request) {
   const session = await getCurrentUser().catch(() => null);
@@ -43,8 +45,13 @@ async function handlePOST(request: Request) {
   }
   const sessionVersion = await changePasswordHash(user._id, await hashPassword(body.newPassword as string));
   await recordProfileEvent(new ObjectId(session.id), "PASSWORD_CHANGED", []);
-  await startSession(session.id, sessionVersion);
-  if (user.role === "buyer") await notifyPasswordChanged(session.id, sessionVersion);
+  const ref = await currentSessionRef();
+  await revokeSessions(user._id, "password_changed", ref && ref.userId === session.id ? ref.sidHash : undefined);
+  await rotateSession(session.id, sessionVersion);
+  if (user.role === "buyer") {
+    await raiseAlert(user._id, { type: "PASSWORD_CHANGED", severity: "info", title: "Password changed", summary: "The password was changed while signed in. Other devices were signed out.", recommended: "If you did not do this, reset your password and contact support.", dedupeKey: `password:${sessionVersion}` });
+    await notifyPasswordChanged(session.id, sessionVersion);
+  }
   return NextResponse.json({ ok: true, message: "Your password was changed. You were signed out of your other devices." }, { headers: NO_STORE });
 }
 

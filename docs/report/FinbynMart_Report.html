@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Finbyn Mart: Project Report</title>
+<style>
+@page { size: A4; margin: 18mm 16mm; }
+body { font-family: "Segoe UI", Arial, sans-serif; color: #183A38; font-size: 11pt; line-height: 1.5; }
+h1 { font-size: 26pt; color: #04534F; margin: 0 0 4pt; }
+h2 { font-size: 15pt; color: #04534F; border-bottom: 2px solid #FDB304; padding-bottom: 3pt; margin-top: 20pt; page-break-after: avoid; }
+h3 { font-size: 12pt; color: #056263; margin: 12pt 0 3pt; page-break-after: avoid; }
+.sub { color: #526563; margin-bottom: 14pt; }
+table { width: 100%; border-collapse: collapse; margin: 8pt 0; font-size: 10pt; page-break-inside: avoid; }
+th { background: #EAF5F3; text-align: left; }
+th, td { border: 1px solid #DCE8E5; padding: 5pt 7pt; vertical-align: top; }
+.box { background: #EAF5F3; border-left: 4px solid #04534F; padding: 8pt 10pt; margin: 8pt 0; }
+.warn { background: #FFF7E5; border-left: 4px solid #FDB304; padding: 8pt 10pt; margin: 8pt 0; }
+ul { margin: 4pt 0 4pt 16pt; padding: 0; }
+.cover { text-align: center; padding-top: 90pt; page-break-after: always; }
+.cover h1 { font-size: 38pt; }
+</style></head><body>
+
+<div class="cover">
+  <h1>Finbyn Mart</h1>
+  <p style="font-size:15pt;color:#056263">Indian B2B Marketplace: Complete Project Report</p>
+  <p class="sub">How it works, which market problems it solves, what is built and what is not yet built<br>Prepared 12 November 2026 from the project repository (CLAUDE.md, DESIGN.md, PAGE_TRACKER.md and source code)</p>
+</div>
+
+<h2>1. What is Finbyn Mart?</h2>
+<p>Finbyn Mart is an Indian B2B (business to business) marketplace website. Businesses that want to buy goods (<b>buyers</b>) can find suppliers, post what they need, ask for prices and compare offers. Businesses that sell (<b>suppliers</b>) can list products, receive buyer inquiries, send quotations and manage orders and stock.</p>
+<p>The brand is teal and gold. The site is a single Next.js application with its own sign-in, a MongoDB database for accounts and business records, and separate areas (portals) for buyers and suppliers.</p>
+
+<h2>2. The market problem it addresses</h2>
+<div class="box">Note: this section describes the general B2B sourcing problem the product is designed around. It is context, not measured market data. The repository contains no market research figures.</div>
+<table>
+<tr><th>Problem for buyers</th><th>How Finbyn Mart is designed to help</th></tr>
+<tr><td>Hard to find the right supplier for a product</td><td>Searchable catalogue by category, product and supplier, with filters and a product comparison tool.</td></tr>
+<tr><td>Asking many suppliers for prices is slow and scattered (calls, WhatsApp, e-mail)</td><td>One structured inquiry or requirement form; replies and quotations arrive in the buyer's own portal.</td></tr>
+<tr><td>Offers are hard to compare and change over time</td><td>Quotations have versions; buyers can accept, reject or request a revision, and compare versions.</td></tr>
+<tr><td>No record of what was asked and agreed</td><td>Inquiries, quotations and orders are stored with status history.</td></tr>
+</table>
+<table>
+<tr><th>Problem for suppliers</th><th>How Finbyn Mart is designed to help</th></tr>
+<tr><td>Hard to reach serious buyers</td><td>A public supplier profile and product listings visible to buyers.</td></tr>
+<tr><td>Leads arrive in many places and are lost</td><td>One inquiry inbox per company with responses and clarifications kept in one conversation.</td></tr>
+<tr><td>Quoting is manual and error-prone</td><td>Quotation builder with exact money calculation done on the server, versions and expiry.</td></tr>
+<tr><td>Stock and order tracking in notebooks or spreadsheets</td><td>Inventory with an audit ledger, an orders list and basic analytics.</td></tr>
+</table>
+
+<h2>3. How it works (step by step)</h2>
+<h3>Buyer journey</h3>
+<ul>
+<li>Visit the public site, browse categories or search products and suppliers.</li>
+<li>Register as a buyer and sign in. The server checks the account's role and sends the buyer to the Buyer Portal.</li>
+<li>Send an inquiry to a supplier, or post a requirement.</li>
+<li>Receive responses and quotations; accept, reject or ask for a revision.</li>
+<li>Track orders, save products and suppliers, compare products, manage addresses, notifications, security and support tickets.</li>
+</ul>
+<h3>Supplier journey</h3>
+<ul>
+<li>Register as a supplier. A company record is created for the account.</li>
+<li>Sign in and land on the Supplier Dashboard. Sellers are linked to the company by the platform (a company cannot claim one itself).</li>
+<li>Read buyer inquiries addressed to the company's sellers and reply.</li>
+<li>Create, submit, revise or withdraw quotations (the buyer decides to accept or reject).</li>
+<li>View orders, record stock, review analytics, edit the company profile and create product drafts.</li>
+</ul>
+<div class="box"><b>Separate portals.</b> Buyers never see supplier pages and suppliers never see buyer pages. Every portal page and API checks the signed-in user's role on the server, and a supplier can only read its own company's records.</div>
+
+<h2>4. Main features (current state)</h2>
+<table>
+<tr><th>Area</th><th>What exists</th></tr>
+<tr><td>Public site</td><td>Homepage, all categories, category and sub-category pages, product listing, search, product details, supplier listing and profiles, how-it-works, contact us, industries, sitemap.</td></tr>
+<tr><td>Catalogue</td><td>21,392 test products and 1,200 fictional sellers read from CSV seed files (research/test data with estimated prices; sellers are never shown as verified).</td></tr>
+<tr><td>Accounts</td><td>Buyer and supplier registration, sign-in, sign-out, e-mail verification, forgot and reset password, change password, active sessions with sign-out of other devices.</td></tr>
+<tr><td>Buyer portal</td><td>Dashboard, profile and company, address book, notifications, settings, inquiries, quotations (accept, reject, revision request, compare), orders, saved products and suppliers, compare products, reviews, support tickets and ticket conversations, account security.</td></tr>
+<tr><td>Supplier portal</td><td>Dashboard, inquiries and responses, quotations (list, create, versions, withdraw), orders (read-only list, detail and CSV export), inventory (balances, movement history, audited adjustments), analytics and CSV report, company profile and documents, product drafts with ImageKit image upload, settings, support.</td></tr>
+<tr><td>Admin / super admin</td><td>Not built yet.</td></tr>
+</table>
+
+<h2>5. Technology</h2>
+<table>
+<tr><th>Item</th><th>Used</th></tr>
+<tr><td>Framework</td><td>Next.js 15 (App Router), React 19, TypeScript</td></tr>
+<tr><td>Styling and icons</td><td>Vanilla CSS and CSS Modules (no Tailwind or Bootstrap); Lucide icons; Anton and Montserrat fonts</td></tr>
+<tr><td>Database</td><td>MongoDB Atlas via the official driver. Collections include users, requirements, inquiries, quotations, orders, inventory positions and movements, supplier products, sessions and more. The product catalogue itself is still read from CSV files.</td></tr>
+<tr><td>Authentication</td><td>Custom: scrypt password hashing, signed cookie with a server-side session registry, server-resolved roles</td></tr>
+<tr><td>Images</td><td>ImageKit (server-side upload with file-type checks)</td></tr>
+<tr><td>Hosting</td><td>Intended for Vercel; no deployment has been verified</td></tr>
+</table>
+
+<h2>6. Quality and safety rules the project follows</h2>
+<ul>
+<li><b>No fake data shown as real.</b> Sample content is flagged. Forms that have no backend say so honestly; success messages appear only after the server confirms.</li>
+<li><b>Money is exact.</b> Amounts are whole minor units (paise) calculated on the server; currencies are never mixed or converted.</li>
+<li><b>Versioned quotations.</b> A sent version never changes; a revision is a new version.</li>
+<li><b>Safe stock.</b> Inventory changes only through an audit ledger; negative stock is refused; "not tracked" is never shown as zero.</li>
+<li><b>Security basics.</b> Server-side role checks, per-company data isolation, input validation, rate limiting on writes, same-origin checks, private (no-store) responses for personal data.</li>
+<li><b>Accessibility and responsive design</b> are required for every page (keyboard use, labels, contrast, mobile layouts).</li>
+</ul>
+
+<h2>7. What is finished and what is not</h2>
+<h3>Working (built, not yet fully verified)</h3>
+<ul>
+<li>Public discovery site and the complete buyer portal.</li>
+<li>Large part of the supplier portal as listed above.</li>
+<li>Real accounts, inquiries, quotations, orders and inventory records in MongoDB.</li>
+</ul>
+<h3>Not built or blocked</h3>
+<table>
+<tr><th>Gap</th><th>Detail</th></tr>
+<tr><td>Order creation</td><td>Nothing creates an order yet (no checkout and no quotation-to-order step), so orders, stock reservations and dispatch are empty or unsupported.</td></tr>
+<tr><td>Payments</td><td>No payment system; payment analytics show "unavailable".</td></tr>
+<tr><td>Verification</td><td>No supplier verification or review process; sellers are never labelled verified.</td></tr>
+<tr><td>Admin and moderation</td><td>No admin portal. Product publishing and approval workflow do not exist, so supplier product drafts cannot go live.</td></tr>
+<tr><td>Notifications by e-mail</td><td>No e-mail or SMS delivery or scheduled jobs; in-app notices only.</td></tr>
+<tr><td>Catalogue in database</td><td>Public catalogue is still CSV, not MongoDB; supplier-created products are not yet shown publicly.</td></tr>
+<tr><td>Supplier pages pending</td><td>Supplier inquiries list page, product editing of live products, company media and draft profile revisions.</td></tr>
+<tr><td>Quality evidence</td><td>No automated test framework or CI; most pages have not had full responsive, accessibility or load testing. Lighthouse results have not been measured. Deployment is unverified.</td></tr>
+<tr><td>Known security items</td><td>No site-wide security headers yet; role enforcement is basic (a single owner role per company).</td></tr>
+</table>
+<div class="warn"><b>Important:</b> the older audit in <code>docs/FINBYN_COMPLETE_PROJECT_AUDIT.md</code> is dated 2 November 2026 and is now out of date: it predates the buyer and supplier portals.</div>
+
+<h2>8. Recommended next steps</h2>
+<ol>
+<li>Define and build the order-confirmation workflow (quotation accepted to order), then stock reservation and dispatch.</li>
+<li>Build the admin portal: supplier verification, product moderation, category control.</li>
+<li>Move the catalogue into MongoDB and connect published supplier products to the public site.</li>
+<li>Add e-mail delivery and a scheduler for notices, order and inquiry reminders.</li>
+<li>Add a payment integration or clearly separate offline payment records.</li>
+<li>Add automated tests, security headers, performance measurement and a verified deployment.</li>
+</ol>
+
+<h2>9. Summary</h2>
+<p>Finbyn Mart is a working foundation of an Indian B2B marketplace: buyers can discover suppliers and manage inquiries and quotations, and suppliers can respond, quote and track stock and activity, all with strict portal separation and honest handling of missing capabilities. To become a full marketplace it still needs order creation, payments, verification and admin tools, real catalogue data in the database, and proper testing and deployment.</p>
+<p class="sub">Sources: CLAUDE.md, DESIGN.md, docs/PAGE_TRACKER.md, docs/backend, docs/FINBYN_COMPLETE_PROJECT_AUDIT.md and the code in src/. Figures such as 21,392 products and 1,200 sellers come from CLAUDE.md. Features listed as built were implemented in code but, per the project rules, are not all functionally verified.</p>
+</body></html>

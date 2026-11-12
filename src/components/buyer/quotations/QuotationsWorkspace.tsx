@@ -202,7 +202,7 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
           summary.total === 0 ? (
             <div className={inq.emptyBox}>
               <h2 className={inq.emptyTitle}>No Quotations Yet</h2>
-              <p className={inq.emptyText}>Quotations from suppliers will appear here once a supplier sends one for your inquiry. Suppliers cannot send quotations through Finbyn Mart yet, so none can arrive at the moment.</p>
+              <p className={inq.emptyText}>Quotations from suppliers will appear here once a supplier sends one for your inquiry. You have not received any yet.</p>
               <Link href="/buyer/inquiries" className={inq.cta}>View My Inquiries</Link>
             </div>
           ) : (

@@ -1,0 +1,78 @@
+.wrap { position: relative; min-width: 0; }
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.button:hover:not(:disabled) { border-color: var(--primary); }
+.button:focus-visible, .button[aria-expanded="true"] { outline: none; border-color: var(--accent); box-shadow: 0 0 0 0.5px var(--accent); }
+.button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chev { flex: none; color: var(--primary); transition: transform 0.15s; }
+.chevOpen { transform: rotate(180deg); }
+
+.list {
+  position: absolute;
+  z-index: var(--z-dropdown, 50);
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(320px, 90vw);
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(2, 51, 48, 0.16);
+}
+
+.heading {
+  display: block;
+  padding: var(--space-2) var(--space-3) var(--space-1);
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.active { background: var(--primary-light); }
+.selected { color: var(--primary); font-weight: var(--fw-bold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .button, .chev { transition: none; }
+}

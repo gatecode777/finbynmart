@@ -1,26 +1,22 @@
-import { ObjectId } from "mongodb";
-import { bumpSessionVersion } from "@/lib/auth/users";
-import { startSession } from "@/lib/auth/session";
 import { buyerGuard, json } from "@/lib/buyer/api";
-import { notifySignedOutEverywhere } from "@/lib/buyer/notifications";
-import { recordProfileEvent } from "@/lib/buyer/profile";
+import { signOutOtherDevices } from "@/lib/buyer/securitySessions";
+import { isCrossSiteWrite } from "@/lib/security/sameOrigin";
 import { withApiPerf } from "@/lib/perf/instrument";
 
 export const dynamic = "force-dynamic";
 
 /**
- * POST (no body): signs the buyer out of every device by raising the account's session version, then gives THIS device a
- * fresh cookie so the person stays signed in here. Cookies are stateless, so this is the only session control that exists:
- * there is no device list and nothing can be revoked one device at a time.
+ * POST (no body): signs the buyer out of every OTHER device (the same service as Account Security, /api/buyer/security/sessions/revoke-others).
+ * Registered sessions are revoked and counted, the account's session version is raised (which also ends cookies issued before the session
+ * registry existed) and THIS device keeps its own session with a cookie for the new version.
  */
-async function handlePOST() {
+async function handlePOST(request: Request) {
+  if (isCrossSiteWrite(request)) return json({ ok: false, message: "This request was not allowed." }, 403);
   const guard = await buyerGuard({ key: "buyer-signout-everywhere", limit: 5, windowSeconds: 600 });
   if ("response" in guard) return guard.response;
-  const version = await bumpSessionVersion(new ObjectId(guard.user.id));
-  await startSession(guard.user.id, version);
-  await recordProfileEvent(new ObjectId(guard.user.id), "SIGNED_OUT_EVERYWHERE", []);
-  await notifySignedOutEverywhere(guard.user.id, version);
-  return json({ ok: true, message: "You were signed out of every other device. This device stays signed in." });
+  const result = await signOutOtherDevices(guard.user.id);
+  if (!result.ok) return json({ ok: false, message: result.message, count: result.count }, 503);
+  return json({ ok: true, count: result.count, message: "You were signed out of every other device. This device stays signed in." });
 }
 
 export const POST = withApiPerf("POST api/buyer/settings/sign-out-everywhere", handlePOST);

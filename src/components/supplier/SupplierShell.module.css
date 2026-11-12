@@ -1,0 +1,537 @@
+/* Supplier workspace shell (its own copy of the shared brand look, so the two portals can diverge): top bar, dark teal sidebar (full or icons only on desktop, toggled by the menu button; drawer below 1024px), content area. */
+.shell {
+  --sidebar-w: 260px;
+  --sidebar-icons-w: 76px;
+  --topbar-h: 72px;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  transition: grid-template-columns var(--transition-fast);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "top top"
+    "side main";
+  min-height: 100vh;
+  background: var(--background-soft);
+}
+
+/* ---------- top bar ---------- */
+.topbar {
+  grid-area: top;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--topbar-h);
+  padding: var(--space-2) var(--space-4);
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.logoImage {
+  width: auto;
+  height: 40px;
+}
+
+.search {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 640px;
+  /* sits beside the bell, not the logo */
+  margin-left: auto;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.topAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+}
+
+a.topAction:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.topActionDisabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: var(--primary-light);
+}
+
+.profileWrap {
+  position: relative;
+  flex: none;
+}
+
+.profileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.profileButton:hover {
+  background: var(--primary-light);
+}
+
+.profileButtonText {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.profileButtonName {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
+.profileButtonRole {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.avatarSmall {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: var(--fw-bold);
+}
+
+.avatarSmall {
+  width: 40px;
+  height: 40px;
+  font-size: var(--fs-sm);
+}
+
+.profileMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: var(--shadow-hover);
+}
+
+.profileMenuNote {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.profileMenuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  text-align: left;
+  cursor: pointer;
+}
+
+button.profileMenuItem:hover {
+  background: var(--primary-light);
+}
+
+/* ---------- sidebar ---------- */
+.sidebar {
+  grid-area: side;
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: calc(var(--z-sticky) - 1);
+  align-self: start;
+  height: calc(100vh - var(--topbar-h));
+  background: var(--primary-dark);
+  color: #fff;
+}
+
+/* Fills the sidebar column, which is 76px and widens to 260px (moving the content) while the sidebar is hovered or focused. */
+.sidebarPanel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* no visible scrollbar: it still scrolls with the wheel, touch and keyboard */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: var(--primary-dark);
+}
+
+.sidebarPanel::-webkit-scrollbar {
+  display: none;
+}
+
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 100%;
+  padding: var(--space-4) var(--space-3);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navFooter {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+
+/* hover is only a hint; the current page is the gold item and nothing else is filled */
+a.navItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+a.navItem:focus-visible,
+.iconButton:focus-visible,
+.profileButton:focus-visible,
+.topAction:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* the current page is gold (the brand accent) with dark text: white on gold would not reach 4.5:1 */
+.navItemActive {
+  background: var(--accent);
+  color: var(--primary-deep);
+}
+
+.navItemActive:hover {
+  background: var(--accent-hover);
+  color: var(--primary-deep);
+}
+
+.navItemDisabled {
+  color: rgba(255, 255, 255, 0.62);
+  cursor: not-allowed;
+}
+
+.profileMenu .navItemDisabled {
+  color: var(--text-muted);
+}
+
+.navIcon {
+  flex: none;
+}
+
+.navLabel {
+  flex: 1;
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--text-primary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+}
+
+.soon {
+  padding: 1px 8px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  font-size: 0.6875rem;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.srOnlyWhenCollapsed {
+  /* the text stays for screen readers when the sidebar is collapsed to icons */
+}
+
+/* the menu button toggles between the full sidebar and icons only (desktop); it opens the drawer below 1024px */
+@media (min-width: 1024px) {
+  .shellIcons {
+    --sidebar-w: var(--sidebar-icons-w);
+  }
+
+  .shellIcons .srOnlyWhenCollapsed {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .shellIcons .navItem {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .shellIcons .badgeCollapsed {
+    position: absolute;
+    margin: -22px -22px 0 0;
+    min-width: 18px;
+    height: 18px;
+    font-size: 0.6875rem;
+  }
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background: var(--primary-light);
+}
+
+.menuButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.content {
+  grid-area: main;
+  min-width: 0;
+  padding: var(--space-5) var(--space-4) var(--space-10);
+}
+
+.content:focus {
+  outline: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-drawer) - 1);
+  border: 0;
+  background: rgba(2, 51, 48, 0.55);
+  cursor: pointer;
+}
+
+/* ---------- widths ---------- */
+@media (min-width: 640px) {
+  .topbar {
+    flex-wrap: nowrap;
+    padding-inline: var(--space-5);
+  }
+
+  .profileButtonText {
+    display: flex;
+  }
+
+  .content {
+    padding-inline: var(--space-5);
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .drawerToggle {
+    display: none;
+  }
+}
+
+@media (max-width: 639.98px) {
+  /* a compact first row (menu, logo, shortcuts, profile) and the search on its own row beneath */
+  .search {
+    order: 10;
+    flex: 1 1 100%;
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .logoImage {
+    height: 32px;
+  }
+
+  .topActions {
+    gap: 0;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "top"
+      "main";
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--z-drawer);
+    width: min(300px, 86vw);
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    visibility: hidden;
+  }
+
+  .sidebarOpen {
+    transform: none;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .sidebar {
+    transition: none;
+  }
+}
+
+/* Printing a buyer page prints the page, not the workspace around it. */
+@media print {
+  .topbar,
+  .sidebar,
+  .overlay {
+    display: none !important;
+  }
+
+  .shell {
+    display: block;
+    background: #fff;
+  }
+
+  .content {
+    padding: 0;
+  }
+}
+
+/* the label that tells the supplier workspace apart from the buyer one */
+.workspaceTag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-light);
+  color: var(--primary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  .workspaceTag {
+    display: none;
+  }
+}
+
+/* the collapse control lives in the sidebar on desktop; the top-bar menu button is only for the drawer below 1024px */
+.collapseBtn {
+  width: 100%;
+  margin-bottom: var(--space-2);
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+.collapseBtn:hover { background: rgba(255, 255, 255, 0.1); }
+.collapseBtn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 1023.98px) { .collapseBtn { display: none; } }
+@media (min-width: 1024px) { .menuButton { display: none; } }

@@ -3,9 +3,9 @@ import { FileText } from "lucide-react";
 import type { Section, Unavailable } from "@/lib/buyer/dashboard";
 import styles from "./Dashboard.module.css";
 
-/** There is no quotation module yet, so this says so. No quotation, amount or validity is ever invented. */
+/** The dashboard does not read quotations yet, so this says so and points to the Quotations page. No quotation, amount or validity is ever invented. */
 export function RecentQuotations({ section }: { section: Section<Unavailable> }) {
-  const reason = section.status === "ok" ? section.data.reason : "Supplier quotations are not connected yet.";
+  const reason = section.status === "ok" ? section.data.reason : "Quotation figures are not shown on this dashboard yet. Open Quotations in the sidebar for the ones you have received.";
   return (
     <section className={styles.card} aria-labelledby="recent-quo-title">
       <div className={styles.cardHead}>
