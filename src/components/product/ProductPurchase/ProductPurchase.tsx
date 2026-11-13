@@ -102,8 +102,8 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
       <div className={styles.priceBlock}>
         <span className={styles.price}>
           {pricing.type === "estimated" && <span className={styles.estimate}>Est. </span>}
-          {price}
-          <span className={styles.unit}> / {pricing.unit}</span>
+          {pricing.type === "on_request" ? "Price on request" : price}
+          {pricing.type !== "on_request" && <span className={styles.unit}> / {pricing.unit}</span>}
         </span>
         {pricing.type === "estimated" && <span className={styles.note}>Estimated price: confirm the final price with the supplier.</span>}
       </div>

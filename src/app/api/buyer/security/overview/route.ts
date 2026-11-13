@@ -1,4 +1,4 @@
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { getBuyerSecurityOverview } from "@/lib/buyer/security";
 import { withApiPerf } from "@/lib/perf/instrument";
 
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
  * of active sessions, open alerts, where the recorded login history starts, and what this server can really do (`capabilities`). Private, never cached.
  */
 async function handleGET() {
-  const guard = await buyerGuard();
+  const guard = await supportGuard();
   if ("response" in guard) return guard.response;
   try {
     const overview = await getBuyerSecurityOverview(guard.user.id);

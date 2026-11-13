@@ -420,7 +420,7 @@ export function SupplierOrdersWorkspace({ initial, initialParams, renderedAt }: 
       </div>
 
       <p className={clsx(q.reason, styles.noPrint, styles.infoBanner)}>
-        <Info size={16} aria-hidden /> Counts are orders under your search, date and currency filters; Ready to Dispatch is counted separately from In Progress. Orders appear after the approved order-confirmation workflow. Payment status is unavailable because no payment ledger is connected. Search covers order, quotation and inquiry references and product names (buyer names are not searchable).
+        <Info size={16} aria-hidden /> Counts are orders under your search, date and currency filters; Ready to Dispatch is counted separately from In Progress. An order appears here after the buyer explicitly confirms an accepted quotation. Payment status is unavailable because no payment ledger is connected. Search covers order, quotation and inquiry references and product names (buyer names are not searchable).
       </p>
     </>
   );

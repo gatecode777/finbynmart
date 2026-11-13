@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SupplierPreferencesForm } from "@/components/supplier/settings/SupplierPreferencesForm";
-import { SupplierSecurityPanel } from "@/components/supplier/profile/SupplierSecurityPanel";
 import dash from "@/components/supplier/dashboard/SupplierDashboard.module.css";
 import { requireSupplierPage } from "@/lib/auth/guards";
-import { getSupplierSecurity } from "@/lib/supplier/profileService";
 import { getSupplierSettingsView } from "@/lib/supplier/settingsService";
 import { withPagePerf } from "@/lib/perf/instrument";
 
@@ -17,10 +15,7 @@ export const dynamic = "force-dynamic";
 async function SupplierSettingsPage() {
   const { user } = await requireSupplierPage("/supplier/settings");
 
-  const [settings, security] = await Promise.all([
-    getSupplierSettingsView(user.id),
-    getSupplierSecurity(user.id),
-  ]);
+  const settings = await getSupplierSettingsView(user.id);
 
   return (
     <div className={dash.page}>
@@ -39,7 +34,13 @@ async function SupplierSettingsPage() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", maxWidth: "900px" }}>
         <SupplierPreferencesForm initial={settings.settings} revision={settings.revision} />
-        {security && <SupplierSecurityPanel security={security} />}
+        <section className={dash.card} aria-labelledby="settings-security-title">
+          <h2 id="settings-security-title" className={dash.cardTitle}>Account security</h2>
+          <p className={dash.legendNote}>Change your password, review where you are signed in and sign out other devices.</p>
+          <p style={{ marginTop: "0.75rem" }}>
+            <Link href="/supplier/security" className={dash.viewAll}>Open Account Security</Link>
+          </p>
+        </section>
       </div>
     </div>
   );

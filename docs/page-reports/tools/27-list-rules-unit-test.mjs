@@ -47,7 +47,7 @@ const sum = R.summaryFrom(counts);
 check("S-04 summary: total includes cancelled and rejected, replied/quoted is REPLIED + QUOTED only, closed is CLOSED only", sum.total === 22 && sum.awaitingResponse === 11 && sum.repliedOrQuoted === 3 && sum.closed === 5);
 check("S-05 an empty history is all zeros (no invented numbers)", JSON.stringify(R.summaryFrom(R.countsByFilter({}))) === '{"total":0,"awaitingResponse":0,"repliedOrQuoted":0,"closed":0}');
 check("S-06 the dashboard's 'active' group is this page's awaiting group (one definition)", R.AWAITING_STATUSES.join() === "NEW,NOTIFIED,IN_PROGRESS");
-check("S-07 replies and quotations are marked as not connected", R.REPLIES_CONNECTED === false);
+check("S-07 replies and quotations are connected (supplier replies and quotations exist)", R.REPLIES_CONNECTED === true);
 
 check("F-01 active filter count: type, supplier, category and date window (the status tab and the sort do not count)", R.activeFilterCount(P({ inquiryType: "GET_BEST_QUOTE", supplierId: "x", range: "7d", status: "closed", sort: "oldest" }).value) === 3);
 check("F-02 regex characters are escaped, so a search is a literal text", R.escapeRegex("a.b*c(d)[e]$^|\\") === "a\\.b\\*c\\(d\\)\\[e\\]\\$\\^\\|\\\\" && new RegExp(R.escapeRegex(".*")).test("abc") === false);

@@ -13,6 +13,7 @@ import { siteUrl } from "@/lib/site";
 import { formatPriceRange } from "@/lib/utils/format";
 import { first, type SearchParams } from "@/lib/utils/searchParams";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await ensureApproved();
   const { supplierSlug } = await params;
   const supplier = getPublicSupplierBySlug(supplierSlug);
   if (!supplier) return { title: "Supplier not found | Finbyn Mart", robots: { index: false } };
@@ -39,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const unitLabel = (unit: string) => canonicalUnit(unit, unitKey) ?? unit;
 
 async function InquiryPage({ params, searchParams }: Props) {
+  await ensureApproved();
   const { supplierSlug } = await params;
   const supplier = getPublicSupplierBySlug(supplierSlug);
   if (!supplier) notFound();
@@ -55,7 +58,7 @@ async function InquiryPage({ params, searchParams }: Props) {
     unit: unitLabel(card.moqUnit ?? card.priceUnit),
     moq: card.moq,
     moqUnit: card.moqUnit,
-    priceText: formatPriceRange(card.priceMin, card.priceMax),
+    priceText: card.priceOnRequest ? "Price on request" : formatPriceRange(card.priceMin, card.priceMax),
     estimated: Boolean(card.priceIsEstimated),
     imageSrc: card.tile.imageSrc,
     imageRemote: Boolean(card.tile.imageSrc && /^https?:\/\//.test(card.tile.imageSrc)),
@@ -81,7 +84,7 @@ async function InquiryPage({ params, searchParams }: Props) {
           unit: unitLabel(detail.moq?.unit ?? detail.pricing.unit),
           moq: detail.moq?.quantity,
           moqUnit: detail.moq?.unit,
-          priceText: formatPriceRange(detail.pricing.min, detail.pricing.max),
+          priceText: detail.pricing.type === "on_request" ? "Price on request" : formatPriceRange(detail.pricing.min, detail.pricing.max),
           estimated: detail.pricing.type === "estimated",
           imageSrc: primary?.src,
           imageRemote: Boolean(primary?.remote),

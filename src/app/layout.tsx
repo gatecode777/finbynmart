@@ -54,7 +54,8 @@ export default function RootLayout({
           {children}
         </SiteChrome>
         <ToastHost />
-        <SpeedInsights />
+        {/* the script is only served by Vercel hosting; elsewhere it is a 404 console error on every page */}
+        {process.env.VERCEL ? <SpeedInsights /> : null}
       </body>
     </html>
   );

@@ -37,7 +37,7 @@ export async function resetPasswordWithToken(rawToken: unknown, passwordHash: st
       if (!token) return; // nothing consumed; the state is worked out after the transaction
       const updated = await users.findOneAndUpdate(
         { _id: token.userId, accountStatus: { $ne: "SUSPENDED" } },
-        { $set: { passwordHash, emailVerified: true, passwordChangedAt: now, updatedAt: now }, $inc: { sessionVersion: 1 } },
+        { $set: { passwordHash, emailVerified: true, emailVerifiedAt: now, emailVerifiedVia: "reset-link", passwordChangedAt: now, updatedAt: now }, $inc: { sessionVersion: 1 } },
         { session, projection: { role: 1 }, returnDocument: "after" },
       );
       if (!updated) {

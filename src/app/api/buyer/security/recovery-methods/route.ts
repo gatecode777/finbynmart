@@ -1,4 +1,4 @@
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { getRecoveryMethods } from "@/lib/buyer/securitySessions";
 import { withApiPerf } from "@/lib/perf/instrument";
 
@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 /** GET /api/buyer/security/recovery-methods: what can really recover the account (a confirmed email; nothing else exists today), masked. Never a code or a secret. */
 async function handleGET() {
-  const guard = await buyerGuard();
+  const guard = await supportGuard();
   if ("response" in guard) return guard.response;
   try {
     const methods = await getRecoveryMethods(guard.user.id);

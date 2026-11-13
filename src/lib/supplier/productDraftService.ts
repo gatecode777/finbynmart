@@ -1,10 +1,10 @@
 import { createHash } from "node:crypto";
 import { ObjectId } from "mongodb";
 import { deleteFromImageKit } from "@/lib/media/imagekit";
-import { getCategoryDirectory } from "@/lib/catalog/categories";
+import { getManagementCategories } from "@/lib/catalog/categories";
 import type { SupplierContext } from "./company";
 import { getProductsCollection, type SupplierProductDoc } from "./productService";
-import { formatPaise, IMAGE_LIMITS, type DraftImage, normalizeSku, parseMoq, parsePaise, reviewDraft, validateDraftShape, type DraftInput, type FieldErrors, type Review } from "./productDraftRules";
+import { formatPaise, IMAGE_LIMITS, reasonText, type DraftImage, type Moderation, normalizeSku, parseMoq, parsePaise, reviewDraft, validateDraftShape, type DraftInput, type FieldErrors, type Review } from "./productDraftRules";
 
 export interface DraftView {
   reference: string;
@@ -14,6 +14,8 @@ export interface DraftView {
   categoryName: string;
   review: Review;
   images: DraftImage[];
+  /** null = never submitted. Contains only supplier-safe text. */
+  moderation: Moderation | null;
 }
 
 export type DraftResult =
@@ -22,13 +24,12 @@ export type DraftResult =
 
 /** Active categories a supplier may use (central directory). Public visibility is a separate fact and is not changed here. */
 export function selectableCategories() {
-  return getCategoryDirectory()
-    .nodes.filter((n) => n.isActive)
+  return getManagementCategories()
     .map((n) => ({ id: n.id, name: n.name, parentId: n.parentId }));
 }
 
 function categoryOf(id: string) {
-  return id ? getCategoryDirectory().nodes.find((n) => n.id === id && n.isActive) : undefined;
+  return id ? getManagementCategories().find((n) => n.id === id) : undefined;
 }
 
 function toView(doc: SupplierProductDoc): DraftView | null {
@@ -45,7 +46,7 @@ function toView(doc: SupplierProductDoc): DraftView | null {
     moq: d.moq === null ? "" : String(d.moq),
     quantityUnit: d.quantityUnit,
   };
-  return { reference: doc._id.toHexString(), revision: d.revision, updatedAt: doc.updatedAt.toISOString(), input, categoryName: doc.categoryName, review: reviewDraft(input, !!categoryOf(d.categoryId), d.images?.length ?? 0), images: d.images ?? [] };
+  return { reference: doc._id.toHexString(), revision: d.revision, updatedAt: doc.updatedAt.toISOString(), input, categoryName: doc.categoryName, review: reviewDraft(input, !!categoryOf(d.categoryId), d.images?.length ?? 0), images: d.images ?? [], moderation: d.review ? { state: d.review.state, submittedRevision: d.review.submittedRevision, submittedAt: d.review.submittedAt.toISOString(), reason: d.review.state === "REJECTED" ? (reasonText(d.review.reasonCode ?? "") ?? null) : null } : null };
 }
 
 /** Field allow-list: anything else in the body (companyId, status, stock, moderation...) is never read. */
@@ -172,13 +173,14 @@ export async function updateDraft(ctx: SupplierContext, reference: string, expec
   else update.$unset = { "draft.skuKey": "" };
   try {
     // one atomic conditional update: a stale revision matches nothing
-    const doc = await col.findOneAndUpdate({ ...filter, "draft.revision": expectedRevision }, update, { returnDocument: "after" });
+    const doc = await col.findOneAndUpdate({ ...filter, "draft.revision": expectedRevision, "draft.review.state": { $ne: "PENDING" } }, update, { returnDocument: "after" });
     if (doc) return { ok: true, draft: toView(doc)! };
   } catch (e) {
     if (isDup(e)) return { ok: false, status: 409, message: "You already use this SKU on another product.", fields: { sku: "This SKU is already in use." } };
     throw e;
   }
   const current = await col.findOne(filter);
+  if (current?.draft?.review?.state === "PENDING") return { ok: false, status: 409, message: "This draft is under review and cannot be edited. Withdraw the submission first." };
   return current ? { ok: false, status: 409, message: "This draft changed elsewhere. Reload to continue." } : { ok: false, status: 404, message: "Draft not found." };
 }
 
@@ -188,7 +190,7 @@ export async function addDraftImage(ctx: SupplierContext, reference: string, ima
   if (!filter) return null;
   const col = await getProductsCollection();
   const doc = await col.findOneAndUpdate(
-    { ...filter, [`draft.images.${IMAGE_LIMITS.max - 1}`]: { $exists: false } },
+    { ...filter, "draft.review.state": { $ne: "PENDING" }, [`draft.images.${IMAGE_LIMITS.max - 1}`]: { $exists: false } },
     [{ $set: { "draft.images": { $concatArrays: [{ $ifNull: ["$draft.images", []] }, [image]] }, imageUrl: { $ifNull: [{ $arrayElemAt: ["$draft.images.url", 0] }, image.url] }, updatedAt: new Date() } }],
     { returnDocument: "after" },
   );
@@ -213,7 +215,44 @@ export async function changeDraftImage(ctx: SupplierContext, reference: string, 
     [next[i], next[j]] = [next[j], next[i]];
   }
   // conditional on the array we read, so a concurrent change makes this a no-op instead of overwriting it
-  const doc = await col.findOneAndUpdate({ ...filter, "draft.images": imgs }, { $set: { "draft.images": next, imageUrl: next[0]?.url ?? "", updatedAt: new Date() } }, { returnDocument: "after" });
+  const doc = await col.findOneAndUpdate({ ...filter, "draft.review.state": { $ne: "PENDING" }, "draft.images": imgs }, { $set: { "draft.images": next, imageUrl: next[0]?.url ?? "", updatedAt: new Date() } }, { returnDocument: "after" });
   if (doc && action === "remove" && !(await col.countDocuments({ "draft.images.fileId": fileId }))) await deleteFromImageKit(fileId);
   return doc ? toView(doc) : toView(cur);
+}
+
+/**
+ * Submit the CURRENT revision for review. The server re-validates everything (it never trusts the browser's checklist): required fields, an
+ * active category, price/MOQ/unit rules and at least one image of this draft. The submitted content is copied into an immutable snapshot, the
+ * draft becomes read-only until a decision or a withdrawal, and nothing becomes public. One atomic conditional update on the exact revision.
+ */
+export async function submitForReview(ctx: SupplierContext, actor: ObjectId, reference: string, expectedRevision: number): Promise<DraftResult> {
+  const filter = ownedFilter(ctx, reference);
+  if (!filter) return { ok: false, status: 404, message: "Draft not found." };
+  const col = await getProductsCollection();
+  const cur = await col.findOne(filter);
+  if (!cur?.draft) return { ok: false, status: 404, message: "Draft not found." };
+  if (cur.draft.revision !== expectedRevision) return { ok: false, status: 409, message: "This draft changed elsewhere. Reload to continue." };
+  if (cur.draft.review?.state === "PENDING") return { ok: false, status: 409, message: "This revision is already under review." };
+  const view = toView(cur)!;
+  const checked = validate(view.input);
+  if (checked.fields) return { ok: false, status: 422, message: "Please fix the highlighted fields.", fields: checked.fields };
+  if (!view.review.canSubmit) return { ok: false, status: 422, message: "Complete these first: " + view.review.missing.join(", ") + "." };
+  const snapshot = { name: cur.name, sku: cur.sku, description: cur.description, categoryId: cur.draft.categoryId, categoryName: cur.categoryName, pricingMode: cur.draft.pricingMode, currency: cur.draft.currency, unitPricePaise: cur.draft.unitPricePaise, priceUnit: cur.draft.priceUnit, moq: cur.draft.moq, quantityUnit: cur.draft.quantityUnit, images: cur.draft.images ?? [] };
+  const now = new Date();
+  const doc = await col.findOneAndUpdate(
+    { ...filter, "draft.revision": expectedRevision, "draft.review.state": { $ne: "PENDING" } },
+    { $set: { "draft.review": { state: "PENDING", submittedRevision: expectedRevision, submittedAt: now, submittedBy: actor, snapshot }, updatedAt: now } },
+    { returnDocument: "after" },
+  );
+  return doc ? { ok: true, draft: toView(doc)! } : { ok: false, status: 409, message: "This draft changed elsewhere. Reload to continue." };
+}
+
+/** Withdraw a pending submission so the draft can be edited again. Only while PENDING; a decided review is history. */
+export async function withdrawReview(ctx: SupplierContext, reference: string): Promise<DraftResult> {
+  const filter = ownedFilter(ctx, reference);
+  if (!filter) return { ok: false, status: 404, message: "Draft not found." };
+  const col = await getProductsCollection();
+  const doc = await col.findOneAndUpdate({ ...filter, "draft.review.state": "PENDING" }, { $unset: { "draft.review": "" }, $set: { updatedAt: new Date() } }, { returnDocument: "after" });
+  if (doc) return { ok: true, draft: toView(doc)! };
+  return (await col.findOne(filter)) ? { ok: false, status: 409, message: "This draft is not under review." } : { ok: false, status: 404, message: "Draft not found." };
 }

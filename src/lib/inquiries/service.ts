@@ -1,6 +1,8 @@
 import { randomBytes } from "node:crypto";
+import { notifySellerOwner } from "@/lib/supplier/notifyOwner";
 import { ObjectId, type Collection } from "mongodb";
-import { getDb } from "@/lib/db/mongo";
+import { getDb, getMongoClient } from "@/lib/db/mongo";
+import { buildJob, insertJob } from "@/lib/leads/distribution";
 import { BUYER_CANCELLABLE, INQUIRY_TYPES, REFERENCE_PATTERN, normaliseStatus, type GuestContact, type InquiryStatus, type InquiryType, type Located } from "./rules";
 import { notifyInquirySubmitted } from "@/lib/buyer/notifications";
 
@@ -26,7 +28,7 @@ export interface InquiryDoc {
   supplierName: string;
   supplierSlug?: string;
   /** Where the supplier record comes from: the catalogue or the sample listings. Not where the inquiry was sent from. */
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "supplier";
   quantity: number;
   unit?: string;
   message?: string;
@@ -36,6 +38,12 @@ export interface InquiryDoc {
   deliveryLocation?: Located;
   consent?: { accepted: true; at: Date; policyVersion: string | null; termsPath: string; privacyPath: string };
   idempotencyKey?: string;
+  /** Seller keys of the companies that got a MATCHED lead for this requirement (automatic distribution). Written only by the distribution worker; never shown to anyone else. */
+  matchedSupplierKeys?: string[];
+  /** Mandatory automatic-matching policy version this inquiry was submitted under (absent on older inquiries: they are never redistributed). */
+  distributionPolicy?: string;
+  /** Runtime only (never stored): how the signed-in supplier company received this inquiry. */
+  recipientType?: "DIRECT" | "MATCHED";
   /** "new" on records written before the lifecycle existed; InquiryStatus afterwards. */
   status: string;
   statusHistory?: { from: InquiryStatus | null; to: InquiryStatus; actor: "buyer" | "guest" | "system"; at: Date; reason?: string }[];
@@ -148,8 +156,26 @@ export async function submitInquiry(identity: Identity, input: InquiryInput, ide
       updatedAt: now,
     } as InquiryDoc;
     try {
-      const result = await collection.insertOne(doc);
+      // the direct inquiry and the durable distribution job commit together (product inquiries of registered buyers); the matching itself runs later, in the worker
+      doc._id = new ObjectId();
+      const job = buildJob({ _id: doc._id, reference, buyerId: doc.buyerId, productKey: doc.productKey, supplierKey: doc.supplierKey }, now);
+      if (job) doc.distributionPolicy = job.policyVersion;
+      let insertedId = doc._id;
+      if (job) {
+        const session = (await getMongoClient()).startSession();
+        try {
+          await session.withTransaction(async () => {
+            await collection.insertOne(doc, { session });
+            await insertJob(job, session);
+          }, { readConcern: { level: "snapshot" }, writeConcern: { w: "majority" } });
+        } finally {
+          await session.endSession();
+        }
+      } else insertedId = (await collection.insertOne(doc)).insertedId;
+      const result = { insertedId };
       if (identity.kind === "buyer") await notifyInquirySubmitted(identity.buyerId, reference, input.supplierName);
+      // the supplier company that owns this seller (if any) gets an in-app notice; no message text is put in it
+      await notifySellerOwner(input.supplierKey, { category: "inquiries", type: "INQUIRY_RECEIVED", title: "New inquiry received", body: `A buyer sent an inquiry${input.productName ? ` about ${input.productName}` : ""}. Open Inquiries & Leads to read it.`, link: `/supplier/inquiries/${reference}`, dedupeKey: `inquiry:${reference}` });
       return { ok: true, id: result.insertedId.toString(), reference, status: "NEW", replay: false };
     } catch (error) {
       if (!isDuplicateKey(error)) throw error;

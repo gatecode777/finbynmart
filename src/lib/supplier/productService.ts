@@ -11,7 +11,8 @@ export interface SupplierProductItem {
   categoryName: string;
   price: number;
   unit: string;
-  stock: number;
+  /** null = no stock figure is recorded (never a made-up number). Real balances live in the inventory ledger. */
+  stock: number | null;
   status: "ACTIVE" | "LOW_STOCK" | "OUT_OF_STOCK" | "DRAFT";
   imageUrl: string;
   description: string;
@@ -47,17 +48,6 @@ export interface SupplierProductsResult {
   };
 }
 
-export interface CreateProductInput {
-  name: string;
-  sku?: string;
-  categoryName: string;
-  price: number;
-  unit?: string;
-  stock: number;
-  description?: string;
-  imageUrl?: string;
-}
-
 export interface SupplierProductDoc {
   _id: ObjectId;
   companyId: ObjectId;
@@ -88,13 +78,20 @@ export interface SupplierProductDoc {
     moq: number | null;
     quantityUnit: string;
     images?: { fileId: string; url: string; name: string }[];
+    /** Moderation of one exact revision. While PENDING the draft cannot be edited (withdraw first). */
+    review?: { state: "PENDING" | "APPROVED" | "REJECTED"; submittedRevision: number; submittedAt: Date; submittedBy: ObjectId; snapshot: Record<string, unknown>; decidedAt?: Date; decidedBy?: ObjectId; reasonCode?: string; internalNote?: string };
   };
+  /** Set only by an authorized reviewer's approval of an exact revision. The one fact public discovery may rely on. */
+  publication?: { state: "APPROVED"; revision: number; approvedAt: Date; approvedBy: ObjectId; /** The APPROVED content. Public reads use this, never the editable draft, so later edits stay private until a new approval replaces it. */ snapshot: Record<string, unknown> };
 }
 
 export async function getProductsCollection(): Promise<Collection<SupplierProductDoc>> {
   const db = await getDb();
   const col = db.collection<SupplierProductDoc>("supplier_products");
   await col.createIndex({ companyId: 1, createdAt: -1 });
+  // the other list sorts, company-scoped (audit M-06)
+  await col.createIndex({ companyId: 1, name: 1, _id: 1 }, { name: "supplier_products_by_name", collation: { locale: "en" } });
+  await col.createIndex({ companyId: 1, price: 1, _id: 1 }, { name: "supplier_products_by_price" });
   // SKU is unique per company only (no global rule), and only when one was entered.
   await col.createIndex({ companyId: 1, "draft.skuKey": 1 }, { unique: true, partialFilterExpression: { "draft.skuKey": { $gt: "" } }, name: "supplier_product_sku_per_company" });
   // exactly-once creation per company + actor + client key, enforced by the database
@@ -119,7 +116,7 @@ export async function collectSupplierProducts(context: SupplierContext): Promise
         categoryName: p.categoryName || "General",
         price: p.estimatedPriceInr || 0,
         unit: "Piece",
-        stock: 50, // Catalog default stock
+        stock: null, // the catalogue records no stock; none is invented
         status: "ACTIVE",
         imageUrl: p.imageUrl || "",
         description: `${p.colour ? `Colour: ${p.colour}. ` : ""}${p.department || ""} ${p.productType || ""}`.trim(),
@@ -144,7 +141,7 @@ export async function collectSupplierProducts(context: SupplierContext): Promise
       categoryName: p.categoryName,
       price: p.price,
       unit: p.unit || "Piece",
-      stock: p.stock,
+      stock: p.status === "DRAFT" ? null : p.stock,
       status: stockStatus,
       imageUrl: p.imageUrl || "",
       description: p.description || "",
@@ -155,138 +152,97 @@ export async function collectSupplierProducts(context: SupplierContext): Promise
   return allProducts;
 }
 
-export async function getSupplierProducts(
-  context: SupplierContext,
-  query: SupplierProductsQuery = {}
-): Promise<SupplierProductsResult> {
-  const allProducts = await collectSupplierProducts(context);
-
-  // Summary counts before filters
-  const uniqueCategories = Array.from(new Set(allProducts.map((p) => p.categoryName))).filter(Boolean);
-  const summary: SupplierProductsSummary = {
-    total: allProducts.length,
-    active: allProducts.filter((p) => p.status === "ACTIVE" || p.status === "LOW_STOCK").length,
-    inStock: allProducts.filter((p) => p.stock > 0).length,
-    categories: uniqueCategories.length,
-  };
-
-  // 3. Apply filters
-  let filtered = allProducts;
-
-  if (query.q && query.q.trim()) {
-    const term = query.q.trim().toLowerCase();
-    filtered = filtered.filter(
-      (p) =>
-        p.name.toLowerCase().includes(term) ||
-        p.sku.toLowerCase().includes(term) ||
-        p.categoryName.toLowerCase().includes(term)
-    );
-  }
-
-  if (query.category && query.category !== "all") {
-    filtered = filtered.filter((p) => p.categoryName.toLowerCase() === query.category!.toLowerCase());
-  }
-
-  if (query.status && query.status !== "all") {
-    filtered = filtered.filter((p) => p.status.toLowerCase() === query.status!.toLowerCase());
-  }
-
-  // 4. Sort
-  const sort = query.sort ?? "newest";
-  filtered.sort((a, b) => {
-    switch (sort) {
-      case "price_asc":
-        return a.price - b.price;
-      case "price_desc":
-        return b.price - a.price;
-      case "name_asc":
-        return a.name.localeCompare(b.name);
-      case "newest":
-      default:
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+/** Catalogue products of the company's own sellers: an in-memory structure (the catalogue is CSV), no database read. Newest sort puts them after custom products. */
+function catalogueItems(context: SupplierContext): SupplierProductItem[] {
+  const catalog = getCatalog();
+  const out: SupplierProductItem[] = [];
+  for (const sellerKey of context.company.sellerKeys) {
+    for (const p of catalog.productsBySeller.get(sellerKey) ?? []) {
+      out.push({ id: `cat-${p.id}`, sku: `SKU-${p.id}`, name: p.name, slug: p.slug, categoryName: p.categoryName || "General", price: p.estimatedPriceInr || 0, unit: "Piece", stock: null, status: "ACTIVE", imageUrl: p.imageUrl || "", description: `${p.colour ? `Colour: ${p.colour}. ` : ""}${p.department || ""} ${p.productType || ""}`.trim(), isCatalog: true, createdAt: new Date(0).toISOString() });
     }
-  });
-
-  // 5. Pagination
-  const page = Math.max(1, query.page ?? 1);
-  const limit = Math.min(50, Math.max(1, query.limit ?? 15));
-  const totalCount = filtered.length;
-  const totalPages = Math.max(1, Math.ceil(totalCount / limit));
-  const paginated = filtered.slice((page - 1) * limit, page * limit);
-
-  return {
-    items: paginated,
-    summary,
-    categories: uniqueCategories,
-    meta: {
-      page,
-      limit,
-      totalPages,
-      totalCount,
-    },
-  };
+  }
+  return out;
 }
 
-export async function createSupplierProduct(
-  context: SupplierContext,
-  input: CreateProductInput
-): Promise<{ ok: true; product: SupplierProductItem } | { ok: false; message: string }> {
-  if (!input.name || input.name.trim().length < 2) {
-    return { ok: false, message: "Product name must be at least 2 characters." };
-  }
-  if (!input.categoryName || !input.categoryName.trim()) {
-    return { ok: false, message: "Category name is required." };
-  }
-  if (typeof input.price !== "number" || input.price < 0) {
-    return { ok: false, message: "Please enter a valid price." };
-  }
+const toCustomItem = (p: SupplierProductDoc): SupplierProductItem => {
+  const stockStatus = p.status === "DRAFT" ? "DRAFT" : p.stock <= 0 ? "OUT_OF_STOCK" : p.stock <= 10 ? "LOW_STOCK" : "ACTIVE";
+  return { id: p._id.toString(), sku: p.sku, name: p.name, slug: p.slug, categoryName: p.categoryName, price: p.price, unit: p.unit || "Piece", stock: p.status === "DRAFT" ? null : p.stock, status: stockStatus, imageUrl: p.imageUrl || "", description: p.description || "", isCatalog: false, createdAt: p.createdAt.toISOString() };
+};
 
-  const sku = input.sku?.trim() || `SKU-${Date.now().toString(36).toUpperCase()}`;
-  const slug = input.name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const MERGE_WINDOW_MAX = 2000;
 
+/**
+ * One page of the supplier's products. Custom products are filtered, counted, sorted and windowed by the database (company-scoped and indexed);
+ * catalogue products come from the in-memory catalogue (no database read). The page is the merge of the first page*limit rows of each source, so a
+ * request never reads more than page*limit custom documents (capped at ${MERGE_WINDOW_MAX}). Summary counts are database aggregates, not a download.
+ */
+export async function getSupplierProducts(context: SupplierContext, query: SupplierProductsQuery = {}): Promise<SupplierProductsResult> {
+  const limit = Math.min(50, Math.max(1, Math.floor(query.limit ?? 15)));
+  const page = Math.max(1, Math.min(Math.floor(MERGE_WINDOW_MAX / limit), Math.floor(query.page ?? 1)));
+  const sort = query.sort ?? "newest";
   const col = await getProductsCollection();
-  const now = new Date();
-  const stock = Math.max(0, input.stock ?? 0);
-  const status = stock <= 0 ? "OUT_OF_STOCK" : stock <= 10 ? "LOW_STOCK" : "ACTIVE";
+  const base = { companyId: context.companyId };
+  const catalogue = catalogueItems(context);
 
-  const doc: SupplierProductDoc = {
-    _id: new ObjectId(),
-    companyId: context.companyId,
-    name: input.name.trim(),
-    sku,
-    slug: `${slug}-${sku.toLowerCase()}`,
-    categoryName: input.categoryName.trim(),
-    price: input.price,
-    unit: input.unit?.trim() || "Piece",
-    stock,
-    status,
-    imageUrl: input.imageUrl?.trim() || "",
-    description: input.description?.trim() || "",
-    createdAt: now,
-    updatedAt: now,
-  };
+  // summary over everything the company owns (counts only)
+  const [customTotal, customActive, customInStock, customCats] = await Promise.all([
+    col.countDocuments(base),
+    col.countDocuments({ ...base, status: { $ne: "DRAFT" }, stock: { $gt: 0 } }),
+    col.countDocuments({ ...base, status: { $ne: "DRAFT" }, stock: { $gt: 0 } }),
+    col.distinct("categoryName", base),
+  ]);
+  const categories = Array.from(new Set([...customCats, ...catalogue.map((p) => p.categoryName)])).filter(Boolean).sort();
+  const summary: SupplierProductsSummary = { total: customTotal + catalogue.length, active: customActive + catalogue.length, inStock: customInStock, categories: categories.length };
 
-  await col.insertOne(doc);
+  // filters, expressed once for the database and once for the in-memory catalogue
+  const term = (query.q ?? "").trim().slice(0, 60);
+  const category = query.category && query.category !== "all" ? query.category : null;
+  const status = query.status && query.status !== "all" ? query.status.toUpperCase() : null;
+  const filter: Record<string, unknown> = { ...base };
+  if (term) { const re = escapeRe(term); filter.$or = [{ name: { $regex: re, $options: "i" } }, { sku: { $regex: re, $options: "i" } }, { categoryName: { $regex: re, $options: "i" } }]; }
+  if (category) filter.categoryName = { $regex: `^${escapeRe(category)}$`, $options: "i" };
+  if (status === "DRAFT") filter.status = "DRAFT";
+  else if (status === "OUT_OF_STOCK") Object.assign(filter, { status: { $ne: "DRAFT" }, stock: { $lte: 0 } });
+  else if (status === "LOW_STOCK") Object.assign(filter, { status: { $ne: "DRAFT" }, stock: { $gt: 0, $lte: 10 } });
+  else if (status === "ACTIVE") Object.assign(filter, { status: { $ne: "DRAFT" }, stock: { $gt: 10 } });
+  const catFiltered = catalogue.filter((p) => {
+    const lc = term.toLowerCase();
+    if (term && !(p.name.toLowerCase().includes(lc) || p.sku.toLowerCase().includes(lc) || p.categoryName.toLowerCase().includes(lc))) return false;
+    if (category && p.categoryName.toLowerCase() !== category.toLowerCase()) return false;
+    return !status || status === "ACTIVE";
+  });
 
-  return {
-    ok: true,
-    product: {
-      id: doc._id.toString(),
-      sku: doc.sku,
-      name: doc.name,
-      slug: doc.slug,
-      categoryName: doc.categoryName,
-      price: doc.price,
-      unit: doc.unit,
-      stock: doc.stock,
-      status: doc.status,
-      imageUrl: doc.imageUrl,
-      description: doc.description,
-      isCatalog: false,
-      createdAt: doc.createdAt.toISOString(),
-    },
-  };
+  const dbSort: Record<string, 1 | -1> = sort === "price_asc" ? { price: 1, _id: 1 } : sort === "price_desc" ? { price: -1, _id: 1 } : sort === "name_asc" ? { name: 1, _id: 1 } : { createdAt: -1, _id: -1 };
+  const [customCount, customRows] = await Promise.all([
+    col.countDocuments(filter as never),
+    // the collation is only used for the name sort (its index carries it); other sorts keep the default so their indexes can serve them
+    (sort === "name_asc" ? col.find(filter as never).collation({ locale: "en" }) : col.find(filter as never)).sort(dbSort).limit(page * limit).toArray(),
+  ]);
+  const cmp = (x: SupplierProductItem, y: SupplierProductItem) =>
+    sort === "price_asc" ? x.price - y.price || x.id.localeCompare(y.id)
+    : sort === "price_desc" ? y.price - x.price || x.id.localeCompare(y.id)
+    : sort === "name_asc" ? x.name.localeCompare(y.name) || x.id.localeCompare(y.id)
+    : new Date(y.createdAt).getTime() - new Date(x.createdAt).getTime() || y.id.localeCompare(x.id);
+  const merged = [...customRows.map(toCustomItem), ...catFiltered].sort(cmp);
+
+  const totalCount = customCount + catFiltered.length;
+  return { items: merged.slice((page - 1) * limit, page * limit), summary, categories, meta: { page, limit, totalPages: Math.max(1, Math.ceil(totalCount / limit)), totalCount } };
+}
+
+/**
+ * One product of this company by its exact id: a custom product (ObjectId) read by _id AND companyId, or a catalogue product ("cat-<id>") that
+ * belongs to one of the company's own sellers. No company-wide read.
+ */
+export async function findOwnedProduct(context: SupplierContext, id: string): Promise<SupplierProductItem | null> {
+  if (id.startsWith("cat-")) {
+    const num = Number(id.slice(4));
+    const p = Number.isInteger(num) ? getCatalog().productById.get(num) : undefined;
+    if (!p || !context.company.sellerKeys.includes(String(p.sellerId))) return null;
+    return { id, sku: `SKU-${p.id}`, name: p.name, slug: p.slug, categoryName: p.categoryName || "General", price: p.estimatedPriceInr || 0, unit: "Piece", stock: null, status: "ACTIVE", imageUrl: p.imageUrl || "", description: "", isCatalog: true, createdAt: new Date(0).toISOString() };
+  }
+  if (!/^[a-f0-9]{24}$/.test(id)) return null;
+  const p = await (await getProductsCollection()).findOne({ _id: new ObjectId(id), companyId: context.companyId });
+  if (!p) return null;
+  return { id: p._id.toString(), sku: p.sku, name: p.name, slug: p.slug, categoryName: p.categoryName, price: p.price, unit: p.unit || "Piece", stock: p.status === "DRAFT" ? null : p.stock, status: p.status, imageUrl: p.imageUrl || "", description: p.description || "", isCatalog: false, createdAt: p.createdAt.toISOString() };
 }

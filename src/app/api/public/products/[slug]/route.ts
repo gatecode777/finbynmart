@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
 import { clientIp, rateLimitReserved } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export const dynamic = "force-dynamic";
  * everything that exists is public; supplier contact details are never loaded.
  */
 async function handleGET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  await ensureApproved();
   const limit = await rateLimitReserved(`public-products:${clientIp(request)}`, 120, 60);
   if (!limit.ok) {
     return NextResponse.json({ ok: false, code: "RATE_LIMITED", message: "Too many requests. Please wait a moment and try again." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } });

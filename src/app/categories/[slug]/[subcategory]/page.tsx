@@ -8,6 +8,7 @@ import { getCategoryListing, getSubcategoryInfo } from "@/lib/catalog/categoryLi
 import { listingHref, parseListingQuery } from "@/lib/catalog/listingQuery";
 import { siteUrl } from "@/lib/site";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 type Params = Promise<{ slug: string; subcategory: string }>;
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -31,6 +32,7 @@ function describe(label: string, parent: string, info: { products: number; suppl
 }
 
 export async function generateMetadata({ params, searchParams }: { params: Params; searchParams: SearchParams }): Promise<Metadata> {
+  await ensureApproved();
   const { slug, subcategory } = await params;
   const record = getCategoryRecord(slug);
   const info = record ? getSubcategoryInfo(slug, subcategory) : undefined;
@@ -60,6 +62,7 @@ export async function generateMetadata({ params, searchParams }: { params: Param
 }
 
 async function SubcategoryPage({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
+  await ensureApproved();
   const { slug, subcategory } = await params;
   const sp = await searchParams;
 

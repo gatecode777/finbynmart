@@ -20,11 +20,11 @@ export interface PrefMeta {
   reason: string;
 }
 
-/** What the backend really supports today (rechecked in the repository): the only supplier notice produced is the welcome message. */
+/** What the backend really supports: in-app notices for new inquiries, quotation decisions and confirmed orders (each only after the action committed). Order status changes after confirmation and e-mail/SMS are not produced. */
 export const PREF_META: PrefMeta[] = [
-  { key: "inquiryAlerts", label: "Buyer inquiry alerts", description: "A notice when a buyer sends an inquiry to one of your sellers.", available: false, reason: "No notice is produced for new inquiries yet. Your dashboard shows inquiries." },
-  { key: "quotationAlerts", label: "Quotation decisions", description: "A notice when a buyer accepts, rejects or asks to revise a quotation.", available: false, reason: "No notice is produced for quotation decisions yet. The quotation list shows the current status." },
-  { key: "orderAlerts", label: "Order updates", description: "A notice when an order changes.", available: false, reason: "Orders are not created yet, so there are no order notices." },
+  { key: "inquiryAlerts", label: "Buyer inquiry alerts", description: "An in-app notice when a buyer sends an inquiry to one of your linked sellers.", available: true, reason: "" },
+  { key: "quotationAlerts", label: "Quotation decisions", description: "An in-app notice when a buyer accepts, rejects or asks to revise a quotation.", available: true, reason: "" },
+  { key: "orderAlerts", label: "Order updates", description: "An in-app notice when a buyer confirms an order from one of your quotations.", available: true, reason: "" },
   { key: "marketingEmails", label: "Marketplace news by e-mail", description: "Occasional product and marketplace updates.", available: false, reason: "E-mail delivery does not exist yet, so nothing is sent. You are not subscribed." },
 ];
 

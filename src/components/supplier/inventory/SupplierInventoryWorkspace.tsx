@@ -10,7 +10,7 @@ import { KINDS, REASONS, formatQty, movementEffect, parseQtyMilli, validateAdjus
 import s from "./Inventory.module.css";
 
 const STATUS_LABEL: Record<InventoryRow["status"], string> = { IN_STOCK: "In stock", LOW_STOCK: "Low stock", OUT_OF_STOCK: "Out of stock", UNTRACKED: "Not tracked" };
-const TYPE_LABEL = { OPENING: "Opening balance", ADD: "Added", REMOVE: "Removed" } as const;
+const TYPE_LABEL = { OPENING: "Opening balance", ADD: "Added", REMOVE: "Removed", RESERVE: "Reserved for order", RELEASE: "Reservation released", DISPATCH: "Dispatched" } as const;
 const signed = (n: number) => (n > 0 ? "+" : n < 0 ? "−" : "") + formatQty(Math.abs(n));
 
 export function SupplierInventoryWorkspace({ initial, canAdjust }: { initial: InventoryResult; canAdjust: boolean }) {
@@ -112,8 +112,8 @@ export function SupplierInventoryWorkspace({ initial, canAdjust }: { initial: In
                       <tr key={r.productRef}>
                         <td><div className={s.prod}><Thumb src={r.imageUrl} /><div><span className={s.name}>{r.name}</span><span className={s.sub}>{r.sku}</span></div></div></td>
                         <td className={s.num}>{qty(r.onHandMilli, r.unit)}</td>
-                        <td className={s.num} title="Reservations are not supported yet">—</td>
-                        <td className={s.num}>{qty(r.onHandMilli, r.unit)}</td>
+                        <td className={s.num}>{qty(r.reservedMilli, r.unit)}</td>
+                        <td className={s.num}>{qty(r.onHandMilli === null ? null : r.onHandMilli - (r.reservedMilli ?? 0), r.unit)}</td>
                         <td className={s.num}>{r.reorderMilli === null ? "Not set" : qty(r.reorderMilli, r.unit)}</td>
                         <td><span className={`${s.badge} ${s[r.status]}`}>{STATUS_LABEL[r.status]}</span></td>
                         {canAdjust && <td><button type="button" className={prof.btnSecondary} onClick={() => setTarget(r)}>{r.onHandMilli === null ? "Set opening" : "Adjust"}</button></td>}
@@ -125,7 +125,7 @@ export function SupplierInventoryWorkspace({ initial, canAdjust }: { initial: In
                   {data.items.map((r) => (
                     <article key={r.productRef} className={s.card}>
                       <div className={s.cardRow}><div className={s.prod}><Thumb src={r.imageUrl} /><div><span className={s.name}>{r.name}</span><span className={s.sub}>{r.sku}</span></div></div><span className={`${s.badge} ${s[r.status]}`}>{STATUS_LABEL[r.status]}</span></div>
-                      <div className={s.qtys}><span>On hand<br /><strong>{qty(r.onHandMilli, r.unit)}</strong></span><span>Available<br /><strong>{qty(r.onHandMilli, r.unit)}</strong></span><span>Reserved<br /><strong>—</strong></span><span>Reorder level<br /><strong>{r.reorderMilli === null ? "Not set" : qty(r.reorderMilli, r.unit)}</strong></span></div>
+                      <div className={s.qtys}><span>On hand<br /><strong>{qty(r.onHandMilli, r.unit)}</strong></span><span>Available<br /><strong>{qty(r.onHandMilli === null ? null : r.onHandMilli - (r.reservedMilli ?? 0), r.unit)}</strong></span><span>Reserved<br /><strong>{qty(r.reservedMilli, r.unit)}</strong></span><span>Reorder level<br /><strong>{r.reorderMilli === null ? "Not set" : qty(r.reorderMilli, r.unit)}</strong></span></div>
                       {canAdjust && <button type="button" className={prof.btnSecondary} onClick={() => setTarget(r)}>{r.onHandMilli === null ? "Set opening" : "Adjust"}</button>}
                     </article>
                   ))}
@@ -150,7 +150,7 @@ export function SupplierInventoryWorkspace({ initial, canAdjust }: { initial: In
                 ))}</ul>
               )}
             </section>
-            <aside className={s.infoCard}><Info size={20} aria-hidden /><p>Available quantity equals on hand until reservations are supported. A product that is not tracked has no stock figure; that is not zero stock.</p></aside>
+            <aside className={s.infoCard}><Info size={20} aria-hidden /><p>Available = on hand minus the quantity reserved for confirmed orders. A product that is not tracked has no stock figure; that is not zero stock.</p></aside>
           </div>
         </>
       ) : (

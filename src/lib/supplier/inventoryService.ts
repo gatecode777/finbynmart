@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { ObjectId, type Collection } from "mongodb";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import type { SupplierContext } from "./company";
-import { collectSupplierProducts, type SupplierProductItem } from "./productService";
+import { collectSupplierProducts, findOwnedProduct, type SupplierProductItem } from "./productService";
 import { movementEffect, parseQtyMilli, stockStatus, validateAdjust, type AdjustErrors, type AdjustInput, type AdjustKind, type StockStatus } from "./inventoryRules";
 
 /** Stock position: one per company + product. Quantities are integer thousandths of the product's own unit. */
@@ -15,6 +15,8 @@ export interface PositionDoc {
   searchKey: string;
   unit: string;
   onHandMilli: number;
+  /** Held for confirmed orders (absent = 0). Only order confirmation and dispatch change it. */
+  reservedMilli?: number;
   reorderMilli: number | null;
   status: StockStatus;
   revision: number;
@@ -31,8 +33,13 @@ export interface MovementDoc {
   sku: string;
   name: string;
   unit: string;
-  type: AdjustKind;
+  type: AdjustKind | "RESERVE" | "RELEASE" | "DISPATCH";
+  /** Change of ON HAND (0 for RESERVE and RELEASE, which move only the reserved quantity). */
   deltaMilli: number;
+  /** Change of RESERVED (RESERVE +, RELEASE and DISPATCH -). Absent on adjustments. */
+  reservedDeltaMilli?: number;
+  /** Source operation, e.g. the order reference. */
+  sourceRef?: string;
   resultMilli: number;
   reason: string;
   note: string;
@@ -66,6 +73,7 @@ export interface InventoryRow {
   imageUrl: string;
   /** null when the product has no position (UNTRACKED, which is not zero). */
   onHandMilli: number | null;
+  reservedMilli: number | null;
   reorderMilli: number | null;
   status: StockStatus | "UNTRACKED";
   revision: number;
@@ -96,6 +104,7 @@ function rowOf(p: SupplierProductItem, pos?: PositionDoc | null): InventoryRow {
     unit: p.unit || "piece",
     imageUrl: p.imageUrl,
     onHandMilli: pos ? pos.onHandMilli : null,
+    reservedMilli: pos ? (pos.reservedMilli ?? 0) : null,
     reorderMilli: pos ? pos.reorderMilli : null,
     status: pos ? pos.status : "UNTRACKED",
     revision: pos?.revision ?? 0,
@@ -153,7 +162,7 @@ export interface MovementRow {
   sku: string;
   name: string;
   unit: string;
-  type: AdjustKind;
+  type: MovementDoc["type"];
   deltaMilli: number;
   resultMilli: number;
   reason: string;
@@ -182,7 +191,7 @@ export type AdjustResult =
 export async function recordAdjustment(ctx: SupplierContext, actor: ObjectId, input: AdjustInput, idempotencyKey: string): Promise<AdjustResult> {
   const fields = validateAdjust(input);
   if (Object.keys(fields).length) return { ok: false, status: 422, message: "Please fix the highlighted fields.", fields };
-  const product = (await collectSupplierProducts(ctx)).find((p) => p.id === input.productRef);
+  const product = await findOwnedProduct(ctx, input.productRef);
   if (!product) return { ok: false, status: 404, message: "Product not found." };
 
   const qty = parseQtyMilli(input.quantity)!;
@@ -208,7 +217,7 @@ export async function recordAdjustment(ctx: SupplierContext, actor: ObjectId, in
       out = undefined;
       const now = new Date();
       const cur = await positions.findOne({ companyId: ctx.companyId, productRef: product.id }, { session });
-      const eff = movementEffect(input.kind, qty, cur ? cur.onHandMilli : null);
+      const eff = movementEffect(input.kind, qty, cur ? cur.onHandMilli : null, cur?.reservedMilli ?? 0);
       if ("error" in eff) {
         out = { ok: false, status: 409, message: eff.error };
         return;

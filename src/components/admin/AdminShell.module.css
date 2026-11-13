@@ -1,0 +1,21 @@
+.shell { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; background: var(--background-soft, #f6f8f7); }
+@media (min-width: 1024px) { .shell { grid-template-columns: 260px minmax(0, 1fr); grid-template-areas: "top top" "side main"; } .topbar { grid-area: top; } .sidebar { grid-area: side; } .content { grid-area: main; } .menu { display: none; } }
+.topbar { display: flex; align-items: center; gap: var(--space-4, 1rem); padding: var(--space-2, .5rem) var(--space-4, 1rem); min-height: 72px; background: #fff; border-bottom: 1px solid var(--border, #dce8e5); position: sticky; top: 0; z-index: 20; }
+.logoImg { width: auto; height: 36px; }
+.title { margin: 0; font-weight: 700; font-size: 1.25rem; color: var(--text-primary, #183a38); display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; }
+.sub { font-size: .875rem; font-weight: 500; color: var(--text-secondary, #526563); }
+.shield { margin-left: auto; color: var(--primary, #04534f); }
+.sidebar { display: none; background: var(--primary-dark, #033f3c); color: #fff; padding: var(--space-4, 1rem); min-height: calc(100vh - 72px); }
+@media (min-width: 1024px) { .sidebar { display: block; } }
+.sideTitle { margin: var(--space-3, .75rem) var(--space-3, .75rem) var(--space-4, 1rem); font-size: 1.25rem; font-weight: 700; }
+.menu { background: var(--primary-dark, #033f3c); color: #fff; }
+.menu > summary { cursor: pointer; padding: .9rem var(--space-4, 1rem); font-weight: 700; }
+.menu > nav { padding: 0 var(--space-3, .75rem) var(--space-3, .75rem); }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.item { display: flex; align-items: center; gap: var(--space-3, .75rem); min-height: 44px; padding: 0 var(--space-3, .75rem); border-radius: var(--radius-md, 8px); color: #fff; text-decoration: none; font-weight: 500; font-size: .9375rem; }
+a.item:hover { background: rgba(255, 255, 255, .06); }
+.itemActive { background: var(--accent, #fdb304); color: var(--text-primary, #183a38); font-weight: 700; }
+.itemOff { opacity: .6; cursor: not-allowed; }
+.soon { margin-left: auto; font-size: .6875rem; border: 1px solid currentColor; border-radius: 999px; padding: 1px 8px; }
+.content { min-width: 0; padding: var(--space-5, 1.25rem) var(--space-4, 1rem) var(--space-10, 3rem); }
+@media (min-width: 1280px) { .content { padding-inline: var(--space-6, 1.5rem); } }

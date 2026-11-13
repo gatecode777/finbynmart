@@ -8,6 +8,7 @@ import { getCategoryListing } from "@/lib/catalog/categoryListing";
 import { listingHref, parseListingQuery } from "@/lib/catalog/listingQuery";
 import { siteUrl } from "@/lib/site";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 type Params = Promise<{ slug: string }>;
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -23,6 +24,7 @@ function queryString(sp: Record<string, string | string[] | undefined>): string 
 }
 
 export async function generateMetadata({ params, searchParams }: { params: Params; searchParams: SearchParams }): Promise<Metadata> {
+  await ensureApproved();
   const { slug } = await params;
   const record = getCategoryRecord(slug);
   if (!record) return { title: "Category not found | Finbyn Mart", robots: { index: false } };
@@ -51,6 +53,7 @@ export async function generateMetadata({ params, searchParams }: { params: Param
 }
 
 async function CategoryDetailPage({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
+  await ensureApproved();
   const { slug } = await params;
   const sp = await searchParams;
 

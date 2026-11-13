@@ -5,6 +5,7 @@ import { parsePublicProductQuery } from "@/lib/catalog/publicProductQuery";
 import { getPublicSupplierBySlug } from "@/lib/catalog/supplierDetail";
 import { clientIp, rateLimitReserved } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,7 @@ export const dynamic = "force-dynamic";
  * so a client cannot ask for another supplier's products through this route. Counts and facets are this supplier's.
  */
 async function handleGET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  await ensureApproved();
   const limit = await rateLimitReserved(`public-suppliers:${clientIp(request)}`, 120, 60);
   if (!limit.ok) {
     return NextResponse.json({ ok: false, code: "RATE_LIMITED", message: "Too many requests. Please wait a moment and try again." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } });

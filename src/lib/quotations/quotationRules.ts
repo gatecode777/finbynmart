@@ -192,13 +192,15 @@ export interface Comparable {
   unit: string | null;
   quantity: number;
   status: EffectiveStatus;
+  /** The product each supplier offers (absent = not recorded: then no product difference is claimed). */
+  productKey?: string | null;
 }
 
 export interface Compatibility {
   sameInquiry: boolean;
   /** The amounts can be set side by side as like for like: one currency, one unit and one quantity. */
   priceComparable: boolean;
-  mismatches: { field: "currency" | "unit" | "quantity" | "status"; note: string }[];
+  mismatches: { field: "currency" | "unit" | "quantity" | "status" | "product"; note: string }[];
 }
 
 /** Whether a set of quotations can honestly be compared, and exactly where they differ. Nothing is ranked here. */
@@ -209,6 +211,9 @@ export function compatibility(items: Comparable[]): Compatibility {
   if (!same("currency")) mismatches.push({ field: "currency", note: "The quotations are in different currencies, so their amounts are not compared." });
   if (!same("unit")) mismatches.push({ field: "unit", note: "The quotations use different units, so their prices are not like for like." });
   if (!same("quantity")) mismatches.push({ field: "quantity", note: "The offered quantities differ, so the totals are not like for like." });
+  const keys = items.map((i) => i.productKey ?? null);
+  const productSame = keys.every((k) => k === keys[0]);
+  if (!productSame && keys.every((k) => k !== null)) mismatches.push({ field: "product", note: "The suppliers offer different products or specifications (see the Offered Product row), so the offers are not directly comparable." });
   if (items.some((i) => i.status === "EXPIRED")) mismatches.push({ field: "status", note: "At least one quotation has expired and is no longer an open offer." });
-  return { sameInquiry, priceComparable: same("currency") && same("unit") && same("quantity"), mismatches };
+  return { sameInquiry, priceComparable: same("currency") && same("unit") && same("quantity") && (productSame || keys.some((k) => k === null)), mismatches };
 }

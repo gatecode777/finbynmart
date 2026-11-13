@@ -283,7 +283,7 @@ export function SupplierProductsWorkspace({
                       </span>
                     </td>
                     <td style={{ padding: "12px 14px", fontSize: "0.875rem", fontWeight: 500 }}>
-                      {p.stock} {p.unit}s
+                      {p.stock === null ? "Not tracked" : `${p.stock} ${p.unit}s`}
                     </td>
                     <td style={{ padding: "12px 14px" }}>{statusBadge(p.status)}</td>
                     <td style={{ padding: "12px 14px" }}>

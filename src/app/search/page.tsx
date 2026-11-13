@@ -14,11 +14,13 @@ import { formatCount } from "@/lib/utils/format";
 import { first, type SearchParams } from "@/lib/utils/searchParams";
 import styles from "./search.module.css";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 const HERO_IMAGE = { src: "/images/industries/retail-wholesale.jpg", alt: "A warehouse aisle with stocked shelving" };
 const crumbs = [{ label: "Home", href: "/" }, { label: "Search Results" }];
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<SearchParams> }): Promise<Metadata> {
+  await ensureApproved();
   const { q } = parseListingQuery(await searchParams);
   // Search result pages depend on what was typed: they are not indexed, but their links are followed.
   return {
@@ -31,6 +33,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 const plural = (n: number, one: string, many: string) => `${formatCount(n)} ${n === 1 ? one : many}`;
 
 async function SearchPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  await ensureApproved();
   const sp = await searchParams;
   const type = first(sp.type);
 

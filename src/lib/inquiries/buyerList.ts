@@ -1,4 +1,5 @@
 import { ObjectId, type Document, type Filter, type Sort } from "mongodb";
+import { countsForInquiries } from "./conversations";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
 import { getPublicSupplierBySlug } from "@/lib/catalog/supplierDetail";
 import { BUSINESS_LABEL, countsByFilter, escapeRegex, inquiryHref, statusesFor, summaryFrom, type InquirySummary, type ListQuery, type StatusCounts } from "./buyerListRules";
@@ -31,6 +32,9 @@ export interface BuyerInquiryRow {
   detailHref: string;
   /** No quotation module exists, so no inquiry can have a linked quotation. */
   quotation: null;
+  /** Supplier replies received (buyer replies, drafts and notes are not counted) and current submitted offers (one per supplier quotation, never per version). */
+  responseCount: number;
+  offerCount: number;
 }
 
 export interface BuyerInquiryPage {
@@ -75,6 +79,8 @@ function toRow(doc: InquiryDoc): BuyerInquiryRow {
     canCancel: BUYER_CANCELLABLE.includes(status),
     detailHref: inquiryHref(doc.reference ?? null, doc._id!.toString()),
     quotation: null,
+    responseCount: 0,
+    offerCount: 0,
   };
 }
 
@@ -119,7 +125,9 @@ export async function listBuyerInquiryPage(buyerId: string, q: ListQuery): Promi
     col.countDocuments(filter),
     countStored(base),
   ]);
-  return { inquiries: docs.map(toRow), statusCounts: countsByFilter(stored), meta: { total, page: q.page, limit: q.limit, totalPages: Math.ceil(total / q.limit) } };
+  const counts = await countsForInquiries(buyerId, docs.map((d) => d._id!)).catch(() => new Map<string, { responses: number; offers: number }>());
+  const rows = docs.map((d) => ({ ...toRow(d), responseCount: counts.get(d._id!.toHexString())?.responses ?? 0, offerCount: counts.get(d._id!.toHexString())?.offers ?? 0 }));
+  return { inquiries: rows, statusCounts: countsByFilter(stored), meta: { total, page: q.page, limit: q.limit, totalPages: Math.ceil(total / q.limit) } };
 }
 
 /** The four summary numbers, over all of the buyer's inquiries (no filter), from the stored statuses. */

@@ -9,6 +9,8 @@ export async function warmCatalogue() {
   const { getCatalog } = await import("@/lib/catalog/data");
   const loaded = performance.now();
   const catalog = getCatalog();
+  // the approved supplier products (read-only, bounded); a database that is down only means the snapshot starts empty and retries
+  if (process.env.NEXT_PHASE !== "phase-production-build") await (await import("@/lib/catalog/approvedProducts")).ensureApproved().catch(() => undefined);
   const { getProductListing, parseListingQuery } = await import("@/lib/catalog/categoryListing");
   getProductListing(parseListingQuery({}));
   const { getCategoryDirectory } = await import("@/lib/catalog/categories");

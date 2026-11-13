@@ -4,6 +4,7 @@ import { getCategoryPage } from "@/lib/constants/categoryPages";
 import type { CategoryDirectory, CategoryNode } from "@/types";
 import { getCatalog } from "./data";
 import { slugify } from "./slug";
+import { approvedCountsByNode, approvedVersion } from "./approvedStore";
 
 /**
  * Server-only. Builds the public category directory shown on /categories.
@@ -23,12 +24,20 @@ import { slugify } from "./slug";
  */
 const CATALOG_MAIN_ID = "apparel-fashion";
 
-const globalForDirectory = globalThis as unknown as { __finbynCategoriesV2?: CategoryDirectory };
+const globalForDirectory = globalThis as unknown as { __finbynCategoriesV3?: { version: number; directory: CategoryDirectory } };
 
+/** Rebuilt only when the approved-product snapshot changed (the catalogue part is immutable), so counts follow real eligible content. */
 export function getCategoryDirectory(): CategoryDirectory {
-  globalForDirectory.__finbynCategoriesV2 ??= build();
-  return globalForDirectory.__finbynCategoriesV2;
+  const version = approvedVersion();
+  const cached = globalForDirectory.__finbynCategoriesV3;
+  if (cached && cached.version === version) return cached.directory;
+  const directory = build();
+  globalForDirectory.__finbynCategoriesV3 = { version, directory };
+  return directory;
 }
+
+/** Categories a supplier may create products in. Public discoverability (non-empty) is a different question and never hides a category here. */
+export const getManagementCategories = (): CategoryNode[] => getCategoryDirectory().management.filter((n) => n.isActive);
 
 export function getCategoryNode(id: string): CategoryNode | undefined {
   return getCategoryDirectory().nodes.find((node) => node.id === id);
@@ -52,12 +61,14 @@ function build(): CategoryDirectory {
   }
 
   const nodes: CategoryNode[] = [];
+  const management: CategoryNode[] = [];
+  const approvedCounts = approvedCountsByNode();
   const addedSubcategories: CategoryNode[] = [];
 
   for (const top of TOP_CATEGORIES) {
     const page = getCategoryPage(resolveCategorySlug(top.id));
     const isCatalogMain = top.id === CATALOG_MAIN_ID;
-    const productCount = isCatalogMain ? products.length : (page?.products.length ?? 0);
+    const productCount = (isCatalogMain ? products.length : (page?.products.length ?? 0)) + (approvedCounts.get(top.id) ?? 0);
 
     const main: CategoryNode = {
       id: top.id,
@@ -88,7 +99,7 @@ function build(): CategoryDirectory {
           description: `${info.count.toLocaleString("en-IN")} ${department.toLowerCase()} apparel products across ${info.categories.size} categories.`,
           parentId: main.id,
           childIds: [],
-          productCount: info.count,
+          productCount: info.count + (approvedCounts.get(deptId) ?? 0),
           href: `/products?department=${encodeURIComponent(department)}`,
           isActive: true,
           imageSrc: info.image,
@@ -105,7 +116,7 @@ function build(): CategoryDirectory {
             description: `${c.count.toLocaleString("en-IN")} ${name} products.`,
             parentId: deptId,
             childIds: [],
-            productCount: c.count,
+            productCount: c.count + (approvedCounts.get(`${deptId}/${slugify(name)}`) ?? 0),
             href: `/categories/${main.id}/${slugify(name)}`,
             isActive: true,
             imageSrc: c.image,
@@ -122,14 +133,17 @@ function build(): CategoryDirectory {
     }
 
     // Availability: no eligible products and no eligible children means not publicly discoverable.
+    management.push(main);
     if (main.isActive && (main.productCount > 0 || main.childIds.length > 0)) nodes.push(main);
   }
 
   nodes.push(...addedSubcategories.filter((node) => nodes.some((m) => m.id === node.parentId?.split("/")[0])));
+  management.push(...addedSubcategories);
 
   const mains = nodes.filter((n) => n.parentId === null);
   return {
     nodes,
+    management,
     totals: {
       mainCategories: mains.length,
       subcategories: nodes.length - mains.length,

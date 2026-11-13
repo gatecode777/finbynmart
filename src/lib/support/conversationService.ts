@@ -41,6 +41,8 @@ export interface MessageDoc {
   hasFiles?: true;
   idempotencyKey?: string;
   supportEmail?: "sent" | "failed" | "not_configured" | "pending";
+  /** The staff member who wrote a support reply or note (server-assigned, never shown to the ticket owner). */
+  authorStaffId?: ObjectId;
   createdAt: Date;
 }
 

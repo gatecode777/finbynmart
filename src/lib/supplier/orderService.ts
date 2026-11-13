@@ -1,6 +1,6 @@
 import { type Filter, type Sort } from "mongodb";
+import { findInquiryFor } from "@/lib/leads/access";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
-import { inquiriesCollection } from "@/lib/inquiries/service";
 import { formatSubmitted } from "@/lib/inquiries/confirmation";
 import { EXPECTED_SOURCES, REFERENCE_PATTERN, escapeRegex, isOrderStatus, plainAmount, type OrderStatus } from "@/lib/orders/orderRules";
 import { ordersCollection, type OrderDoc, type OrderEvent } from "@/lib/orders/service";
@@ -163,7 +163,7 @@ export function capabilitiesFor(context: SupplierContext): SupplierOrderCapabili
   return {
     canExport,
     exportReason: canExport ? null : "Your role cannot export orders.",
-    create: { available: false, reason: "Orders are not created here. No checkout or order-confirmation workflow exists yet, so this page lists the orders that already exist for your company." },
+    create: { available: false, reason: "Orders are not created here. A buyer places an order by confirming an accepted quotation, so this page lists the orders that already exist for your company." },
     confirm: { available: false, reason: BLOCKED },
     updateFulfilment: { available: false, reason: BLOCKED },
     payments: { available: false, reason: PAYMENT_UNAVAILABLE.reason },
@@ -246,7 +246,7 @@ export async function getSupplierOrderDetail(context: SupplierContext, reference
     buyerNames([doc.buyerId]),
     // a link only for records that are this company's own: checked, not assumed from the stored reference
     doc.quotationReference ? (await quotationsCollection()).findOne({ reference: doc.quotationReference, supplierKey: { $in: keys } }, { projection: { _id: 1 } }) : Promise.resolve(null),
-    doc.inquiryReference ? (await inquiriesCollection()).findOne({ reference: doc.inquiryReference, supplierKey: { $in: keys } }, { projection: { _id: 1 } }) : Promise.resolve(null),
+    doc.inquiryReference ? findInquiryFor(context, { reference: doc.inquiryReference }) : Promise.resolve(null),
   ]);
   const shown = doc.items.slice(0, ITEMS_SHOWN);
   return {

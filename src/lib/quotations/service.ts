@@ -513,6 +513,8 @@ export async function requestRevision(buyerIdText: string, reference: string, in
 
 // ---------- comparison ----------
 export interface CompareColumn {
+  /** Selected supplier or an additional matching supplier (from the requirement's original addressee), or null when it cannot be told. */
+  origin: "SELECTED" | "MATCHED" | null;
   reference: string;
   version: number;
   status: EffectiveStatus;
@@ -529,6 +531,7 @@ export interface Comparison {
 }
 
 const FIELDS: [string, string][] = [
+  ["product", "Offered Product"],
   ["unitPrice", "Unit Price"],
   ["quantity", "Offered Quantity"],
   ["subtotal", "Subtotal"],
@@ -553,7 +556,8 @@ export async function compareBuyerQuotations(buyerIdText: string, references: st
   if (unique.length < COMPARE_MIN || unique.length > COMPARE_MAX) return { ok: false, code: "COUNT", message: `Choose between ${COMPARE_MIN} and ${COMPARE_MAX} different quotations to compare.` };
   const buyerId = new ObjectId(buyerIdText);
   const docs = await (await quotationsCollection()).find({ reference: { $in: unique }, buyerId, isCurrent: true, status: { $ne: "DRAFT" } }).toArray();
-  const inquiries = await (await inquiriesCollection()).find({ _id: { $in: docs.map((d) => d.inquiryId) }, buyerId }, { projection: { _id: 1 } }).toArray();
+  const inquiries = await (await inquiriesCollection()).find({ _id: { $in: docs.map((d) => d.inquiryId) }, buyerId }, { projection: { _id: 1, supplierKey: 1 } }).toArray();
+  const directKey = new Map(inquiries.map((i) => [i._id!.toString(), i.supplierKey]));
   const mine = new Set(inquiries.map((i) => i._id!.toString()));
   const found = docs.filter((d) => mine.has(d.inquiryId.toString()));
   if (found.length !== unique.length) return { ok: false, code: "NOT_FOUND", message: "One or more of these quotations were not found." };
@@ -566,6 +570,7 @@ export async function compareBuyerQuotations(buyerIdText: string, references: st
     const s = supplierOf(d);
     const m = (n: number | null) => (n === null ? null : money(n, d.currency));
     return {
+      origin: directKey.has(d.inquiryId.toString()) ? (directKey.get(d.inquiryId.toString()) === d.supplierKey ? ("SELECTED" as const) : ("MATCHED" as const)) : null,
       reference: d.reference,
       version: d.version,
       status,
@@ -573,6 +578,7 @@ export async function compareBuyerQuotations(buyerIdText: string, references: st
       supplier: s,
       detailHref: `/buyer/quotations/${d.reference}`,
       values: {
+        product: d.productName ?? null,
         unitPrice: `${money(d.unitPriceMinor, d.currency)}${d.unit ? ` / ${d.unit}` : ""}`,
         quantity: `${d.quantity.toLocaleString("en-IN")}${d.unit ? ` ${d.unit}` : ""}`,
         subtotal: t ? m(t.subtotalMinor) : null,
@@ -591,7 +597,7 @@ export async function compareBuyerQuotations(buyerIdText: string, references: st
     };
   });
   const fields = FIELDS.map(([key, label]) => ({ key, label, differs: new Set(columns.map((c) => c.values[key] ?? null)).size > 1 }));
-  const compat = compatibility(ordered.map((d, i) => ({ reference: d.reference, inquiryReference: d.inquiryReference, currency: d.currency, unit: d.unit, quantity: d.quantity, status: columns[i].status })));
+  const compat = compatibility(ordered.map((d, i) => ({ reference: d.reference, inquiryReference: d.inquiryReference, currency: d.currency, unit: d.unit, quantity: d.quantity, status: columns[i].status, productKey: d.productKey ?? null })));
   return { ok: true, value: { columns, fields, compatibility: compat, inquiry: { reference: ordered[0].inquiryReference, href: `/buyer/inquiries/${ordered[0].inquiryReference}` } } };
 }
 
@@ -605,13 +611,15 @@ export interface InquiryQuotationItem {
   statusLabel: string;
   validLabel: string;
   href: string;
+  /** The supplier the buyer selected, or one that received the requirement through automatic matching. Absent when it cannot be told. */
+  origin: "DIRECT" | "MATCHED" | null;
 }
 
 /** The current quotations of one of the buyer's own inquiries (at most 20, drafts never). */
-export async function listInquiryQuotations(buyerIdText: string, inquiryId: ObjectId, now = new Date()): Promise<InquiryQuotationItem[]> {
+export async function listInquiryQuotations(buyerIdText: string, inquiryId: ObjectId, directSellerKey?: string, now = new Date()): Promise<InquiryQuotationItem[]> {
   const docs = await (await quotationsCollection()).find({ inquiryId, buyerId: new ObjectId(buyerIdText), isCurrent: true, status: { $ne: "DRAFT" } }).sort({ sentAt: -1 }).limit(20).toArray();
   return docs.map((d) => {
     const t = totals(d);
-    return { reference: d.reference, version: d.version, supplierName: d.supplierName, unitPrice: `${money(d.unitPriceMinor, d.currency)}${d.unit ? ` / ${d.unit}` : ""}`, total: t ? `${money(t.totalMinor, d.currency)}${t.taxSpecified ? "" : " (before tax)"}` : null, statusLabel: STATUS_LABEL[effectiveStatus(d.status, d.validUntil, now)], validLabel: new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", year: "numeric" }).format(d.validUntil), href: `/buyer/quotations/${d.reference}` };
+    return { reference: d.reference, version: d.version, supplierName: d.supplierName, unitPrice: `${money(d.unitPriceMinor, d.currency)}${d.unit ? ` / ${d.unit}` : ""}`, total: t ? `${money(t.totalMinor, d.currency)}${t.taxSpecified ? "" : " (before tax)"}` : null, statusLabel: STATUS_LABEL[effectiveStatus(d.status, d.validUntil, now)], validLabel: new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", year: "numeric" }).format(d.validUntil), href: `/buyer/quotations/${d.reference}`, origin: directSellerKey ? (d.supplierKey === directSellerKey ? "DIRECT" : "MATCHED") : null };
   });
 }

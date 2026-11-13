@@ -132,6 +132,8 @@ export function BuyerInquiryTable({ rows, onCancel }: Props) {
               <th scope="col">Quantity</th>
               <th scope="col">Submitted On</th>
               <th scope="col">Last Updated</th>
+              <th scope="col">Replies</th>
+              <th scope="col">Offers</th>
               <th scope="col">Status</th>
               <th scope="col">Actions</th>
             </tr>
@@ -145,6 +147,8 @@ export function BuyerInquiryTable({ rows, onCancel }: Props) {
                 <td className={styles.nowrap}>{formatQuantity(row.quantity, row.unit)}</td>
                 <td><When iso={row.submittedAt} /></td>
                 <td><When iso={row.updatedAt} /></td>
+                <td className={styles.nowrap}>{row.responseCount}</td>
+                <td className={styles.nowrap}>{row.offerCount}</td>
                 <td><StatusPill status={row.status} label={row.statusLabel} /></td>
                 <td><RowActions row={row} onCancel={onCancel} /></td>
               </tr>
@@ -165,6 +169,8 @@ export function BuyerInquiryTable({ rows, onCancel }: Props) {
               <div><dt>Quantity</dt><dd>{formatQuantity(row.quantity, row.unit)}</dd></div>
               <div><dt>Submitted On</dt><dd><When iso={row.submittedAt} /></dd></div>
               <div><dt>Last Updated</dt><dd><When iso={row.updatedAt} /></dd></div>
+              <div><dt>Supplier replies</dt><dd>{row.responseCount}</dd></div>
+              <div><dt>Submitted offers</dt><dd>{row.offerCount}</dd></div>
             </dl>
             <div className={styles.cardActions}>
               <Link href={row.detailHref} className={`${styles.btn} ${styles.btnPrimary}`}>

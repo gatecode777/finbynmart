@@ -10,6 +10,7 @@ import { slugify } from "@/lib/catalog/slug";
 import { siteUrl } from "@/lib/site";
 import type { SearchParams } from "@/lib/utils/searchParams";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 const TITLE = "All Products — Browse Products from Suppliers | Finbyn Mart";
 const DESCRIPTION =
@@ -28,6 +29,7 @@ function withLegacyCategory(query: ListingQuery): ListingQuery {
 }
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<SearchParams> }): Promise<Metadata> {
+  await ensureApproved();
   const query = parseListingQuery(await searchParams);
   const base = siteUrl();
   // Search, filters, sort, list view and page size are the same listing under another URL: one canonical, kept
@@ -43,6 +45,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 }
 
 async function ProductsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+  await ensureApproved();
   const query = withLegacyCategory(parseListingQuery(await searchParams));
   const listing = getProductListing(query, { pageSize: PRODUCTS_PAGE_SIZE });
   const { applied, totals, facets } = listing;

@@ -1,6 +1,7 @@
 import { FEATURED_SUPPLIERS } from "@/lib/constants/suppliers";
 import { getProductBySlug as getSampleProduct, getProductsBySupplier } from "@/lib/constants/categoryPages";
 import { ADOPTED_SELLERS, getCatalog } from "./data";
+import { getApproved } from "./approvedStore";
 
 /**
  * Server-only. Resolves a product or supplier key sent by a client into a verified public record.
@@ -13,7 +14,7 @@ import { ADOPTED_SELLERS, getCatalog } from "./data";
 export interface ProductRef {
   key: string;
   name: string;
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "supplier";
   supplierKey: string;
   supplierName: string;
   /** The unit the price is quoted per ("Piece"). */
@@ -25,12 +26,18 @@ export interface ProductRef {
 export interface SupplierRef {
   key: string;
   name: string;
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "supplier";
 }
 
 export function resolveProduct(rawKey: string): ProductRef | undefined {
   const key = rawKey.trim();
   if (!key || key.length > 80) return undefined;
+
+  if (key.startsWith("sp-")) {
+    // an approved supplier product; the supplier is its own company (never a seeded seller)
+    const it = getApproved().byId.get(key);
+    return it ? { key: it.id, name: it.name, source: "supplier", supplierKey: it.supplier.key, supplierName: it.supplier.name, priceUnit: it.pricing.unit, moq: it.moq ?? undefined } : undefined;
+  }
 
   if (/^\d+$/.test(key)) {
     const { productById, sellerById } = getCatalog();
@@ -58,6 +65,12 @@ export function resolveProduct(rawKey: string): ProductRef | undefined {
 export function resolveSupplier(rawKey: string): SupplierRef | undefined {
   const key = rawKey.trim();
   if (!key || key.length > 80) return undefined;
+
+  if (/^(c-|co:)[a-f0-9]{24}$/.test(key)) {
+    const hex = key.slice(key.startsWith("c-") ? 2 : 3);
+    const it = getApproved().bySupplier.get(`c-${hex}`)?.[0];
+    return it ? { key: it.supplier.key, name: it.supplier.name, source: "supplier" } : undefined;
+  }
 
   const { sellerById, sellerBySlug } = getCatalog();
   const seller = sellerById.get(key) ?? sellerBySlug.get(key);

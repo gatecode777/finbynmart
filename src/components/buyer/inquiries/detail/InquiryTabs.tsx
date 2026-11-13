@@ -6,16 +6,18 @@ import Link from "next/link";
 import { FileText, Mail, MessagesSquare } from "lucide-react";
 import type { InquiryQuotationItem } from "@/lib/quotations/service";
 import type { MessageDto } from "@/lib/inquiries/messages";
+import type { ResponderDto } from "@/lib/inquiries/conversations";
+import { SupplierConversations } from "./SupplierConversations";
 import styles from "./InquiryDetail.module.css";
 
 const TABS = [
-  { key: "responses", label: "Supplier Responses", icon: MessagesSquare, title: "No supplier response yet", text: "When the supplier replies or asks you a question, it appears here. Nothing is shown in its place until then. Replying to a supplier from this site is not available yet." },
+  { key: "responses", label: "Supplier Responses", icon: MessagesSquare, title: "No supplier response yet", text: "When the supplier replies or asks you a question, it appears here., with a private conversation for each supplier. Nothing is shown in its place until then." },
   { key: "quotations", label: "Quotations", icon: FileText, title: "No quotation received", text: "No quotation has been received for this inquiry yet. A quotation the supplier sends through Finbyn Mart will appear here. Nothing is shown in its place." },
-  { key: "messages", label: "Messages", icon: Mail, title: "Messaging is not available yet", text: "There is no buyer-supplier messaging yet, so there is no conversation for this inquiry. Your original message is in Requirement Details." },
+  { key: "messages", label: "Messages", icon: Mail, title: "Messages are in each supplier's conversation", text: "Your private messages with a supplier are in that supplier's conversation under Supplier Responses, and are shown only after the supplier has replied or sent an offer. Your original message is in Requirement Details." },
 ] as const;
 
 /** Three sections: quotations are the buyer's real ones (null = could not be read); responses and messages say honestly they do not exist yet. Standard tab keyboard behaviour: arrow keys move, Home and End jump. */
-export function InquiryTabs({ quotations, responses }: { quotations: InquiryQuotationItem[] | null; responses: MessageDto[] | null }) {
+export function InquiryTabs({ quotations, responses, reference, suppliers, conversationsOpen }: { quotations: InquiryQuotationItem[] | null; responses: MessageDto[] | null; reference: string; suppliers: ResponderDto[] | null; conversationsOpen: boolean }) {
   const id = useId();
   const [active, setActive] = useState<(typeof TABS)[number]["key"]>("responses");
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -55,7 +57,9 @@ export function InquiryTabs({ quotations, responses }: { quotations: InquiryQuot
         ))}
       </div>
       <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${active}-tab`} className={styles.panel}>
-        {current.key === "responses" && responses === null ? (
+        {current.key === "responses" && suppliers && suppliers.length > 0 ? (
+          <SupplierConversations reference={reference} suppliers={suppliers} open={conversationsOpen} />
+        ) : current.key === "responses" && responses === null ? (
           <>
             <h3 className={styles.emptyTitle}>Supplier responses could not be loaded</h3>
             <p className={styles.muted}>Nothing was changed. Reload the page to try again.</p>
@@ -70,7 +74,6 @@ export function InquiryTabs({ quotations, responses }: { quotations: InquiryQuot
                 </li>
               ))}
             </ul>
-            <p className={styles.muted}>Replying to the supplier from Finbyn Mart is not available yet.</p>
           </>
         ) : current.key === "quotations" && quotations === null ? (
           <>
@@ -82,7 +85,7 @@ export function InquiryTabs({ quotations, responses }: { quotations: InquiryQuot
             <ul className={styles.quoteList}>
               {quotations.map((q) => (
                 <li key={q.reference}>
-                  <Link href={q.href} className={styles.link}>{q.reference}</Link> <span className={styles.muted}>V{q.version}</span> - {q.supplierName}
+                  <Link href={q.href} className={styles.link}>{q.reference}</Link> <span className={styles.muted}>V{q.version}</span> - {q.supplierName}{q.origin && <> <span className={styles.muted}>({q.origin === "DIRECT" ? "the supplier you selected" : "matched supplier"})</span></>}
                   <br />{q.unitPrice}{q.total ? <> · Total {q.total}</> : null} · {q.statusLabel} · {q.validLabel}
                 </li>
               ))}

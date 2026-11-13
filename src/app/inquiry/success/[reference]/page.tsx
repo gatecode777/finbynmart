@@ -6,6 +6,9 @@ import { ConfirmationView } from "@/components/inquiry/ConfirmationView";
 import { Container } from "@/components/ui/Container";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { getCurrentUser } from "@/lib/auth/session";
+import { findInquiryByReference } from "@/lib/inquiries/service";
+import { distributionStatus } from "@/lib/leads/distribution";
+import { DISTRIBUTION_LABEL, SHARING_NOTICE } from "@/lib/leads/matchingRules";
 import { getInquiryConfirmation } from "@/lib/inquiries/confirmation";
 import { GUEST_ACCESS_COOKIE, checkAccess } from "@/lib/inquiries/guestAccess";
 import { withPagePerf } from "@/lib/perf/instrument";
@@ -49,7 +52,23 @@ async function InquirySuccessPage({ params }: { params: Promise<{ reference: str
     );
   }
 
-  return <ConfirmationView data={result.data} />;
+  // real matching state for a registered buyer's product inquiry (nothing is claimed until the worker has recorded it)
+  const inquiry = user?.role === "buyer" ? await findInquiryByReference(reference).catch(() => null) : null;
+  const matching = inquiry?._id && inquiry.buyerId?.toString() === user?.id ? await distributionStatus(inquiry._id).catch(() => null) : null;
+
+  return (
+    <>
+      <ConfirmationView data={result.data} />
+      {matching && (
+        <Container>
+          <p role="status" style={{ paddingBottom: "var(--space-8)" }}>
+            <strong>Your inquiry to the selected supplier was recorded.</strong> Matching suppliers: <strong>{DISTRIBUTION_LABEL[matching.state]}</strong>
+            {matching.matchedRecorded > 0 ? ` (${matching.matchedRecorded} recorded so far)` : ""}. {SHARING_NOTICE} Follow it under My Inquiries.
+          </p>
+        </Container>
+      )}
+    </>
+  );
 }
 
 export default withPagePerf("page inquiry/success/:reference", InquirySuccessPage);

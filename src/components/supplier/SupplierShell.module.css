@@ -267,7 +267,19 @@ button.profileMenuItem:hover {
 
 /* hover is only a hint; the current page is the gold item and nothing else is filled */
 a.navItem:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* must out-rank a.navItem:hover, otherwise hovering the current page turns it dark-on-dark */
+a.navItem.navItemActive,
+a.navItem.navItemActive:hover {
+  background: var(--accent);
+  color: var(--primary-deep);
+}
+
+a.navItem.navItemActive:hover {
+  background: var(--accent-hover);
 }
 
 a.navItem:focus-visible,

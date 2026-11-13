@@ -4,7 +4,7 @@ import { useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { HelpCircle, MessageSquareText, Send } from "lucide-react";
-import { MESSAGE_MAX, MESSAGE_MIN, MESSAGE_TYPES, type MessageType } from "@/lib/supplier/inquiryRules";
+import { MESSAGE_MAX, MESSAGE_MIN, MESSAGE_TYPES, type SupplierMessageType as MessageType } from "@/lib/supplier/inquiryRules";
 import type { MessageDto } from "@/lib/inquiries/messages";
 import dash from "../dashboard/SupplierDashboard.module.css";
 import form from "../quotations/create/QuoteBuilder.module.css";
@@ -20,7 +20,7 @@ interface Props {
 
 const HINT: Record<MessageType, string> = {
   RESPONSE: "Answer the buyer's inquiry. Plain text only.",
-  CLARIFICATION: "Ask the buyer a question you need answered before you can quote. The buyer can read it on their inquiry page; replying inside Finbyn Mart is not available yet, so an answer will not appear here.",
+  CLARIFICATION: "Ask the buyer a question you need answered before you can quote. The buyer reads it on their requirement page and can answer you privately there; their answer appears in this conversation.",
 };
 
 /**

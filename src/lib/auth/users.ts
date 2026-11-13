@@ -1,7 +1,7 @@
 import { ObjectId, type Collection } from "mongodb";
 import { getDb } from "@/lib/db/mongo";
 
-export type UserRole = "buyer" | "supplier";
+export type UserRole = "buyer" | "supplier" | "admin";
 
 /**
  * ACTIVE can sign in. PENDING_EMAIL_VERIFICATION is a new account that must follow the emailed link first (only used when an
@@ -91,7 +91,7 @@ export async function createUser(input: Omit<UserDoc, "_id" | "createdAt">) {
 export async function markEmailVerified(userId: ObjectId): Promise<void> {
   const now = new Date();
   const collection = await users();
-  await collection.updateOne({ _id: userId }, { $set: { emailVerified: true, updatedAt: now } });
+  await collection.updateOne({ _id: userId }, { $set: { emailVerified: true, emailVerifiedAt: now, emailVerifiedVia: "token", updatedAt: now } }); // provenance: only a delivered token gets here
   // only a pending account is activated: a suspended one stays suspended
   await collection.updateOne({ _id: userId, accountStatus: "PENDING_EMAIL_VERIFICATION" }, { $set: { accountStatus: "ACTIVE" } });
 }

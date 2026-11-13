@@ -8,6 +8,7 @@ import { initials, slugify } from "./slug";
 import { getProductBySlug as getCatalogProductBySlug } from "./queries";
 import { normalizeImage } from "./publicProduct";
 import { hasSupplierProfile } from "./supplierDetail";
+import { getApproved, type ApprovedItem } from "./approvedStore";
 
 /**
  * Server-only. The public product detail: one normalised DTO for catalog products and sample B2B listings.
@@ -29,13 +30,13 @@ export interface ProductDetail {
   name: string;
   url: string;
   /** "catalog" = the product catalog; "sample" = sample B2B listing (placeholder content). */
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "supplier";
   shortDescription: string | null;
   description: string | null;
   images: { src: string; remote: boolean; alt: string; primary: boolean }[];
   videos: { src: string; title: string }[];
   documents: { name: string; type: string; url: string }[];
-  pricing: { type: "fixed" | "range" | "estimated"; min: number; max?: number; currency: "INR"; unit: string };
+  pricing: { type: "fixed" | "range" | "estimated" | "on_request"; min: number; max?: number; currency: "INR"; unit: string };
   moq: { quantity: number; unit: string } | null;
   /** No availability data exists, so this is always null. */
   availability: null;
@@ -182,6 +183,54 @@ function sampleDetail(product: B2BProduct, pageSlug: string): ProductDetail {
   };
 }
 
+/**
+ * An approved supplier product from the APPROVED snapshot (never a draft or a pending revision). Only real fields are filled: no rating, no verification,
+ * no invented specification. A price-on-request product has pricing.type "on_request" (min is meaningless and must not be shown).
+ */
+function approvedDetail(it: ApprovedItem): ProductDetail {
+  const record = getCategoryRecord(it.main);
+  const category = { id: it.main, name: record?.name ?? it.main, href: `/categories/${it.main}` };
+  const subcategory = it.sub !== it.main ? { id: it.sub, name: it.categoryName, href: `/categories/${it.main}/${it.sub}` } : null;
+  const count = getApproved().bySupplier.get(it.supplier.slug)?.length ?? 1;
+  return {
+    id: it.id,
+    slug: it.slug,
+    name: it.name,
+    url: `/products/${it.slug}`,
+    source: "supplier",
+    shortDescription: null,
+    description: it.description,
+    images: it.images.map((image, i) => ({ ...image, primary: i === 0 })),
+    videos: [],
+    documents: [],
+    pricing: { type: it.pricing.mode === "FIXED" ? "fixed" : "on_request", min: it.pricing.min ?? 0, currency: "INR", unit: it.pricing.unit },
+    moq: it.moq,
+    availability: null,
+    category,
+    subcategory,
+    breadcrumb: [{ label: "Home", href: "/" }, { label: category.name, href: category.href }, ...(subcategory ? [{ label: subcategory.name, href: subcategory.href }] : []), { label: it.name }],
+    specifications: [{ label: "Category", value: it.categoryName, group: "General", displayOrder: 1 }],
+    technicalDetails: [],
+    applications: [],
+    features: [],
+    rating: null,
+    supplier: {
+      id: it.supplier.key,
+      name: it.supplier.name,
+      slug: it.supplier.slug,
+      url: `/suppliers/${it.supplier.slug}`,
+      profileAvailable: true,
+      productsUrl: `/suppliers/${it.supplier.slug}/products`,
+      initials: initials(it.supplier.name),
+      city: it.supplier.city,
+      state: "",
+      type: null,
+      verificationStatus: "unverified",
+      productCount: count,
+    },
+  };
+}
+
 /** Resolves a product by its URL slug (catalog `<name>-<id>` or a sample listing id). Undefined when it does not exist. */
 export function getPublicProductBySlug(slug: string): ProductDetail | undefined {
   const sample = getSampleProduct(slug);
@@ -189,7 +238,10 @@ export function getPublicProductBySlug(slug: string): ProductDetail | undefined 
 
   const product = getCatalogProductBySlug(slug);
   const seller = product ? getCatalog().sellerById.get(product.sellerId) : undefined;
-  return product && seller ? catalogDetail(product, seller) : undefined;
+  if (product && seller) return catalogDetail(product, seller);
+  // last, so a supplier product can never shadow a catalogue or sample URL
+  const approved = getApproved().bySlug.get(slug);
+  return approved ? approvedDetail(approved) : undefined;
 }
 
 /** Resolves by catalog id ("1163") or slug, for the API. */
@@ -198,6 +250,10 @@ export function getPublicProductByKey(key: string): ProductDetail | undefined {
     const product = getCatalog().productById.get(Number(key));
     const seller = product ? getCatalog().sellerById.get(product.sellerId) : undefined;
     return product && seller ? catalogDetail(product, seller) : undefined;
+  }
+  if (key.startsWith("sp-")) {
+    const approved = getApproved().byId.get(key);
+    return approved ? approvedDetail(approved) : undefined;
   }
   return getPublicProductBySlug(key);
 }
@@ -244,6 +300,7 @@ export function getRelatedItems(detail: ProductDetail, limit = 8): ListingItem[]
     return out;
   }
 
+  if (detail.source === "supplier") return []; // related products for supplier products are not built (see docs/catalogue)
   const sample = getSampleProduct(detail.id);
   if (!sample) return [];
   const toItem = (p: B2BProduct): ListingItem => ({

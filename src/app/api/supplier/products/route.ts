@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireSupplierApi } from "@/lib/auth/guards";
-import { rateLimit } from "@/lib/security/rateLimit";
-import { createSupplierProduct, getSupplierProducts } from "@/lib/supplier/productService";
+import { getSupplierProducts } from "@/lib/supplier/productService";
 
 export const dynamic = "force-dynamic";
 
@@ -24,40 +23,13 @@ export async function GET(request: Request) {
   );
 }
 
-export async function POST(request: Request) {
-  const guard = await requireSupplierApi();
-  if ("response" in guard) return guard.response;
-
-  const limit = await rateLimit(`supplier-add-product:${guard.user.id}`, 30, 60);
-  if (!limit.ok) {
-    return NextResponse.json({ ok: false, message: "Too many requests. Please wait." }, { status: 429 });
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ ok: false, message: "Invalid JSON body." }, { status: 400 });
-  }
-
-  const b = (body && typeof body === "object" ? body : {}) as Record<string, unknown>;
-  const result = await createSupplierProduct(guard.context, {
-    name: String(b.name ?? ""),
-    sku: b.sku ? String(b.sku) : undefined,
-    categoryName: String(b.categoryName ?? ""),
-    price: Number(b.price ?? 0),
-    unit: b.unit ? String(b.unit) : "Piece",
-    stock: Number(b.stock ?? 0),
-    description: b.description ? String(b.description) : undefined,
-    imageUrl: b.imageUrl ? String(b.imageUrl) : undefined,
-  });
-
-  if (!result.ok) {
-    return NextResponse.json({ ok: false, message: result.message }, { status: 400 });
-  }
-
+/**
+ * Creating a product here was retired (audit D-04): it accepted a client price and stock and bypassed the draft rules, moderation and the inventory
+ * ledger. Products are created as drafts through POST /api/supplier/products/drafts. 405 so a stale client fails loudly instead of silently.
+ */
+export async function POST() {
   return NextResponse.json(
-    { ok: true, message: "Product created successfully.", data: result.product },
-    { status: 201, headers: { "Cache-Control": "private, no-store" } }
+    { ok: false, message: "This endpoint no longer creates products. Use /api/supplier/products/drafts." },
+    { status: 405, headers: { Allow: "GET", "Cache-Control": "private, no-store" } },
   );
 }

@@ -37,3 +37,7 @@ next-env.d.ts
 
 # private buyer document storage used in development (see src/lib/buyer/documentStorage.ts)
 /.data/
+
+# local throwaway test database files (docs/page-reports/tools/start-test-replset.mjs)
+/.test-mongo/
+/docs/audits/runtime/

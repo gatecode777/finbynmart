@@ -23,7 +23,7 @@ export interface SupplierDetail {
   initials: string;
   url: string;
   /** "catalog" = a catalog seller; "sample" = a sample supplier (placeholder content). */
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "company";
   industry: string | null;
   /** The supplier's own most common product categories (at most 3). */
   categories: string[];
@@ -147,10 +147,48 @@ function catalogSupplier(slug: string): SupplierDetail | undefined {
   };
 }
 
+import { getApproved, toApprovedCard } from "./approvedStore";
+
+/** The public profile of a supplier COMPANY: only what it published itself (name, city, its own words) and its approved products. No verification, no contacts. */
+function companySupplier(slug: string): SupplierDetail | undefined {
+  const items = getApproved().bySupplier.get(slug);
+  if (!items?.length) return undefined;
+  const sup = items[0].supplier;
+  const perCategory = new Map<string, number>();
+  for (const it of items) perCategory.set(it.categoryName, (perCategory.get(it.categoryName) ?? 0) + 1);
+  const categories = [...perCategory.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([n]) => n);
+  const images: SupplierDetail["images"] = [];
+  for (const it of items) {
+    if (images.length >= 3) break;
+    if (it.images[0]) images.push({ src: it.images[0].src, remote: it.images[0].remote, alt: `${it.name} from ${sup.name}` });
+  }
+  return {
+    id: sup.key,
+    slug: sup.slug,
+    name: sup.name,
+    initials: initials(sup.name),
+    url: `/suppliers/${sup.slug}`,
+    source: "company",
+    industry: null,
+    categories: categories.slice(0, 3),
+    categoryCount: categories.length,
+    city: sup.city,
+    state: "",
+    supplierType: null,
+    verificationStatus: "unverified",
+    memberSince: sup.since,
+    description: sup.description,
+    images,
+    products: items.slice(0, 8).map(toApprovedCard),
+    productCount: items.length,
+    productsUrl: `/suppliers/${sup.slug}/products`,
+  };
+}
+
 /** The public profile for a supplier slug, or undefined when there is none. */
 export function getPublicSupplierBySlug(slug: string): SupplierDetail | undefined {
   if (!/^[a-z0-9-]{1,80}$/.test(slug)) return undefined;
-  return sampleSupplier(slug) ?? catalogSupplier(slug);
+  return sampleSupplier(slug) ?? catalogSupplier(slug) ?? companySupplier(slug);
 }
 
 /** True when /suppliers/<slug> would show a profile (cheap: no product cards are built). */
@@ -160,7 +198,8 @@ export function hasSupplierProfile(slug: string): boolean {
     Boolean(getSupplierProfile(slug)) ||
     FEATURED_SUPPLIERS.some((s) => s.id === slug) ||
     getProductsBySupplier(`/suppliers/${slug}`).length > 0 ||
-    getCatalog().sellerBySlug.has(slug)
+    getCatalog().sellerBySlug.has(slug) ||
+    getApproved().bySupplier.has(slug)
   );
 }
 

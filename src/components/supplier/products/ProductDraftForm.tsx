@@ -8,12 +8,12 @@ import { ArrowLeft, CheckCircle2, ChevronDown, Upload, CircleDashed, FileText, I
 import auth from "@/components/auth/Auth.module.css";
 import prof from "../profile/SupplierProfile.module.css";
 import s from "./ProductDraftForm.module.css";
-import { EMPTY_DRAFT, LIMITS, UNITS, formatPaise, parsePaise, reviewDraft, IMAGE_LIMITS, type DraftImage, type DraftInput, type FieldErrors, type Review } from "@/lib/supplier/productDraftRules";
+import { EMPTY_DRAFT, LIMITS, UNITS, formatPaise, parsePaise, reviewDraft, IMAGE_LIMITS, type DraftImage, type DraftInput, type Moderation, type FieldErrors, type Review } from "@/lib/supplier/productDraftRules";
 
 interface Props {
   categories: { id: string; name: string; parentId: string | null }[];
   mode?: "new" | "edit";
-  initial?: { reference: string; revision: number; updatedAt: string; input: DraftInput; images?: DraftImage[] } | null;
+  initial?: { reference: string; revision: number; updatedAt: string; input: DraftInput; images?: DraftImage[]; moderation?: Moderation | null } | null;
 }
 
 type Save = { kind: "idle" } | { kind: "saving" } | { kind: "saved"; at: string } | { kind: "error"; message: string };
@@ -27,6 +27,8 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
   const [baseline, setBaseline] = useState<DraftInput>(initial?.input ?? EMPTY_DRAFT);
   const [tab, setTab] = useState(0);
   const [images, setImages] = useState<DraftImage[]>(initial?.images ?? []);
+  const [mod, setMod] = useState<Moderation | null>(initial?.moderation ?? null);
+  const [reviewBusy, setReviewBusy] = useState(false);
   const [imgBusy, setImgBusy] = useState(false);
   const [imgError, setImgError] = useState("");
   const [conflict, setConflict] = useState(false);
@@ -77,6 +79,7 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
     if (res?.ok && data.ok) {
       setRef(data.data.reference);
       setRevision(data.data.revision);
+      setMod(data.data.moderation ?? null);
       setServerReview(data.data.review);
       setDirty(false);
       setBaseline(sent);
@@ -128,6 +131,22 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
     if ((dirty || !ref) && !(await persist())) return;
     setServerReview(review);
     flashToast("info", "Not submitted. Your draft is saved, but publishing is not available yet.");
+  }
+
+  async function reviewAction(action: "submit" | "withdraw") {
+    if (reviewBusy || !ref) return;
+    setReviewBusy(true);
+    const res = await fetch("/api/supplier/products/drafts/" + ref + "/review", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(action === "submit" ? { action, expectedRevision: revision } : { action }) }).catch(() => null);
+    const data = res ? await res.json().catch(() => ({})) : {};
+    setReviewBusy(false);
+    if (res?.ok && data.ok) {
+      setMod(data.data.moderation ?? null);
+      flashToast("success", data.message);
+      return;
+    }
+    const msg = res ? (data.message ?? "Could not complete that.") : "Network error. Nothing was changed.";
+    setSave({ kind: "error", message: msg });
+    flashToast("error", (action === "submit" ? "Not submitted. " : "Not withdrawn. ") + msg);
   }
 
   async function onPick(file: File | undefined) {
@@ -372,11 +391,17 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
               <h2 style={{ marginTop: 0, fontSize: "1.125rem" }}>Review result</h2>
               {save.kind === "error" ? <p className={s.err}>Review needs a saved draft. Fix the errors above first.</p> : (
                 <>
-                  <p><strong>This listing cannot be published yet.</strong></p>
+                  <p><strong>{mod?.state === "APPROVED" ? "This revision was approved." : mod?.state === "PENDING" ? "This revision is waiting for a reviewer." : "This listing is not public."}</strong></p>
+                  {mod?.state === "REJECTED" && mod.reason && <p role="status" className={s.err}>Not approved: {mod.reason}</p>}
                   {review.missing.length > 0 && <><p className={s.hint}>You still need to complete:</p><ul>{review.missing.map((m) => <li key={m}>{m}</li>)}</ul></>}
                   <p className={s.hint}>Not supported by the platform yet:</p>
                   <ul>{review.blockers.map((m) => <li key={m}>{m}</li>)}</ul>
-                  <p className={s.hint}>Your draft is saved and stays private. Nothing was submitted or published.</p>
+                  <p className={s.hint}>{mod?.state === "PENDING" ? "It cannot be edited while under review. Withdraw it to edit." : mod?.state === "APPROVED" ? "Approval makes this revision eligible for public discovery. It is not company verification." : "Your draft is saved and stays private until a reviewer approves a submitted revision."}</p>
+                  {mod?.state === "PENDING" ? (
+                    <button type="button" className={prof.btnSecondary} disabled={reviewBusy} onClick={() => void reviewAction("withdraw")}>Withdraw submission</button>
+                  ) : mod?.state !== "APPROVED" && review.canSubmit && !dirty && ref ? (
+                    <button type="button" className={prof.btnGold} disabled={reviewBusy} onClick={() => void reviewAction("submit")}>{reviewBusy ? "Submitting…" : mod?.state === "REJECTED" ? "Submit again for review" : "Submit for review"}</button>
+                  ) : null}
                 </>
               )}
             </section>

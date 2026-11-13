@@ -11,8 +11,11 @@ export const MESSAGE_TYPES = [
   { value: "RESPONSE", label: "Send Response" },
   { value: "CLARIFICATION", label: "Ask Clarification" },
 ] as const;
-export type MessageType = (typeof MESSAGE_TYPES)[number]["value"];
-export const MESSAGE_TYPE_LABEL: Record<MessageType, string> = { RESPONSE: "Response", CLARIFICATION: "Clarification request" };
+/** What a SUPPLIER may send. */
+export type SupplierMessageType = (typeof MESSAGE_TYPES)[number]["value"];
+/** Every row type of the conversation store: the buyer's private follow-up is BUYER_REPLY (written only by the buyer-side service). */
+export type MessageType = SupplierMessageType | "BUYER_REPLY";
+export const MESSAGE_TYPE_LABEL: Record<MessageType, string> = { RESPONSE: "Response", CLARIFICATION: "Clarification request", BUYER_REPLY: "Buyer reply" };
 
 export const MESSAGE_MIN = 10;
 export const MESSAGE_MAX = 2000;
@@ -21,7 +24,7 @@ export const RESPONSES_MAX_PAGE_SIZE = 50;
 export const ACTIVITY_LIMIT = 50;
 
 export interface ResponseInput {
-  type: MessageType;
+  type: SupplierMessageType;
   message: string;
   idempotencyKey: string;
 }

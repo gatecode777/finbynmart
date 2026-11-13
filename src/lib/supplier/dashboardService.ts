@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { matchedPendingCount, matchedReceivedCount, matchedRecent } from "@/lib/leads/access";
 import { getDb } from "@/lib/db/mongo";
 import { adoptedSeller, getCatalog, sampleListingCount } from "@/lib/catalog/data";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
@@ -8,7 +9,7 @@ import { inquiriesCollection } from "@/lib/inquiries/service";
 import { ordersCollection } from "@/lib/orders/service";
 import { quotationsCollection } from "@/lib/quotations/service";
 import { reviews as reviewsCollection } from "@/lib/reviews/store";
-import type { SupplierContext } from "./company";
+import { realSellerKeys, type SupplierContext } from "./company";
 import { ACTIVE_QUOTATION_STATUSES, PENDING_INQUIRY_STATUSES, RECENT_DEFAULT, TOP_DEFAULT, UNCONFIRMED_ORDER_STATUSES, computeProfileCompletion, supplierInquiryStatus } from "./dashboardRules";
 
 /**
@@ -62,8 +63,10 @@ async function ensureIndexes(): Promise<void> {
 const keysOf = (context: SupplierContext) => context.company.sellerKeys;
 
 // ---------- the numbers ----------
-async function countInquiries(keys: string[], from: Date, to: Date) {
-  return (await inquiriesCollection()).countDocuments({ supplierKey: { $in: keys }, createdAt: { $gte: from, $lt: to } });
+/** Inquiries received in the period: DIRECT ones addressed to the company's keys plus MATCHING leads (one per inquiry), the same scope as the inbox. */
+async function countInquiries(context: SupplierContext, from: Date, to: Date) {
+  const [direct, matched] = await Promise.all([(await inquiriesCollection()).countDocuments({ supplierKey: { $in: keysOf(context) }, createdAt: { $gte: from, $lt: to } }), matchedReceivedCount(context.companyId, from, to)]);
+  return direct + matched;
 }
 
 async function countOrders(keys: string[], from: Date, to: Date) {
@@ -85,9 +88,9 @@ export async function getSummary(context: SupplierContext, range: RangeInfo, now
     return { totalInquiries: zero("period"), pendingResponses: zero("now"), activeQuotations: zero("now"), confirmedOrders: zero("period") };
   }
   const [curInq, prevInq, pending, active, curOrd, prevOrd] = await Promise.all([
-    countInquiries(keys, range.start, range.end),
-    countInquiries(keys, range.previousStart, range.previousEnd),
-    (await inquiriesCollection()).countDocuments({ supplierKey: { $in: keys }, status: { $in: [...PENDING_INQUIRY_STATUSES] } } as never),
+    countInquiries(context, range.start, range.end),
+    countInquiries(context, range.previousStart, range.previousEnd),
+    Promise.all([(await inquiriesCollection()).countDocuments({ supplierKey: { $in: keys }, status: { $in: [...PENDING_INQUIRY_STATUSES] } } as never), matchedPendingCount(context.companyId)]).then(([a, b]) => a + b),
     (await quotationsCollection()).countDocuments({ supplierKey: { $in: keys }, isCurrent: true, status: { $in: [...ACTIVE_QUOTATION_STATUSES] }, validUntil: { $gt: now } } as never),
     countOrders(keys, range.start, range.end),
     countOrders(keys, range.previousStart, range.previousEnd),
@@ -159,11 +162,16 @@ export interface RecentInquiry {
 export async function getRecentInquiries(context: SupplierContext, limit = RECENT_DEFAULT): Promise<RecentInquiry[]> {
   const keys = keysOf(context);
   if (keys.length === 0) return [];
-  const docs = await (await inquiriesCollection())
-    .find({ supplierKey: { $in: keys } }, { projection: { reference: 1, buyerId: 1, buyerType: 1, productName: 1, categoryName: 1, quantity: 1, unit: 1, status: 1, createdAt: 1 } })
-    .sort({ createdAt: -1, _id: -1 })
-    .limit(limit)
-    .toArray();
+  const [direct, matched] = await Promise.all([
+    (await inquiriesCollection())
+      .find({ supplierKey: { $in: keys } }, { projection: { reference: 1, buyerId: 1, buyerType: 1, productName: 1, categoryName: 1, quantity: 1, unit: 1, status: 1, createdAt: 1 } })
+      .sort({ createdAt: -1, _id: -1 })
+      .limit(limit)
+      .toArray(),
+    matchedRecent(context.companyId, limit),
+  ]);
+  // direct and matching leads together, newest first (the inbox's own scope)
+  const docs = [...direct, ...matched].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, limit);
   const buyerIds = [...new Set(docs.flatMap((d) => (d.buyerId ? [String(d.buyerId)] : [])))].map((id) => new ObjectId(id));
   const names = new Map<string, string>();
   if (buyerIds.length > 0) {
@@ -278,7 +286,8 @@ export interface DashboardData {
 /** Everything except the chart (loaded separately so a slow chart never delays the numbers). */
 export async function getSupplierDashboard(context: SupplierContext, range: RangeInfo): Promise<DashboardData> {
   const keys = keysOf(context);
-  const sellerNames = keys.map((k) => getCatalog().sellerById.get(k)?.name ?? k).slice(0, 5);
+  const linked = realSellerKeys(keys);
+  const sellerNames = linked.map((k) => getCatalog().sellerById.get(k)?.name ?? k).slice(0, 5);
   const [summary, snapshot, recent, top] = await Promise.all([
     getSummary(context, range).then(ok, (e) => failed<Summary>(e, "The summary")),
     getSnapshot(context).then(ok, (e) => failed<Snapshot>(e, "The business snapshot")),
@@ -286,13 +295,13 @@ export async function getSupplierDashboard(context: SupplierContext, range: Rang
     getTopProducts(context, range).then(ok, (e) => failed<TopProduct[]>(e, "Top products")),
   ]);
   return {
-    company: { name: context.profile.displayName, city: context.profile.city, verification: "Not verified", linkedSellers: keys.length, sellerNames },
+    company: { name: context.profile.displayName, city: context.profile.city, verification: "Not verified", linkedSellers: linked.length, sellerNames },
     summary,
     snapshot,
     recentInquiries: recent,
     topProducts: top,
     notifications: { available: false, reason: "No event creates a notification for a supplier yet." },
     // what this server can really do today; the browser only shows it
-    capabilities: { ordersAvailable: true, responsesAvailable: false, notificationsAvailable: false, ratingsAvailable: true, productManagement: false, quotationCreation: true },
+    capabilities: { ordersAvailable: true, responsesAvailable: true, notificationsAvailable: false, ratingsAvailable: true, productManagement: true, quotationCreation: true },
   };
 }

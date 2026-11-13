@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { acknowledgeAlert } from "@/lib/buyer/security";
 import { isCrossSiteWrite } from "@/lib/security/sameOrigin";
 import { ALERT_ID } from "@/lib/security/securityRules";
@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 /** PATCH /api/buyer/security/alerts/<alertId>/acknowledge (no body): marks the buyer's OWN alert as seen. Repeating it keeps the first time. Another account's alert and an unknown id answer the same 404. */
 async function handlePATCH(request: Request, { params }: { params: Promise<{ alertId: string }> }) {
   if (isCrossSiteWrite(request)) return json({ ok: false, message: "This request was not allowed." }, 403);
-  const guard = await buyerGuard({ key: "buyer-alert-ack", limit: 60, windowSeconds: 600 });
+  const guard = await supportGuard({ key: "buyer-alert-ack", limit: 60, windowSeconds: 600 });
   if ("response" in guard) return guard.response;
   const { alertId } = await params;
   if (!ALERT_ID.test(alertId)) return json({ ok: false, message: "That alert was not found." }, 404);

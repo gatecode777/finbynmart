@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { SHARING_NOTICE } from "@/lib/leads/matchingRules";
 import Link from "next/link";
-import { FileText, History, MapPin, Package, Paperclip, ListChecks } from "lucide-react";
+import { Share2, FileText, History, MapPin, Package, Paperclip, ListChecks } from "lucide-react";
 import { InquiryTimeline } from "@/components/inquiry/InquiryTimeline";
 import type { InquiryDetailDto } from "@/lib/inquiries/buyerDetail";
 import { StatusPill } from "../StatusPill";
@@ -111,7 +112,15 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
             <p className={styles.muted}>No attachments. Files cannot be added to an inquiry yet.</p>
           </section>
 
-          <InquiryTabs quotations={d.quotations} responses={d.responses} />
+          {d.distribution && (
+            <section className={styles.card} aria-labelledby="distribution-title">
+              <h2 id="distribution-title" className={styles.cardTitle}><Share2 size={20} aria-hidden /> Matching suppliers</h2>
+              <p role="status"><strong>{d.distribution.label}</strong>{d.distribution.matchedRecorded > 0 ? ` · ${d.distribution.matchedRecorded} matching supplier${d.distribution.matchedRecorded === 1 ? "" : "s"} received this requirement so far` : ""}</p>
+              <p className={styles.muted}>{SHARING_NOTICE} Each supplier replies and quotes on their own; suppliers cannot see each other. Your phone, email and address are not shared with matching suppliers. No number of replies or quotations is promised.{d.distribution.truncated ? " An operational limit on the number of matching suppliers was reached for this requirement." : ""}</p>
+            </section>
+          )}
+
+          <InquiryTabs quotations={d.quotations} responses={d.responses} reference={d.reference ?? d.key} suppliers={d.suppliers} conversationsOpen={d.conversationsOpen} />
 
           <section className={styles.card} aria-labelledby="history-title">
             <h2 id="history-title" className={styles.cardTitle}><History size={20} aria-hidden /> Inquiry History</h2>

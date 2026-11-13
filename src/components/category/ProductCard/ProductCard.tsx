@@ -33,8 +33,8 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
 
         <span className={styles.price}>
           {product.priceIsEstimated && <span className={styles.estimate}>Est. </span>}
-          {formatPriceRange(product.priceMin, product.priceMax)}
-          <span className={styles.priceUnit}>/{product.priceUnit}</span>
+          {product.priceOnRequest ? "Price on request" : formatPriceRange(product.priceMin, product.priceMax)}
+          {!product.priceOnRequest && <span className={styles.priceUnit}>/{product.priceUnit}</span>}
         </span>
 
         {product.moq !== undefined && product.moqUnit && (

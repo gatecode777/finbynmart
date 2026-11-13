@@ -3,11 +3,13 @@ import { getPublicProductByKey, getRelatedItems } from "@/lib/catalog/productDet
 import { toPublicProduct } from "@/lib/catalog/publicProduct";
 import { clientIp, rateLimitReserved } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
 /** GET /api/public/products/<slug or id>/related?limit=8: same subcategory first, then the same category. Never includes the product itself. */
 async function handleGET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  await ensureApproved();
   const limit = await rateLimitReserved(`public-products:${clientIp(request)}`, 120, 60);
   if (!limit.ok) {
     return NextResponse.json({ ok: false, code: "RATE_LIMITED", message: "Too many requests. Please wait a moment and try again." }, { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } });

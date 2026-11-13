@@ -5,6 +5,8 @@ import { addStage, markCache } from "@/lib/perf/context";
 import { createLruCache, ttlSetting } from "@/lib/perf/ttlCache";
 import { getCatalog, adoptedSeller } from "./data";
 import { toProductCard } from "./mappers";
+import { approvedVersion, getApproved, toApprovedCard, type ApprovedItem } from "./approvedStore";
+import "./approvedProducts";
 import { searchText, searchTokens, slugify } from "./slug";
 import {
   MAX_PAGE_SIZE,
@@ -21,7 +23,8 @@ import {
 export * from "./listingQuery";
 
 export interface ListingItemMeta {
-  source: "catalog" | "sample";
+  /** "supplier" = an approved product of a supplier company (MongoDB, approved publication snapshot). */
+  source: "catalog" | "sample" | "supplier";
   category: { id: string; name: string };
   subcategory: { id: string; name: string };
   department?: string;
@@ -137,14 +140,17 @@ interface Row {
   supplier: string;
   supplierSlug: string;
   verified: boolean;
+  /** A price-on-request product: it has no price, so it never matches a price filter and sorts after every priced product. */
+  priceNone?: boolean;
   /** Where this row's product comes from, when it differs from what its category says (a supplier's mixed list). */
   src?: Source;
 }
 
 interface Source {
-  kind: "catalog" | "sample";
+  kind: "catalog" | "sample" | "approved";
   catalog?: CatalogProduct[];
   sample?: B2BProduct[];
+  cards?: ProductCardData[];
 }
 
 interface Index {
@@ -173,7 +179,62 @@ const globalForListing = globalThis as unknown as { __finbynListingIndexesV2?: M
 
 const wordsOf = (norm: string) => norm.split(/[^a-z0-9]+/).filter(Boolean);
 
+/** The approved supplier products of one main category as listing rows (all of them when record is undefined). Never mutates the base index. */
+function approvedPart(items: ApprovedItem[]): { rows: Row[]; source: Source; catNames: Map<string, string>; subLabels: Map<string, string>; subCat: Map<string, string>; sellerSlugs: Set<string>; moq: boolean } {
+  const cards: ProductCardData[] = items.map(toApprovedCard);
+  const source: Source = { kind: "approved", cards };
+  const catNames = new Map<string, string>();
+  const subLabels = new Map<string, string>();
+  const subCat = new Map<string, string>();
+  const sellerSlugs = new Set<string>();
+  const rows: Row[] = items.map((it, i) => {
+    const mainName = getCategoryRecord(it.main)?.name ?? it.main;
+    catNames.set(it.main, mainName);
+    subLabels.set(it.sub, it.sub === it.main ? mainName : it.categoryName);
+    subCat.set(it.sub, it.main);
+    sellerSlugs.add(it.supplier.slug);
+    const nameNorm = searchText(it.name);
+    return {
+      i,
+      cat: it.main,
+      sub: it.sub,
+      name: it.name,
+      nameNorm,
+      words: wordsOf(nameNorm),
+      hay: searchText(`${it.name} ${it.categoryName} ${mainName}`),
+      price: it.pricing.min ?? 0,
+      priceHi: it.pricing.min ?? 0,
+      priceNone: it.pricing.mode === "ON_REQUEST",
+      state: "",
+      city: it.supplier.city,
+      moq: it.moq?.quantity,
+      moqUnit: it.moq ? unitKey(it.moq.unit) : undefined,
+      supplier: it.supplier.key,
+      supplierSlug: it.supplier.slug,
+      verified: false,
+      src: source,
+    };
+  });
+  return { rows, source, catNames, subLabels, subCat, sellerSlugs, moq: items.some((it) => it.moq) };
+}
+
 function buildIndex(record: CategoryRecord): Index {
+  const index = buildBaseIndex(record);
+  const items = getApproved().items.filter((it) => it.main === record.id);
+  if (!items.length) return index;
+  const part = approvedPart(items);
+  for (const [k, v] of part.catNames) index.catNames.set(k, v);
+  for (const [k, v] of part.subLabels) if (!index.subLabels.has(k)) index.subLabels.set(k, v);
+  for (const [k, v] of part.subCat) if (!index.subCat.has(k)) index.subCat.set(k, v);
+  for (const s of part.sellerSlugs) index.sellerSlugs.add(s);
+  index.rows = [...index.rows, ...part.rows];
+  index.supportsMoq ||= part.moq;
+  // a mixed single-category index is no longer a single source (getSubcategoryInfo reads rows, not the source arrays)
+  index.source = "mixed";
+  return index;
+}
+
+function buildBaseIndex(record: CategoryRecord): Index {
   if (record.source === "catalog") {
     const { products, sellerById } = getCatalog();
     const subLabels = new Map<string, string>();
@@ -311,6 +372,8 @@ function buildAll(): Index {
 function indexFor(id: string): Index | undefined {
   const cache = (globalForListing.__finbynListingIndexesV2 ??= new Map());
   let index = cache.get(id);
+  // the approved-product snapshot changed (an approval, an unpublish, a refresh): every derived index is rebuilt from it
+  if (index && (index as Index & { av?: number }).av !== approvedVersion()) index = undefined;
   if (!index) {
     if (id === ALL) {
       index = buildAll();
@@ -319,6 +382,7 @@ function indexFor(id: string): Index | undefined {
       if (!record) return undefined;
       index = buildIndex(record);
     }
+    (index as Index & { av?: number }).av = approvedVersion();
     cache.set(id, index);
   }
   return index;
@@ -428,6 +492,7 @@ function buildUncached(index: Index, requested: ListingQuery, options: BuildOpti
       if (query.minMoq !== undefined && row.moq < query.minMoq) return false;
       if (query.maxMoq !== undefined && row.moq > query.maxMoq) return false;
     }
+    if ((query.minPrice !== undefined || query.maxPrice !== undefined) && row.priceNone) return false;
     if (query.minPrice !== undefined && row.priceHi < query.minPrice) return false;
     if (query.maxPrice !== undefined && row.price > query.maxPrice) return false;
     return true;
@@ -457,8 +522,10 @@ function buildUncached(index: Index, requested: ListingQuery, options: BuildOpti
     baseCats.add(row.cat);
     suppliers.add(row.supplier);
     if (row.verified) verifiedSuppliers.add(row.supplier);
-    min = Math.min(min, row.price);
-    max = Math.max(max, row.priceHi);
+    if (!row.priceNone) {
+      min = Math.min(min, row.price);
+      max = Math.max(max, row.priceHi);
+    }
   }
   const subLabel = (value: string) => index.subLabels.get(value) ?? value;
   const byCount = (a: FacetOption, b: FacetOption) => b.count - a.count || a.label.localeCompare(b.label);
@@ -492,8 +559,10 @@ function buildUncached(index: Index, requested: ListingQuery, options: BuildOpti
   rows.forEach((row, at) => {
     if (matches(row, at)) hits.push(at);
   });
-  if (query.sort === "price-asc") hits.sort((a, b) => rows[a].price - rows[b].price || a - b);
-  else if (query.sort === "price-desc") hits.sort((a, b) => rows[b].price - rows[a].price || a - b);
+  // price-on-request products have no price: they sort after every priced product in both directions
+  const none = (at: number) => (rows[at].priceNone ? 1 : 0);
+  if (query.sort === "price-asc") hits.sort((a, b) => none(a) - none(b) || rows[a].price - rows[b].price || a - b);
+  else if (query.sort === "price-desc") hits.sort((a, b) => none(a) - none(b) || rows[b].price - rows[a].price || a - b);
   else if (words.length) {
     const phrase = searchText(query.q);
     const score = new Map<number, number>();
@@ -521,16 +590,16 @@ function buildUncached(index: Index, requested: ListingQuery, options: BuildOpti
   const items: ListingItem[] = slice.map((at) => {
     const row = rows[at];
     const source = row.src ?? index.sources.get(row.cat)!;
-    const card = source.kind === "catalog" ? toProductCard(source.catalog![row.i]) : source.sample![row.i];
+    const card = source.kind === "catalog" ? toProductCard(source.catalog![row.i]) : source.kind === "approved" ? source.cards![row.i] : source.sample![row.i];
     return {
       card,
       meta: {
-        source: source.kind,
+        source: source.kind === "approved" ? "supplier" : source.kind,
         category: { id: row.cat, name: index.catNames.get(row.cat) ?? row.cat },
         subcategory: { id: row.sub, name: subLabel(row.sub) },
         department: row.department,
         colour: row.colour,
-        supplierKey: source.kind === "catalog" ? row.supplier : row.supplierSlug,
+        supplierKey: source.kind === "catalog" || source.kind === "approved" ? row.supplier : row.supplierSlug,
         supplierSlug: row.supplierSlug,
         supplierType: row.type,
         verified: row.verified,
@@ -840,8 +909,37 @@ function adoptedSupplierIndex(slug: string): Index | null {
   return index;
 }
 
+const companyIndexes = new Map<string, { av: number; index: Index }>();
+/** The list of one supplier COMPANY: only its own approved products (cached per snapshot version). */
+function companySupplierIndex(slug: string, items: ApprovedItem[]): Index {
+  const hit = companyIndexes.get(slug);
+  if (hit && hit.av === approvedVersion()) return hit.index;
+  const part = approvedPart(items);
+  const index: Index = {
+    source: "mixed",
+    rows: part.rows,
+    sources: new Map(),
+    catNames: part.catNames,
+    subLabels: part.subLabels,
+    subGroup: new Map(),
+    subCat: part.subCat,
+    departments: new Set(),
+    sellerSlugs: new Set([slug]),
+    supportsType: false,
+    supportsMoq: part.moq,
+    supportsColour: false,
+  };
+  companyIndexes.set(slug, { av: approvedVersion(), index });
+  return index;
+}
+
 export function getSupplierProductListing(slug: string, query: ListingQuery, options: { pageSize?: number } = {}): CategoryListing | undefined {
   const scoped = { ...query, seller: slug };
+  if (/^c-[a-f0-9]{24}$/.test(slug)) {
+    const items = getApproved().bySupplier.get(slug);
+    if (!items?.length) return undefined;
+    return build(companySupplierIndex(slug, items), scoped, { pageSize: options.pageSize });
+  }
   if (adoptedSeller(slug)) {
     const merged = adoptedSupplierIndex(slug);
     return merged ? build(merged, scoped, { pageSize: options.pageSize }) : undefined;

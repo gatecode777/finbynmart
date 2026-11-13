@@ -17,6 +17,7 @@ interface Props {
 
 /** The nav item whose href is the longest prefix of the current path, so /supplier/quotations/FBM-QT-... highlights Quotations. */
 function activeKeyFor(pathname: string): string {
+  if (pathname === "/supplier/security" || pathname.startsWith("/supplier/security/")) return "settings"; // Account Security lives under Settings
   const items = [...SUPPLIER_NAV, ...SUPPLIER_NAV_FOOTER].flatMap((item) => (item.href ?? item.match ? [{ key: item.key, path: (item.href ?? item.match) as string }] : []));
   const match = items.filter((item) => pathname === item.path || pathname.startsWith(`${item.path}/`)).sort((a, b) => b.path.length - a.path.length)[0];
   return match?.key ?? "";

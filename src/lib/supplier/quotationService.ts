@@ -1,7 +1,7 @@
 import { ObjectId, type Filter } from "mongodb";
+import { findInquiryFor } from "@/lib/leads/access";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import { formatSubmitted } from "@/lib/inquiries/confirmation";
-import { inquiriesCollection } from "@/lib/inquiries/service";
 import { normaliseStatus } from "@/lib/inquiries/rules";
 import { BUSINESS_LABEL } from "@/lib/inquiries/buyerListRules";
 import { ordersCollection } from "@/lib/orders/service";
@@ -488,7 +488,7 @@ export async function getSupplierQuotationDetail(context: SupplierContext, refer
   const revisionDraft = pointerDocs.find((d) => d.status === "DRAFT" && !d.isCurrent);
   const [inquiry, names, order] = await Promise.all([
     // the inquiry must be addressed to one of this company's sellers too: ownership is checked through both records
-    (await inquiriesCollection()).findOne({ _id: doc.inquiryId, supplierKey: { $in: keys } }),
+    findInquiryFor(context, { _id: doc.inquiryId }),
     buyerNames([doc.buyerId]),
     doc.status === "ACCEPTED" ? ordersCollection().then((c) => c.findOne({ quotationReference: doc.reference, supplierKey: { $in: keys } }, { projection: { reference: 1, status: 1 } })) : Promise.resolve(null),
   ]);

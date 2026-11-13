@@ -97,13 +97,15 @@ export interface Review {
   checklist: ChecklistItem[];
   missing: string[];
   blockers: string[];
-  /** Always false until media, category specifications and a publication policy exist. */
+  /** The supplier may submit this exact revision for review (nothing is published by submitting). */
+  canSubmit: boolean;
+  /** Always false for a supplier: only an authorized reviewer's approval makes a product eligible for public discovery. */
   canPublish: false;
 }
 
 export const BLOCKERS = [
   "Category specifications: no approved attribute definitions exist yet.",
-  "Publishing: no approved publication or moderation workflow exists yet, so a draft cannot go live.",
+  "Publishing: a reviewer must approve the exact submitted revision; submitting does not publish it.",
 ];
 
 /** `categoryOk` is the server's answer (category exists and is active); the browser passes true when one is chosen. */
@@ -137,5 +139,22 @@ export function reviewDraft(d: DraftInput, categoryOk: boolean, imageCount = 0):
     { key: "moq", label: "Minimum order", state: moqMissing.length ? "todo" : "done" },
     { key: "specifications", label: "Category specifications", state: "blocked", detail: "No approved specification fields exist yet." },
   ];
-  return { checklist, missing, blockers: BLOCKERS, canPublish: false };
+  return { checklist, missing, blockers: BLOCKERS, canSubmit: missing.length === 0, canPublish: false };
 }
+
+/** Moderation state of a draft. A draft that was never submitted has none (null). */
+export type ReviewState = "PENDING" | "APPROVED" | "REJECTED";
+export interface Moderation { state: ReviewState; submittedRevision: number; submittedAt: string; /** Supplier-safe text only. Internal reviewer notes never reach this object. */ reason: string | null }
+
+/** The only rejection reasons a reviewer can show a supplier: fixed, safe and actionable. */
+export const REJECTION_REASONS = [
+  { code: "INCOMPLETE_INFO", text: "The description or details are too incomplete to review. Add what the product is made of and how it is sold, then submit again." },
+  { code: "WRONG_CATEGORY", text: "The product does not belong in the chosen category. Pick the right category, then submit again." },
+  { code: "PRICE_OR_MOQ_UNCLEAR", text: "The price, unit or minimum order quantity is unclear or inconsistent. Correct them, then submit again." },
+  { code: "IMAGES_UNSUITABLE", text: "The images do not clearly show this product. Replace them with clear photos of the product, then submit again." },
+  { code: "POLICY_VIOLATION", text: "The listing does not meet the marketplace listing policy. Review the policy, edit the listing, then submit again." },
+] as const;
+export const reasonText = (code: string): string | null => REJECTION_REASONS.find((r) => r.code === code)?.text ?? null;
+
+/** The single public-eligibility rule (pure, so it is unit tested): an approved publication AND a category that is still active. */
+export const isPubliclyEligible = (publicationState: string | undefined, categoryActive: boolean): boolean => publicationState === "APPROVED" && categoryActive === true;

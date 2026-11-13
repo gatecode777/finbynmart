@@ -39,7 +39,7 @@ export function CompareView({ data }: { data: Comparison }) {
                 {columns.map((col) => (
                   <th key={col.reference} scope="col">
                     <Link href={col.detailHref} className={d.link}>{col.reference}</Link> <span className={d.muted}>V{col.version}</span>
-                    <br />{col.supplier.name}{col.supplier.verified && <> <BadgeCheck size={14} aria-hidden /> <span className="visually-hidden">Verified supplier</span></>}
+                    <br />{col.supplier.name}{col.origin && <span className={d.muted}> ({col.origin === "SELECTED" ? "Selected supplier" : "Additional matching supplier"})</span>}{col.supplier.verified && <> <BadgeCheck size={14} aria-hidden /> <span className="visually-hidden">Verified supplier</span></>}
                     <br /><QuotationStatusPill status={col.status} label={col.statusLabel} />
                   </th>
                 ))}
@@ -58,7 +58,7 @@ export function CompareView({ data }: { data: Comparison }) {
         <ul className={q.compareCards} aria-label="Quotations side by side">
           {columns.map((col) => (
             <li key={col.reference} className={q.compareCard}>
-              <h3 className={d.productName}><Link href={col.detailHref} className={d.link}>{col.reference}</Link> V{col.version} - {col.supplier.name}</h3>
+              <h3 className={d.productName}><Link href={col.detailHref} className={d.link}>{col.reference}</Link> V{col.version} - {col.supplier.name}{col.origin && <span className={d.muted}> ({col.origin === "SELECTED" ? "Selected supplier" : "Additional matching supplier"})</span>}</h3>
               <QuotationStatusPill status={col.status} label={col.statusLabel} />
               <dl className={q.termRows}>
                 {fields.map((f) => <div key={f.key}><dt>{f.label}{f.differs && <span className={q.differsMark}>Differs</span>}</dt><dd>{val(col.values[f.key] ?? null)}</dd></div>)}

@@ -31,6 +31,24 @@ export interface SupplierCompanyDoc {
 
 export const SELLER_KEY_LIMIT = 50;
 
+/**
+ * Every company also has ONE implicit supplier key of its own, `co:<companyId>`: the identity under which its OWN approved products are public and
+ * to which buyer inquiries for them are addressed. It is never stored in `sellerKeys` (that list stays admin-linked catalogue sellers only, so a new
+ * supplier never has to claim an unrelated seeded seller); the session context adds it to the in-memory list, so every existing
+ * `supplierKey in company.sellerKeys` scope already covers it.
+ */
+export const COMPANY_KEY_PREFIX = "co:";
+export const companyKeyOf = (companyId: ObjectId | string): string => COMPANY_KEY_PREFIX + (typeof companyId === "string" ? companyId : companyId.toHexString());
+export const isCompanyKey = (key: string): boolean => /^co:[a-f0-9]{24}$/.test(key);
+export const realSellerKeys = (keys: string[]): string[] => keys.filter((k) => !k.startsWith(COMPANY_KEY_PREFIX));
+
+/** The ACTIVE company that owns a supplier key: its own implicit key, or an admin-linked catalogue seller. */
+export async function findCompanyBySupplierKey(key: string, projection: Record<string, 1> = { ownerUserId: 1 }) {
+  const col = await supplierCompanies();
+  if (isCompanyKey(key)) return col.findOne({ _id: new ObjectId(key.slice(COMPANY_KEY_PREFIX.length)), status: "ACTIVE" }, { projection });
+  return col.findOne({ sellerKeys: key, status: "ACTIVE" }, { projection });
+}
+
 export type SupplierRole = "owner";
 export interface SupplierPermissions {
   viewDashboard: boolean;
@@ -72,7 +90,11 @@ let indexReady: Promise<unknown> | undefined;
 export async function supplierCompanies(): Promise<Collection<SupplierCompanyDoc>> {
   const col = (await getDb()).collection<SupplierCompanyDoc>("supplier_companies");
   // one company per owner account: a race between two first requests cannot create two
-  indexReady ??= col.createIndex({ ownerUserId: 1 }, { unique: true, name: "company_owner" });
+  indexReady ??= Promise.all([
+    col.createIndex({ ownerUserId: 1 }, { unique: true, name: "company_owner" }),
+    // a seller key belongs to at most one company, enforced by the database (partial: companies with no sellers are not indexed)
+    col.createIndex({ sellerKeys: 1 }, { unique: true, partialFilterExpression: { "sellerKeys.0": { $exists: true } }, name: "company_seller_unique" }),
+  ]);
   await indexReady;
   return col;
 }
@@ -109,7 +131,7 @@ export async function resolveSupplierContext(userId: string): Promise<SupplierCo
   const s = user.supplier;
   return {
     companyId: company._id,
-    company,
+    company: { ...company, sellerKeys: [...company.sellerKeys, companyKeyOf(company._id)] },
     role: "owner",
     permissions: OWNER_PERMISSIONS,
     profile: { displayName: s.businessName, contactName: user.name, email: user.email, emailVerified: user.emailVerified === true, phone: s.phone || null, city: s.city || null, description: s.offering || null },

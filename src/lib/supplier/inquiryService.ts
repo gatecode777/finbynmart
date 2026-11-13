@@ -1,10 +1,11 @@
 import { createHash } from "node:crypto";
+import { advanceStatus, findInquiryFor } from "@/lib/leads/access";
 import { ObjectId } from "mongodb";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
 import { formatSubmitted } from "@/lib/inquiries/confirmation";
 import { INQUIRY_TYPES, normaliseStatus } from "@/lib/inquiries/rules";
-import { inquiriesCollection, type InquiryDoc } from "@/lib/inquiries/service";
+import { type InquiryDoc } from "@/lib/inquiries/service";
 import { listMessages, messagesCollection, toMessageDto, type InquiryMessageDoc, type MessageDto, type MessagePage } from "@/lib/inquiries/messages";
 import { quotationsCollection } from "@/lib/quotations/service";
 import type { PublicUser } from "@/lib/auth/users";
@@ -26,8 +27,10 @@ import { buyerName, loadInquiry, type InquiryRow } from "./quoteService";
 type Failure = { ok: false; status: 403 | 404 | 409 | 422; code: string; message: string; fields?: Record<string, string>; data?: unknown };
 const fail = (status: Failure["status"], code: string, message: string, extra: { fields?: Record<string, string>; data?: unknown } = {}): Failure => ({ ok: false, status, code, message, ...extra });
 class Abort extends Error {
-  constructor(public readonly failure: Failure) {
+  readonly failure: Failure;
+  constructor(failure: Failure) {
     super(failure.code);
+    this.failure = failure;
   }
 }
 const keysOf = (c: SupplierContext) => c.company.sellerKeys;
@@ -52,6 +55,8 @@ export interface InquiryDetail {
     productUrl: string | null;
   };
   buyer: { name: string; kind: string };
+  /** How this company received the inquiry; MATCHED views carry no selected-supplier identity, no product page link and no other recipient. */
+  recipient: { type: "DIRECT" | "MATCHED"; badge: string };
   /** What the inquiry form does not capture: shown once, in words, instead of empty "Not provided" rows that suggest a missing answer. */
   notCaptured: string;
   attachments: { available: false; reason: string };
@@ -102,10 +107,11 @@ export async function getInquiryDetail(context: SupplierContext, reference: stri
       unit: inquiry.unit ?? null,
       deliveryLocation: inquiry.deliveryLocation?.text ?? null,
       // the listing's own specifications for the product the buyer asked about, rendered generically (label / value) for any category
-      specifications: (product?.specifications ?? []).slice(0, 30).map((sp) => ({ label: sp.label, value: sp.unit ? `${sp.value} ${sp.unit}` : sp.value })),
-      productUrl: product?.url ?? null,
+      specifications: (inquiry.recipientType === "MATCHED" ? (inquiry.productKey ? (getPublicProductByKey(inquiry.productKey)?.specifications ?? []) : []) : (product?.specifications ?? [])).slice(0, 30).map((sp) => ({ label: sp.label, value: sp.unit ? `${sp.value} ${sp.unit}` : sp.value })),
+      productUrl: inquiry.recipientType === "MATCHED" ? null : (product?.url ?? null),
     },
     buyer: { name, kind: inquiry.buyerId ? "Registered buyer" : "Guest" },
+    recipient: inquiry.recipientType === "MATCHED" ? { type: "MATCHED", badge: "Matches products your company supplies." } : { type: "DIRECT", badge: "Buyer selected your company." },
     notCaptured: NOT_CAPTURED,
     attachments: { available: false, reason: "Buyers cannot attach files to an inquiry yet, so there are no buyer attachments to open." },
     capabilities: { respond: { available: respondReason === null, reason: respondReason }, quotation },
@@ -147,7 +153,7 @@ export async function getActivity(context: SupplierContext, reference: string): 
     if (h.from === null) continue; // the creation entry is the "received" event above
     all.push({ at: h.at, key: `status-${h.at.getTime()}-${h.to}`, title: `Inquiry status: ${supplierInquiryStatus(h.to).label}`, detail: h.actor === "buyer" ? "Changed by the buyer" : h.actor === "system" ? "Recorded by the platform" : null });
   }
-  for (const m of messages) all.push({ at: m.createdAt, key: `msg-${m._id}`, title: m.type === "RESPONSE" ? "Response sent to the buyer" : "Clarification requested from the buyer", detail: `By ${m.authorName}` });
+  for (const m of messages) all.push({ at: m.createdAt, key: `msg-${m._id}`, title: m.type === "RESPONSE" ? "Response sent to the buyer" : m.type === "BUYER_REPLY" ? "Buyer replied" : "Clarification requested from the buyer", detail: m.type === "BUYER_REPLY" ? null : `By ${m.authorName}` });
   for (const q of quotes) {
     if (q.status === "DRAFT") all.push({ at: q.createdAt, key: `draft-${q.reference}`, title: `Quotation draft ${q.reference} started`, detail: null });
     for (const e of q.events ?? []) {
@@ -199,7 +205,7 @@ export async function sendResponse(context: SupplierContext, user: PublicUser, r
     await session.withTransaction(
       async () => {
         committed = undefined;
-        const inquiry = (await (await inquiriesCollection()).findOne({ _id: first._id, supplierKey: { $in: keysOf(context) } }, { session })) as InquiryRow | null;
+        const inquiry = (await findInquiryFor(context, { _id: first._id }, session)) as InquiryRow | null;
         if (!inquiry) throw new Abort(fail(404, "NOT_FOUND", "Inquiry not found."));
         const el = replyEligibility(inquiry.status, Boolean(inquiry.buyerId));
         if (!el.ok) throw new Abort(fail(409, el.code, el.message));
@@ -226,8 +232,7 @@ export async function sendResponse(context: SupplierContext, user: PublicUser, r
             current = to;
             return entry;
           });
-          const res = await (await inquiriesCollection()).updateOne({ _id: inquiry._id, status: inquiry.status }, { $set: { status: current, updatedAt: now }, $push: { statusHistory: { $each: history } } }, { session });
-          if (res.matchedCount !== 1) throw new Abort(fail(409, "CONFLICT", "The inquiry changed while you were writing. Reload it and try again."));
+          if (!(await advanceStatus(inquiry, context, inquiry.status, current, history, now, session))) throw new Abort(fail(409, "CONFLICT", "The inquiry changed while you were writing. Reload it and try again."));
         }
         const message = toMessageDto(doc);
         const inquiryOut = { status: current, statusLabel: supplierInquiryStatus(current).label };

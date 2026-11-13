@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import { Boxes, Building2, Clock, FileText, Hourglass, MessageSquareText, Package, PackagePlus, Star } from "lucide-react";
+import { Boxes, Building2, ClipboardCheck, Clock,FileText, Hourglass, MessageSquareText, Package, PackagePlus, Star } from "lucide-react";
 import { RANGE_PRESETS } from "@/lib/buyer/dateRange";
 import type { DashboardData, Metric, Section } from "@/lib/supplier/dashboardService";
 import s from "./SupplierDashboard.module.css";
@@ -77,9 +77,7 @@ export function SupplierDashboard({ initial, range }: Props) {
             </div>
           </div>
         </div>
-        {company.linkedSellers === 0 ? (
-          <p className={s.note}>No catalogue seller is linked to your company yet. The platform links sellers (a company cannot claim one itself), so inquiries, quotations, orders and products show genuine zeros until then. Nothing here is sample data.</p>
-        ) : (
+        {company.linkedSellers === 0 ? null : (
           <p className={s.muted}>Showing activity for: {company.sellerNames.join(", ")}{company.linkedSellers > company.sellerNames.length ? ` and ${company.linkedSellers - company.sellerNames.length} more` : ""}.</p>
         )}
       </section>
@@ -116,14 +114,14 @@ export function SupplierDashboard({ initial, range }: Props) {
                 const delta = change(c.metric);
                 return (
                   <li key={c.label} className={clsx(s.kpi, c.cream && s.kpiCream)}>
-                    <span className={s.kpiIcon}><c.icon size={22} aria-hidden /></span>
-                    <div>
+                    <div className={s.kpiHead}>
                       <h2 className={s.kpiLabel}>{c.label}</h2>
-                      <p className={s.kpiValue}>{number(c.metric.value)}</p>
-                      <p className={s.kpiNote}>{c.note}</p>
-                      {delta && <p className={s.kpiNote}>{delta}</p>}
-                      {c.extra && <p className={s.kpiNote}>{c.extra}</p>}
+                      <span className={s.kpiIcon}><c.icon size={20} aria-hidden /></span>
                     </div>
+                    <p className={s.kpiValue}>{number(c.metric.value)}</p>
+                    <p className={s.kpiNote}>{c.note}</p>
+                    {delta && <p className={s.kpiNote}>{delta}</p>}
+                    {c.extra && <p className={s.kpiNote}>{c.extra}</p>}
                   </li>
                 );
               })}
@@ -141,7 +139,7 @@ export function SupplierDashboard({ initial, range }: Props) {
             <Loaded section={initial.recentInquiries}>
               {(rows) =>
                 rows.length === 0 ? (
-                  <p className={s.note}>{company.linkedSellers === 0 ? "No inquiries: no seller is linked to your company yet." : "No inquiry has been addressed to your sellers yet."}</p>
+                  <p className={s.note}>{"No inquiry or matching lead has reached your company yet."}</p>
                 ) : (
                   <>
                     <div className={s.tableWrap}>
@@ -176,7 +174,7 @@ export function SupplierDashboard({ initial, range }: Props) {
                         </li>
                       ))}
                     </ul>
-                    <p className={s.muted}>Open an inquiry to read it and respond. Buyers are shown by business name only. The full inquiries list page is not built yet.</p>
+                    <p className={s.muted}>Open an inquiry to read it and respond. Buyers are shown by business name only. The full list is in Inquiries & Leads.</p>
                   </>
                 )
               }
@@ -204,7 +202,7 @@ export function SupplierDashboard({ initial, range }: Props) {
                       <dd>Not available<small>{snap.averageResponseTime.reason}</small></dd>
                     </div>
                     <div>
-                      <dt>Profile completion</dt>
+                      <dt><ClipboardCheck size={14} aria-hidden /> Profile completion</dt>
                       <dd>{snap.profile.percent}%<small>Of the details this site can capture today.</small></dd>
                     </div>
                   </dl>
@@ -253,11 +251,11 @@ export function SupplierDashboard({ initial, range }: Props) {
         <ul className={s.actions}>
           <li className={s.action}>
             <PackagePlus size={22} aria-hidden />
-            <div><p className={s.actionTitle}>Add product</p><p className={s.actionText}>{capabilities.productManagement ? "Available." : "Supplier product management is not built yet."}</p></div>
+            <div><p className={s.actionTitle}>Add product</p><p className={s.actionText}>{capabilities.productManagement ? <><Link href="/supplier/products/new" className={s.ref}>Create a product draft</Link>. Submit it for review; approved products are published.</> : "Supplier product management is not available."}</p></div>
           </li>
           <li className={s.action}>
             <MessageSquareText size={22} aria-hidden />
-            <div><p className={s.actionTitle}>Reply to inquiries</p><p className={s.actionText}>{capabilities.responsesAvailable ? "Available." : "Supplier replies are not built yet, so no reply can be sent from here."}</p></div>
+            <div><p className={s.actionTitle}>Reply to inquiries</p><p className={s.actionText}>{capabilities.responsesAvailable ? <>Open an inquiry from <Link href="/supplier/inquiries" className={s.ref}>Inquiries &amp; Leads</Link> to reply.</> : "Replies are not available."}</p></div>
           </li>
           <li className={s.action}>
             <FileText size={22} aria-hidden />

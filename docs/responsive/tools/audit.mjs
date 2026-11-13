@@ -90,9 +90,11 @@ const measure = () => {
   const bg = getComputedStyle(document.body).backgroundColor;
   const fg = getComputedStyle(document.querySelector("main h1, main h2") || document.body).color;
   const lum = (c) => { if (!c || !/\d/.test(c)) return 0; const m = c.match(/\d+(\.\d+)?/g).map(Number).slice(0, 3).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]; };
-  const pageBg = (() => { let e = document.querySelector("main") || document.body; while (e) { const c = getComputedStyle(e).backgroundColor; if (!/rgba\(.*, 0\)|transparent/.test(c)) return c; e = e.parentElement; } return bg; })();
+  // measured from the heading itself up (a heading on a dark panel is checked against the panel, not the page); a gradient or image behind it cannot be measured, so it is skipped
+  const headingEl = document.querySelector("main h1, main h2");
+  const pageBg = (() => { let e = headingEl || document.querySelector("main") || document.body; while (e) { const c = getComputedStyle(e).backgroundColor; if (!/rgba\(.*, 0\)|transparent/.test(c)) return c; e = e.parentElement; } return bg; })();
   const L1 = lum(fg), L2 = lum(pageBg), ratio = (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
-  if (ratio < 3) layout.push(`heading contrast ${ratio.toFixed(1)}:1`);
+  if (pageBg && ratio < 3) layout.push(`heading contrast ${ratio.toFixed(1)}:1`);
   const escapes = [];
   for (const el of document.querySelectorAll("input, select, textarea, button, img")) {
     if (!el.getBoundingClientRect().width || el.closest("[inert], [aria-hidden='true']")) continue;

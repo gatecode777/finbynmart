@@ -4,6 +4,7 @@ import { getRelatedSearches, toPublicFacets, toPublicProduct } from "@/lib/catal
 import { parsePublicProductQuery } from "@/lib/catalog/publicProductQuery";
 import { clientIp, rateLimitReserved } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,7 @@ export const dynamic = "force-dynamic";
  * contact fields, no internal keys. Answers { ok, data: { products, facets, appliedFilters }, meta }.
  */
 async function handleGET(request: Request) {
+  await ensureApproved();
   const limit = await rateLimitReserved(`public-products:${clientIp(request)}`, 120, 60);
   if (!limit.ok) {
     return NextResponse.json(

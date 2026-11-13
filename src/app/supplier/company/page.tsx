@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { SupplierProfileHeader } from "@/components/supplier/profile/SupplierProfileHeader";
 import { SupplierProfileFrame } from "@/components/supplier/profile/SupplierProfileFrame";
 import { SupplierProfileSide } from "@/components/supplier/profile/SupplierProfileSide";
@@ -7,14 +8,12 @@ import { SupplierPersonalForm } from "@/components/supplier/profile/SupplierPers
 import { SupplierCompanyForm } from "@/components/supplier/profile/SupplierCompanyForm";
 import { SupplierDocumentsPanel } from "@/components/supplier/profile/SupplierDocumentsPanel";
 import { SupplierVerificationPanel } from "@/components/supplier/profile/SupplierVerificationPanel";
-import { SupplierSecurityPanel } from "@/components/supplier/profile/SupplierSecurityPanel";
 import dash from "@/components/supplier/dashboard/SupplierDashboard.module.css";
 import { ExternalLink } from "lucide-react";
 import { getCatalog } from "@/lib/catalog/data";
 import { requireSupplierPage } from "@/lib/auth/guards";
 import {
   getSupplierProfileOverview,
-  getSupplierSecurity,
   listSupplierDocuments,
 } from "@/lib/supplier/profileService";
 import { withPagePerf } from "@/lib/perf/instrument";
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
 };
 export const dynamic = "force-dynamic";
 
-const TABS = ["company", "personal", "documents", "verification", "security"] as const;
+const TABS = ["company", "personal", "documents", "verification"] as const;
 type Tab = (typeof TABS)[number];
 
 async function SupplierCompanyPage({
@@ -37,6 +36,8 @@ async function SupplierCompanyPage({
   const raw = Array.isArray(query.tab) ? query.tab[0] : query.tab;
   const tab: Tab = (TABS as readonly string[]).includes(raw ?? "") ? (raw as Tab) : "company";
 
+  // the old Security tab is retired: one account-security implementation lives at /supplier/security
+  if (raw === "security") redirect("/supplier/security");
   const { user, context } = await requireSupplierPage(`/supplier/company?tab=${tab}`);
   // the public page of the first seller this company owns; no link when none is linked (never an invented URL)
   const firstKey = context.company.sellerKeys[0];
@@ -55,7 +56,6 @@ async function SupplierCompanyPage({
   }
 
   const documents = tab === "documents" ? await listSupplierDocuments(user.id) : null;
-  const security = tab === "security" ? await getSupplierSecurity(user.id) : null;
 
   return (
     <div className={dash.page}>
@@ -96,7 +96,6 @@ async function SupplierCompanyPage({
           />
         )}
         {tab === "verification" && <SupplierVerificationPanel verification={overview.verification} />}
-        {tab === "security" && security && <SupplierSecurityPanel security={security} />}
       </SupplierProfileFrame>
     </div>
   );

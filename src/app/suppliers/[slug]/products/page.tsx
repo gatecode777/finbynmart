@@ -11,6 +11,7 @@ import { getReviewHeadlineSafe } from "@/lib/reviews/store";
 import { siteUrl } from "@/lib/site";
 import type { SearchParams } from "@/lib/utils/searchParams";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  await ensureApproved();
   const { slug } = await params;
   const supplier = getPublicSupplierBySlug(slug);
   if (!supplier) return { title: "Supplier not found | Finbyn Mart", robots: { index: false } };
@@ -42,6 +44,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 }
 
 async function SupplierProductsPage({ params, searchParams }: Props) {
+  await ensureApproved();
   const { slug } = await params;
   const supplier = getPublicSupplierBySlug(slug);
   if (!supplier) notFound();

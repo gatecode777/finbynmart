@@ -240,3 +240,20 @@
   font-weight: var(--fw-semibold);
   color: var(--primary);
 }
+
+/* Laptop widths (1024 to 1365px): the header shares its row with the account actions, which left the text field only 29 to 130px wide.
+   The button keeps its icon and accessible name and drops the word, which gives the field about 90px more. */
+@media (min-width: 1024px) and (max-width: 1365px) {
+  .submitLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .submit {
+    padding: 0 var(--space-4);
+  }
+}

@@ -620,3 +620,15 @@ a.identityOption:hover {
     padding: 0 var(--space-2);
   }
 }
+
+/* mandatory automatic matching: a visible notice, never a checkbox or a tooltip */
+.matchNotice {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}

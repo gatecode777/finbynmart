@@ -27,7 +27,7 @@ check("S-05 an unknown notification category is refused", S.validateSettings(goo
 check("S-06 unknown top-level keys are refused (buyerId, role, language, currency, timezone)", ["buyerId", "role", "language", "currency", "timezone", "_id"].every((k) => S.validateSettings({ ...good(), [k]: "x" }).fields?.[k]));
 check("S-07 version must be a whole number of 0 or more", [-1, 1.5, "1", null, undefined].every((v) => S.validateSettings(good({ version: v })).fields?.version) && S.validateSettings(good({ version: 4 })).value?.version === 4);
 check("S-08 non-object bodies are refused without throwing", [null, undefined, "x", 5, [], true].every((v) => S.validateSettings(v).ok === false));
-check("S-09 defaults: all optional categories on, period 30 days; account is the only required category", S.DEFAULT_SETTINGS.notifications.inquiries && S.DEFAULT_SETTINGS.notifications.company && S.DEFAULT_SETTINGS.dashboardRange === "30d" && S.REQUIRED_CATEGORIES.join() === "account");
+check("S-09 defaults: all optional categories on, period 30 days; account and support are the required categories (support is always on, see CLAUDE.md)", S.DEFAULT_SETTINGS.notifications.inquiries && S.DEFAULT_SETTINGS.notifications.company && S.DEFAULT_SETTINGS.dashboardRange === "30d" && S.REQUIRED_CATEGORIES.join() === "account,support");
 
 let q = N.parseNotificationQuery({});
 check("Q-01 defaults: all categories, all statuses, page 1, 20 per page", JSON.stringify(q.value) === JSON.stringify({ category: "all", status: "all", page: 1, limit: 20 }));

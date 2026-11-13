@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
+import { findInquiryFor } from "@/lib/leads/access";
 import { ObjectId } from "mongodb";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import { formatSubmitted } from "@/lib/inquiries/confirmation";
-import { inquiriesCollection } from "@/lib/inquiries/service";
 import { buildVersionView, compareViews, type Comparison } from "@/lib/quotations/quotationCompare";
 import { REFERENCE_PATTERN, daysLeft } from "@/lib/quotations/quotationRules";
 import { IDEMPOTENCY_KEY } from "@/lib/quotations/quoteRules";
@@ -24,8 +24,10 @@ import { revisionDraftDoc } from "./quoteService";
 type Failure = { ok: false; status: 403 | 404 | 409 | 422; code: string; message: string; fields?: Record<string, string>; data?: unknown };
 const fail = (status: Failure["status"], code: string, message: string, extra: { fields?: Record<string, string>; data?: unknown } = {}): Failure => ({ ok: false, status, code, message, ...extra });
 class Abort extends Error {
-  constructor(public readonly failure: Failure) {
+  readonly failure: Failure;
+  constructor(failure: Failure) {
     super(failure.code);
+    this.failure = failure;
   }
 }
 const keysOf = (c: SupplierContext) => c.company.sellerKeys;
@@ -113,7 +115,7 @@ export async function createRevision(context: SupplierContext, user: PublicUser,
         if (!base) throw new Abort(fail(404, "NOT_FOUND", "Quotation not found."));
         const current = versions.find((v) => v.isCurrent) ?? base;
         const openDraft = versions.find((v) => v.status === "DRAFT" && !v.isCurrent);
-        const inquiry = await (await inquiriesCollection()).findOne({ _id: base.inquiryId, supplierKey: { $in: keys } }, { session });
+        const inquiry = await findInquiryFor(context, { _id: base.inquiryId }, session);
         if (!inquiry) throw new Abort(fail(404, "NOT_FOUND", "Quotation not found."));
         const elig = revisionEligibility({ status: base.status, isCurrent: base.version === current.version && base.isCurrent, hasOpenRevisionDraft: Boolean(openDraft), inquiryOpen: replyEligibility(inquiry.status, Boolean(inquiry.buyerId)).ok });
         if (!elig.ok) throw new Abort(fail(409, elig.code, elig.message, elig.code === "REVISION_EXISTS" && openDraft ? { data: { reference, version: openDraft.version, editHref: `/supplier/quotations/create?reference=${reference}` } } : {}));

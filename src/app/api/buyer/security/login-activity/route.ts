@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { fail } from "@/lib/auth/http";
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { listSecurityEvents } from "@/lib/security/securityEvents";
 import { LOGIN_ACTIVITY_TYPES, parseSecurityListQuery } from "@/lib/security/securityRules";
 import { withApiPerf } from "@/lib/perf/instrument";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
  * User-Agent is stored or returned; the region is not recorded.
  */
 async function handleGET(request: Request) {
-  const guard = await buyerGuard();
+  const guard = await supportGuard();
   if ("response" in guard) return guard.response;
   const query = parseSecurityListQuery(Object.fromEntries(new URL(request.url).searchParams.entries()));
   if (!query.ok) return fail("Check the page request.", 400, query.fields);

@@ -5,12 +5,14 @@ import { TrustBenefits } from "@/components/homepage/TrustBenefits";
 import { getCategoryDirectory } from "@/lib/catalog/categories";
 import { siteUrl } from "@/lib/site";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  await ensureApproved();
   const sp = await searchParams;
   const base = siteUrl();
   // A selected category or a search is a view of this same page: one canonical URL, kept out of the index.
@@ -25,6 +27,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 }
 
 async function CategoriesPage({ searchParams }: { searchParams: SearchParams }) {
+  await ensureApproved();
   const sp = await searchParams;
   const { nodes, totals } = getCategoryDirectory();
 

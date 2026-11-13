@@ -9,6 +9,7 @@ import { TrustBenefits } from "@/components/homepage/TrustBenefits";
 import { getPublicProductBySlug, getRelatedItems } from "@/lib/catalog/productDetail";
 import { siteUrl } from "@/lib/site";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 // The page depends on the slug only (nothing per visitor: no cookies, headers or search parameters), so it is rendered once and
 // reused for an hour. Wishlist state is fetched by the browser. A slug that does not exist is still a real 404.
@@ -19,6 +20,7 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  await ensureApproved();
   const { slug } = await params;
   const product = getPublicProductBySlug(slug);
   if (!product) return { title: "Product not found | Finbyn Mart", robots: { index: false } };
@@ -38,6 +40,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 async function ProductPage({ params }: ProductPageProps) {
+  await ensureApproved();
   const { slug } = await params;
   const product = getPublicProductBySlug(slug);
   if (!product) notFound();

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { advanceStatus, findInquiryFor } from "@/lib/leads/access";
 import { ObjectId, type ClientSession, type Filter } from "mongodb";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import { ADOPTED_SELLERS, getCatalog } from "@/lib/catalog/data";
@@ -94,8 +95,10 @@ export async function buyerName(buyerId: ObjectId | undefined): Promise<string> 
 export type Failure = { ok: false; status: 403 | 404 | 409 | 422; code: string; message: string; fields?: Record<string, string>; data?: unknown };
 const fail = (status: Failure["status"], code: string, message: string, extra: { fields?: Record<string, string>; data?: unknown } = {}): Failure => ({ ok: false, status, code, message, ...extra });
 class Abort extends Error {
-  constructor(public readonly failure: Failure) {
+  readonly failure: Failure;
+  constructor(failure: Failure) {
     super(failure.code);
+    this.failure = failure;
   }
 }
 
@@ -116,8 +119,7 @@ function eligibilityOf(inquiry: InquiryRow | null): Eligibility {
 export async function loadInquiry(context: SupplierContext, reference: string, session?: ClientSession): Promise<InquiryRow | null> {
   const keys = keysOf(context);
   if (keys.length === 0 || !INQUIRY_REFERENCE.test(reference)) return null;
-  const { inquiries } = await stores();
-  return (await inquiries.findOne({ reference, supplierKey: { $in: keys } }, { session })) as InquiryRow | null;
+  return findInquiryFor(context, { reference }, session) as Promise<InquiryRow | null>;
 }
 
 export interface PickerItem {
@@ -140,7 +142,7 @@ export async function listQuotableInquiries(context: SupplierContext, query: { q
   const meta = { total: 0, page: query.page, limit: query.limit, totalPages: 0 };
   if (keys.length === 0) return { items: [] as PickerItem[], meta, noSellers: true };
   const { inquiries, quotes } = await stores();
-  const and: Filter<InquiryDoc>[] = [{ supplierKey: { $in: keys }, status: { $in: QUOTABLE_INQUIRY_STATUSES }, buyerId: { $exists: true } }];
+  const and: Filter<InquiryDoc>[] = [{ $or: [{ supplierKey: { $in: keys } }, { matchedSupplierKeys: { $in: keys } }], status: { $in: QUOTABLE_INQUIRY_STATUSES }, buyerId: { $exists: true } }];
   if (query.q) {
     const upper = escapeRegex(query.q.toUpperCase());
     and.push({ $or: [{ reference: { $regex: `^${upper}` } }, { productName: { $regex: escapeRegex(query.q), $options: "i" } }] });
@@ -478,11 +480,11 @@ async function toDraftView(context: SupplierContext, doc: QuotationDoc & { _id: 
 async function loadOwnDraft(context: SupplierContext, reference: string, session?: ClientSession) {
   const keys = keysOf(context);
   if (keys.length === 0 || !QUOTATION_REFERENCE.test(reference)) return null;
-  const { quotes, inquiries } = await stores();
+  const { quotes } = await stores();
   // the version being worked on: the highest version that is the current offer OR a draft (a revision draft is not current until it is submitted)
   const doc = (await quotes.findOne({ reference, supplierKey: { $in: keys }, $or: [{ isCurrent: true }, { status: "DRAFT" }] }, { session, sort: { version: -1 } })) as (QuotationDoc & { _id: ObjectId }) | null;
   if (!doc) return null;
-  const inquiry = (await inquiries.findOne({ _id: doc.inquiryId, supplierKey: { $in: keys } }, { session })) as InquiryRow | null;
+  const inquiry = (await findInquiryFor(context, { _id: doc.inquiryId }, session)) as InquiryRow | null;
   return inquiry ? { doc, inquiry } : null;
 }
 
@@ -792,7 +794,7 @@ export async function submitQuotation(context: SupplierContext, user: PublicUser
           history.push({ from: current, to: next, actor: "system", at: now, reason: "Quotation submitted by the supplier" });
           current = next;
         }
-        if (history.length > 0) await (await stores()).inquiries.updateOne({ _id: inquiry._id }, { $set: { status: current, updatedAt: now }, $push: { statusHistory: { $each: history } } }, { session });
+        if (history.length > 0) await advanceStatus(inquiry, context, from, current, history, now, session, false);
 
         const response: SubmitResponse = { reference: doc.reference, version, status: "SENT", currency: fieldsToStore.currency, total: calc.total, submittedAt: now.toISOString(), revised: isRevision };
         const outboxId = new ObjectId();

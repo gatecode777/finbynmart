@@ -17,7 +17,7 @@ export interface SupplierNavItem {
 
 export const SUPPLIER_NAV: SupplierNavItem[] = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/supplier/dashboard" },
-  { key: "inquiries", label: "Inquiries & Leads", icon: MessageSquareText, href: null, match: "/supplier/inquiries", pending: "The supplier inquiries page is not built yet." },
+  { key: "inquiries", label: "Inquiries & Leads", icon: MessageSquareText, href: "/supplier/inquiries" },
   { key: "quotations", label: "Quotations", icon: FileText, href: "/supplier/quotations" },
   { key: "orders", label: "Orders", icon: Package, href: "/supplier/orders" },
   { key: "products", label: "My Products", icon: PackageSearch, href: "/supplier/products" },

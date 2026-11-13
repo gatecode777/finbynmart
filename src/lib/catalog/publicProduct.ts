@@ -12,7 +12,8 @@ export interface PublicProduct {
   name: string;
   url: string;
   image: { src: string; remote: boolean } | null;
-  price: { min: number; max?: number; currency: "INR"; unit: string; estimated: boolean };
+  /** `min` is null for a price-on-request product (never zero). */
+  price: { min: number | null; max?: number; currency: "INR"; unit: string; estimated: boolean; onRequest?: boolean };
   moq?: { quantity: number; unit: string };
   category: { id: string; name: string };
   subcategory: { id: string; name: string };
@@ -30,11 +31,11 @@ export interface PublicProduct {
     verificationStatus: "verified" | "unverified";
   };
   rating?: { value: number; count?: number };
-  source: "catalog" | "sample";
+  source: "catalog" | "sample" | "supplier";
 }
 
 /** Hosts a remote product image may come from. Anything else is treated as a missing image. */
-const IMAGE_HOSTS = new Set(["assets.myntassets.com", "www.finbynkart.com"]);
+const IMAGE_HOSTS = new Set(["assets.myntassets.com", "www.finbynkart.com", "ik.imagekit.io"]);
 
 /**
  * Normalises the image formats the project holds (a single string, an array, an object with a url) into
@@ -76,7 +77,7 @@ export function toPublicProduct({ card, meta }: ListingItem): PublicProduct {
     name: card.name,
     url: card.href,
     image: normalizeImage(tile.imageSrc),
-    price: { min: card.priceMin, max: card.priceMax, currency: "INR", unit: card.priceUnit, estimated: Boolean(card.priceIsEstimated) },
+    price: card.priceOnRequest ? { min: null, currency: "INR", unit: card.priceUnit, estimated: false, onRequest: true } : { min: card.priceMin, max: card.priceMax, currency: "INR", unit: card.priceUnit, estimated: Boolean(card.priceIsEstimated) },
     moq: card.moq !== undefined && card.moqUnit ? { quantity: card.moq, unit: unitKey(card.moqUnit) } : undefined,
     category: meta.category,
     subcategory: meta.subcategory,

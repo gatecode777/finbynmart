@@ -1,4 +1,5 @@
 import { AWAITING_STATUSES } from "@/lib/inquiries/buyerListRules";
+import { getApproved } from "@/lib/catalog/approvedStore";
 import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/db/mongo";
 import { getCatalog } from "@/lib/catalog/data";
@@ -122,6 +123,7 @@ export interface CategoryShare {
 export function categoryOfProduct(productKey: string | null): string {
   if (!productKey) return "General inquiries";
   if (/^\d+$/.test(productKey)) return getCatalog().productById.get(Number(productKey))?.categoryName ?? "Other";
+  if (productKey.startsWith("sp-")) return getApproved().byId.get(productKey)?.categoryName ?? "Other";
   return getSampleProduct(productKey)?.category.name ?? "Other";
 }
 

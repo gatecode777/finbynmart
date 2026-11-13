@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getAdminPermissions, type AdminCapability } from "@/lib/admin/permissions";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "./session";
 import type { PublicUser } from "./users";
@@ -77,4 +78,24 @@ export async function requireSupportApi(): Promise<{ user: PublicUser } | { resp
     if (context && context.company.status === "ACTIVE") return { user };
   }
   return { response: forbiddenResponse() };
+}
+
+/**
+ * Admin access (page and API). The role and the capability come from the account record on the server (`getAdminPermissions`), never from the
+ * request. Anonymous → sign-in; a signed-in non-admin or an admin without the capability → /forbidden?portal=admin (pages) or 403 JSON (APIs).
+ */
+export async function requireAdminPage(nextPath: string, capability: AdminCapability): Promise<{ user: PublicUser; permissions: AdminCapability[] }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) redirect(signInPath(nextPath));
+  const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
+  if (!permissions.includes(capability)) redirect("/forbidden?portal=admin");
+  return { user, permissions };
+}
+
+export async function requireAdminApi(capability: AdminCapability): Promise<{ user: PublicUser; permissions: AdminCapability[] } | { response: NextResponse }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) return { response: unauthorizedResponse() };
+  const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
+  if (!permissions.includes(capability)) return { response: forbiddenResponse() };
+  return { user, permissions };
 }

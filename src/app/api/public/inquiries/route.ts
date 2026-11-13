@@ -2,7 +2,8 @@ import { categoryOfProduct } from "@/lib/buyer/dashboard";
 import { slugify } from "@/lib/catalog/slug";
 import { createHash } from "node:crypto";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { runDistribution } from "@/lib/leads/distribution";
 import { clean, fail, readSmallJson, tooMany } from "@/lib/auth/http";
 import { getCurrentUser } from "@/lib/auth/session";
 import { resolveSupplier } from "@/lib/catalog/productRef";
@@ -13,6 +14,7 @@ import { submitInquiry, type Identity } from "@/lib/inquiries/service";
 import { validateInquiry } from "@/lib/inquiries/validate";
 import { clientIp, rateLimit } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
+import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +30,7 @@ const NOT_NOTIFIED = "The supplier is not told by email or inside the platform y
  * Success is returned only after the record was written, and it says what has NOT happened (no supplier notification).
  */
 async function handlePOST(request: Request) {
+  await ensureApproved();
   const user = await getCurrentUser().catch(() => null);
   if (user && user.role !== "buyer") return fail("Supplier accounts cannot send inquiries. Use a buyer account, or sign out to send as a guest.", 403);
 
@@ -68,7 +71,7 @@ async function handlePOST(request: Request) {
   }
 
   const identity: Identity = user ? { kind: "buyer", buyerId: user.id } : { kind: "guest", guest: value.guest! };
-  const ref = resolveSupplier(supplier.slug) ?? { key: supplier.id, name: supplier.name, source: supplier.source };
+  const ref = resolveSupplier(supplier.slug) ?? { key: supplier.id, name: supplier.name, source: supplier.source === "company" ? ("supplier" as const) : supplier.source };
 
   try {
     const result = await submitInquiry(
@@ -95,6 +98,8 @@ async function handlePOST(request: Request) {
         ? fail("This request key was already used for a different inquiry. Reload the page and try again.", 409)
         : fail("You already sent this inquiry a moment ago. Check your reference, or wait a few minutes to send it again.", 409);
     }
+    // best-effort first pass right after the response; the durable job is already stored, so the worker finishes it if this process ends
+    if (!result.replay) after(() => runDistribution({ maxJobs: 1, maxBatches: 3 }).then(() => undefined, () => undefined));
     const tracking = user
       ? "You can follow it under My Inquiries."
       : "Keep this reference: guest inquiries cannot be tracked online yet, and anyone who has only the reference cannot open it.";

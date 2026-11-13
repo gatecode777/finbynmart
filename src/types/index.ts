@@ -179,6 +179,8 @@ export interface ProductCardData {
   priceMax?: number;
   priceUnit: string;
   priceIsEstimated?: boolean;
+  /** A supplier product with no stated price: shown as "Price on request", never as zero. */
+  priceOnRequest?: boolean;
   moq?: number;
   moqUnit?: string;
   supplierName: string;
@@ -255,5 +257,7 @@ export interface CategoryNode {
 
 export interface CategoryDirectory {
   nodes: CategoryNode[];
+  /** Every category a supplier may manage products in (separate from public discoverability: an empty category is listed here, not in `nodes`). */
+  management: CategoryNode[];
   totals: { mainCategories: number; subcategories: number; products: number };
 }

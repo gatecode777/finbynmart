@@ -1,4 +1,4 @@
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { revokeBuyerSession } from "@/lib/buyer/securitySessions";
 import { isCrossSiteWrite } from "@/lib/security/sameOrigin";
 import { SESSION_PUBLIC_ID } from "@/lib/security/securityRules";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
  */
 async function handleDELETE(request: Request, { params }: { params: Promise<{ sessionId: string }> }) {
   if (isCrossSiteWrite(request)) return json({ ok: false, message: "This request was not allowed." }, 403);
-  const guard = await buyerGuard({ key: "buyer-session-revoke", limit: 20, windowSeconds: 600 });
+  const guard = await supportGuard({ key: "buyer-session-revoke", limit: 20, windowSeconds: 600 });
   if ("response" in guard) return guard.response;
   const { sessionId } = await params;
   if (!SESSION_PUBLIC_ID.test(sessionId)) return json({ ok: false, message: "That session was not found." }, 404);

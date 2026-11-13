@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isCrossSiteWrite } from "@/lib/security/sameOrigin";
 import { requireSupplierApi } from "@/lib/auth/guards";
 import { rateLimit } from "@/lib/security/rateLimit";
 import { isDocumentType } from "@/lib/buyer/profileRules";
@@ -19,6 +20,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (isCrossSiteWrite(request)) return NextResponse.json({ ok: false, message: "This request was blocked." }, { status: 403, headers: { "Cache-Control": "private, no-store" } });
   const guard = await requireSupplierApi();
   if ("response" in guard) return guard.response;
 

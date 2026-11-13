@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, ReactNode, useId, useRef, useState } from "react";
+import { SHARING_NOTICE } from "@/lib/leads/matchingRules";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -465,10 +466,16 @@ export function InquiryWorkspace({ supplier, products, moreProducts, initialProd
               {err("consent")}
             </div>
 
+            {signedIn && product && (
+              <p className={styles.matchNotice} role="note">
+                <strong>{SHARING_NOTICE}</strong> Matching suppliers see the product, quantity, delivery city and your message; they do not see your phone, email or address, and they cannot see other suppliers&apos; replies. Do not write personal contact details in your message.
+              </p>
+            )}
+
             <div className={styles.actions}>
               <Button type="submit" disabled={status === "submitting"} className={styles.send}>
                 <Send size={18} aria-hidden />
-                {status === "submitting" ? "Sending..." : "Send Inquiry to Supplier"}
+                {status === "submitting" ? "Sending..." : signedIn && product ? "Send Requirement" : "Send Inquiry to Supplier"}
               </Button>
               <Button type="button" variant="secondary" disabled={status === "submitting"} onClick={() => void send(true)} className={styles.send}>
                 <Bookmark size={18} aria-hidden />

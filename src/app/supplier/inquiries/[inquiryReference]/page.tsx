@@ -68,6 +68,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
         <div className={styles.stack}>
           <section className={dash.card} aria-labelledby="req-title">
             <h2 id="req-title" className={dash.cardTitle}><FileText size={20} aria-hidden /> Original Requirement</h2>
+            <p className={styles.note} style={{ margin: 0 }}><strong>{detail.recipient.type === "DIRECT" ? "Direct inquiry" : "Matching lead"}</strong> · {detail.recipient.badge}</p>
             <p style={{ margin: 0, fontWeight: 700 }}>{req.title}</p>
             {req.description ? <ExpandableText text={req.description} /> : <p className={styles.description}>{NOT_PROVIDED}</p>}
             <dl className={styles.facts}>
@@ -143,8 +144,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
       </div>
 
       <p className={styles.footerLinks}>
-        <Link href="/supplier/dashboard" className={styles.linkBtn}>Back to Dashboard</Link>
-        <span className={styles.metaText}> · The inquiries list page is not built yet, so this returns to your dashboard.</span>
+        <Link href="/supplier/inquiries" className={styles.linkBtn}>Back to Inquiries &amp; Leads</Link>
       </p>
     </div>
   );

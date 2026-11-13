@@ -7,7 +7,7 @@
  * (`/admin/*` and `/super-admin/*`, with their own authorization; neither exists yet).
  */
 export type Portal = "PUBLIC" | "BUYER" | "SUPPLIER" | "ADMIN";
-export type AccountRole = "buyer" | "supplier";
+export type AccountRole = "buyer" | "supplier" | "admin";
 
 /**
  * The supplier portal (Page 39 onward) is built.
@@ -26,10 +26,11 @@ export function portalOfPath(path: string): Portal {
 /** The home page of the role's own portal. */
 export function portalHome(role: AccountRole): string {
   if (role === "buyer") return "/buyer/dashboard";
+  if (role === "admin") return "/admin/inquiries";
   return SUPPLIER_PORTAL_AVAILABLE ? "/supplier/dashboard" : "/";
 }
 
-const OWN_PORTAL: Record<AccountRole, Portal> = { buyer: "BUYER", supplier: "SUPPLIER" };
+const OWN_PORTAL: Record<AccountRole, Portal> = { buyer: "BUYER", supplier: "SUPPLIER", admin: "ADMIN" };
 
 /**
  * Where to go after a successful sign-in or registration. The role's portal home, unless the visitor was heading somewhere they may

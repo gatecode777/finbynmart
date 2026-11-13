@@ -73,12 +73,26 @@ export function validateAdjust(i: AdjustInput): AdjustErrors {
 }
 
 /** The only place a movement's effect is computed: delta in milli, or null when it would leave negative stock. */
-export function movementEffect(kind: AdjustKind, qtyMilli: number, currentMilli: number | null): { delta: number; result: number } | { error: string } {
+export function movementEffect(kind: AdjustKind, qtyMilli: number, currentMilli: number | null, reservedMilli = 0): { delta: number; result: number } | { error: string } {
   if (kind === "OPENING") return currentMilli === null ? { delta: qtyMilli, result: qtyMilli } : { error: "This product already has a balance. Use Add or Remove stock." };
   if (currentMilli === null) return { error: "Set an opening balance first. This product is not tracked yet." };
   const delta = kind === "ADD" ? qtyMilli : -qtyMilli;
   const result = currentMilli + delta;
   if (result < 0) return { error: "That would make stock negative. Negative stock is not allowed." };
+  if (result < reservedMilli) return { error: "That would leave less stock than is reserved for confirmed orders." };
   if (result > QTY_MAX_MILLI) return { error: "Resulting stock is above the supported maximum." };
   return { delta, result };
 }
+
+/** Available = on hand minus what confirmed orders have reserved. Never negative by construction (a reservation needs enough available stock). */
+export const availableMilli = (onHandMilli: number, reservedMilli = 0): number => onHandMilli - reservedMilli;
+
+/** An order quantity as milli-units, only when it is exact to three decimals (otherwise the line cannot be reserved safely). */
+export function orderQtyMilli(quantity: number): number | null {
+  if (!Number.isFinite(quantity) || quantity <= 0) return null;
+  const m = Math.round(quantity * MILLI);
+  return Math.abs(m / MILLI - quantity) < 1e-9 && m >= 1 && m <= QTY_MAX_MILLI ? m : null;
+}
+
+/** Reserving needs enough AVAILABLE stock (no backorder). */
+export const canReserve = (onHandMilli: number, reservedMilli: number, wantMilli: number): boolean => wantMilli > 0 && availableMilli(onHandMilli, reservedMilli) >= wantMilli;

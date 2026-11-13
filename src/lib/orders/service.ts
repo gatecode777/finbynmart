@@ -77,6 +77,11 @@ export interface OrderDoc {
   placedAt: Date;
   updatedAt: Date;
   cancellationRequest?: { at: Date; reason: string; previousStatus: OrderStatus };
+  /** Written by explicit order confirmation only (src/lib/orders/orderConfirmation.ts). */
+  confirmKey?: string;
+  confirmedFromVersion?: number;
+  /** TRACKED = stock was reserved in the inventory ledger for this order; UNTRACKED = the item has no inventory position and none was invented. */
+  inventory?: { mode: "TRACKED"; positionId: ObjectId; reservedMilli: number } | { mode: "UNTRACKED" };
 }
 
 const NO_DATE = new Date("9999-12-31T00:00:00.000Z");
@@ -115,6 +120,9 @@ export async function ordersCollection(): Promise<Collection<OrderDoc>> {
     col.createIndex({ buyerId: 1, updatedAt: -1, _id: -1 }, { name: "buyer_orders_updated" }),
     col.createIndex({ buyerId: 1, currency: 1, totalMinor: -1, _id: -1 }, { name: "buyer_orders_amount" }),
     col.createIndex({ buyerId: 1, expectedSort: 1, _id: 1 }, { name: "buyer_orders_expected" }),
+    // one order per quotation, and one idempotency key per buyer, enforced by the database even for simultaneous confirmations
+    col.createIndex({ quotationReference: 1 }, { unique: true, partialFilterExpression: { quotationReference: { $exists: true } }, name: "order_per_quotation" }),
+    col.createIndex({ buyerId: 1, confirmKey: 1 }, { unique: true, partialFilterExpression: { confirmKey: { $exists: true } }, name: "order_confirm_key" }),
   ]);
   await indexReady;
   return col;

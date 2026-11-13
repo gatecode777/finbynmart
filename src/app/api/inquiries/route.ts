@@ -32,7 +32,7 @@ async function handlePOST(request: Request) {
     return fail("Check the highlighted fields.", 400, { message: "Write your question in at least 10 characters." });
   }
 
-  let supplier: { key: string; name: string; source: "catalog" | "sample" } | undefined;
+  let supplier: { key: string; name: string; source: "catalog" | "sample" | "supplier" } | undefined;
   let quantity = 0;
   let unit: string | undefined = unitGiven || undefined;
   let product: ReturnType<typeof resolveProduct>;

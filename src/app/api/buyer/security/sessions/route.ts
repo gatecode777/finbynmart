@@ -1,4 +1,4 @@
-import { buyerGuard, json } from "@/lib/buyer/api";
+import { supportGuard, json } from "@/lib/buyer/api";
 import { getBuyerSessions } from "@/lib/buyer/securitySessions";
 import { withApiPerf } from "@/lib/perf/instrument";
 
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
  * public id, device label, creation and last-active time and "Unknown" for the region. No token, cookie, hash, IP address or User-Agent is returned.
  */
 async function handleGET() {
-  const guard = await buyerGuard();
+  const guard = await supportGuard();
   if ("response" in guard) return guard.response;
   try {
     const answer = await getBuyerSessions(guard.user.id);

@@ -4,6 +4,7 @@ import { BadgeCheck, FileText, History, ListChecks, MapPin, Package, Paperclip, 
 import type { QuotationDetail } from "@/lib/quotations/service";
 import d from "../inquiries/detail/InquiryDetail.module.css";
 import { QuotationActions } from "./QuotationActions";
+import { ConfirmOrderPanel } from "./ConfirmOrderPanel";
 import { QuotationStatusPill } from "./QuotationStatusPill";
 import q from "./Quotations.module.css";
 
@@ -33,6 +34,8 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
         can={{ accept: x.capabilities.accept, reject: x.capabilities.reject, requestRevision: x.capabilities.requestRevision }}
         compareHref={compareHref}
       />
+
+      {qt.isCurrent && <ConfirmOrderPanel reference={qt.reference} />}
 
       {!qt.isCurrent && (
         <p className={`${q.notice} ${q.noticeInfo}`} role="status">
