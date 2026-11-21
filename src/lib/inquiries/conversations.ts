@@ -82,7 +82,8 @@ export async function listResponders(buyerId: string, reference: string, now = n
       conversation: conversationToken(inquiry._id!, key),
       name: selected ? inquiry.supplierName : (r?.name ?? o?.supplierName ?? "Supplier"),
       origin: selected ? "SELECTED" : "MATCHED",
-      originLabel: selected ? "Selected supplier" : "Additional matching supplier",
+      // only a buyer-selected company is "Selected"; a general requirement has none, so every responder there is simply a matching supplier
+      originLabel: selected ? "Selected supplier" : inquiry.sourceType === "GENERAL_REQUIREMENT" ? "Matching supplier" : "Additional matching supplier",
       replies: r?.replies ?? 0,
       lastReply: r ? { summary: summaryOf(r.body), at: r.at.toISOString(), atLabel: formatSubmitted(r.at.toISOString()) } : null,
       lastActivityAt: last?.toISOString() ?? null,

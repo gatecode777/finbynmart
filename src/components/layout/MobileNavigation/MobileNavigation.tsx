@@ -17,7 +17,7 @@ export function MobileNavigation() {
   useEffect(() => {
     if (!open) return;
     fetch("/api/auth/me", { cache: "no-store" })
-      .then((res) => res.json())
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("unavailable"))))
       .then((data) => setUser(data.user ?? null))
       .catch(() => undefined);
 
@@ -125,7 +125,7 @@ export function MobileNavigation() {
                   <>
                     <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
                       <ClipboardList size={17} strokeWidth={2} aria-hidden />
-                      Get Best Price
+                      Get Quotes
                     </Link>
                     <Link href="/buyer/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
                       <UserRound size={17} strokeWidth={2} aria-hidden />
@@ -136,7 +136,7 @@ export function MobileNavigation() {
                   <>
                     <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
                       <ClipboardList size={17} strokeWidth={2} aria-hidden />
-                      Get Best Price
+                      Get Quotes
                     </Link>
                     <Link href="/sign-in" className={styles.navLink} onClick={() => setOpen(false)}>
                       <UserRound size={17} strokeWidth={2} aria-hidden />

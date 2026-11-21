@@ -1,16 +1,15 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Send } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { SignInPrompt } from "@/components/ui/SignInPrompt";
 import {
   validateRequirementForm,
   type RequirementFormErrors,
   type RequirementFormValues,
 } from "@/lib/validations/requirement";
-import { submitRequirement } from "@/lib/api/requirements";
 import styles from "./RequirementForm.module.css";
 
 const initialValues: RequirementFormValues = {
@@ -22,27 +21,21 @@ const initialValues: RequirementFormValues = {
 interface RequirementFormProps {
   /** Prefills the product/service field (for example from a category page). */
   defaultProduct?: string;
-  /** Stored with the requirement so suppliers see where it came from. */
   category?: string;
   subcategory?: string;
   /** Prefills the quantity (for example from a product page). */
   defaultQuantity?: string;
   /** Unit of the prefilled quantity, stored with the requirement. */
   unit?: string;
-  /** Addresses the requirement to one supplier (from a supplier profile). */
   supplierId?: string;
+  /** Set from a supplier profile link: a requirement is never addressed to one company (use Send Inquiry for that). */
   supplierName?: string;
 }
 
-export function RequirementForm({ defaultProduct = "", category, subcategory, defaultQuantity = "", unit, supplierId, supplierName }: RequirementFormProps) {
+export function RequirementForm({ defaultProduct = "", defaultQuantity = "", supplierName }: RequirementFormProps) {
+  const router = useRouter();
   const [values, setValues] = useState({ ...initialValues, product: defaultProduct, quantity: defaultQuantity });
   const [errors, setErrors] = useState<RequirementFormErrors>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">(
-    "idle"
-  );
-  const [statusMessage, setStatusMessage] = useState("");
-  const [needsSignIn, setNeedsSignIn] = useState(false);
-
   function updateField(field: keyof RequirementFormValues, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
   }
@@ -57,27 +50,16 @@ export function RequirementForm({ defaultProduct = "", category, subcategory, de
       return;
     }
 
-    setStatus("submitting");
-    setNeedsSignIn(false);
-    const result = await submitRequirement(values, { category, subcategory, unit, supplierId });
-
-    if (result.status === "ok") {
-      setStatus("ok");
-      setStatusMessage("Your requirement has been submitted.");
-      setValues(initialValues);
-    } else {
-      setStatus("error");
-      setStatusMessage(result.message);
-      setNeedsSignIn(Boolean(result.needsSignIn));
-      if (result.fields) setErrors(result.fields);
-    }
+    // the homepage strip only starts a requirement: the product must be chosen from the catalogue on the full form, which makes the real submission
+    const params = new URLSearchParams({ product: values.product.trim(), quantity: values.quantity.trim(), city: values.city.trim() });
+    router.push(`/post-requirement?${params}`);
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       {supplierName && (
         <p className={styles.supplierNote}>
-          This requirement is addressed to <strong>{supplierName}</strong>.
+          A requirement is shared with eligible matching suppliers, not one company. To contact <strong>{supplierName}</strong> directly, use Send Inquiry on its page.
         </p>
       )}
       <Input
@@ -105,20 +87,11 @@ export function RequirementForm({ defaultProduct = "", category, subcategory, de
         onChange={(event) => updateField("city", event.target.value)}
         error={errors.city}
       />
-      <Button type="submit" className={styles.submit} disabled={status === "submitting"}>
+      <Button type="submit" className={styles.submit}>
         <Send size={16} strokeWidth={2} aria-hidden />
-        {status === "submitting" ? "Submitting..." : "Submit Requirement"}
+        Continue
       </Button>
 
-      {statusMessage && (
-        <p
-          className={`${styles.status} ${status === "ok" ? styles.statusOk : styles.statusError}`}
-          role="status"
-        >
-          {statusMessage}
-        </p>
-      )}
-      {needsSignIn && <SignInPrompt className={styles.status} />}
     </form>
   );
 }

@@ -74,6 +74,19 @@ export async function readStored(reference: string): Promise<{ bytes: Buffer; mi
   }
 }
 
+/** Size in bytes of a stored file, or null when it is missing or the reference is malformed (no bytes are read). */
+export async function statStored(reference: string): Promise<number | null> {
+  if (!REFERENCE.test(reference) || !storageDirectory()) return null;
+  try {
+    const root = await directory();
+    const file = path.join(root, reference);
+    if (!path.resolve(file).startsWith(root + path.sep)) return null;
+    return (await fs.stat(file)).size;
+  } catch {
+    return null;
+  }
+}
+
 export async function removeStored(reference: string): Promise<void> {
   if (!REFERENCE.test(reference) || !storageDirectory()) return;
   try {

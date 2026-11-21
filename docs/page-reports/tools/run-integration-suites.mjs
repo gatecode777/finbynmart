@@ -1,4 +1,4 @@
-// Runs the four integration suites one after another against the ISOLATED test database named by the guard's variables, each in its own database
+// Runs the seven integration suites one after another against the ISOLATED test database named by the guard's variables, each in its own database
 // (finbyn_it_<suite>), and prints PASS / FAIL / BLOCKED per suite. It never reads MONGODB_URI/MONGODB_DB; the guard inside each suite re-checks everything.
 //   FINBYN_TEST_MODE=1 TEST_MONGODB_URI=... TEST_MONGODB_DB=finbyn_it_run TEST_DB_CONFIRM=finbyn_it_run node docs/page-reports/tools/run-integration-suites.mjs
 import { spawnSync } from "node:child_process";
@@ -9,7 +9,7 @@ if (need.length) {
   console.log(`BLOCKED: set ${need.join(", ")} (names only shown). Nothing was run.`);
   process.exit(2);
 }
-const suites = [["it-supplier-flows", "supplier"], ["it-lead-distribution", "leads"], ["it-approved-flow", "catalog"], ["it-conversation-flow", "conv"]];
+const suites = [["it-supplier-flows", "supplier"], ["it-lead-distribution", "leads"], ["it-approved-flow", "catalog"], ["it-conversation-flow", "conv"], ["it-requirement-flow", "req"], ["it-specifications-flow", "spec"], ["it-admin-products", "adminprod"], ["it-admin-inquiries", "admininq"], ["it-admin-suppliers", "adminsup"], ["it-admin-verification", "verify"], ["it-admin-categories", "categories"], ["it-recently-viewed", "recent"], ["it-admin-buyers", "adminbuy"], ["it-admin-quotations", "adminqt"], ["it-admin-notifications", "adminnotif"], ["it-admin-reports", "adminrep"], ["it-admin-settings", "adminset"], ["it-admin-audit-logs", "adminaud"]];
 const rows = [];
 for (const [file, tag] of suites) {
   const db = `finbyn_it_${tag}`;

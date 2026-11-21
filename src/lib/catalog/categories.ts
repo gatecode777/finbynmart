@@ -4,7 +4,7 @@ import { getCategoryPage } from "@/lib/constants/categoryPages";
 import type { CategoryDirectory, CategoryNode } from "@/types";
 import { getCatalog } from "./data";
 import { slugify } from "./slug";
-import { approvedCountsByNode, approvedVersion } from "./approvedStore";
+import { approvedCountsByNode, approvedVersion, categoryOverlayVersion, isCategoryActive } from "./approvedStore";
 
 /**
  * Server-only. Builds the public category directory shown on /categories.
@@ -24,11 +24,12 @@ import { approvedCountsByNode, approvedVersion } from "./approvedStore";
  */
 const CATALOG_MAIN_ID = "apparel-fashion";
 
-const globalForDirectory = globalThis as unknown as { __finbynCategoriesV3?: { version: number; directory: CategoryDirectory } };
+const globalForDirectory = globalThis as unknown as { __finbynCategoriesV3?: { version: string; directory: CategoryDirectory } };
 
 /** Rebuilt only when the approved-product snapshot changed (the catalogue part is immutable), so counts follow real eligible content. */
 export function getCategoryDirectory(): CategoryDirectory {
-  const version = approvedVersion();
+  // rebuilt when the approved snapshot OR the administrative activation overlay changed
+  const version = `${approvedVersion()}:${categoryOverlayVersion()}`;
   const cached = globalForDirectory.__finbynCategoriesV3;
   if (cached && cached.version === version) return cached.directory;
   const directory = build();
@@ -81,7 +82,8 @@ function build(): CategoryDirectory {
       childIds: [],
       productCount,
       href: `/categories/${top.id}`,
-      isActive: true,
+      // an administrator's deactivation (effective activation: every node below a main category follows it)
+      isActive: isCategoryActive(top.id),
       imageSrc: top.imageSrc,
       imageAlt: `${top.name} products`,
       iconKey: top.id,
@@ -101,7 +103,7 @@ function build(): CategoryDirectory {
           childIds: [],
           productCount: info.count + (approvedCounts.get(deptId) ?? 0),
           href: `/products?department=${encodeURIComponent(department)}`,
-          isActive: true,
+          isActive: main.isActive,
           imageSrc: info.image,
           imageRemote: true,
           imageAlt: `${department} apparel`,
@@ -118,7 +120,7 @@ function build(): CategoryDirectory {
             childIds: [],
             productCount: c.count + (approvedCounts.get(`${deptId}/${slugify(name)}`) ?? 0),
             href: `/categories/${main.id}/${slugify(name)}`,
-            isActive: true,
+            isActive: main.isActive,
             imageSrc: c.image,
             imageRemote: true,
             imageAlt: name,
@@ -209,5 +211,7 @@ export function resolveCategoryRoute(slug: string): { type: "category" | "redire
   if (slug === "industrial-supplies" || slug === "more") return { type: "all" };
   const canonical = SLUG_REDIRECTS[slug] ?? slug;
   if (!getCategoryRecord(canonical)) return { type: "none" };
+  // an administratively deactivated category follows the established unavailable policy (not found): its URL never reveals its products
+  if (!isCategoryActive(canonical)) return { type: "none" };
   return canonical === slug ? { type: "category", slug } : { type: "redirect", slug: canonical };
 }

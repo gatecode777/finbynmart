@@ -76,6 +76,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
               <div><dt>Category</dt><dd>{req.category ?? NOT_PROVIDED}</dd></div>
               <div><dt>Requested quantity</dt><dd>{req.quantity.toLocaleString("en-IN")}{req.unit ? ` ${req.unit}` : ""}</dd></div>
               <div><dt>Delivery location</dt><dd>{req.deliveryLocation ?? NOT_PROVIDED}</dd></div>
+              <div><dt>Required by</dt><dd>{req.requiredBy ?? NOT_PROVIDED}</dd></div>
             </dl>
             {req.specifications.length > 0 && (
               <>

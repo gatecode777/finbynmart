@@ -254,3 +254,18 @@
 .ctaSecondary:hover {
   background: var(--primary-light);
 }
+
+.attrs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.attrLabel {
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}

@@ -13,6 +13,12 @@ import styles from "./InquiryDetail.module.css";
 const PREVIEW = 280;
 
 function nextSteps(d: InquiryDetailDto): { text: string; href?: string; linkText?: string }[] {
+  if (d.sourceType === "GENERAL_REQUIREMENT" && (d.status === "NEW" || d.status === "NOTIFIED" || d.status === "IN_PROGRESS")) {
+    return [
+      { text: "Matching suppliers are identified automatically; replies and quotations appear under Supplier Responses as they arrive. Nothing is promised about how many." },
+      ...(d.canCancel ? [{ text: "No longer needed? Cancel this requirement: it also stops matching that has not finished." }] : []),
+    ];
+  }
   switch (d.status) {
     case "NEW":
     case "NOTIFIED":
@@ -83,6 +89,7 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
               <div><dt>Inquiry Type</dt><dd>{d.inquiryTypeLabel}</dd></div>
               <div><dt>Requested Quantity</dt><dd>{formatQuantity(d.quantity, d.unit)}</dd></div>
               <div><dt>Preferred Delivery Location</dt><dd>{d.deliveryLocation ?? "Not Specified"}</dd></div>
+              {d.sourceType === "GENERAL_REQUIREMENT" && <div><dt>Required By</dt><dd>{d.requiredBy ?? "Not Specified"}</dd></div>}
               <div>
                 <dt>Description</dt>
                 <dd>
@@ -156,8 +163,11 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
           </section>
 
           <section className={styles.card} aria-labelledby="supplier-title">
-            <h2 id="supplier-title" className={styles.cardTitle}>Supplier</h2>
-            <div className={styles.supplier}>
+            <h2 id="supplier-title" className={styles.cardTitle}>{d.sourceType === "GENERAL_REQUIREMENT" ? "Suppliers" : "Supplier"}</h2>
+            {d.sourceType === "GENERAL_REQUIREMENT" ? (
+              <p className={styles.muted}>You did not select a supplier. This requirement is shared with eligible matching suppliers; those that reply or quote appear under Supplier Responses.</p>
+            ) : (
+            <><div className={styles.supplier}>
               <span className={styles.initials} aria-hidden>{d.supplier.initials}</span>
               <div>
                 <p className={styles.productName}>{d.supplier.url ? <Link href={d.supplier.url}>{d.supplier.name}</Link> : d.supplier.name}</p>
@@ -166,7 +176,8 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
                 {!d.supplier.available && <p className={styles.muted}>This supplier no longer has a public page; the saved name is shown.</p>}
               </div>
             </div>
-            <p className={styles.muted}>This inquiry was sent to this one supplier.</p>
+            <p className={styles.muted}>This inquiry was sent to this one supplier.</p></>
+            )}
           </section>
 
           <section className={styles.card} aria-labelledby="next-title">

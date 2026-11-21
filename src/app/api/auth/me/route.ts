@@ -8,7 +8,8 @@ async function handleGET() {
   try {
     return NextResponse.json({ user: await getCurrentUser() }, { headers: { "Cache-Control": "no-store" } });
   } catch {
-    return NextResponse.json({ user: null });
+    // "could not tell" is NOT "signed out": a 503 lets the header retry instead of showing a guest to a signed-in visitor
+    return NextResponse.json({ user: null, unavailable: true }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
 }
 

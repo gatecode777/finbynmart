@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProductDetailSection } from "@/components/product/ProductDetailSection";
+import { RecentlyViewedRecorder } from "@/components/product/RecentlyViewedRecorder";
 import { ProductTabs } from "@/components/product/ProductTabs";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { TrustBenefits } from "@/components/homepage/TrustBenefits";
@@ -83,6 +84,7 @@ async function ProductPage({ params }: ProductPageProps) {
         <Breadcrumb items={product.breadcrumb} />
       </Container>
       <ProductDetailSection product={product} />
+      <RecentlyViewedRecorder productKey={product.id} />
       <Container>
         <ProductTabs
           name={product.name}

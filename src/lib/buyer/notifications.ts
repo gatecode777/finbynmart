@@ -178,6 +178,9 @@ export async function markAllRead(buyerId: string, category: NotificationQuery["
 export const notifyInquirySubmitted = (buyerId: string, reference: string, supplierName: string) =>
   notifyBuyer(buyerId, { category: "inquiries", type: "INQUIRY_SUBMITTED", title: "Inquiry saved", body: `Your inquiry ${reference} to ${supplierName} was saved. The supplier is not notified automatically yet, so no reply can be expected through this site.`, link: "/buyer/inquiries", dedupeKey: `inquiry:${reference}` });
 
+export const notifyRequirementSubmitted = (buyerId: string, reference: string) =>
+  notifyBuyer(buyerId, { category: "inquiries", type: "REQUIREMENT_SUBMITTED", title: "Requirement saved", body: `Your requirement ${reference} was saved. Matching suppliers are being identified: follow its progress under My Inquiries. No number of replies is promised.`, link: `/buyer/inquiries/${reference}`, dedupeKey: `inquiry:${reference}` });
+
 export const notifyDocumentUploaded = (buyerId: string, documentId: string, documentLabel: string, replaced: boolean) =>
   notifyBuyer(buyerId, { category: "company", type: replaced ? "DOCUMENT_REPLACED" : "DOCUMENT_UPLOADED", title: replaced ? "Company document replaced" : "Company document uploaded", body: `${documentLabel} was ${replaced ? "replaced" : "uploaded"}. Its status is Pending: no review process exists yet, so it is not verified.`, link: "/buyer/profile?tab=documents", dedupeKey: `document:${documentId}` });
 

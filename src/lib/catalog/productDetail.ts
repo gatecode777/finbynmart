@@ -8,7 +8,7 @@ import { initials, slugify } from "./slug";
 import { getProductBySlug as getCatalogProductBySlug } from "./queries";
 import { normalizeImage } from "./publicProduct";
 import { hasSupplierProfile } from "./supplierDetail";
-import { getApproved, type ApprovedItem } from "./approvedStore";
+import { getApproved, isCategoryActive, type ApprovedItem } from "./approvedStore";
 
 /**
  * Server-only. The public product detail: one normalised DTO for catalog products and sample B2B listings.
@@ -209,7 +209,7 @@ function approvedDetail(it: ApprovedItem): ProductDetail {
     category,
     subcategory,
     breadcrumb: [{ label: "Home", href: "/" }, { label: category.name, href: category.href }, ...(subcategory ? [{ label: subcategory.name, href: subcategory.href }] : []), { label: it.name }],
-    specifications: [{ label: "Category", value: it.categoryName, group: "General", displayOrder: 1 }],
+    specifications: [{ label: "Category", value: it.categoryName, group: "General", displayOrder: 1 }, ...it.specs.map((x, i) => ({ label: x.label, value: x.value, group: "Specifications", displayOrder: i + 2 }))],
     technicalDetails: [],
     applications: [],
     features: [],
@@ -225,14 +225,21 @@ function approvedDetail(it: ApprovedItem): ProductDetail {
       city: it.supplier.city,
       state: "",
       type: null,
-      verificationStatus: "unverified",
+      verificationStatus: it.supplier.verified ? "verified" : "unverified",
       productCount: count,
     },
   };
 }
 
 /** Resolves a product by its URL slug (catalog `<name>-<id>` or a sample listing id). Undefined when it does not exist. */
+/** A product of an administratively deactivated category is unavailable (not found), however it is reached. */
+const gate = (d: ProductDetail | undefined): ProductDetail | undefined => (d && !isCategoryActive(d.category.id) ? undefined : d);
+
 export function getPublicProductBySlug(slug: string): ProductDetail | undefined {
+  return gate(publicProductBySlug(slug));
+}
+
+function publicProductBySlug(slug: string): ProductDetail | undefined {
   const sample = getSampleProduct(slug);
   if (sample) return sampleDetail(sample.product, sample.category.slug);
 
@@ -246,6 +253,10 @@ export function getPublicProductBySlug(slug: string): ProductDetail | undefined 
 
 /** Resolves by catalog id ("1163") or slug, for the API. */
 export function getPublicProductByKey(key: string): ProductDetail | undefined {
+  return gate(publicProductByKey(key));
+}
+
+function publicProductByKey(key: string): ProductDetail | undefined {
   if (/^\d+$/.test(key)) {
     const product = getCatalog().productById.get(Number(key));
     const seller = product ? getCatalog().sellerById.get(product.sellerId) : undefined;
@@ -255,7 +266,7 @@ export function getPublicProductByKey(key: string): ProductDetail | undefined {
     const approved = getApproved().byId.get(key);
     return approved ? approvedDetail(approved) : undefined;
   }
-  return getPublicProductBySlug(key);
+  return publicProductBySlug(key);
 }
 
 /**

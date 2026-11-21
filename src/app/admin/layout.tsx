@@ -11,11 +11,12 @@ export const dynamic = "force-dynamic";
 /**
  * Layout of the whole admin portal. The role and capabilities come from the account record on the server: anonymous → sign-in; anyone who is
  * not an admin with at least one capability → /forbidden?portal=admin, and no admin page code or data runs. Every page and API checks its own
- * capability again.
+ * capability again. An ANONYMOUS visitor is not redirected here (a layout does not know the requested path): the page's own guard sends them to
+ * sign-in with that path as `next`, and no shell or data is rendered for them. Every admin page must call a guard (test 70 enforces it).
  */
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const user = await getCurrentUser().catch(() => null);
-  if (!user) redirect("/sign-in?next=%2Fadmin%2Finquiries");
+  if (!user) return <>{children}</>;
   const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
   if (permissions.length === 0) redirect("/forbidden?portal=admin");
   return <AdminShell>{children}</AdminShell>;

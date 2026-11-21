@@ -2,6 +2,7 @@
 
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { BuyerSidebar } from "./BuyerSidebar";
 import { BuyerTopbar } from "./BuyerTopbar";
 import styles from "./BuyerShell.module.css";
@@ -16,12 +17,13 @@ interface BuyerShellProps {
 /**
  * The shared workspace shell for every /buyer page: dark sidebar, top bar, drawer on small screens. Pages call
  * requireBuyerPage() first (server side) and pass only the display name, so nothing private reaches the browser.
- * On desktop the sidebar is always minimized to icons and expands over the content while it is hovered or holds keyboard focus
- * (CSS only: there is no toggle and nothing to remember); below 1024px it is a drawer.
+ * On desktop the sidebar is full width and a button collapses it to icons or expands it again (the choice is remembered in this browser only);
+ * it never changes by itself on hover or focus. Below 1024px it is a drawer.
  */
 export function BuyerShell({ userName, activeKey, activeInquiries, children }: BuyerShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [small, setSmall] = useState(false);
+  const [iconsOnly, setIconsOnly] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const sidebar = useRef<HTMLElement>(null);
 
@@ -32,6 +34,17 @@ export function BuyerShell({ userName, activeKey, activeInquiries, children }: B
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
   }, []);
+
+  // the remembered choice (a per-browser convenience: the shell works without it)
+  useEffect(() => {
+    try { if (window.localStorage.getItem("buyer-sidebar") === "collapsed") setIconsOnly(true); } catch { /* storage unavailable */ }
+  }, []);
+  const toggleSidebar = () => {
+    setIconsOnly((was) => {
+      try { window.localStorage.setItem("buyer-sidebar", was ? "expanded" : "collapsed"); } catch { /* storage unavailable */ }
+      return !was;
+    });
+  };
 
   const closeDrawer = useCallback((returnFocus: boolean) => {
     setDrawerOpen(false);
@@ -59,7 +72,7 @@ export function BuyerShell({ userName, activeKey, activeInquiries, children }: B
 
   const hideSidebar = small && !drawerOpen;
   return (
-    <div className={styles.shell}>
+    <div className={clsx(styles.shell, !small && iconsOnly && styles.shellCollapsed)}>
       <a href="#buyer-content" className="skip-link">
         Skip to dashboard content
       </a>
@@ -67,7 +80,15 @@ export function BuyerShell({ userName, activeKey, activeInquiries, children }: B
       {drawerOpen && <button type="button" className={styles.overlay} aria-label="Close navigation menu" onClick={() => closeDrawer(true)} />}
       <aside id="buyer-sidebar" ref={sidebar} className={clsx(styles.sidebar, drawerOpen && styles.sidebarOpen)} inert={hideSidebar}>
         <div className={styles.sidebarPanel}>
-          <BuyerSidebar activeKey={activeKey} activeInquiries={activeInquiries} collapsed={!small} onNavigate={() => setDrawerOpen(false)} />
+          {!small && (
+            <div className={styles.collapseRow}>
+              <span className={styles.collapseLabel}>Menu</span>
+              <button type="button" className={styles.collapseButton} onClick={toggleSidebar} aria-expanded={!iconsOnly} aria-controls="buyer-sidebar-nav" aria-label={iconsOnly ? "Expand sidebar" : "Collapse sidebar"} title={iconsOnly ? "Expand sidebar" : "Collapse sidebar"}>
+                {iconsOnly ? <PanelLeftOpen size={20} aria-hidden /> : <PanelLeftClose size={20} aria-hidden />}
+              </button>
+            </div>
+          )}
+          <BuyerSidebar activeKey={activeKey} activeInquiries={activeInquiries} collapsed={!small && iconsOnly} onNavigate={() => setDrawerOpen(false)} />
         </div>
       </aside>
       <div id="buyer-content" className={styles.content} tabIndex={-1}>

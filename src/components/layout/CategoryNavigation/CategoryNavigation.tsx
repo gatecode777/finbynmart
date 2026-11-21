@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Menu, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
 import { Container } from "@/components/ui/Container";
 import { CATEGORY_NAV } from "@/lib/constants/navigation";
@@ -11,14 +11,13 @@ export function CategoryNavigation() {
       <Container>
         <ul className={styles.list}>
           {CATEGORY_NAV.map((item, index) => {
-            const isMenuTrigger = item.label === "All Categories" || item.label === "More";
+            const isMenuTrigger = item.label === "All Categories";
             return (
               <li key={item.href} className={index === 5 || index === 6 ? styles.wideOnly : undefined}>
                 <Link
                   href={item.href}
                   className={clsx(styles.link, index === 0 && styles.first)}
                 >
-                  {index === 0 && <Menu size={16} strokeWidth={2} aria-hidden />}
                   {item.label}
                   {isMenuTrigger && (
                     <ChevronDown size={14} strokeWidth={2} aria-hidden />

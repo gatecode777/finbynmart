@@ -1,3 +1,4 @@
+import { safeReturnPath } from "./safeReturn";
 /**
  * Which portal a role belongs to and where it lands after signing in. Client-safe and pure: the server uses it to decide the redirect
  * (the login route returns the resolved path), the browser only follows it. Access itself is never decided here: every portal route
@@ -26,7 +27,7 @@ export function portalOfPath(path: string): Portal {
 /** The home page of the role's own portal. */
 export function portalHome(role: AccountRole): string {
   if (role === "buyer") return "/buyer/dashboard";
-  if (role === "admin") return "/admin/inquiries";
+  if (role === "admin") return "/admin/dashboard";
   return SUPPLIER_PORTAL_AVAILABLE ? "/supplier/dashboard" : "/";
 }
 
@@ -39,7 +40,10 @@ const OWN_PORTAL: Record<AccountRole, Portal> = { buyer: "BUYER", supplier: "SUP
  */
 export function resolvePostLoginPath(role: AccountRole, next: string | null | undefined): string {
   const home = portalHome(role);
-  if (!next || next === "/" || !next.startsWith("/") || next.startsWith("//")) return home;
+  // the destination is validated again here, at the final redirect, whatever the caller already did
+  const safe = safeReturnPath(next);
+  if (!safe || safe === "/") return home;
+  next = safe;
   const portal = portalOfPath(next);
   // a page of the role's own portal is kept only if that portal exists (a supplier is never sent to a /supplier page that would 404)
   if (portal === OWN_PORTAL[role]) return role === "supplier" && !SUPPLIER_PORTAL_AVAILABLE ? home : next;

@@ -1,0 +1,7 @@
+
+/* set by NavigationProgress while the next page loads */
+body[data-navigating] #main-content {
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}

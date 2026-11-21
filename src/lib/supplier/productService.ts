@@ -77,10 +77,15 @@ export interface SupplierProductDoc {
     priceUnit: string;
     moq: number | null;
     quantityUnit: string;
+    /** Validated category specifications (typed values). Reach the public site only through the approved snapshot. */
+    attributes?: Record<string, { value: string | number; unit?: string }>;
     images?: { fileId: string; url: string; name: string }[];
     /** Moderation of one exact revision. While PENDING the draft cannot be edited (withdraw first). */
     review?: { state: "PENDING" | "APPROVED" | "REJECTED"; submittedRevision: number; submittedAt: Date; submittedBy: ObjectId; snapshot: Record<string, unknown>; decidedAt?: Date; decidedBy?: ObjectId; reasonCode?: string; internalNote?: string };
   };
+  /** Set only by an authorized admin's unpublish: the listing is no longer public (the public loader requires it to be absent). It survives a later approved revision; nothing here republishes. */
+  archivedAt?: Date;
+  unpublish?: { at: Date; by: ObjectId; reason: string; revision: number };
   /** Set only by an authorized reviewer's approval of an exact revision. The one fact public discovery may rely on. */
   publication?: { state: "APPROVED"; revision: number; approvedAt: Date; approvedBy: ObjectId; /** The APPROVED content. Public reads use this, never the editable draft, so later edits stay private until a new approval replaces it. */ snapshot: Record<string, unknown> };
 }

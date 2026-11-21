@@ -1,0 +1,48 @@
+// Admin Buyer Management (Page 51): rules, query construction and code contracts (no database). Persistence, concurrency, audit atomicity and real session enforcement are covered by
+// it-admin-buyers.mjs (BLOCKED without an isolated database).
+// run: node --import ./docs/page-reports/tools/alias-register.mjs docs/page-reports/tools/84-admin-buyers-unit-test.mjs
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+const root = path.resolve(import.meta.dirname, "../../..");
+const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
+let n = 0; const check = (name, ok) => { assert.ok(ok, name); n++; console.log("PASS ", name); };
+const R = await import("../../../src/lib/admin/buyerRules.ts");
+const M = await import("../../../src/lib/admin/buyerManagement.ts");
+const id = "64b7f0c2a1b2c3d4e5f60718";
+
+check("reference code is BUY- plus the last 8 hex characters of the id, uppercase", R.refCode(id) === "BUY-E5F60718" && R.CODE_RE.test(R.refCode(id)));
+check("list state: defaults, trimmed bounded text, unknown status falls back in the page and is a 422 in the API", (() => { const p = R.parseListState(new URLSearchParams("q=%20%20Asha%20%20K%20&status=SUSPENDED&page=3")); const bad = ["status=DELETED", "page=0", "page=1001", "page=x", `q=${"a".repeat(61)}`, "limit=0", "limit=51"].map((s) => R.validateListState((k) => new URLSearchParams(s).get(k))); return p.q === "Asha K" && p.status === "SUSPENDED" && p.page === 3 && R.parseListState(new URLSearchParams("status=zzz")).status === "all" && bad.every((b) => !b.ok) && R.validateListState(() => null).ok; })());
+check("URL carries only name/reference text, status and page (no contact search exists)", R.toListParams({ q: "Asha", status: "ACTIVE", page: 2 }).toString() === "q=Asha&status=ACTIVE&page=2" && R.toListParams(R.EMPTY_STATE).toString() === "");
+check("masking: e-mail keeps the first letter and the domain, phone keeps the last two digits, nothing else", R.maskEmail("buyer@example.com") === "b***@example.com" && R.maskPhone("919876543210") === "**********10" && R.maskEmail("nope") === "" && R.maskPhone("12") === "");
+check("action plan: only ACTIVE can be suspended, only SUSPENDED reactivated, an account awaiting e-mail confirmation has neither, and capabilities gate each", (() => { const all = { suspend: true, reactivate: true }; const a = R.actionPlan("ACTIVE", all), s = R.actionPlan("SUSPENDED", all), p = R.actionPlan("PENDING_EMAIL_VERIFICATION", all), r = R.actionPlan("ACTIVE", { suspend: false, reactivate: false }); return a.suspend.available && !a.reactivate.available && s.reactivate.available && !s.suspend.available && !p.suspend.available && !p.reactivate.available && !r.suspend.permitted && !r.suspend.available; })());
+
+// query construction
+check("every list/detail filter carries role buyer; ACTIVE includes accounts with no stored status; other statuses are exact", [{ q: "", status: "all" }, { q: "x", status: "SUSPENDED" }].every((s) => M.buyerMatch(s).role === "buyer") && JSON.stringify(M.buyerMatch({ q: "", status: "ACTIVE" }).accountStatus) === JSON.stringify({ $in: ["ACTIVE", null] }) && M.buyerMatch({ q: "", status: "SUSPENDED" }).accountStatus === "SUSPENDED" && !("accountStatus" in M.buyerMatch({ q: "", status: "all" })));
+check("search is data: a name is an anchored escaped prefix (regex metacharacters and operators are literals), a 24-hex id or a BUY- code is a reference match, nothing else", (() => { const nm = M.buyerMatch({ q: "a.*(b)|$ne", status: "all" }); const idm = M.buyerMatch({ q: id.toUpperCase(), status: "all" }); const cm = M.buyerMatch({ q: "buy-e5f60718", status: "all" }); return nm.name.$regex === "^a\\.\\*\\(b\\)\\|\\$ne" && nm.name.$options === "i" && String(idm._id) === id && !idm.name && JSON.stringify(cm.$expr).includes("e5f60718") && !cm.name; })());
+
+// service and route contracts
+const svc = read("src/lib/admin/buyerManagement.ts");
+const list = read("src/app/api/admin/buyers/route.ts");
+const one = read("src/app/api/admin/buyers/[id]/route.ts");
+const st = read("src/app/api/admin/buyers/[id]/status/route.ts");
+check("projections never select credentials: no password hash, token, session id or document field is read, and e-mail/phone are masked on the server without buyers.contacts", !/passwordHash|[tT]oken|\bsid\b|\bdocuments\b/.test(svc.split("// ---------------------------------------------------------------- status change")[0].replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "")) && /projection: \{ name: 1, accountStatus: 1, createdAt: 1 \}/.test(svc) && /caps\.contacts\s*\?\s*\{ email: d\.email/.test(svc) && /maskEmail\(d\.email\)/.test(svc));
+check("reads: role buyer in every query, list is skip/limit bounded and sorted newest first with the _id tie-break, one count under the same filter, index declared", /findOne\(\{ _id: new ObjectId\(reference\), role: "buyer" \}/.test(svc) && /sort\(\{ createdAt: -1, _id: -1 \}\)\.skip/.test(svc) && /countDocuments\(match\)/.test(svc) && /buyers_admin_newest/.test(svc) && /MAX_PAGE_SIZE/.test(svc));
+check("status change: one snapshot transaction with the conditional update (role, state, revision) and the audit row inside it; session version raised on suspend; replay via unique operation key and request hash; stale revision and state are 409; nothing deleted", /withTransaction/.test(svc) && /readConcern: \{ level: "snapshot" \}/.test(svc) && /\{ session \}\);\s*\n\s*if \(upd\.matchedCount !== 1\)/.test(svc) && /audit\.insertOne\([\s\S]*?\{ session \}\)/.test(svc) && /\$inc: \{ sessionVersion: 1 \}/.test(svc) && /operationKey/.test(svc) && /bodyHash/.test(svc) && /code === 11000/.test(svc) && /accountRev/.test(svc) && !/deleteOne|deleteMany|\$unset: \{ (email|name|role)/.test(svc));
+check("status route: cross-site refused first, buyers.read plus the capability of the action, only action/reason/expectedRev/idempotencyKey are read (no role, name, email or actor), rate limited, actor from the session", /isCrossSiteWrite\(request\)/.test(st) && /requireAdminApi\("buyers\.read"\)/.test(st) && /buyers\.suspend/.test(st) && /buyers\.reactivate/.test(st) && /forbiddenResponse\(\)/.test(st) && /rateLimit\(/.test(st) && /new ObjectId\(guard\.user\.id\)/.test(st) && !/body\.(role|email|name|buyerId|actor|adminId)/.test(st));
+check("list and detail routes require buyers.read, validate filters (422), are private no-store and return a 404 for any id that is not a buyer", /requireAdminApi\("buyers\.read"\)/.test(list) && /requireAdminApi\("buyers\.read"\)/.test(one) && /status: 422/.test(list) && /NO_STORE/.test(list) && /NO_STORE/.test(one) && /status: 404/.test(one));
+check("capabilities are explicit and added to the allow-list (no wildcard) and the page checks buyers.read before reading any buyer", ["buyers.read", "buyers.contacts", "buyers.suspend", "buyers.reactivate"].every((c) => read("src/lib/admin/permissions.ts").includes(`"${c}"`)) && /requireAdminPage\(next, "buyers\.read"\)/.test(read("src/app/admin/buyers/page.tsx")) && !/\*/.test(read("src/lib/admin/buyerApi.ts").replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, "")));
+
+// enforcement that already exists and that this page relies on
+check("suspension is enforced on every request by existing code: getCurrentUser returns nothing for a non-ACTIVE account, sessionVersion mismatch is refused, the sign-in route refuses SUSPENDED, password reset refuses it", /statusOf\(user\) === "ACTIVE"/.test(read("src/lib/auth/session.ts")) && /\(user\.sessionVersion \?\? 0\) !== claims\.v/.test(read("src/lib/auth/session.ts")) && /status === "SUSPENDED"/.test(read("src/app/api/auth/login/route.ts")) && /accountStatus: \{ \$ne: "SUSPENDED" \}/.test(read("src/lib/auth/passwordReset.ts")));
+
+// inquiry link
+check("the inquiry link uses the canonical buyerId through the existing admin list (validated 24-hex, 422 otherwise), only with inquiries.read, and carries no conversation text", /buyerId = new ObjectId\(q\.buyer\)/.test(read("src/lib/admin/inquiryService.ts")) && /fields\.buyer = "Unknown buyer reference\."/.test(read("src/lib/admin/inquiryApi.ts")) && /inquiries\.read/.test(read("src/lib/admin/buyerApi.ts")) && /\/admin\/inquiries\?buyer=\$\{row\.id\}/.test(svc) && !/conversation|messageText|inquiry_messages/i.test(read("src/components/admin/AdminBuyerReview.tsx")+svc));
+
+// UI contracts
+const ws = read("src/components/admin/AdminBuyersWorkspace.tsx");
+const rv = read("src/components/admin/AdminBuyerReview.tsx");
+check("list UI: failed request shows the message with Retry (never an empty list), stale responses are ignored, filters kept on retry, no sample data, semantic table and cards", /signal\.aborted\) return/.test(ws) && /Retry/.test(ws) && /No buyers match these filters\./.test(ws) && /No buyer accounts yet\./.test(ws) && /<caption/.test(ws) && /<th scope="col">Account reference<\/th>/.test(ws) && !/Sample Buyer|BUY-10\d\d/.test(ws + rv));
+check("detail UI: missing values read 'Not provided', e-mail confirmation is never presented as business verification, duplicate submission is blocked synchronously, success only after the server answered ok, reason is validated and required", /Not provided/.test(rv) && /does not mean a verified business/.test(rv) && /submitting\.current/.test(rv) && /res\?\.ok && json\?\.ok\) \{ flashToast\("success"/.test(rv) && /validateReason/.test(rv) && /aria-required="true"/.test(rv) && /aria-invalid/.test(rv));
+check("the sidebar links to /admin/buyers", /key: "buyers".*href: "\/admin\/buyers", built: true/.test(read("src/components/admin/AdminShell.tsx")));
+console.log(`\n${n} passed, 0 failed`);

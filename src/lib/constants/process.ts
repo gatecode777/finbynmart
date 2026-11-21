@@ -10,20 +10,20 @@ export const HOW_IT_WORKS: ProcessStep[] = [
   },
   {
     step: 2,
-    title: "Get Multiple Quotes",
-    description: "Receive offers from verified suppliers.",
+    title: "Receive Quotes",
+    description: "Suppliers can respond with quotations.",
     icon: FileText,
   },
   {
     step: 3,
     title: "Compare & Choose",
-    description: "Evaluate and select the best offer.",
+    description: "Review the offers you receive and choose.",
     icon: ListChecks,
   },
   {
     step: 4,
-    title: "Connect & Grow",
-    description: "Directly connect and do business.",
+    title: "Discuss & Confirm",
+    description: "Talk to suppliers and confirm an accepted quotation.",
     icon: Handshake,
   },
 ];

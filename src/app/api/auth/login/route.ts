@@ -50,7 +50,7 @@ async function handlePOST(request: Request) {
     // Same message for unknown email and wrong password so accounts can't be probed.
     if (!user || !(await verifyPassword(values.password, user.passwordHash))) {
       if (user) await recordFailure({ ...user, _id: user._id }, request);
-      return fail("Incorrect email or password.", 401);
+      return fail("Incorrect email or password.", 401, { password: "Incorrect email or password." }); // inline under the password field; one message for both causes
     }
     // Only after the password is right, so the account's state is never revealed to someone who does not know it.
     const status = statusOf(user);

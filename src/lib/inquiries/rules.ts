@@ -1,3 +1,4 @@
+import { safeReturnPath } from "@/lib/auth/safeReturn";
 /**
  * Inquiry rules shared by the Contact Supplier form (instant feedback) and the server (authoritative). Pure: no
  * imports, so the browser, the API and the node-run unit tests all use the same code.
@@ -168,9 +169,7 @@ export const isIdempotencyKey = (raw: unknown): raw is string => typeof raw === 
 
 export const REFERENCE_PATTERN = /^FBM-INQ-[0-9A-HJKMNP-TV-Z]{8}$/;
 
-/** Where a buyer returns to after signing in: a path on this site only, never another address. */
+/** Where a visitor returns to after signing in: a validated path on this site only, never another address. One shared rule: `safeReturnPath` (src/lib/auth/safeReturn.ts). */
 export function safeNext(raw: unknown): string | null {
-  if (typeof raw !== "string" || raw.length > 300) return null;
-  if (!/^\/(?!\/)[A-Za-z0-9\-._~/%?=&]*$/.test(raw)) return null;
-  return raw.startsWith("/sign-in") || raw.startsWith("/sign-up") || raw.startsWith("/api/") ? null : raw;
+  return safeReturnPath(raw);
 }

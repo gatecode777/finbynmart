@@ -43,6 +43,14 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
           </span>
         )}
 
+        {product.attributes && product.attributes.length > 0 && (
+          <ul className={styles.attrs} aria-label="Specifications">
+            {product.attributes.map((a) => (
+              <li key={a.label}><span className={styles.attrLabel}>{a.label}:</span> {a.value}</li>
+            ))}
+          </ul>
+        )}
+
         <div className={styles.supplierRow}>
           <Link href={product.supplierHref} className={styles.supplierName}>
             {product.supplierName}
@@ -52,7 +60,7 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
 
         <span className={styles.location}>
           <MapPin size={12} strokeWidth={2} aria-hidden />
-          {product.supplierCity}, {product.supplierState}
+          {[product.supplierCity, product.supplierState].filter(Boolean).join(", ")}
         </span>
 
         {product.rating && (

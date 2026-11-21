@@ -2,9 +2,10 @@ import { randomBytes } from "node:crypto";
 import { notifySellerOwner } from "@/lib/supplier/notifyOwner";
 import { ObjectId, type Collection } from "mongodb";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
-import { buildJob, insertJob } from "@/lib/leads/distribution";
+import { buildJob, distributionCollections, insertJob } from "@/lib/leads/distribution";
+import { acceptsNewInquiries, guardCompanyWrite } from "@/lib/supplier/companyEligibility";
 import { BUYER_CANCELLABLE, INQUIRY_TYPES, REFERENCE_PATTERN, normaliseStatus, type GuestContact, type InquiryStatus, type InquiryType, type Located } from "./rules";
-import { notifyInquirySubmitted } from "@/lib/buyer/notifications";
+import { notifyInquirySubmitted, notifyRequirementSubmitted } from "@/lib/buyer/notifications";
 
 /**
  * The one `inquiries` collection. It first held quote requests from signed-in buyers only; it now also holds guest
@@ -42,6 +43,12 @@ export interface InquiryDoc {
   matchedSupplierKeys?: string[];
   /** Mandatory automatic-matching policy version this inquiry was submitted under (absent on older inquiries: they are never redistributed). */
   distributionPolicy?: string;
+  /** How this record began. Absent = DIRECT_INQUIRY (every older record). A GENERAL_REQUIREMENT has NO selected supplier (supplierKey and supplierName are empty): the buyer picked a reference product to describe the need and the lead engine finds the suppliers. */
+  sourceType?: "DIRECT_INQUIRY" | "GENERAL_REQUIREMENT";
+  /** The structured requirement the matching used (supplier-product requirements): category node, the attributes the buyer stated (the product’s own unless changed) and the policy version. Authoritative; never rewritten from the catalogue. */
+  requirement?: { nodeId: string; attributes: Record<string, { value: string | number; unit?: string }>; policy: string };
+  /** Date the buyer needs the goods by (optional, set by the requirement form). */
+  requiredBy?: Date;
   /** Runtime only (never stored): how the signed-in supplier company received this inquiry. */
   recipientType?: "DIRECT" | "MATCHED";
   /** "new" on records written before the lifecycle existed; InquiryStatus afterwards. */
@@ -96,6 +103,7 @@ export function generateReference(): string {
   return `FBM-INQ-${out}`;
 }
 
+class SupplierUnavailable extends Error {}
 const isDuplicateKey = (error: unknown) => (error as { code?: number }).code === 11000;
 const keyOf = (error: unknown) => Object.keys((error as { keyPattern?: Record<string, number> }).keyPattern ?? {}).join(",");
 
@@ -103,7 +111,7 @@ export type Identity = { kind: "buyer"; buyerId: string } | { kind: "guest"; gue
 
 export type SubmitResult =
   | { ok: true; id: string; reference: string; status: InquiryStatus; replay: boolean }
-  | { ok: false; code: "DUPLICATE" | "KEY_CONFLICT" };
+  | { ok: false; code: "DUPLICATE" | "KEY_CONFLICT" | "SUPPLIER_UNAVAILABLE" };
 
 const sameIdentity = (doc: InquiryDoc, identity: Identity) =>
   identity.kind === "buyer" ? doc.buyerId?.toString() === identity.buyerId : doc.guest?.email === identity.guest.email;
@@ -123,6 +131,9 @@ export async function submitInquiry(identity: Identity, input: InquiryInput, ide
         : { ok: false, code: "KEY_CONFLICT" };
     }
   }
+
+  // a SUSPENDED company (or a catalogue seller it owns) takes no new inquiry; a general requirement has no selected supplier, so it is unaffected
+  if (!(await acceptsNewInquiries(input.supplierKey))) return { ok: false, code: "SUPPLIER_UNAVAILABLE" };
 
   const since = new Date(Date.now() - DUPLICATE_WINDOW_MS);
   const duplicate = await collection.findOne({
@@ -158,13 +169,17 @@ export async function submitInquiry(identity: Identity, input: InquiryInput, ide
     try {
       // the direct inquiry and the durable distribution job commit together (product inquiries of registered buyers); the matching itself runs later, in the worker
       doc._id = new ObjectId();
-      const job = buildJob({ _id: doc._id, reference, buyerId: doc.buyerId, productKey: doc.productKey, supplierKey: doc.supplierKey }, now);
+      const job = buildJob({ _id: doc._id, reference, buyerId: doc.buyerId, productKey: doc.productKey, supplierKey: doc.supplierKey, requirement: doc.requirement }, now);
       if (job) doc.distributionPolicy = job.policyVersion;
       let insertedId = doc._id;
       if (job) {
+        // create the job and recipient indexes BEFORE the transaction: building them inside it waits for the lock the transaction already holds on `inquiries` (a deadlock until the 20 s socket timeout on a database without those indexes)
+        await distributionCollections();
         const session = (await getMongoClient()).startSession();
         try {
           await session.withTransaction(async () => {
+            // commit-time recheck: a write to the company document, so a suspension that commits meanwhile conflicts and this transaction retries
+            if (!(await guardCompanyWrite(doc.supplierKey, session))) throw new SupplierUnavailable();
             await collection.insertOne(doc, { session });
             await insertJob(job, session);
           }, { readConcern: { level: "snapshot" }, writeConcern: { w: "majority" } });
@@ -173,11 +188,13 @@ export async function submitInquiry(identity: Identity, input: InquiryInput, ide
         }
       } else insertedId = (await collection.insertOne(doc)).insertedId;
       const result = { insertedId };
-      if (identity.kind === "buyer") await notifyInquirySubmitted(identity.buyerId, reference, input.supplierName);
-      // the supplier company that owns this seller (if any) gets an in-app notice; no message text is put in it
-      await notifySellerOwner(input.supplierKey, { category: "inquiries", type: "INQUIRY_RECEIVED", title: "New inquiry received", body: `A buyer sent an inquiry${input.productName ? ` about ${input.productName}` : ""}. Open Inquiries & Leads to read it.`, link: `/supplier/inquiries/${reference}`, dedupeKey: `inquiry:${reference}` });
+      const general = input.sourceType === "GENERAL_REQUIREMENT";
+      if (identity.kind === "buyer") await (general ? notifyRequirementSubmitted(identity.buyerId, reference) : notifyInquirySubmitted(identity.buyerId, reference, input.supplierName));
+      // the supplier company that owns this seller (if any) gets an in-app notice; no message text is put in it. A general requirement has no selected supplier: its suppliers are notified as MATCHED leads by the worker.
+      if (!general) await notifySellerOwner(input.supplierKey, { category: "inquiries", type: "INQUIRY_RECEIVED", title: "New inquiry received", body: `A buyer sent an inquiry${input.productName ? ` about ${input.productName}` : ""}. Open Inquiries & Leads to read it.`, link: `/supplier/inquiries/${reference}`, dedupeKey: `inquiry:${reference}` });
       return { ok: true, id: result.insertedId.toString(), reference, status: "NEW", replay: false };
     } catch (error) {
+      if (error instanceof SupplierUnavailable) return { ok: false, code: "SUPPLIER_UNAVAILABLE" };
       if (!isDuplicateKey(error)) throw error;
       if (keyOf(error).includes("idempotencyKey") && idempotencyKey) {
         // Two identical requests raced: the other one won, so this one reports that record.

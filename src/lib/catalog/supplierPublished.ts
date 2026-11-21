@@ -26,7 +26,7 @@ const view = (d: SupplierProductDoc): PublishedProduct => {
 let idx: Promise<unknown> | undefined;
 async function col() {
   const c = await getProductsCollection();
-  idx ??= c.createIndex({ "publication.state": 1, "publication.snapshot.categoryId": 1, _id: 1 }, { name: "published_by_category", partialFilterExpression: { "publication.state": { $exists: true } } });
+  idx ??= c.createIndex({ "publication.state": 1, "publication.snapshot.categoryId": 1, _id: 1 }, { name: "published_by_category", partialFilterExpression: { "publication.state": { $exists: true } } }).catch((error) => { idx = undefined; throw error; }); // a failed build must not be cached
   await idx;
   return c;
 }

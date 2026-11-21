@@ -1,9 +1,12 @@
 import { createHash } from "node:crypto";
+import { validateAttributes } from "@/lib/catalog/attributes";
 import { ObjectId } from "mongodb";
 import { deleteFromImageKit } from "@/lib/media/imagekit";
 import { getManagementCategories } from "@/lib/catalog/categories";
 import type { SupplierContext } from "./company";
 import { getProductsCollection, type SupplierProductDoc } from "./productService";
+import { getMongoClient } from "@/lib/db/mongo";
+import { recordAdminEvent } from "@/lib/admin/notifications";
 import { formatPaise, IMAGE_LIMITS, reasonText, type DraftImage, type Moderation, normalizeSku, parseMoq, parsePaise, reviewDraft, validateDraftShape, type DraftInput, type FieldErrors, type Review } from "./productDraftRules";
 
 export interface DraftView {
@@ -45,6 +48,7 @@ function toView(doc: SupplierProductDoc): DraftView | null {
     priceUnit: d.priceUnit,
     moq: d.moq === null ? "" : String(d.moq),
     quantityUnit: d.quantityUnit,
+    attributes: Object.fromEntries(Object.entries(d.attributes ?? {}).map(([k, v]) => [k, { value: String(v.value), unit: v.unit ?? "" }])),
   };
   return { reference: doc._id.toHexString(), revision: d.revision, updatedAt: doc.updatedAt.toISOString(), input, categoryName: doc.categoryName, review: reviewDraft(input, !!categoryOf(d.categoryId), d.images?.length ?? 0), images: d.images ?? [], moderation: d.review ? { state: d.review.state, submittedRevision: d.review.submittedRevision, submittedAt: d.review.submittedAt.toISOString(), reason: d.review.state === "REJECTED" ? (reasonText(d.review.reasonCode ?? "") ?? null) : null } : null };
 }
@@ -61,7 +65,20 @@ export function readDraftInput(b: Record<string, unknown>, clean: (v: unknown, m
     priceUnit: clean(b.priceUnit, 20),
     moq: clean(typeof b.moq === "number" ? String(b.moq) : b.moq, 20),
     quantityUnit: clean(b.quantityUnit, 20),
+    attributes: readAttributes(b.attributes, clean),
   };
+}
+
+/** Only plain { value, unit } string cells under short keys are read; everything else in the body is ignored (the category's set decides what is valid). */
+function readAttributes(raw: unknown, clean: (v: unknown, max: number) => string): DraftInput["attributes"] {
+  const out: DraftInput["attributes"] = {};
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return out;
+  for (const [k, cell] of Object.entries(raw as Record<string, unknown>).slice(0, 20)) {
+    if (!/^[a-z][a-z0-9_-]{0,19}$/.test(k) || !cell || typeof cell !== "object") continue;
+    const c = cell as Record<string, unknown>;
+    out[k] = { value: clean(typeof c.value === "number" ? String(c.value) : c.value, 40), unit: clean(c.unit, 12) };
+  }
+  return out;
 }
 
 function validate(input: DraftInput): { fields?: FieldErrors; cat?: { id: string; name: string } } {
@@ -69,6 +86,12 @@ function validate(input: DraftInput): { fields?: FieldErrors; cat?: { id: string
   const cat = categoryOf(input.categoryId);
   if (input.categoryId && !cat) fields.categoryId = "Choose an active category from the list.";
   return Object.keys(fields).length ? { fields } : { cat: cat ? { id: cat.id, name: cat.name } : undefined };
+}
+
+/** The validated, typed attributes of a draft (empty cells dropped). The input was already validated by validateDraftShape, so this never throws away an invalid one silently. */
+function attributesOf(input: DraftInput) {
+  const parsed = validateAttributes(input.categoryId, input.attributes, { requireRequired: false });
+  return parsed.ok ? parsed.value : {};
 }
 
 function fieldsOf(input: DraftInput, cat?: { id: string; name: string }) {
@@ -88,6 +111,7 @@ function fieldsOf(input: DraftInput, cat?: { id: string; name: string }) {
       priceUnit: input.priceUnit,
       moq: input.moq ? parseMoq(input.moq) : null,
       quantityUnit: input.quantityUnit,
+      attributes: attributesOf(input),
     },
     paise,
   };
@@ -166,7 +190,7 @@ export async function updateDraft(ctx: SupplierContext, reference: string, expec
   const col = await getProductsCollection();
   const set: Record<string, unknown> = {
     name: f.name, sku: f.sku, description: f.description, categoryName: f.categoryName, price: f.paise === null ? 0 : f.paise / 100, unit: input.priceUnit || "", updatedAt: new Date(),
-    "draft.categoryId": f.draft.categoryId, "draft.pricingMode": f.draft.pricingMode, "draft.unitPricePaise": f.draft.unitPricePaise, "draft.priceUnit": f.draft.priceUnit, "draft.moq": f.draft.moq, "draft.quantityUnit": f.draft.quantityUnit,
+    "draft.categoryId": f.draft.categoryId, "draft.pricingMode": f.draft.pricingMode, "draft.unitPricePaise": f.draft.unitPricePaise, "draft.priceUnit": f.draft.priceUnit, "draft.moq": f.draft.moq, "draft.quantityUnit": f.draft.quantityUnit, "draft.attributes": f.draft.attributes,
   };
   const update: Record<string, unknown> = { $set: set, $inc: { "draft.revision": 1 } };
   if (f.draft.skuKey) set["draft.skuKey"] = f.draft.skuKey;
@@ -237,13 +261,24 @@ export async function submitForReview(ctx: SupplierContext, actor: ObjectId, ref
   const checked = validate(view.input);
   if (checked.fields) return { ok: false, status: 422, message: "Please fix the highlighted fields.", fields: checked.fields };
   if (!view.review.canSubmit) return { ok: false, status: 422, message: "Complete these first: " + view.review.missing.join(", ") + "." };
-  const snapshot = { name: cur.name, sku: cur.sku, description: cur.description, categoryId: cur.draft.categoryId, categoryName: cur.categoryName, pricingMode: cur.draft.pricingMode, currency: cur.draft.currency, unitPricePaise: cur.draft.unitPricePaise, priceUnit: cur.draft.priceUnit, moq: cur.draft.moq, quantityUnit: cur.draft.quantityUnit, images: cur.draft.images ?? [] };
+  const snapshot = { name: cur.name, sku: cur.sku, description: cur.description, categoryId: cur.draft.categoryId, categoryName: cur.categoryName, pricingMode: cur.draft.pricingMode, currency: cur.draft.currency, unitPricePaise: cur.draft.unitPricePaise, priceUnit: cur.draft.priceUnit, moq: cur.draft.moq, quantityUnit: cur.draft.quantityUnit, attributes: cur.draft.attributes ?? {}, images: cur.draft.images ?? [] };
   const now = new Date();
-  const doc = await col.findOneAndUpdate(
-    { ...filter, "draft.revision": expectedRevision, "draft.review.state": { $ne: "PENDING" } },
-    { $set: { "draft.review": { state: "PENDING", submittedRevision: expectedRevision, submittedAt: now, submittedBy: actor, snapshot }, updatedAt: now } },
-    { returnDocument: "after" },
-  );
+  let doc = null as SupplierProductDoc | null;
+  const session = (await getMongoClient()).startSession();
+  try {
+    // the PENDING state and the staff alert commit together; a lost race (no document updated) records nothing
+    await session.withTransaction(async () => {
+      doc = null;
+      doc = await col.findOneAndUpdate(
+        { ...filter, "draft.revision": expectedRevision, "draft.review.state": { $ne: "PENDING" } },
+        { $set: { "draft.review": { state: "PENDING", submittedRevision: expectedRevision, submittedAt: now, submittedBy: actor, snapshot }, updatedAt: now } },
+        { returnDocument: "after", session },
+      );
+      if (doc) await recordAdminEvent(session, { type: "PRODUCT_REVISION_SUBMITTED", sourceKey: `product:${(doc as SupplierProductDoc)._id!.toHexString()}:${expectedRevision}:${now.getTime()}`, reference: (doc as SupplierProductDoc)._id!.toHexString() }, now);
+    });
+  } finally {
+    await session.endSession();
+  }
   return doc ? { ok: true, draft: toView(doc)! } : { ok: false, status: 409, message: "This draft changed elsewhere. Reload to continue." };
 }
 

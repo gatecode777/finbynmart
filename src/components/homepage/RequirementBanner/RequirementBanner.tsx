@@ -5,8 +5,8 @@ import styles from "./RequirementBanner.module.css";
 
 const BENEFITS = [
   { title: "Save Time", subtitle: "Get multiple quotes", icon: Clock3 },
-  { title: "Compare Offers", subtitle: "Choose the best deal", icon: Scale },
-  { title: "Verified Suppliers", subtitle: "Connect with trusted businesses", icon: ShieldCheck },
+  { title: "Compare Offers", subtitle: "Choose what suits you", icon: Scale },
+  { title: "Reach Suppliers", subtitle: "Share one requirement", icon: ShieldCheck },
 ];
 
 export function RequirementBanner() {
@@ -22,7 +22,7 @@ export function RequirementBanner() {
               <div>
                 <p className={styles.eyebrow}>Tell Us Your Requirement</p>
                 <h2 id="requirement-heading" className={styles.title}>
-                  Get Best Quotes from Verified Suppliers
+                  Get Quotes from Suppliers
                 </h2>
               </div>
             </div>

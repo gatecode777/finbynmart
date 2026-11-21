@@ -25,7 +25,7 @@ async function SupplierTicketRoute({
 }) {
   const { ticketReference } = await params;
   const raw = await searchParams;
-  const { user } = await requireSupplierPage(`/supplier/support/tickets/${encodeURIComponent(ticketReference)}`);
+  const { user } = await requireSupplierPage(`/supplier/support/tickets/${encodeURIComponent(ticketReference)}`, { allowSuspended: true });
 
   if (!TICKET_REFERENCE_PATTERN.test(ticketReference)) notFound();
   const overview = await getBuyerTicketOverview(user.id, ticketReference);

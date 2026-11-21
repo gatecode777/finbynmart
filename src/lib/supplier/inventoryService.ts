@@ -59,7 +59,7 @@ async function stores(): Promise<{ positions: Collection<PositionDoc>; movements
     positions.createIndex({ companyId: 1, status: 1, updatedAt: -1, _id: -1 }, { name: "inv_position_status" }),
     movements.createIndex({ companyId: 1, createdAt: -1, _id: -1 }, { name: "inv_movement_newest" }),
     movements.createIndex({ companyId: 1, actorId: 1, idempotencyKey: 1 }, { unique: true, name: "inv_movement_idem" }),
-  ]);
+  ]).catch((error) => { ready = undefined; throw error; }); // a failed build must not be cached
   await ready;
   return { positions, movements };
 }

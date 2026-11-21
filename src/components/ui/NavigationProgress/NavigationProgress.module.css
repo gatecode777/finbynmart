@@ -1,0 +1,26 @@
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4px;
+  z-index: var(--z-toast);
+  background: var(--accent-soft);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  width: 40%;
+  background: var(--accent);
+  animation: slide 1s ease-in-out infinite;
+}
+
+@keyframes slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill { width: 100%; animation: none; }
+}

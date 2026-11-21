@@ -1,7 +1,8 @@
-/* Buyer workspace shell: top bar, dark teal sidebar (icons only on desktop; the column widens on hover or focus and the content moves with it, nothing overlaps; drawer below 1024px), content area. */
+/* Buyer workspace shell: top bar, dark teal sidebar (full width on desktop; a button collapses it to icons and expands it again, the content moves with it; drawer below 1024px), content area. */
 .shell {
-  --sidebar-w: 76px;
+  --sidebar-w: 260px;
   --sidebar-open-w: 260px;
+  --sidebar-closed-w: 76px;
   --topbar-h: 72px;
   display: grid;
   grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
@@ -208,7 +209,7 @@ button.profileMenuItem:hover {
   color: #fff;
 }
 
-/* Fills the sidebar column, which is 76px and widens to 260px (moving the content) while the sidebar is hovered or focused. */
+/* Fills the sidebar column: 260px, or 76px (icons only) after the collapse button is pressed; the content moves with it. */
 .sidebarPanel {
   position: absolute;
   top: 0;
@@ -282,7 +283,8 @@ a.navItem:focus-visible,
   color: var(--primary-deep);
 }
 
-.navItemActive:hover {
+/* same specificity as a.navItem:hover, declared after it, so the current page keeps its gold background and dark text on hover */
+a.navItemActive:hover {
   background: var(--accent-hover);
   color: var(--primary-deep);
 }
@@ -333,14 +335,62 @@ a.navItem:focus-visible,
   /* the text stays for screen readers when the sidebar is collapsed to icons */
 }
 
-/* icons only while the desktop sidebar is neither hovered nor focused; hovering or focusing it widens the column */
+/* the collapse / expand button (desktop only) */
+.collapseRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0 var(--space-3);
+  padding: var(--space-3) var(--space-1) var(--space-3) var(--space-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.collapseLabel {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.collapseButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.collapseButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.collapseButton:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
 @media (min-width: 1024px) {
-  .shell:has(.sidebar:hover),
-  .shell:has(.sidebar:focus-within) {
-    --sidebar-w: var(--sidebar-open-w);
+  .shellCollapsed {
+    --sidebar-w: var(--sidebar-closed-w);
   }
 
-  .sidebar:not(:hover):not(:focus-within) .srOnlyWhenCollapsed {
+  .shellCollapsed .collapseRow {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .shellCollapsed .collapseLabel {
+    display: none;
+  }
+
+  .shellCollapsed .srOnlyWhenCollapsed {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -349,17 +399,23 @@ a.navItem:focus-visible,
     white-space: nowrap;
   }
 
-  .sidebar:not(:hover):not(:focus-within) .navItem {
+  .shellCollapsed .navItem {
     justify-content: center;
     padding: 0;
   }
 
-  .sidebar:not(:hover):not(:focus-within) .badgeCollapsed {
+  .shellCollapsed .badgeCollapsed {
     position: absolute;
     margin: -22px -22px 0 0;
     min-width: 18px;
     height: 18px;
     font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .collapseRow {
+    display: none;
   }
 }
 
@@ -391,6 +447,19 @@ a.navItem:focus-visible,
 
   .profileButtonText {
     display: flex;
+  }
+
+  /* the space is between the logo and the search; the cart and bell sit right next to the search, and only the profile goes to the far edge */
+  .search {
+    margin-left: var(--space-8);
+  }
+
+  .topActions {
+    margin-left: 0;
+  }
+
+  .profileWrap {
+    margin-left: auto;
   }
 
   .content {

@@ -38,3 +38,161 @@
   font-size: var(--fs-sm);
   color: var(--text-primary);
 }
+
+/* ---------- structured Post Your Requirement page form ---------- */
+.postForm {
+  display: grid;
+  gap: var(--space-4);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+  max-width: 720px;
+}
+
+.notice {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.label {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+}
+
+.muted {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+
+.search:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.result {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.result:hover,
+.result:focus-visible {
+  background: var(--primary-light);
+}
+
+.picked {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  overflow-wrap: anywhere;
+}
+
+.picked p {
+  margin: 0;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font: inherit;
+  resize: vertical;
+}
+
+.textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.errorText {
+  color: var(--danger);
+  font-size: var(--fs-sm);
+}
+
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font: inherit;
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.specGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: var(--space-3);
+}

@@ -3,12 +3,15 @@ import { requireAdminApi } from "@/lib/auth/guards";
 import { fail, tooMany } from "@/lib/auth/http";
 import { rateLimit } from "@/lib/security/rateLimit";
 import { listAdminInquiries } from "@/lib/admin/inquiryService";
-import { GROUP_KEYS, type AdminStatusGroup } from "@/lib/admin/inquiryRules";
-import { defaultRange, parseRange } from "@/lib/supplier/analyticsRules";
+import { parseQueryParams } from "@/lib/admin/inquiryApi";
+import { NO_STORE } from "@/lib/admin/inquiryHttp";
 
 export const dynamic = "force-dynamic";
 
-/** Paged list plus status-group counts. Capability inquiries.read, from the account record on the server. Dates are business-zone days. */
+/**
+ * Paged list plus counts. Capability inquiries.read, from the account record on the server. Filters are validated allow-lists (source, status group, distribution, search text, dates in
+ * the business zone); an unknown value is a 422. Page size defaults to 20 (max 50), newest first with the unique _id as tie-breaker. Scope = capability (the admin model has no narrower scope).
+ */
 export async function GET(request: Request) {
   const guard = await requireAdminApi("inquiries.read");
   if ("response" in guard) return guard.response;
@@ -16,10 +19,12 @@ export async function GET(request: Request) {
   if (!limit.ok) return tooMany(limit.retryAfterSeconds);
 
   const sp = new URL(request.url).searchParams;
-  const d = defaultRange();
-  const parsed = parseRange(sp.get("start") ?? d.startDay, sp.get("end") ?? d.endDay);
-  if (!parsed.ok) return fail(parsed.message, 422);
-  const group = GROUP_KEYS.includes(sp.get("group") ?? "") ? (sp.get("group") as AdminStatusGroup) : "all";
-  const data = await listAdminInquiries({ q: sp.get("q") ?? undefined, group, range: parsed.range, page: Number(sp.get("page")) || 1, limit: Number(sp.get("limit")) || undefined });
-  return NextResponse.json({ ok: true, data }, { headers: { "Cache-Control": "private, no-store" } });
+  const parsed = parseQueryParams((k) => sp.get(k));
+  if (!parsed.ok) return NextResponse.json({ ok: false, message: parsed.message, fields: parsed.fields }, { status: 422, headers: NO_STORE });
+  try {
+    return NextResponse.json({ ok: true, data: await listAdminInquiries(parsed.query) }, { headers: NO_STORE });
+  } catch (error) {
+    console.error("admin inquiries list failed", (error as Error).message);
+    return fail("The inquiries could not be loaded. Please try again.", 503);
+  }
 }

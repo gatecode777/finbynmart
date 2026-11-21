@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ShieldCheck, TrendingUp, Users, Boxes, Building2, Award } from "lucide-react";
+import { ShieldCheck, TrendingUp } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import styles from "./IndiaNetworkBanner.module.css";
 
@@ -22,7 +22,7 @@ export function IndiaNetworkBanner() {
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>All India Supplier Network</h3>
               <p className={styles.cardDesc}>
-                Connect with verified businesses across every state and city in India.
+                Find suppliers and send inquiries to businesses across India.
               </p>
             </div>
           </div>
@@ -33,9 +33,9 @@ export function IndiaNetworkBanner() {
               <ShieldCheck size={28} className={styles.shieldIcon} strokeWidth={2.2} />
             </div>
             <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>Safe &amp; Secure Inquiries</h3>
+              <h3 className={styles.cardTitle}>Inquiries in One Place</h3>
               <p className={styles.cardDesc}>
-                Your business inquiries are protected and shared only with genuine suppliers.
+                Send inquiries and requirements through Finbyn Mart to suppliers on the platform.
               </p>
             </div>
           </div>
@@ -48,43 +48,8 @@ export function IndiaNetworkBanner() {
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>Grow Your Business</h3>
               <p className={styles.cardDesc}>
-                Find new suppliers, better prices and expand your business network.
+                Find new suppliers and request quotes to expand your business network.
               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Dark Navy Stats Bar */}
-        <div className={styles.statsBar}>
-          <div className={styles.statItem}>
-            <Users size={22} className={styles.statIcon} strokeWidth={1.75} />
-            <div className={styles.statText}>
-              <span className={styles.statNumber}>10,00,000+</span>
-              <span className={styles.statLabel}>Verified Suppliers</span>
-            </div>
-          </div>
-
-          <div className={styles.statItem}>
-            <Boxes size={22} className={styles.statIcon} strokeWidth={1.75} />
-            <div className={styles.statText}>
-              <span className={styles.statNumber}>50,00,000+</span>
-              <span className={styles.statLabel}>Products &amp; Services</span>
-            </div>
-          </div>
-
-          <div className={styles.statItem}>
-            <Building2 size={22} className={styles.statIcon} strokeWidth={1.75} />
-            <div className={styles.statText}>
-              <span className={styles.statNumber}>All India</span>
-              <span className={styles.statLabel}>Business Network</span>
-            </div>
-          </div>
-
-          <div className={styles.statItem}>
-            <Award size={22} className={styles.statIcon} strokeWidth={1.75} />
-            <div className={styles.statText}>
-              <span className={styles.statNumber}>Trusted Platform</span>
-              <span className={styles.statLabel}>for Business Growth</span>
             </div>
           </div>
         </div>

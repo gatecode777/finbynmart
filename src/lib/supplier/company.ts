@@ -16,15 +16,20 @@ import { getDb } from "@/lib/db/mongo";
  *    changed by the platform (no self-claim: "companies cannot be claimed here"), so a supplier sees nothing that was not legitimately theirs.
  */
 export type CompanyStatus = "ACTIVE" | "SUSPENDED";
-export type VerificationStatus = "UNVERIFIED";
+export type VerificationStatus = "UNVERIFIED" | "VERIFIED";
 
 export interface SupplierCompanyDoc {
   _id: ObjectId;
   ownerUserId: ObjectId;
   sellerKeys: string[];
   status: CompanyStatus;
-  /** There is no verification workflow: always UNVERIFIED. Email or phone confirmation and a complete profile are NOT company verification. */
+  /**
+   * UNVERIFIED until a reviewer APPROVES a submission (src/lib/verification: the only writer, inside the decision transaction). Never set by the supplier, a profile edit, an upload,
+   * e-mail or phone confirmation or profile completeness. VERIFIED keeps the approval in `verification`; whether a public label may be shown is decided by the effective rule
+   * (identity unchanged, not expired), never by this flag alone.
+   */
   verificationStatus: VerificationStatus;
+  verification?: { submissionId: ObjectId; reference: string; revision: number; policyVersion: string; approvedAt: Date; approvedBy: ObjectId; identity: Record<string, string>; materialFields: string[]; expiryMonths: number | null };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -131,7 +136,8 @@ export async function resolveSupplierContext(userId: string): Promise<SupplierCo
   const s = user.supplier;
   return {
     companyId: company._id,
-    company: { ...company, sellerKeys: [...company.sellerKeys, companyKeyOf(company._id)] },
+    company: { ...company, // an empty key can never be an owned identity: a general requirement has an empty supplierKey and must never read as DIRECT for anyone
+    sellerKeys: [...company.sellerKeys.filter((k) => typeof k === "string" && k.length > 0), companyKeyOf(company._id)] },
     role: "owner",
     permissions: OWNER_PERMISSIONS,
     profile: { displayName: s.businessName, contactName: user.name, email: user.email, emailVerified: user.emailVerified === true, phone: s.phone || null, city: s.city || null, description: s.offering || null },

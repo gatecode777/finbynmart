@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ToastHost } from "@/components/ui/Toast";
+import { NavigationProgress } from "@/components/ui/NavigationProgress";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -53,6 +54,7 @@ export default function RootLayout({
         >
           {children}
         </SiteChrome>
+        <NavigationProgress />
         <ToastHost />
         {/* the script is only served by Vercel hosting; elsewhere it is a 404 console error on every page */}
         {process.env.VERCEL ? <SpeedInsights /> : null}

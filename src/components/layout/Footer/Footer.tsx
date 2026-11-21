@@ -27,8 +27,8 @@ export function Footer() {
             />
             <p className={styles.tagline}>Powering Digital Commerce</p>
             <p className={styles.description}>
-              Finbyn Mart is India&apos;s trusted B2B marketplace connecting
-              buyers with verified suppliers, manufacturers and exporters
+              Finbyn Mart is an Indian B2B marketplace connecting
+              buyers with suppliers, manufacturers and exporters
               across multiple industries.
             </p>
             <div className={styles.social}>

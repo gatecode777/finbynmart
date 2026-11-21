@@ -5,7 +5,9 @@ import { addStage, markCache } from "@/lib/perf/context";
 import { createLruCache, ttlSetting } from "@/lib/perf/ttlCache";
 import { getCatalog, adoptedSeller } from "./data";
 import { toProductCard } from "./mappers";
-import { approvedVersion, getApproved, toApprovedCard, type ApprovedItem } from "./approvedStore";
+import { approvedVersion as snapshotVersion, categoryOverlayVersion, getApproved, toApprovedCard, type ApprovedItem } from "./approvedStore";
+/** Derived indexes are rebuilt when the approved snapshot OR the administrative category overlay changed. */
+const approvedVersion = (): number => snapshotVersion() * 1_000_000 + categoryOverlayVersion();
 import "./approvedProducts";
 import { searchText, searchTokens, slugify } from "./slug";
 import {
@@ -211,7 +213,7 @@ function approvedPart(items: ApprovedItem[]): { rows: Row[]; source: Source; cat
       moqUnit: it.moq ? unitKey(it.moq.unit) : undefined,
       supplier: it.supplier.key,
       supplierSlug: it.supplier.slug,
-      verified: false,
+      verified: it.supplier.verified,
       src: source,
     };
   });
@@ -674,6 +676,50 @@ export function getCategoryListing(slug: string, query: ListingQuery, options: L
 /** Listing across every discoverable category: All Products (Page 05), search (Page 07) and the public API. */
 export function getProductListing(query: ListingQuery, options: { pageSize?: number } = {}): CategoryListing {
   const index = indexFor(ALL) as Index;
+  return build(index, query, { pageSize: options.pageSize });
+}
+
+/**
+ * The listing restricted to a set of MAIN categories (an industry page). The base is the same eligible index as All Products, so every rule that hides a product there (category inactive
+ * or empty, product not approved, unpublished, company suspended) hides it here, and the facets and totals are computed over this scoped base, never over one page. A mapped category that
+ * is not discoverable is simply absent. Nothing is fetched or copied per request: the scoped index shares the base rows and is rebuilt when the base is.
+ */
+const scopedIndexes = new Map<string, { base: Index; index: Index }>();
+function scopedIndex(mainIds: string[]): Index | undefined {
+  const base = indexFor(ALL);
+  if (!base) return undefined;
+  const key = [...new Set(mainIds)].sort().join("|");
+  const hit = scopedIndexes.get(key);
+  if (hit && hit.base === base) return hit.index;
+  const keep = new Set(mainIds.filter((id) => base.catNames.has(id)));
+  // sample B2B listings are demonstration data, never live inventory: an industry page lists only catalogue and approved supplier rows (a category left with none is not offered)
+  const rows = base.rows.filter((row) => keep.has(row.cat) && (row.src ?? base.sources.get(row.cat))?.kind !== "sample");
+  const have = new Set(rows.map((row) => row.cat));
+  for (const id of [...keep]) if (!have.has(id)) keep.delete(id);
+  const subs = new Set(rows.map((row) => row.sub));
+  const pick = <V,>(m: Map<string, V>, by: (id: string) => boolean) => new Map([...m].filter(([id]) => by(id)));
+  const index: Index = {
+    ...base,
+    rows,
+    catNames: pick(base.catNames, (id) => keep.has(id)),
+    subLabels: pick(base.subLabels, (id) => subs.has(id)),
+    subGroup: pick(base.subGroup, (id) => subs.has(id)),
+    subCat: pick(base.subCat, (id) => subs.has(id)),
+    sellerSlugs: new Set(rows.map((row) => row.supplierSlug)),
+  };
+  scopedIndexes.set(key, { base, index });
+  return index;
+}
+
+/** The mapped main categories that still have listable rows on an industry page (no sample-only category), in the configured order. */
+export function industryListableCategories(mainIds: string[]): string[] {
+  const index = scopedIndex(mainIds);
+  return index ? [...new Set(mainIds)].filter((id) => index.catNames.has(id)) : [];
+}
+
+/** Listing of an industry's mapped main categories (Page 10). A category filter outside the scope is dropped and reported in `ignored`, never honoured. */
+export function getIndustryListing(mainIds: string[], query: ListingQuery, options: { pageSize?: number } = {}): CategoryListing {
+  const index = scopedIndex(mainIds) as Index;
   return build(index, query, { pageSize: options.pageSize });
 }
 

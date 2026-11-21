@@ -7,7 +7,9 @@ import { FeaturedSuppliers } from "@/components/homepage/FeaturedSuppliers";
 import { HowItWorks } from "@/components/homepage/HowItWorks";
 import { IndiaNetworkBanner } from "@/components/homepage/IndiaNetworkBanner";
 import { IndustrySolutions } from "@/components/homepage/IndustrySolutions";
-import { Testimonials } from "@/components/homepage/Testimonials";
+
+// Product and supplier sections read the public catalogue at request time (not at build time).
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -21,7 +23,6 @@ export default function Home() {
       <HowItWorks />
       <IndiaNetworkBanner />
       <IndustrySolutions />
-      <Testimonials />
     </>
   );
 }

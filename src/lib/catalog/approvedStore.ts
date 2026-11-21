@@ -4,9 +4,12 @@
  * Freshness: the snapshot is replaced as a whole (version + 1) by the loader; readers see the last complete one. A stale snapshot triggers a non-blocking refresh.
  */
 import type { ProductCardData } from "@/types";
+import type { AttrMap } from "./attributes";
 
 export interface ApprovedImage { src: string; remote: boolean; alt: string }
-export interface ApprovedSupplier { key: string; slug: string; name: string; city: string; companyId: string; since: string | null; description: string | null }
+export interface ApprovedSupplier { key: string; slug: string; name: string; city: string; companyId: string; since: string | null; description: string | null;
+  /** The effective company-evidence review allows the public label (stored approval, material identity unchanged, not expired). Never true from uploads, profile completeness, e-mail or phone. */
+  verified: boolean }
 export interface ApprovedItem {
   /** Public product id: "sp-" + the product id (never all digits, so it cannot be mistaken for a catalogue id). */
   id: string;
@@ -19,6 +22,10 @@ export interface ApprovedItem {
   main: string;
   sub: string;
   images: ApprovedImage[];
+  /** Validated category specifications from the APPROVED snapshot (empty when none were given or the category has none). */
+  attributes: AttrMap;
+  /** The same, labelled for display, in priority order (a card shows the first three). */
+  specs: { label: string; value: string }[];
   pricing: { mode: "FIXED" | "ON_REQUEST"; min: number | null; unit: string };
   moq: { quantity: number; unit: string } | null;
   supplier: ApprovedSupplier;
@@ -55,6 +62,27 @@ export function getApproved(): Snapshot {
   return s;
 }
 export const approvedVersion = (): number => state().version;
+
+/**
+ * The administrative activation overlay for MAIN categories: the ids an administrator deactivated (category_overrides, written only by Page 55's activation change). It is the one
+ * answer to "is this category active" for every synchronous consumer. Replaced as a whole by the loader; a failed load keeps the LAST known set, so a deactivation is never lost to a refresh failure.
+ */
+const go = globalThis as unknown as { __finbynCategoryOverlay?: { version: number; deactivated: Set<string>; loaded: boolean } };
+const overlay = () => (go.__finbynCategoryOverlay ??= { version: 0, deactivated: new Set(), loaded: false });
+export const getDeactivatedCategories = (): ReadonlySet<string> => overlay().deactivated;
+export const categoryOverlayVersion = (): number => overlay().version;
+export const categoryOverlayLoaded = (): boolean => overlay().loaded;
+export function setDeactivatedCategories(ids: string[]): void {
+  const o = overlay();
+  const next = new Set(ids);
+  const same = o.loaded && next.size === o.deactivated.size && [...next].every((id) => o.deactivated.has(id));
+  o.loaded = true;
+  if (same) return;
+  o.deactivated = next;
+  o.version += 1;
+}
+/** A main category is active unless an administrator deactivated it. (A subcategory follows its main category.) */
+export const isCategoryActive = (id: string): boolean => !overlay().deactivated.has(id.split("/")[0]);
 export const approvedLoadedAt = (): number => state().loadedAt;
 
 export function markApprovedLoading(on: boolean): void {
@@ -106,6 +134,7 @@ export const toApprovedCard = (it: ApprovedItem): ProductCardData => ({
   priceUnit: it.pricing.unit,
   ...(it.pricing.mode === "ON_REQUEST" ? { priceOnRequest: true } : {}),
   ...(it.moq ? { moq: it.moq.quantity, moqUnit: it.moq.unit } : {}),
+  ...(it.specs.length ? { attributes: it.specs.slice(0, 3) } : {}),
   supplierName: it.supplier.name,
   supplierHref: `/suppliers/${it.supplier.slug}`,
   supplierCity: it.supplier.city,

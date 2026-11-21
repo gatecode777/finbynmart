@@ -12,7 +12,7 @@ import { PasswordField } from "./PasswordField";
 import styles from "./Auth.module.css";
 
 /** `next` is a path on this site (checked by the page). The SERVER decides where this account lands (its portal home, or `next` when the role may open it). */
-export function SignInForm({ next }: { next?: string }) {
+export function SignInForm({ next, hideRegister = false }: { next?: string; hideRegister?: boolean }) {
   const id = useId();
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -42,7 +42,9 @@ export function SignInForm({ next }: { next?: string }) {
       return;
     }
     setErrors(result.fields ?? {});
-    setMessage(result.message);
+    // a field-level error is shown inline under its field; only an error with no field (locked, unconfirmed, network) uses the banner
+    setMessage(result.fields && Object.keys(result.fields).length > 0 ? "" : result.message);
+    flashToast("error", result.message);
     setUnverified(result.code === "email_not_verified");
     setBusy(false);
   }
@@ -87,16 +89,18 @@ export function SignInForm({ next }: { next?: string }) {
           )}
         </p>
       )}
-      <p className={styles.switch}>
-        Don&apos;t have an account?{" "}
-        <Link className={styles.link} href={registerHref}>
-          Sign up as a buyer
-        </Link>
-        {" · "}
-        <Link className={styles.link} href="/register-supplier">
-          Register as a supplier
-        </Link>
-      </p>
+      {!hideRegister && (
+        <p className={styles.switch}>
+          Don&apos;t have an account?{" "}
+          <Link className={styles.link} href={registerHref}>
+            Sign up as a buyer
+          </Link>
+          {" · "}
+          <Link className={styles.link} href="/register-supplier">
+            Register as a supplier
+          </Link>
+        </p>
+      )}
     </form>
   );
 }

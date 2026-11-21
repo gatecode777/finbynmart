@@ -1,4 +1,6 @@
+import { companyActiveNow } from "@/lib/supplier/companyEligibility";
 import { ObjectId } from "mongodb";
+import { displayAttributes, validateAttributes, type AttrMap } from "@/lib/catalog/attributes";
 import { getDb, getMongoClient } from "@/lib/db/mongo";
 import { invalidateApproved } from "@/lib/catalog/approvedProducts";
 import { getManagementCategories } from "@/lib/catalog/categories";
@@ -11,13 +13,13 @@ const PAGE = 20;
 export interface PendingRow { reference: string; name: string; category: string; company: string; revision: number; submittedAt: string }
 export interface ReviewDetail extends PendingRow {
   state: "PENDING" | "APPROVED" | "REJECTED";
-  snapshot: { name: string; sku: string; description: string; categoryName: string; pricingMode: string; currency: string; unitPricePaise: number | null; priceUnit: string; moq: number | null; quantityUnit: string; images: { url: string; name: string }[] };
+  snapshot: { name: string; sku: string; description: string; categoryName: string; pricingMode: string; currency: string; unitPricePaise: number | null; priceUnit: string; moq: number | null; quantityUnit: string; /** the exact submitted specifications, labelled; empty when the category has none or none were given */ specifications: { label: string; value: string }[]; images: { url: string; name: string }[] };
 }
 
 let idx: Promise<unknown> | undefined;
 async function col() {
   const c = await getProductsCollection();
-  idx ??= c.createIndex({ "draft.review.state": 1, "draft.review.submittedAt": 1, _id: 1 }, { name: "admin_product_review_queue", partialFilterExpression: { "draft.review.state": { $exists: true } } });
+  idx ??= c.createIndex({ "draft.review.state": 1, "draft.review.submittedAt": 1, _id: 1 }, { name: "admin_product_review_queue", partialFilterExpression: { "draft.review.state": { $exists: true } } }).catch((error) => { idx = undefined; throw error; }); // a failed build must not be cached
   await idx;
   return c;
 }
@@ -56,7 +58,7 @@ export async function getReview(reference: string): Promise<ReviewDetail | null>
   if (!d?.draft?.review) return null;
   const names = await companyNames([d.companyId]);
   const s = d.draft.review.snapshot as Record<string, unknown>;
-  return { ...rowOf(d, names), state: d.draft.review.state, snapshot: { name: String(s.name ?? ""), sku: String(s.sku ?? ""), description: String(s.description ?? ""), categoryName: String(s.categoryName ?? ""), pricingMode: String(s.pricingMode ?? ""), currency: String(s.currency ?? "INR"), unitPricePaise: (s.unitPricePaise as number | null) ?? null, priceUnit: String(s.priceUnit ?? ""), moq: (s.moq as number | null) ?? null, quantityUnit: String(s.quantityUnit ?? ""), images: ((s.images as { url: string; name: string }[]) ?? []).map((i) => ({ url: i.url, name: i.name })) } };
+  return { ...rowOf(d, names), state: d.draft.review.state, snapshot: { name: String(s.name ?? ""), sku: String(s.sku ?? ""), description: String(s.description ?? ""), categoryName: String(s.categoryName ?? ""), pricingMode: String(s.pricingMode ?? ""), currency: String(s.currency ?? "INR"), unitPricePaise: (s.unitPricePaise as number | null) ?? null, priceUnit: String(s.priceUnit ?? ""), moq: (s.moq as number | null) ?? null, quantityUnit: String(s.quantityUnit ?? ""), specifications: displayAttributes(String(s.categoryId ?? ""), s.attributes as AttrMap | undefined).map(({ label, value }) => ({ label, value })), images: ((s.images as { url: string; name: string }[]) ?? []).map((i) => ({ url: i.url, name: i.name })) } };
 }
 
 export type DecideInput = { decision: "APPROVE" | "REJECT"; expectedRevision: number; reasonCode?: string; internalNote?: string };
@@ -82,6 +84,16 @@ export async function decide(adminId: ObjectId, reference: string, input: Decide
   if (cur.draft.review.submittedRevision !== input.expectedRevision || cur.draft.revision !== input.expectedRevision) return { ok: false, status: 409, message: "The product changed after you opened it. Reload and review the current submission." };
   if (cur.draft.review.submittedBy.equals(adminId)) return { ok: false, status: 409, message: "You cannot decide your own submission." };
   if (input.decision === "APPROVE" && !getManagementCategories().some((n) => n.id === cur.draft!.categoryId)) return { ok: false, status: 409, message: "The category is not active, so this product cannot be approved." };
+
+  // a SUSPENDED company's product is not approved meanwhile (reactivate the company first). Even if a suspension lands after this check, the public loader excludes the product while the company is suspended.
+  if (input.decision === "APPROVE" && !(await companyActiveNow(cur.companyId))) return { ok: false, status: 409, message: "The supplier company is suspended, so this product cannot be approved now. Reactivate the company first, or reject the submission." };
+
+  // the approved snapshot is public: its specifications must be valid for its category even if the submit-time check was bypassed
+  if (input.decision === "APPROVE") {
+    const snap = cur.draft.review.snapshot as Record<string, unknown>;
+    const specs = validateAttributes(String(snap.categoryId ?? ""), snap.attributes ?? {}, { requireRequired: true });
+    if (!specs.ok) return { ok: false, status: 409, message: "The submitted specifications are not valid for this category, so it cannot be approved. Ask the supplier to correct and resubmit." };
+  }
 
   const client = await getMongoClient();
   const session = client.startSession();
@@ -109,4 +121,9 @@ export async function decide(adminId: ObjectId, reference: string, input: Decide
   if (r.ok) await invalidateApproved();
   if (r.ok) await notifySellerOwnerByCompany(cur.companyId, { type: r.state === "APPROVED" ? "PRODUCT_APPROVED" : "PRODUCT_REJECTED", title: r.state === "APPROVED" ? "Product approved" : "Product needs changes", body: `${cur.name}: ${r.state === "APPROVED" ? "your submission was approved." : "your submission was not approved. Open the product to see what to change."}`, link: `/supplier/products/${reference}/edit`, dedupeKey: `product:${reference}:${input.expectedRevision}:${r.state}` });
   return r;
+}
+
+/** How many submitted products are waiting for a decision (the admin dashboard's count; same filter and index as the queue). */
+export async function countPending(): Promise<number> {
+  return (await col()).countDocuments({ "draft.review.state": "PENDING" });
 }

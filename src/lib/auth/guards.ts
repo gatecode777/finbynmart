@@ -47,12 +47,13 @@ export async function requireBuyerApi(): Promise<{ user: PublicUser } | { respon
  * Supplier-only page access. The company is resolved from the session's own account (one login per company today: the owner), never from
  * the request. A signed-in non-supplier, or a supplier whose company is not active, → /forbidden?portal=supplier.
  */
-export async function requireSupplierPage(nextPath: string): Promise<{ user: PublicUser; context: SupplierContext }> {
+export async function requireSupplierPage(nextPath: string, opts: { allowSuspended?: boolean } = {}): Promise<{ user: PublicUser; context: SupplierContext }> {
   const user = await getCurrentUser().catch(() => null);
   if (!user) redirect(signInPath(nextPath));
   if (user.role !== "supplier") redirect("/forbidden?portal=supplier");
   const context = await resolveSupplierContext(user.id).catch(() => null);
-  if (!context || context.company.status !== "ACTIVE") redirect("/forbidden?portal=supplier");
+  // a SUSPENDED company is refused everywhere except the pages that opt in (support and account security); an unknown company is refused everywhere
+  if (!context || (context.company.status !== "ACTIVE" && !(opts.allowSuspended && context.company.status === "SUSPENDED"))) redirect("/forbidden?portal=supplier");
   return { user, context };
 }
 
@@ -75,7 +76,8 @@ export async function requireSupportApi(): Promise<{ user: PublicUser } | { resp
   if (user.role === "buyer") return { user };
   if (user.role === "supplier") {
     const context = await resolveSupplierContext(user.id).catch(() => null);
-    if (context && context.company.status === "ACTIVE") return { user };
+    // support and account security stay available to the owner of a suspended company (personal access, not company business)
+    if (context && (context.company.status === "ACTIVE" || context.company.status === "SUSPENDED")) return { user };
   }
   return { response: forbiddenResponse() };
 }
@@ -97,5 +99,26 @@ export async function requireAdminApi(capability: AdminCapability): Promise<{ us
   if (!user) return { response: unauthorizedResponse() };
   const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
   if (!permissions.includes(capability)) return { response: forbiddenResponse() };
+  return { user, permissions };
+}
+
+/**
+ * Page access for an administrator who holds AT LEAST ONE of the listed capabilities (for example a reports page whose individual report types have their own capability). Redirects exactly like
+ * requireAdminPage; the page then offers only the part its permissions cover.
+ */
+export async function requireAnyAdminPage(nextPath: string, capabilities: readonly AdminCapability[]): Promise<{ user: PublicUser; permissions: AdminCapability[] }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) redirect(signInPath(nextPath));
+  const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
+  if (!capabilities.some((c) => permissions.includes(c))) redirect("/forbidden?portal=admin");
+  return { user, permissions };
+}
+
+/** API twin of requireAnyAdminPage: 401 when anonymous, 403 when none of the capabilities is held. */
+export async function requireAnyAdminApi(capabilities: readonly AdminCapability[]): Promise<{ user: PublicUser; permissions: AdminCapability[] } | { response: NextResponse }> {
+  const user = await getCurrentUser().catch(() => null);
+  if (!user) return { response: unauthorizedResponse() };
+  const permissions = user.role === "admin" ? await getAdminPermissions(user.id).catch(() => []) : [];
+  if (!capabilities.some((c) => permissions.includes(c))) return { response: forbiddenResponse() };
   return { user, permissions };
 }

@@ -46,7 +46,7 @@ function NavEntry({ item, active, badge, collapsed, onNavigate }: { item: BuyerN
 export function BuyerSidebar({ activeKey, activeInquiries, collapsed, onNavigate }: BuyerSidebarProps) {
   const badgeFor = (item: BuyerNavItem) => (item.badge === "activeInquiries" ? activeInquiries : null);
   return (
-    <nav className={styles.sidebarNav} aria-label="Buyer navigation">
+    <nav id="buyer-sidebar-nav" className={styles.sidebarNav} aria-label="Buyer navigation">
       <ul className={styles.navList}>
         {BUYER_NAV.map((item) => (
           <NavEntry key={item.key} item={item} active={item.key === activeKey} badge={badgeFor(item)} collapsed={collapsed} onNavigate={onNavigate} />

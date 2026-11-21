@@ -12,7 +12,7 @@ export function HeroSection() {
         <div className={styles.photo}>
           <Image
             src="/images/hero/hero-professionals.png"
-            alt="Finbyn Mart Verified Business Partners & Suppliers"
+            alt="Business professionals working together"
             fill
             priority
             sizes="(max-width: 992px) 100vw, 52vw"
@@ -24,13 +24,13 @@ export function HeroSection() {
       <Container>
         <div className={styles.grid}>
           <div className={styles.textCol}>
-            <p className={styles.eyebrow}>India&apos;s Trusted B2B Marketplace</p>
+            <p className={styles.eyebrow}>India&apos;s B2B Marketplace</p>
             <h1 id="hero-heading" className={styles.heading}>
               <span className={styles.lineOne}>Find Reliable Suppliers</span>
               <span className={styles.highlight}>For Your Business</span>
             </h1>
             <p className={styles.description}>
-              Connect with verified manufacturers, suppliers and exporters across India. Get the best prices, compare quotes and grow your business.
+              Connect with manufacturers, suppliers and exporters across India. Request quotes, compare them and grow your business.
             </p>
             <HeroSearch />
           </div>

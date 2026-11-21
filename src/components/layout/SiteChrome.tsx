@@ -11,7 +11,8 @@ import { portalOfPath } from "@/lib/auth/portals";
  */
 export function SiteChrome({ top, bottom, children }: { top: ReactNode; bottom: ReactNode; children: ReactNode }) {
   const pathname = usePathname();
-  const isPortal = portalOfPath(pathname) !== "PUBLIC";
+  // /unauthorized brings its own minimal brand header: no account menu, search or notification providers are loaded for it
+  const isPortal = portalOfPath(pathname) !== "PUBLIC" || pathname === "/unauthorized";
   return (
     <>
       {!isPortal && top}

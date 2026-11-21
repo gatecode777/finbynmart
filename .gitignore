@@ -41,3 +41,4 @@ next-env.d.ts
 # local throwaway test database files (docs/page-reports/tools/start-test-replset.mjs)
 /.test-mongo/
 /docs/audits/runtime/
+.test-db-uri

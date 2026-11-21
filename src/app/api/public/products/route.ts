@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { PRODUCTS_PAGE_SIZE, getProductListing } from "@/lib/catalog/categoryListing";
 import { getRelatedSearches, toPublicFacets, toPublicProduct } from "@/lib/catalog/publicProduct";
 import { parsePublicProductQuery } from "@/lib/catalog/publicProductQuery";
-import { clientIp, rateLimitReserved } from "@/lib/security/rateLimit";
+import { boundedRateLimit, clientIp } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
 import { ensureApproved } from "@/lib/catalog/approvedProducts";
 
@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
  */
 async function handleGET(request: Request) {
   await ensureApproved();
-  const limit = await rateLimitReserved(`public-products:${clientIp(request)}`, 120, 60);
+  const limit = await boundedRateLimit(`public-products:${clientIp(request)}`, 120, 60);
   if (!limit.ok) {
     return NextResponse.json(
       { ok: false, code: "RATE_LIMITED", message: "Too many requests. Please wait a moment and try again." },

@@ -158,7 +158,7 @@ export function SearchBar({
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = query.trim().slice(0, MAX_QUERY_LENGTH);
-    if (!trimmed) return;
+    if (!trimmed) { setQuery(""); inputRef.current?.focus(); return; } // nothing to search: clear stray spaces and keep the cursor in the field
     clearTimeout(timer.current);
     controller.current?.abort();
     const chosen = open && active >= 0 ? suggestions[active] : undefined;

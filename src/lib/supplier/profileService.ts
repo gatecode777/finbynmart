@@ -11,6 +11,8 @@ import {
   type SupplierPersonalInput,
 } from "./profileRules";
 import { supplierCompanies, type SupplierCompanyDoc } from "./company";
+import { effectiveOf } from "@/lib/verification/identity";
+import type { SubmissionState } from "@/lib/verification/rules";
 
 export interface SupplierDocumentDto {
   id: string;
@@ -75,7 +77,7 @@ export interface SupplierOverviewDto {
   verification: {
     email: { status: "VERIFIED" | "UNVERIFIED"; note: string };
     mobile: { status: "VERIFIED" | "UNVERIFIED"; note: string };
-    company: { status: "UNVERIFIED"; note: string };
+    company: { status: "VERIFIED" | "UNVERIFIED"; note: string };
     documents: { total: number; pending: number; verified: number; rejected: number; note: string };
   };
   nextSteps: {
@@ -195,6 +197,9 @@ export async function getSupplierProfileOverview(userId: string): Promise<Suppli
 
   const docsCol = await getCompanyDocumentsCollection();
   const documents = await docsCol.find({ companyId: company._id, active: true }).sort({ createdAt: -1 }).toArray();
+  // the effective company-evidence review (stored approval + identity check + latest submission): never derived from uploads, profile completeness, e-mail or phone
+  const latestReview = await (await getDb()).collection<{ state: SubmissionState }>("verification_submissions").findOne({ companyId: company._id, latest: true }, { projection: { state: 1 } });
+  const review = effectiveOf(company as never, user, latestReview?.state ?? null);
 
   const businessName = company.businessName ?? user.supplier.businessName ?? "";
   const city = company.city ?? user.supplier.city ?? "";
@@ -270,9 +275,9 @@ export async function getSupplierProfileOverview(userId: string): Promise<Suppli
     {
       key: "step-verify",
       label: "Business verification by Finbyn Mart",
-      status: company.verificationStatus === "UNVERIFIED" ? ("blocked" as const) : ("done" as const),
+      status: review.publicBadge ? ("done" as const) : ("todo" as const),
       tab: "verification" as const,
-      note: "Formal verification requires manual compliance review by Finbyn Mart administration.",
+      note: review.note,
     },
   ];
 
@@ -290,8 +295,8 @@ export async function getSupplierProfileOverview(userId: string): Promise<Suppli
         note: user.phoneVerified ? "Your phone number is confirmed." : "Phone confirmation via SMS is not enabled yet.",
       },
       company: {
-        status: "UNVERIFIED",
-        note: "Company verification is awarded by Finbyn Mart compliance following manual document verification.",
+        status: review.publicBadge ? "VERIFIED" : "UNVERIFIED",
+        note: review.note,
       },
       documents: {
         total: documents.length,
@@ -538,7 +543,9 @@ export async function deleteSupplierDocument(userId: string, docId: string): Pro
 
   const now = new Date();
   await docsCol.updateOne({ _id: doc._id }, { $set: { active: false, deletedAt: now, updatedAt: now } });
-  await removeStored(doc.fileReference).catch(() => {});
+  // evidence a verification submission relies on is kept (the supplier can unlink it from the draft, never destroy what a review or its history refers to)
+  const relied = await (await getDb()).collection("verification_submissions").findOne({ "evidence.documentId": doc._id }, { projection: { _id: 1 } });
+  if (!relied) await removeStored(doc.fileReference).catch(() => {});
 
   return { ok: true };
 }

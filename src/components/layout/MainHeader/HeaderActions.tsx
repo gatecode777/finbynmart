@@ -14,26 +14,45 @@ interface Me {
 
 /**
  * Role-aware marketplace header actions.
- * - Supplier signed in: Show only Supplier Dashboard/Portal; hide buyer actions ("Get Best Price").
+ * - Supplier signed in: Show only Supplier Dashboard/Portal; hide buyer actions ("Get Quotes").
  * - Buyer signed in: Show buyer requirement CTA and Buyer Dashboard; hide supplier onboarding ("For Suppliers").
- * - Guest: Show "Get Best Price", "Sign In", and "For Suppliers".
+ * - Guest: Show "Get Quotes", "Sign In", and "For Suppliers".
  */
 export function HeaderActions() {
   const pathname = usePathname();
-  const [user, setUser] = useState<Me | null>(null);
+  // undefined = not known yet (nothing is shown as signed out until the server has answered), null = confirmed signed out
+  const [user, setUser] = useState<Me | null | undefined>(undefined);
 
   useEffect(() => {
     let active = true;
-    const read = () =>
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    // a failed or unavailable answer is retried (1 s, 3 s) and only then treated as signed out; it is never taken as "signed out" straight away
+    const read = (attempt = 0) => {
+      clearTimeout(retry);
       fetch("/api/auth/me", { cache: "no-store" })
-        .then((response) => response.json())
-        .then((data) => active && setUser(data.user ?? null))
-        .catch(() => undefined);
-    void read();
-    window.addEventListener(AUTH_EVENT, read);
+        .then(async (response) => {
+          if (!response.ok) throw new Error("unavailable");
+          const data = await response.json();
+          if (active) setUser(data.user ?? null);
+        })
+        .catch(() => {
+          if (!active) return;
+          if (attempt < 2) retry = setTimeout(() => read(attempt + 1), attempt === 0 ? 1000 : 3000);
+          else setUser((current) => (current === undefined ? null : current));
+        });
+    };
+    const refresh = () => read();
+    const onVisible = () => { if (document.visibilityState === "visible") read(); };
+    read();
+    window.addEventListener(AUTH_EVENT, refresh);
+    window.addEventListener("pageshow", refresh); // coming back from history (bfcache) shows the real state
+    document.addEventListener("visibilitychange", onVisible);
     return () => {
       active = false;
-      window.removeEventListener(AUTH_EVENT, read);
+      clearTimeout(retry);
+      window.removeEventListener(AUTH_EVENT, refresh);
+      window.removeEventListener("pageshow", refresh);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, [pathname]);
 
@@ -67,7 +86,7 @@ export function HeaderActions() {
             <ClipboardList size={18} strokeWidth={2} aria-hidden />
           </span>
           <span className={styles.actionText}>
-            <span className={styles.actionTitle}>Get Best Price</span>
+            <span className={styles.actionTitle}>Get Quotes</span>
             <span className={styles.actionSubtitle}>Post Your Requirement</span>
           </span>
         </Link>
@@ -87,15 +106,15 @@ export function HeaderActions() {
     );
   }
 
-  // GUEST (Not signed in)
+  // GUEST (confirmed not signed in). While the state is still unknown the same nav keeps its space but is hidden, so a signed-in visitor never sees "Sign In".
   return (
-    <nav className={styles.actions} aria-label="Account actions">
+    <nav className={styles.actions} aria-label="Account actions" style={user === undefined ? { visibility: "hidden" } : undefined} aria-hidden={user === undefined ? true : undefined}>
       <Link href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
         <span className={styles.actionIcon}>
           <ClipboardList size={18} strokeWidth={2} aria-hidden />
         </span>
         <span className={styles.actionText}>
-          <span className={styles.actionTitle}>Get Best Price</span>
+          <span className={styles.actionTitle}>Get Quotes</span>
           <span className={styles.actionSubtitle}>Post Your Requirement</span>
         </span>
       </Link>

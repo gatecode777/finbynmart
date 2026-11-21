@@ -6,7 +6,7 @@ import { getDb } from "@/lib/db/mongo";
  * `adminPermissions` array. A missing or empty array allows nothing (default deny). Admin accounts are never created through any web form;
  * an operator grants them directly in the database (see docs/admin/ADMIN_ACCESS.md).
  */
-export const ADMIN_CAPABILITIES = ["inquiries.read", "inquiries.responses", "inquiries.export", "sellers.map", "products.review", "support.manage"] as const;
+export const ADMIN_CAPABILITIES = ["inquiries.read", "inquiries.responses", "inquiries.export", "sellers.map", "products.review", "products.read", "products.unpublish", "products.export", "support.manage", "inquiries.requirements", "inquiries.recipients", "inquiries.routing", "inquiries.distribution", "inquiries.audit", "suppliers.read", "suppliers.links", "suppliers.contacts", "suppliers.suspend", "suppliers.reactivate", "suppliers.audit", "suppliers.export", "verification.read", "verification.documents", "verification.notes", "verification.requestChanges", "verification.reject", "verification.approve", "verification.audit", "categories.read", "categories.activation", "categories.audit", "buyers.read", "buyers.contacts", "buyers.suspend", "buyers.reactivate", "quotations.read", "notifications.read", "reports.buyers", "reports.suppliers", "reports.requirements", "reports.quotations", "reports.orders", "audit.read"] as const;
 export type AdminCapability = (typeof ADMIN_CAPABILITIES)[number];
 
 export async function getAdminPermissions(userId: string): Promise<AdminCapability[]> {

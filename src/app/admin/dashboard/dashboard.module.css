@@ -1,0 +1,13 @@
+.h2 { font-size: var(--fs-xl); color: var(--primary); margin: var(--space-6) 0 var(--space-3); }
+.stats, .tools { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.stat { display: grid; gap: var(--space-2); padding: var(--space-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+.statLink { display: grid; gap: var(--space-1); color: var(--text-primary); text-decoration: none; border-radius: var(--radius-md); }
+.statLink:hover .label { text-decoration: underline; }
+.statLink:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+.value { font-family: var(--font-heading); font-size: var(--fs-3xl); line-height: 1; color: var(--primary); }
+.label { font-weight: 700; overflow-wrap: anywhere; }
+.note { color: var(--text-secondary); font-size: var(--fs-sm); }
+.tool { padding: var(--space-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.toolTitle { margin: 0; font-size: var(--fs-lg); }
+.toolTitle a { color: var(--primary); }
+.toolText { margin: var(--space-2) 0 0; color: var(--text-secondary); font-size: var(--fs-sm); }

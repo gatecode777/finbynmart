@@ -7,6 +7,7 @@ import { SupplierProfileSide } from "@/components/supplier/profile/SupplierProfi
 import { SupplierPersonalForm } from "@/components/supplier/profile/SupplierPersonalForm";
 import { SupplierCompanyForm } from "@/components/supplier/profile/SupplierCompanyForm";
 import { SupplierDocumentsPanel } from "@/components/supplier/profile/SupplierDocumentsPanel";
+import { getSupplierVerification } from "@/lib/verification/service";
 import { SupplierVerificationPanel } from "@/components/supplier/profile/SupplierVerificationPanel";
 import dash from "@/components/supplier/dashboard/SupplierDashboard.module.css";
 import { ExternalLink } from "lucide-react";
@@ -56,6 +57,7 @@ async function SupplierCompanyPage({
   }
 
   const documents = tab === "documents" ? await listSupplierDocuments(user.id) : null;
+  const review = tab === "verification" ? await getSupplierVerification(user.id).catch(() => null) : null;
 
   return (
     <div className={dash.page}>
@@ -95,7 +97,7 @@ async function SupplierCompanyPage({
             storageConfigured={documents.storageConfigured}
           />
         )}
-        {tab === "verification" && <SupplierVerificationPanel verification={overview.verification} />}
+        {tab === "verification" && <SupplierVerificationPanel verification={overview.verification} review={review} />}
       </SupplierProfileFrame>
     </div>
   );

@@ -9,8 +9,8 @@ import { REASON_MAX, validateLink, type LinkErrors } from "@/lib/admin/mappingRu
 import type { CompanyRow, SellerRow } from "@/lib/admin/sellerMapping";
 import s from "./AdminInquiries.module.css";
 
-export function CompanyLinksWorkspace() {
-  const [cq, setCq] = useState("");
+export function CompanyLinksWorkspace({ initialQuery = "" }: { initialQuery?: string }) {
+  const [cq, setCq] = useState(initialQuery);
   const [companies, setCompanies] = useState<CompanyRow[] | null>(null);
   const [company, setCompany] = useState<CompanyRow | null>(null);
   const [sq, setSq] = useState("");

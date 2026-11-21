@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { ObjectId, type Collection, type Document, type Filter, type Sort } from "mongodb";
-import { getDb } from "@/lib/db/mongo";
+import { getDb, getMongoClient } from "@/lib/db/mongo";
+import { recordAdminEvent } from "@/lib/admin/notifications";
 import { claimedExtension, detectType, displayFilename, removeStored, saveFile, storageConfigured } from "@/lib/buyer/documentStorage";
 import { notifyTicketCreated } from "@/lib/buyer/notifications";
 import { getPublicProductByKey } from "@/lib/catalog/productDetail";
@@ -89,7 +90,7 @@ export async function ticketsCollection(): Promise<Collection<TicketDoc>> {
     col.createIndex({ buyerId: 1, categoryId: 1, createdAt: -1, _id: -1 }, { name: "buyer_tickets_category" }),
     // one ticket per submission: a retried or double-clicked submit finds the first one
     col.createIndex({ buyerId: 1, idempotencyKey: 1 }, { unique: true, name: "buyer_ticket_submission" }),
-  ]);
+  ]).catch((error) => { indexReady = undefined; throw error; }); // a failed build must not be cached: the next call retries
   await indexReady;
   return col;
 }
@@ -287,8 +288,18 @@ export async function createBuyerTicket(buyer: { id: string; name: string; email
     for (let attempt = 0; attempt < 5 && !doc; attempt++) {
       const candidate: TicketDoc = { ...base, ticketReference: generateTicketReference(now) };
       try {
-        const { insertedId } = await col.insertOne(candidate);
-        doc = { ...candidate, _id: insertedId };
+        // the ticket and the staff alert commit together; a duplicate key aborts both (and is handled below)
+        let insertedId: ObjectId | undefined;
+        const txn = (await getMongoClient()).startSession();
+        try {
+          await txn.withTransaction(async () => {
+            insertedId = (await col.insertOne(candidate, { session: txn })).insertedId;
+            await recordAdminEvent(txn, { type: "SUPPORT_TICKET_CREATED", sourceKey: `support:${candidate.ticketReference}`, reference: candidate.ticketReference }, now);
+          });
+        } finally {
+          await txn.endSession();
+        }
+        doc = { ...candidate, _id: insertedId! };
       } catch (error) {
         if (!isDuplicateKey(error)) throw error;
         // the same submission won a race: use its ticket; anything else is a reference collision: draw another

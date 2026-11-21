@@ -1,20 +1,26 @@
 import { CheckCircle2, Clock, ShieldCheck } from "lucide-react";
 import type { SupplierOverviewDto } from "@/lib/supplier/profileService";
+import type { SupplierVerificationView } from "@/lib/verification/service";
+import { SupplierCompanyReviewCard } from "./SupplierCompanyReviewCard";
 import dash from "@/components/supplier/dashboard/SupplierDashboard.module.css";
 import styles from "./SupplierProfile.module.css";
 
 export function SupplierVerificationPanel({
   verification,
+  review,
 }: {
   verification: SupplierOverviewDto["verification"];
+  review: SupplierVerificationView | null;
 }) {
   return (
+    <>
+      {review && <SupplierCompanyReviewCard review={review} />}
     <section className={dash.card} aria-labelledby="verification-panel-title">
       <h2 id="verification-panel-title" className={dash.cardTitle}>
-        <ShieldCheck size={20} aria-hidden /> Supplier Verification Checklist
+        <ShieldCheck size={20} aria-hidden /> Account and document checklist
       </h2>
       <p className={dash.legendNote}>
-        Finbyn Mart verifies business sellers to ensure marketplace security and foster trust with B2B buyers.
+        These are separate facts. E-mail, phone and uploaded files are not company verification: only the evidence review above can approve your company.
       </p>
 
       <ul className={styles.verifyList}>
@@ -59,33 +65,20 @@ export function SupplierVerificationPanel({
             <p className={styles.verifyItemText}>{verification.documents.note}</p>
           </div>
           <span className={verification.documents.total > 0 ? dash.badgeOk : dash.badgeWarn}>
-            {verification.documents.total > 0 ? `${verification.documents.total} Submitted` : "None"}
+            {verification.documents.total > 0 ? `${verification.documents.total} Uploaded` : "None"}
           </span>
         </li>
 
         <li className={styles.verifyItem}>
-          <Clock size={24} className={styles.verifyIconPending} aria-hidden />
+          {review?.effective.kind === "REVIEWED" ? <CheckCircle2 size={24} className={styles.verifyIconDone} aria-hidden /> : <Clock size={24} className={styles.verifyIconPending} aria-hidden />}
           <div className={styles.verifyBody}>
-            <h3 className={styles.verifyItemTitle}>Finbyn Mart Official Trust Seal</h3>
-            <p className={styles.verifyItemText}>
-              Following document submission, your company profile is reviewed by our compliance team. Once verified,
-              your listings will carry the verified badge.
-            </p>
+            <h3 className={styles.verifyItemTitle}>Company evidence review</h3>
+            <p className={styles.verifyItemText}>{review ? review.effective.note : "Company review status is unavailable right now."}</p>
           </div>
-          <span className={dash.badgeWarn}>In Review</span>
+          <span className={review?.effective.kind === "REVIEWED" ? dash.badgeOk : dash.badgeWarn}>{review ? review.effective.label : "Unavailable"}</span>
         </li>
       </ul>
-
-      <div style={{ marginTop: "1.5rem", padding: "16px", background: "#f8faf9", borderRadius: "8px", border: "1px solid var(--border, #dce8e5)" }}>
-        <h4 style={{ margin: "0 0 6px", fontSize: "0.875rem", fontWeight: 600, color: "var(--text-primary, #183a38)" }}>
-          How Verification Helps Your Business:
-        </h4>
-        <ul style={{ margin: 0, paddingLeft: "1.25rem", fontSize: "0.8125rem", color: "var(--text-secondary, #526563)", lineHeight: 1.6 }}>
-          <li>Verified Trust Badge displayed on all your product listings and supplier profile.</li>
-          <li>Higher ranking in buyer search results and category recommendations.</li>
-          <li>Direct quotation requests and inquiries from high-volume verified enterprise buyers.</li>
-        </ul>
-      </div>
     </section>
+    </>
   );
 }

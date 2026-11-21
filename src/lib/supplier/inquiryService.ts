@@ -51,6 +51,8 @@ export interface InquiryDetail {
     quantity: number;
     unit: string | null;
     deliveryLocation: string | null;
+    /** The date the buyer needs the goods by, when they gave one. */
+    requiredBy: string | null;
     specifications: { label: string; value: string }[];
     productUrl: string | null;
   };
@@ -106,6 +108,7 @@ export async function getInquiryDetail(context: SupplierContext, reference: stri
       quantity: inquiry.quantity,
       unit: inquiry.unit ?? null,
       deliveryLocation: inquiry.deliveryLocation?.text ?? null,
+      requiredBy: inquiry.requiredBy ? inquiry.requiredBy.toISOString().slice(0, 10) : null,
       // the listing's own specifications for the product the buyer asked about, rendered generically (label / value) for any category
       specifications: (inquiry.recipientType === "MATCHED" ? (inquiry.productKey ? (getPublicProductByKey(inquiry.productKey)?.specifications ?? []) : []) : (product?.specifications ?? [])).slice(0, 30).map((sp) => ({ label: sp.label, value: sp.unit ? `${sp.value} ${sp.unit}` : sp.value })),
       productUrl: inquiry.recipientType === "MATCHED" ? null : (product?.url ?? null),

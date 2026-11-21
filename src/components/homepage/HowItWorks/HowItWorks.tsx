@@ -2,19 +2,24 @@ import { Container } from "@/components/ui/Container";
 import { HOW_IT_WORKS } from "@/lib/constants/process";
 import styles from "./HowItWorks.module.css";
 
-export function HowItWorks() {
+/** `showHeading={false}` is for the How It Works page, whose own h1 introduces this band (a hidden h2 keeps the outline logical). */
+export function HowItWorks({ showHeading = true }: { showHeading?: boolean } = {}) {
   return (
     <section className={styles.section} aria-labelledby="how-it-works-heading">
       <Container>
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>Simple &amp; Secure</p>
-          <h2 id="how-it-works-heading" className={styles.title}>
-            How Finbyn Mart Works
-          </h2>
-          <p className={styles.subtitle}>
-            A simple and secure way to grow your business.
-          </p>
-        </div>
+        {showHeading ? (
+          <div className={styles.heading}>
+            <p className={styles.eyebrow}>Simple Steps</p>
+            <h2 id="how-it-works-heading" className={styles.title}>
+              How Finbyn Mart Works
+            </h2>
+            <p className={styles.subtitle}>
+              A simple way to find suppliers and grow your business.
+            </p>
+          </div>
+        ) : (
+          <h2 id="how-it-works-heading" className="visually-hidden">The process at a glance</h2>
+        )}
 
         <ol className={styles.steps}>
           {HOW_IT_WORKS.map((item) => {

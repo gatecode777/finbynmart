@@ -35,7 +35,7 @@ The suites need ONE missing dependency: a MongoDB server that can run a replica 
 2. Start the throwaway replica set (a SECOND mongod: loopback only, port 27018, data in the git-ignored `.test-mongo\`; leave the window open):
    `$env:MONGOD_BIN="C:\Program Files\MongoDB\Server\<version>\bin\mongod.exe"; node docs/page-reports/tools/start-test-replset.mjs`
    It prints the exact URI and records the process id, command, port and data folder in `.test-mongo\rs-27018.pid`, so the process can be verified before it is stopped.
-3. In another PowerShell window from the repository root run the preflight (no database needed), then all four suites. The URI comes from step 2 and holds no secret (loopback, no credentials):
+3. In another PowerShell window from the repository root run the preflight (no database needed), then all five suites (supplier flows, lead distribution, approved flow, conversation flow, requirement flow). The URI comes from step 2 and holds no secret (loopback, no credentials):
    `node --import ./docs/page-reports/tools/alias-register.mjs docs/page-reports/tools/it-preflight.mjs`
    `$env:FINBYN_TEST_MODE="1"; $env:TEST_MONGODB_URI="<uri printed in step 2>"; $env:TEST_MONGODB_DB="finbyn_it_run"; $env:TEST_DB_CONFIRM="finbyn_it_run"; node docs/page-reports/tools/run-integration-suites.mjs`
    The runner gives each suite its own database (finbyn_it_supplier, _leads, _catalog, _conv), never reads MONGODB_URI or MONGODB_DB, and prints PASS, FAIL or BLOCKED per suite. One suite alone: set the variables and run `node --import ./docs/page-reports/tools/alias-register.mjs docs/page-reports/tools/<suite>.mjs`.

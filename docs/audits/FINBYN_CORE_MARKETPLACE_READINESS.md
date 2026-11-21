@@ -114,3 +114,20 @@ Not verified for the same reason: transaction rollback, concurrency, worker cras
 **Exact steps to unblock this machine** are in `docs/testing/TEST_ENVIRONMENT.md` ("Exact steps for THIS machine"): `winget install --id MongoDB.Server -e` (administrator), set `MONGOD_BIN`, run `start-test-replset.mjs` (loopback, port 27018, git-ignored `.test-mongo`, pid file for safe cleanup), then the preflight and `run-integration-suites.mjs` with `FINBYN_TEST_MODE`, `TEST_MONGODB_URI`, `TEST_MONGODB_DB`, `TEST_DB_CONFIRM`.
 
 **Remaining gaps (unchanged by this round):** approved supplier products are not matched; no unpublish action; no inquiry or message attachments; durable notices only for leads and buyer replies; no scheduler for `POST /api/internal/distribution`; no authenticated responsive, accessibility or performance evidence.
+
+---
+
+## Update 2026-11-16: general requirement connected
+
+The dead-end `requirements` flow from the gap analysis (task 1) is now a General Requirement on the canonical inquiry model: structured form, one inquiry + durable job, MATCHED leads through the existing worker, buyer and supplier screens labelled correctly. See `docs/leads/GENERAL_REQUIREMENT.md`. **Implemented, not runtime verified:** a fifth suite, `it-requirement-flow.mjs`, is prepared and BLOCKED with the other four (no isolated database). Checks actually run: `tsc` 0 errors, lint clean, 37 of 37 unit scripts (new `66`: 29 checks), production build compiled, responsive audit of `/post-requirement` and `/` (44 widths, no overflow/clipping/small targets), and a real-browser pass at 390 px on a built server (search, pick, inline errors, signed-out prompt, no-product state; the successful submission needs a signed-in buyer and a database and was NOT exercised). Still open: approved supplier products cannot be reference products; no scheduler for the worker.
+
+---
+
+## Update 2026-11-16 (later): specifications and match-2
+
+Structured specifications (textile set, Apparel & Fashion only) now flow draft -> review -> approved snapshot -> public cards/detail; approved supplier products can be requirement references and are matched by attributes (policy `match-2`, `docs/leads/SPECIFICATIONS_AND_MATCHING_V2.md`); catalogue matching is unchanged; historical jobs keep `match-1`. The public search wait was measured and bounded (`docs/performance/SEARCH_RELIABILITY.md`): database down, first search 16.10 s -> 3.09 s, then about 5 ms. **Implemented, not runtime verified:** `it-specifications-flow.mjs` is the sixth BLOCKED suite. Checks run: `tsc` 0 errors, lint clean, 38 of 38 unit scripts (new `67`: 47 checks incl. a runtime check of the bounded limiter), production build compiled, built-server timing, real-browser pass of the requirement form at 390 and 1280 px (search, pick, read-only catalogue specification, no overflow). **Matching is not complete:** only one category has definitions; no catalogue-to-supplier type map; quantities remain whole numbers; the worker still has no scheduler.
+
+
+## Update 2026-11-16: Admin Product Management (Page 54)
+
+Admin list, details, unpublish (transactional, audited, idempotent, no auto-restore) and export are implemented for supplier-created products; unpublish is enforced for new inquiries, requirements and matching by a database check. Not verified at runtime: `it-admin-products.mjs` is BLOCKED (no isolated database). Legacy CSV catalogue products cannot be unpublished. See `docs/admin/PRODUCT_MANAGEMENT.md`.

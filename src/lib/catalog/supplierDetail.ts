@@ -175,7 +175,7 @@ function companySupplier(slug: string): SupplierDetail | undefined {
     city: sup.city,
     state: "",
     supplierType: null,
-    verificationStatus: "unverified",
+    verificationStatus: sup.verified ? "verified" : "unverified",
     memberSince: sup.since,
     description: sup.description,
     images,

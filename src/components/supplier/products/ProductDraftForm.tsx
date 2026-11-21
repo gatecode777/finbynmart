@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { attributeSetFor } from "@/lib/catalog/attributes";
 import Image from "next/image";
 import Link from "next/link";
 import { flashToast } from "@/components/ui/Toast";
@@ -53,8 +54,16 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
     return categories.map((c) => ({ id: c.id, label: c.parentId && byId.get(c.parentId) ? `${byId.get(c.parentId)!.name} › ${c.name}` : c.name })).sort((a, b) => a.label.localeCompare(b.label));
   }, [categories]);
 
+  const specSet = attributeSetFor(input.categoryId);
   const live = reviewDraft(input, !!input.categoryId, images.length);
   const review = serverReview ?? live;
+
+  function setAttr(id: string, patch: Partial<{ value: string; unit: string }>) {
+    setInput((p) => ({ ...p, attributes: { ...p.attributes, [id]: { value: p.attributes[id]?.value ?? "", unit: p.attributes[id]?.unit ?? "", ...patch } } }));
+    setDirty(true);
+    setServerReview(null);
+    setErrors((p) => ({ ...p, [`attr.${id}`]: undefined }));
+  }
 
   function set<K extends keyof DraftInput>(k: K, v: DraftInput[K]) {
     setInput((p) => ({ ...p, [k]: v }));
@@ -104,7 +113,9 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
     setServerReview(null);
   }
 
-  const diffs = (Object.keys(LABELS) as (keyof DraftInput)[]).filter((k) => input[k] !== baseline[k]).map((k) => ({ k, from: show(k, baseline[k]), to: show(k, input[k]) }));
+  const textKeys = Object.keys(LABELS) as (keyof typeof LABELS)[];
+  const diffs: { k: string; from: string; to: string }[] = textKeys.filter((k) => input[k] !== baseline[k]).map((k) => ({ k, from: show(k, baseline[k]), to: show(k, input[k]) }));
+  if (JSON.stringify(input.attributes) !== JSON.stringify(baseline.attributes)) diffs.push({ k: "attributes", from: "(saved specifications)", to: "(changed specifications)" });
 
   async function onReview() {
     setReviewing(true);
@@ -189,8 +200,8 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
   const paise = input.pricingMode === "FIXED" ? parsePaise(input.price) : null;
   const unit = UNITS.find((u) => u.code === input.priceUnit)?.label.toLowerCase();
   const qUnit = UNITS.find((u) => u.code === input.quantityUnit)?.label.toLowerCase();
-  const fieldErr = (k: keyof DraftInput) => (errors[k] ? <p id={`e-${k}`} className={s.err}>{errors[k]}</p> : null);
-  const aria = (k: keyof DraftInput) => ({ "aria-invalid": errors[k] ? true : undefined, "aria-describedby": errors[k] ? `e-${k}` : undefined });
+  const fieldErr = (k: keyof DraftInput | `attr.${string}`) => (errors[k] ? <p id={`e-${k}`} className={s.err}>{errors[k]}</p> : null);
+  const aria = (k: keyof DraftInput | `attr.${string}`) => ({ "aria-invalid": errors[k] ? true : undefined, "aria-describedby": errors[k] ? `e-${k}` : undefined });
 
   return (
     <>
@@ -244,6 +255,39 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
                 <textarea id="f-description" className={auth.control} rows={4} value={input.description} maxLength={LIMITS.description} onChange={(e) => set("description", e.target.value)} {...aria("description")} />
                 {fieldErr("description")}
               </div>
+              {specSet ? (
+                <fieldset className={auth.field} style={{ gridColumn: "1 / -1", border: 0, padding: 0, margin: 0 }}>
+                  <legend className={auth.label}>Specifications</legend>
+                  <p className={s.hint}>These are shown on the public product after approval and are used to match your product to buyer requirements. Fill in only what is true; an empty field stays empty.</p>
+                  <div className={s.grid}>
+                    {specSet.defs.map((d) => (
+                      <div key={d.id} className={auth.field}>
+                        <label htmlFor={`f-attr-${d.id}`} className={auth.label}>{d.label}{d.required ? " *" : ""}</label>
+                        {d.type === "enum" ? (
+                          <select id={`f-attr-${d.id}`} className={auth.control} value={input.attributes[d.id]?.value ?? ""} onChange={(e) => setAttr(d.id, { value: e.target.value })} {...aria(`attr.${d.id}`)}>
+                            <option value="">Not specified</option>
+                            {d.options!.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                          </select>
+                        ) : d.type === "number" ? (
+                          <div style={{ display: "flex", gap: "var(--space-2)" }}>
+                            <input id={`f-attr-${d.id}`} className={auth.control} inputMode="decimal" value={input.attributes[d.id]?.value ?? ""} onChange={(e) => setAttr(d.id, { value: e.target.value })} {...aria(`attr.${d.id}`)} />
+                            {d.units!.length > 1 ? (
+                              <select aria-label={`${d.label} unit`} className={auth.control} value={input.attributes[d.id]?.unit || d.units![0].code} onChange={(e) => setAttr(d.id, { unit: e.target.value })}>
+                                {d.units!.map((u) => <option key={u.code} value={u.code}>{u.label}</option>)}
+                              </select>
+                            ) : <span className={s.hint} style={{ alignSelf: "center" }}>{d.units![0].label}</span>}
+                          </div>
+                        ) : (
+                          <input id={`f-attr-${d.id}`} className={auth.control} maxLength={d.textMax} value={input.attributes[d.id]?.value ?? ""} onChange={(e) => setAttr(d.id, { value: e.target.value })} {...aria(`attr.${d.id}`)} />
+                        )}
+                        {fieldErr(`attr.${d.id}`)}
+                      </div>
+                    ))}
+                  </div>
+                </fieldset>
+              ) : input.categoryId ? (
+                <p className={s.hint} style={{ gridColumn: "1 / -1" }}>This category has no specification fields yet, so this product cannot be matched to buyer requirements automatically.</p>
+              ) : null}
             </div>
           </details>
 
@@ -379,7 +423,7 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
               <section className={s.preview} aria-live="polite">
                 <h2 style={{ marginTop: 0 }}>Changes summary</h2>
                 {diffs.length === 0 ? <p className={s.hint}>No unsaved changes.</p> : (
-                  <ul className={s.list}>{diffs.map((d) => <li key={d.k}><span><strong>{LABELS[d.k]}:</strong> {d.from} → {d.to}</span></li>)}</ul>
+                  <ul className={s.list}>{diffs.map((d) => <li key={d.k}><span><strong>{d.k === "attributes" ? "Specifications" : LABELS[d.k as keyof typeof LABELS]}:</strong> {d.from} → {d.to}</span></li>)}</ul>
                 )}
                 <p className={s.hint}>Compared with your last saved draft. This product has no live version.</p>
               </section>
@@ -412,5 +456,5 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
   );
 }
 
-const LABELS: Record<keyof DraftInput, string> = { name: "Name", categoryId: "Category", sku: "SKU", description: "Description", pricingMode: "Pricing type", price: "Unit price", priceUnit: "Price unit", moq: "MOQ", quantityUnit: "Quantity unit" };
-const show = (_k: keyof DraftInput, v: string) => (v === "" ? "(empty)" : v.length > 60 ? v.slice(0, 57) + "…" : v);
+const LABELS: Record<Exclude<keyof DraftInput, "attributes">, string> = { name: "Name", categoryId: "Category", sku: "SKU", description: "Description", pricingMode: "Pricing type", price: "Unit price", priceUnit: "Price unit", moq: "MOQ", quantityUnit: "Quantity unit" };
+const show = (_k: string, v: string) => (v === "" ? "(empty)" : v.length > 60 ? v.slice(0, 57) + "…" : v);

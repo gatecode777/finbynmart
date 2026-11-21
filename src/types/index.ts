@@ -181,6 +181,8 @@ export interface ProductCardData {
   priceIsEstimated?: boolean;
   /** A supplier product with no stated price: shown as "Price on request", never as zero. */
   priceOnRequest?: boolean;
+  /** At most three genuine specifications from the approved snapshot (supplier products only). */
+  attributes?: { label: string; value: string }[];
   moq?: number;
   moqUnit?: string;
   supplierName: string;

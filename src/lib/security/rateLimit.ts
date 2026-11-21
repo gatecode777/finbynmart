@@ -99,3 +99,38 @@ export async function rateLimitReserved(key: string, limit: number, windowSecond
     return { ok: true, retryAfterSeconds: 0 };
   }
 }
+
+// ---------- bounded limiter for public READ endpoints (search) ----------
+/**
+ * The database limiter normally decides. It is given a DEADLINE (default 1.5 s): when the database is slow or down the request is NOT held for the driver's 8 s connection wait.
+ * Degraded policy (explicit, documented in docs/performance/SEARCH_RELIABILITY.md): abuse protection is never switched off; the instance falls back to a per-instance in-memory
+ * counter with a STRICTER ceiling (a quarter of the normal limit, at least 10) and, after a failure, skips the database for 10 s so later requests are not delayed at all.
+ * The limit is per instance while degraded, so it is weaker than the shared one: that is the accepted trade-off for keeping read-only catalogue pages answering.
+ */
+const localWindows = new Map<string, { bucket: number; count: number }>();
+let dbSkipUntil = 0;
+export const LIMITER_DEADLINE_MS = 1500;
+export const LIMITER_SKIP_MS = 10_000;
+
+export async function boundedRateLimit(key: string, limit: number, windowSeconds: number, deadlineMs = LIMITER_DEADLINE_MS): Promise<{ ok: boolean; retryAfterSeconds: number; degraded: boolean }> {
+  const now = Date.now();
+  if (now >= dbSkipUntil) {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<"timeout">((resolve) => { timer = setTimeout(() => resolve("timeout"), deadlineMs); });
+    const real = rateLimitReserved(key, limit, windowSeconds);
+    const winner = await Promise.race([real, timeout]);
+    if (timer) clearTimeout(timer);
+    // rateLimitReserved fails open with retryAfterSeconds 0 when the database errored: treat that as degraded too
+    if (winner !== "timeout" && winner.retryAfterSeconds !== 0) return { ...winner, degraded: false };
+    if (winner !== "timeout") dbSkipUntil = Date.now() + LIMITER_SKIP_MS;
+    else { dbSkipUntil = Date.now() + LIMITER_SKIP_MS; void real.catch(() => undefined); }
+  }
+  const bucket = Math.floor(now / (windowSeconds * 1000));
+  const retryAfterSeconds = Math.max(1, Math.ceil(((bucket + 1) * windowSeconds * 1000 - now) / 1000));
+  const w = localWindows.get(key);
+  const cur = w && w.bucket === bucket ? w : { bucket, count: 0 };
+  cur.count += 1;
+  if (localWindows.size > 20_000) localWindows.clear();
+  localWindows.set(key, cur);
+  return { ok: cur.count <= Math.max(10, Math.floor(limit / 4)), retryAfterSeconds, degraded: true };
+}

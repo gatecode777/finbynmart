@@ -1,7 +1,7 @@
 import { FEATURED_SUPPLIERS } from "@/lib/constants/suppliers";
 import { getProductBySlug as getSampleProduct, getProductsBySupplier } from "@/lib/constants/categoryPages";
 import { ADOPTED_SELLERS, getCatalog } from "./data";
-import { getApproved } from "./approvedStore";
+import { getApproved, isCategoryActive } from "./approvedStore";
 
 /**
  * Server-only. Resolves a product or supplier key sent by a client into a verified public record.
@@ -36,14 +36,14 @@ export function resolveProduct(rawKey: string): ProductRef | undefined {
   if (key.startsWith("sp-")) {
     // an approved supplier product; the supplier is its own company (never a seeded seller)
     const it = getApproved().byId.get(key);
-    return it ? { key: it.id, name: it.name, source: "supplier", supplierKey: it.supplier.key, supplierName: it.supplier.name, priceUnit: it.pricing.unit, moq: it.moq ?? undefined } : undefined;
+    return it && isCategoryActive(it.main) ? { key: it.id, name: it.name, source: "supplier", supplierKey: it.supplier.key, supplierName: it.supplier.name, priceUnit: it.pricing.unit, moq: it.moq ?? undefined } : undefined;
   }
 
   if (/^\d+$/.test(key)) {
     const { productById, sellerById } = getCatalog();
     const product = productById.get(Number(key));
     const seller = product ? sellerById.get(product.sellerId) : undefined;
-    if (!product || !seller) return undefined;
+    if (!product || !seller || !isCategoryActive("apparel-fashion")) return undefined;
     const adoptedAs = Object.entries(ADOPTED_SELLERS).find(([, id]) => id === seller.id)?.[0];
     return { key, name: product.name, source: "catalog", supplierKey: adoptedAs ?? seller.id, supplierName: seller.name, priceUnit: "Piece" };
   }
@@ -51,6 +51,7 @@ export function resolveProduct(rawKey: string): ProductRef | undefined {
   const sample = getSampleProduct(key);
   if (!sample) return undefined;
   const { product } = sample;
+  if (!isCategoryActive(sample.category.slug)) return undefined;
   return {
     key: product.id,
     name: product.name,

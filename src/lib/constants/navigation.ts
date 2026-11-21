@@ -9,7 +9,6 @@ export const CATEGORY_NAV: NavCategory[] = [
   { label: "Home & Lifestyle", href: "/categories/home-lifestyle" },
   { label: "Food & Beverages", href: "/categories/food-beverages" },
   { label: "Health & Pharma", href: "/categories/health-pharma" },
-  { label: "More", href: "/categories/more" },
 ];
 
 export const POPULAR_SEARCHES = [

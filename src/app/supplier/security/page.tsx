@@ -21,7 +21,7 @@ async function SupplierSecurityRoute({ searchParams }: { searchParams: Promise<R
   const raw = await searchParams;
   const wanted = one(raw.tab);
   const tab: SecurityTab = SECURITY_TAB_KEYS.find((k) => k === wanted) ?? "overview";
-  const { user } = await requireSupplierPage(`/supplier/security${tab === "overview" ? "" : `?tab=${tab}`}`);
+  const { user } = await requireSupplierPage(`/supplier/security${tab === "overview" ? "" : `?tab=${tab}`}`, { allowSuspended: true });
   const overview = await getBuyerSecurityOverview(user.id).catch(() => null);
 
   return (

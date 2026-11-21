@@ -269,6 +269,8 @@ export const FAQ_CATEGORIES = [
   { value: "inquiries", label: "Inquiries & RFQs" },
   { value: "quotations", label: "Quotations" },
   { value: "orders", label: "Orders" },
+  { value: "requirements", label: "Requirements & Matching" },
+  { value: "supplier", label: "Supplier Account & Products" },
   { value: "technical", label: "Technical Support" },
 ] as const;
 // Payments, Delivery and Returns are not listed: Finbyn Mart has no payment, delivery or return policy to state, and none is invented.

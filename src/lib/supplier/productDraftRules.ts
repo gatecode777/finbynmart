@@ -2,6 +2,8 @@
  * Client-safe rules for the supplier Add Product draft (Page 40). One source for the form, the API and the tests.
  * Money is an integer in paise parsed from a decimal string (never a float). Only INR exists in the repo today.
  */
+import { attributeSetFor, validateAttributes } from "@/lib/catalog/attributes";
+
 export const PRICING_MODES = ["FIXED", "ON_REQUEST"] as const;
 export type PricingMode = (typeof PRICING_MODES)[number];
 
@@ -33,11 +35,13 @@ export interface DraftInput {
   priceUnit: string;
   moq: string;
   quantityUnit: string;
+  /** Category specifications as typed (strings); validated against the category's attribute set. An attribute the supplier left empty is simply absent. */
+  attributes: Record<string, { value: string; unit: string }>;
 }
 
-export const EMPTY_DRAFT: DraftInput = { name: "", categoryId: "", sku: "", description: "", pricingMode: "FIXED", price: "", priceUnit: "", moq: "", quantityUnit: "" };
+export const EMPTY_DRAFT: DraftInput = { attributes: {}, name: "", categoryId: "", sku: "", description: "", pricingMode: "FIXED", price: "", priceUnit: "", moq: "", quantityUnit: "" };
 
-export type FieldErrors = Partial<Record<keyof DraftInput, string>>;
+export type FieldErrors = Partial<Record<keyof DraftInput | `attr.${string}`, string>>;
 
 export function normalizeSku(value: string): string {
   return value.trim().replace(/\s+/g, "-").toUpperCase();
@@ -81,6 +85,9 @@ export function validateDraftShape(d: DraftInput): FieldErrors {
   if (d.priceUnit && !UNIT_CODES.includes(d.priceUnit)) e.priceUnit = "Choose a listed unit.";
   if (d.moq && parseMoq(d.moq) === null) e.moq = "Enter a whole number of at least 1.";
   if (d.quantityUnit && !UNIT_CODES.includes(d.quantityUnit)) e.quantityUnit = "Choose a listed unit.";
+  // category specifications: only the chosen category's attributes, with their types, bounds and allowed values
+  const attrs = validateAttributes(d.categoryId, d.attributes, { requireRequired: false });
+  if (!attrs.ok) for (const [id, msg] of Object.entries(attrs.errors)) e[`attr.${id}`] = msg;
   return e;
 }
 
@@ -104,7 +111,6 @@ export interface Review {
 }
 
 export const BLOCKERS = [
-  "Category specifications: no approved attribute definitions exist yet.",
   "Publishing: a reviewer must approve the exact submitted revision; submitting does not publish it.",
 ];
 
@@ -129,6 +135,10 @@ export function reviewDraft(d: DraftInput, categoryOk: boolean, imageCount = 0):
   if (d.pricingMode === "FIXED" && d.priceUnit && d.quantityUnit && d.priceUnit !== d.quantityUnit) {
     moqMissing.push("Quantity unit must match the price unit (no unit conversion is done)");
   }
+  const set = attributeSetFor(d.categoryId);
+  const specs = set ? validateAttributes(d.categoryId, d.attributes, { requireRequired: true }) : null;
+  const specMissing = specs && !specs.ok ? Object.values(specs.errors) : [];
+  if (set && specMissing.length) missing.push(`Specifications: ${set.defs.filter((x) => specs && !specs.ok && specs.errors[x.id]).map((x) => x.label).join(", ")}`);
   if (imageCount < 1) missing.push("At least one product image");
   missing.push(...pricingMissing, ...moqMissing);
 
@@ -137,7 +147,7 @@ export function reviewDraft(d: DraftInput, categoryOk: boolean, imageCount = 0):
     { key: "images", label: "Images", state: imageCount > 0 ? "done" : "todo" },
     { key: "pricing", label: "Pricing", state: pricingMissing.length ? "todo" : "done" },
     { key: "moq", label: "Minimum order", state: moqMissing.length ? "todo" : "done" },
-    { key: "specifications", label: "Category specifications", state: "blocked", detail: "No approved specification fields exist yet." },
+    { key: "specifications", label: "Category specifications", state: specMissing.length ? "todo" : "done", detail: set ? undefined : "This category has no specification fields yet, so the product cannot be matched to requirements automatically." },
   ];
   return { checklist, missing, blockers: BLOCKERS, canSubmit: missing.length === 0, canPublish: false };
 }

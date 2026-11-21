@@ -14,7 +14,7 @@ import { submitInquiry, type Identity } from "@/lib/inquiries/service";
 import { validateInquiry } from "@/lib/inquiries/validate";
 import { clientIp, rateLimit } from "@/lib/security/rateLimit";
 import { withApiPerf } from "@/lib/perf/instrument";
-import { ensureApproved } from "@/lib/catalog/approvedProducts";
+import { ensureApproved, isProductPublicNow } from "@/lib/catalog/approvedProducts";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +47,7 @@ async function handlePOST(request: Request) {
     const found = getPublicProductByKey(productKey);
     if (!found) productError = "That product is not available.";
     else if (found.supplier.slug !== supplier.slug) productError = "That product does not belong to this supplier.";
+    else if (found.id.startsWith("sp-") && !(await isProductPublicNow(found.id))) productError = "That product is not available.";
     else product = found;
   }
 
@@ -94,6 +95,7 @@ async function handlePOST(request: Request) {
       value.idempotencyKey,
     );
     if (!result.ok) {
+      if (result.code === "SUPPLIER_UNAVAILABLE") return fail("This supplier is not accepting new inquiries right now.", 409);
       return result.code === "KEY_CONFLICT"
         ? fail("This request key was already used for a different inquiry. Reload the page and try again.", 409)
         : fail("You already sent this inquiry a moment ago. Check your reference, or wait a few minutes to send it again.", 409);

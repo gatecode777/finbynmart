@@ -14,6 +14,9 @@ import { buildTimeline, notificationInfo, statusInfo, type NotificationState, ty
 export type Viewer = { userId?: string; guest: "valid" | "expired" | "none" };
 
 export interface ConfirmationDto {
+  /** GENERAL_REQUIREMENT = posted through Post Your Requirement (no selected supplier). */
+  sourceType: "DIRECT_INQUIRY" | "GENERAL_REQUIREMENT";
+  requiredBy: string | null;
   reference: string;
   inquiryType: InquiryType | null;
   inquiryTypeLabel: string;
@@ -82,7 +85,7 @@ export async function toConfirmationDto(doc: InquiryDoc, viewer: "buyer" | "gues
     submittedAt,
     submittedLabel: formatSubmitted(submittedAt),
     supplier: {
-      name: supplier?.name ?? doc.supplierName,
+      name: doc.sourceType === "GENERAL_REQUIREMENT" ? "Matching suppliers" : (supplier?.name ?? doc.supplierName),
       slug: supplier?.slug ?? null,
       url: supplier?.url ?? null,
       initials: supplier?.initials ?? initialsOf(doc.supplierName),
@@ -109,6 +112,8 @@ export async function toConfirmationDto(doc: InquiryDoc, viewer: "buyer" | "gues
     quantity: doc.quantity,
     unit: doc.unit ?? null,
     deliveryLocation: doc.deliveryLocation?.text ?? null,
+    sourceType: doc.sourceType ?? "DIRECT_INQUIRY",
+    requiredBy: doc.requiredBy ? doc.requiredBy.toISOString().slice(0, 10) : null,
     message: doc.message ?? null,
     timeline: buildTimeline(status, history, submittedAt),
     notification: notificationInfo(doc.notification?.status),

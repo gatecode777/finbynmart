@@ -8,7 +8,17 @@
  *    similar names never match. Sizes/price/MOQ/stock are NOT used: the buyer's request does not state them, so none is invented.
  *  - quantity and unit are never converted or compared here; stock and MOQ never exclude a supplier (a lead is not a promise of stock).
  */
-export const MATCHING_POLICY_VERSION = "match-1";
+/**
+ * Policy versions. A job keeps the version it was created under (historical jobs are NEVER re-matched under a newer one).
+ *  - match-1 (legacy, still understood for jobs already stored): catalogue listings only, same category + name + colour.
+ *  - match-2 (current): two explicit families, chosen by the job's `requirement.kind`:
+ *      CATALOGUE_EXACT (catalogue listings, unchanged rule: the catalogue carries no structured attributes beyond colour, so exact category + name + colour is its only reliable evidence);
+ *      SUPPLIER_ATTRIBUTES (approved supplier products): same main category, the same product type, and EVERY attribute the requirement states present and compatible in the
+ *      candidate (enumerations equal, numbers within a documented tolerance after a defined unit conversion, text by normalised equality). A candidate missing a stated attribute is not a match.
+ *    The two families never match each other: no canonical type mapping exists between a catalogue listing and a supplier product, so a cross-family match would be a guess.
+ */
+export const MATCHING_POLICY_VERSION = "match-2";
+export const LEGACY_POLICY_VERSIONS: readonly string[] = ["match-1"];
 
 export interface Signature {
   categoryId: string;
@@ -34,7 +44,7 @@ export function isEquivalent(required: Signature, candidate: Signature | null): 
   return required.colourKey === "" || candidate.colourKey === required.colourKey;
 }
 
-export type DistributionState = "PENDING" | "PROCESSING" | "COMPLETED" | "NO_MATCHES" | "PARTIAL" | "FAILED" | "STOPPED";
+export type DistributionState = "PENDING" | "PROCESSING" | "COMPLETED" | "NO_MATCHES" | "PARTIAL" | "FAILED" | "STOPPED" | "PAUSED";
 
 /** What the buyer is told. Real states only: nothing says "sent to N suppliers" until it is true. */
 export const DISTRIBUTION_LABEL: Record<DistributionState, string> = {
@@ -45,6 +55,8 @@ export const DISTRIBUTION_LABEL: Record<DistributionState, string> = {
   PARTIAL: "Partial: retry pending",
   FAILED: "Failed: needs attention",
   STOPPED: "Stopped: requirement closed",
+  // buyer-safe wording: an administrative hold is an operational pause, never the buyer's choice and never a cancellation
+  PAUSED: "On hold: not processing right now",
 };
 
 export const OPEN_FOR_DISTRIBUTION = ["NEW", "new", "NOTIFIED", "IN_PROGRESS", "REPLIED", "QUOTED"];

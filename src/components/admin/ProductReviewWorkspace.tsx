@@ -75,6 +75,7 @@ export function ProductReviewWorkspace() {
             </div>
             <div>
               <h3>Pricing</h3><p>{sel.snapshot.pricingMode === "ON_REQUEST" ? "Price on request" : `${sel.snapshot.currency} ${((sel.snapshot.unitPricePaise ?? 0) / 100).toFixed(2)} per ${sel.snapshot.priceUnit}`}</p>
+              <h3>Specifications</h3>{sel.snapshot.specifications.length ? <ul>{sel.snapshot.specifications.map((x) => <li key={x.label}>{x.label}: {x.value}</li>)}</ul> : <p>None given (or this category has no specification fields).</p>}
               <h3>Minimum order</h3><p>{sel.snapshot.moq} {sel.snapshot.quantityUnit}</p>
               <h3>Images ({sel.snapshot.images.length})</h3>
               <div style={{ display: "flex", gap: ".5rem", flexWrap: "wrap" }}>

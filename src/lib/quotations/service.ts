@@ -197,7 +197,7 @@ export interface QuotationSummary {
 }
 export type TabCounts = Record<"all" | "active" | "expiring" | "revision" | "accepted" | "rejected" | "expired", number>;
 
-function tabFilter(tab: QuotationListQuery["status"], now: Date): Filter<QuotationDoc> | null {
+export function tabFilter(tab: QuotationListQuery["status"], now: Date): Filter<QuotationDoc> | null {
   const soon = new Date(now.getTime() + EXPIRING_DAYS * DAY_MS);
   switch (tab) {
     case "all":
@@ -557,7 +557,8 @@ export async function compareBuyerQuotations(buyerIdText: string, references: st
   const buyerId = new ObjectId(buyerIdText);
   const docs = await (await quotationsCollection()).find({ reference: { $in: unique }, buyerId, isCurrent: true, status: { $ne: "DRAFT" } }).toArray();
   const inquiries = await (await inquiriesCollection()).find({ _id: { $in: docs.map((d) => d.inquiryId) }, buyerId }, { projection: { _id: 1, supplierKey: 1 } }).toArray();
-  const directKey = new Map(inquiries.map((i) => [i._id!.toString(), i.supplierKey]));
+  // an inquiry with no selected supplier (a general requirement) has no "selected" offer: no source label is claimed
+  const directKey = new Map(inquiries.filter((i) => i.supplierKey).map((i) => [i._id!.toString(), i.supplierKey]));
   const mine = new Set(inquiries.map((i) => i._id!.toString()));
   const found = docs.filter((d) => mine.has(d.inquiryId.toString()));
   if (found.length !== unique.length) return { ok: false, code: "NOT_FOUND", message: "One or more of these quotations were not found." };

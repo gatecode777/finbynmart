@@ -1,6 +1,8 @@
 import { ADOPTED_SELLERS, getCatalog } from "@/lib/catalog/data";
 import { isEquivalent, signatureOf, type Signature } from "./matchingRules";
 import type { CatalogProduct } from "@/types";
+import { getApproved } from "@/lib/catalog/approvedStore";
+import { attributesMatch, type AttrMap } from "@/lib/catalog/attributes";
 
 /**
  * Candidate source of policy match-1: the catalogue listings (`db/seed`, loaded once into memory by `getCatalog`; NOT a per-inquiry scan: one Map lookup by
@@ -51,4 +53,27 @@ export function equivalentCandidates(required: Signature, directSellerKey: strin
     if (have === undefined || p.id < have) best.set(key, p.id);
   }
   return [...best.entries()].map(([sellerKey, id]) => ({ sellerKey, productKey: String(id) })).sort((a, b) => (a.sellerKey < b.sellerKey ? -1 : a.sellerKey > b.sellerKey ? 1 : 0));
+}
+
+export interface SupplierCandidate {
+  companyId: string;
+  sellerKey: string;
+  productKey: string;
+}
+
+/**
+ * Candidates for a SUPPLIER_ATTRIBUTES requirement: approved, publicly eligible supplier products of the same main category whose attributes satisfy every attribute the
+ * requirement states. One entry per company (its lowest product id), sorted by company id: deterministic and deduplicated across several matching products. Bounded by the
+ * approved snapshot (at most MAX_APPROVED items, no database read). `excludeCompanyId` is the selected supplier's company of a direct inquiry.
+ */
+export function supplierCandidates(criteria: { nodeId: string; attributes: AttrMap }, excludeCompanyId?: string): SupplierCandidate[] {
+  const main = criteria.nodeId.split("/")[0];
+  const best = new Map<string, { id: string; key: string }>();
+  for (const item of getApproved().items) {
+    if (item.main !== main || item.supplier.companyId === excludeCompanyId) continue;
+    if (!attributesMatch(item.nodeId, criteria.attributes, item.attributes)) continue;
+    const have = best.get(item.supplier.companyId);
+    if (!have || item.id < have.id) best.set(item.supplier.companyId, { id: item.id, key: item.supplier.key });
+  }
+  return [...best.entries()].map(([companyId, v]) => ({ companyId, sellerKey: v.key, productKey: v.id })).sort((a, b) => (a.companyId < b.companyId ? -1 : a.companyId > b.companyId ? 1 : 0));
 }

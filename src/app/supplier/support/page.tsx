@@ -25,7 +25,7 @@ async function SupplierSupportRoute({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const raw = await searchParams;
-  const { user } = await requireSupplierPage("/supplier/support");
+  const { user } = await requireSupplierPage("/supplier/support", { allowSuspended: true });
 
   const parsed = parseTicketQuery(Object.fromEntries(Object.entries(raw).map(([key, value]) => [key, one(value)])));
   const query = parsed.ok

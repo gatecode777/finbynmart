@@ -9,6 +9,7 @@ import type { SupplierDocumentDto } from "@/lib/supplier/profileService";
 import auth from "@/components/auth/Auth.module.css";
 import dash from "@/components/supplier/dashboard/SupplierDashboard.module.css";
 import styles from "./SupplierProfile.module.css";
+import { flashToast } from "@/components/ui/Toast";
 
 export function SupplierDocumentsPanel({
   documents,
@@ -21,6 +22,7 @@ export function SupplierDocumentsPanel({
   const [docType, setDocType] = useState(SUPPLIER_DOCUMENT_TYPES[0].value);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
+  const [fileError, setFileError] = useState("");
   const [banner, setBanner] = useState<{ ok: boolean; text: string } | null>(null);
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +33,10 @@ export function SupplierDocumentsPanel({
 
   async function handleUpload(e: FormEvent) {
     e.preventDefault();
-    if (!selectedFile || busy) return;
+    if (busy) return;
     setBanner(null);
+    setFileError("");
+    if (!selectedFile) { setFileError("Choose a file to upload."); document.getElementById("doc-file")?.focus(); return; }
     setBusy(true);
 
     const formData = new FormData();
@@ -50,14 +54,16 @@ export function SupplierDocumentsPanel({
     if (res?.ok && data.ok) {
       setSelectedFile(null);
       setBanner({ ok: true, text: "Document uploaded successfully and queued for review." });
+      flashToast("success", "Document uploaded.");
       router.refresh();
       return;
     }
 
-    setBanner({
-      ok: false,
-      text: res ? data.message ?? "Upload failed." : "Network error. Please try again.",
-    });
+    // the error belongs to the file or type field: shown under it (and announced), not in a banner away from the form
+    const message = res ? data.fields?.file ?? data.fields?.type ?? data.message ?? "Upload failed." : "Network error. The document was not uploaded. Please try again.";
+    setFileError(message);
+    flashToast("error", "Document not uploaded.");
+    document.getElementById("doc-file")?.focus();
   }
 
   async function handleDelete(id: string) {
@@ -66,7 +72,7 @@ export function SupplierDocumentsPanel({
     if (res?.ok) {
       router.refresh();
     } else {
-      alert("Failed to delete document.");
+      flashToast("error", "The document could not be removed.");
     }
   }
 
@@ -132,10 +138,12 @@ export function SupplierDocumentsPanel({
                 id="doc-file"
                 type="file"
                 accept=".pdf,.png,.jpg,.jpeg"
-                onChange={onFileChange}
+                onChange={(event) => { setFileError(""); onFileChange(event); }}
                 className={auth.control}
-                required
+                aria-invalid={fileError ? true : undefined}
+                aria-describedby={fileError ? "doc-file-error" : undefined}
               />
+              {fileError && <span id="doc-file-error" className={auth.error} role="alert">{fileError}</span>}
             </div>
           </div>
 
@@ -143,7 +151,7 @@ export function SupplierDocumentsPanel({
             <button
               type="submit"
               className={styles.btnPrimary}
-              disabled={!selectedFile || busy}
+              disabled={busy}
             >
               <UploadCloud size={16} aria-hidden /> {busy ? "Uploading..." : "Upload Document"}
             </button>

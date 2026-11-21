@@ -35,7 +35,8 @@ export async function buildReport(ctx: SupplierContext, r: ReportRange, currency
 
   const [inqCol, qtCol, ordCol] = await Promise.all([inquiriesCollection(), quotationsCollection(), ordersCollection()]);
   // quotations (supplierKey, version, sentAt) and orders (supplierKey, placedAt) are indexed by the dashboard; inquiries need this range index
-  indexReady ??= inqCol.createIndex({ supplierKey: 1, createdAt: -1 }, { name: "supplier_received_range" });
+  // the inquiries service already creates this same key pattern under its default name; MongoDB then answers IndexOptionsConflict (85), which only means the index exists: accept it. Any other failure is retried next time.
+  indexReady ??= inqCol.createIndex({ supplierKey: 1, createdAt: -1 }, { name: "supplier_received_range" }).catch((error: { code?: number }) => { if (error?.code === 85) return "exists"; indexReady = undefined; throw error; });
   await indexReady;
   const bucketOf = (field: string) => ({ $dateTrunc: { date: field, unit: r.bucket, timezone: REPORT_TIMEZONE, startOfWeek: "monday" } });
   const fmt = (d: unknown) => (d instanceof Date ? new Date(d.getTime() + 5.5 * 3600 * 1000).toISOString().slice(0, 10) : "");

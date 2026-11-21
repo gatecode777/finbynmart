@@ -125,7 +125,7 @@ export function SupplierAnalyticsWorkspace({ initial }: { initial: Report }) {
               <div key={d.key}><dt>{d.label}</dt><dd>Source: {d.source}. Date: {d.dateBasis}. Counted as: {d.grain}. {d.note}</dd></div>
             ))}
           </dl>
-          <p className={s.hint}>Generated {new Date(report.generatedAt).toLocaleString()}. Numbers are read from live records; there is no cache or rollup.</p>
+          <p className={s.hint}>Generated {new Date(report.generatedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" }) + " IST"}. Numbers are read from live records; there is no cache or rollup.</p>
         </details>
       </div>
     </>

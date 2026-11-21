@@ -45,7 +45,7 @@ export interface BuyerInquiryPage {
 
 const initialsOf = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "S";
 
-const PROJECTION = { reference: 1, supplierKey: 1, supplierName: 1, supplierSlug: 1, source: 1, productKey: 1, productName: 1, categoryName: 1, inquiryType: 1, type: 1, quantity: 1, unit: 1, status: 1, createdAt: 1, updatedAt: 1, cancelledAt: 1, statusHistory: { $slice: -1 } } as const;
+const PROJECTION = { sourceType: 1, reference: 1, supplierKey: 1, supplierName: 1, supplierSlug: 1, source: 1, productKey: 1, productName: 1, categoryName: 1, inquiryType: 1, type: 1, quantity: 1, unit: 1, status: 1, createdAt: 1, updatedAt: 1, cancelledAt: 1, statusHistory: { $slice: -1 } } as const;
 
 function typeOf(doc: Pick<InquiryDoc, "inquiryType" | "type" | "productKey">): InquiryType {
   return doc.inquiryType ?? (doc.type === "inquiry" ? (doc.productKey ? "PRODUCT_INQUIRY" : "GENERAL_INQUIRY") : "GET_BEST_QUOTE");
@@ -64,12 +64,12 @@ function toRow(doc: InquiryDoc): BuyerInquiryRow {
     id: doc._id!.toString(),
     reference: doc.reference ?? null,
     inquiryType: type,
-    inquiryTypeLabel: INQUIRY_TYPES.find((t) => t.value === type)?.label ?? "Inquiry",
+    inquiryTypeLabel: doc.sourceType === "GENERAL_REQUIREMENT" ? "General Requirement" : (INQUIRY_TYPES.find((t) => t.value === type)?.label ?? "Inquiry"),
     status,
     statusLabel: BUSINESS_LABEL[status],
     product: doc.productKey ? { name: product?.name ?? doc.productName ?? "Product", url: product?.url ?? null, imageSrc: image?.src ?? null, imageRemote: Boolean(image?.remote) } : null,
     categoryName: doc.categoryName ?? null,
-    supplier: { name: supplier?.name ?? doc.supplierName, url: supplier?.url ?? null, initials: supplier?.initials ?? initialsOf(doc.supplierName) },
+    supplier: doc.sourceType === "GENERAL_REQUIREMENT" ? { name: "Matching suppliers", url: null, initials: "MS" } : { name: supplier?.name ?? doc.supplierName, url: supplier?.url ?? null, initials: supplier?.initials ?? initialsOf(doc.supplierName) },
     quantity: doc.quantity,
     unit: doc.unit ?? null,
     submittedAt: doc.createdAt.toISOString(),

@@ -1,0 +1,33 @@
+# Page 10 — Industry Details completion
+
+Route confirmed in tracker and code: `/industries/[slug]` (`src/app/industries/[slug]/page.tsx`); listing `/industries`. Earlier design/implementation notes: `10-industry-details.md`. The page already existed in full (hero, breadcrumb, shared listing component over the central engine, five distinct states). This pass verified it and closed one real gap.
+
+## Verified gap table
+| Requirement / source | Existing implementation | Verified gap | Minimal fix | Verification |
+|---|---|---|---|---|
+| Industry-to-category relationship (brief s5) | `industryCategories.ts`: only APPROVED entries used; every shipped entry is PROPOSED (derived from category names, not evidence) | **Missing approved mapping: no industry shows products.** An owner decision, not software; no evidence-supported mapping exists in the repo, and a name-based one is forbidden by the brief | None made. Proposals stay unused; unresolved list below | Real build, unmapped state on `/industries/*` (200, "aren't set up yet", no products) |
+| No sample records as live inventory (brief s10) | Scoped index reused the All Products base, which includes sample B2B listings (e.g. Industrial Air Compressor with prices) | **Incorrect query:** an approved mapping to a sample-backed category would have listed demonstration products as live | `scopedIndex` drops rows whose source is `sample`; a category left with no rows is not offered (`industryListableCategories`, used by `resolveIndustryScope`) | Unit 77 (new check) and browser check against a fixture mapping |
+| Unknown slug, aliases | `find()` over the canonical `INDUSTRY_SOLUTIONS` ids, else `notFound()`; no aliases exist | none | none | 404 for unknown, wrong-case, encoded and NUL slugs |
+| Database failure vs unknown | industries are code constants; listing read wrapped, failure shows "Products could not be loaded" with retry | none | none | code review only (see not verified) |
+| Filters, pagination | shared component; scope kept; out-of-scope category dropped and reported; 20 per page; deterministic | none | none | Browser check below |
+| Suppliers section | omitted (needs supplier listing scoping) | Not required by the original spec as built; left omitted | none | n/a |
+| Metadata | title from the resolved industry; canonical only when a site origin is configured; filtered URLs noindex; unknown slug gets none | none | none | HTTP check |
+
+## Taxonomy source and mapping rules
+Industries: `INDUSTRY_SOLUTIONS` (code). Categories: the canonical MAIN category ids (`TOP_CATEGORIES`); every subcategory below a main category is included by the engine (a fixed two-level tree, so no depth or cycle, and one product has one main category so there is no double counting). A mapping is used only when `status: "APPROVED"` with a named approver and a date (`validateIndustryMap`). Whether a mapped category is shown is still decided by the central rules (active, public products, sample rows excluded here). Nothing is matched by name, keyword or "first products".
+
+## Data eligibility and query behaviour
+In-memory listing engine (catalogue CSV plus the approved supplier snapshot, refreshed on the existing TTL/invalidation): every hiding rule of `/products` applies (inactive category, unapproved or unpublished product, suspended company), plus the sample exclusion above. Facets and totals are computed over the scoped base, never one page. Pagination is bounded (20) and ordered deterministically. The page is read-only; the inquiry and quote buttons reuse the existing product flow (the server reloads authoritative product/supplier context) and Post a requirement is the canonical `/post-requirement` link (no supplier named). No new collection or endpoint.
+
+## States (all distinct)
+Unknown industry: 404. No approved mapping: "Products for this industry aren't set up yet" (links to All Products and Post a requirement). Approved mapping, no listable category: "No public products in this industry yet". Filters or search match nothing: shared no-match state. Read failed: "Products could not be loaded" with Try again.
+
+## QA evidence
+- tsc, lint and a production build: clean; all unit scripts pass; `77-industry-details-unit-test.mjs`: 16 checks (new: sample listings never reach an industry page; chips exclude sample-only categories).
+- `95-industry-details-browser-check.mjs`: 35 checks, 0 failed, on a production build with the database unreachable and a **TEMPORARY fixture mapping** (retail-wholesale to apparel-fashion + home-lifestyle, manufacturing to sample-only categories, agriculture to an empty category). The fixture was removed afterwards and the real build re-checked unmapped. The fixture exercises the mapped path against the real CSV catalogue only; it is not an isolated-database test. Covered: unknown/odd slugs, mapped (20 distinct cards on page 1, page 2 disjoint and deterministic, out-of-range and hostile query values handled), a category outside the scope ignored, industry total equal to the catalogue category alone (sample-only home-lifestyle adds nothing), manufacturing shows the no-products state (no sample items), search keeps scope and a no-match search is distinct from "no public products", chips stay in scope and drop `page`, product card links resolve, breadcrumb and `/industries` listing link, requirement link has no supplier, no write requests and no console errors, 8 widths plus landscape 844x390 / 640x360 without overflow, one h1, no heading jumps, alt attributes and labelled inputs, 200% zoom simulation (640 px at 2x), Tab reaches 22 controls with visible focus. Screenshots `docs/page-reports/screenshots/10-industry-details-*.png` (320, 1440, 844 landscape, empty and unmapped states).
+
+## Not verified / blocked
+Isolated-database fixtures (approved supplier products, unpublished/suspended exclusion, inactive category by admin, nested categories beyond the fixed tree, mixed sources, unavailable supplier): BLOCKED, no isolated database. The read-failure state is code-reviewed, not triggered. Signed-in inquiry submission from an industry card, supplier-product inclusion, Lighthouse/latency, Firefox/Safari/real devices and screen readers were not run.
+
+## Unresolved decisions (owner)
+1. Approve industry-to-category mappings (proposals in `10-industry-details.md`; education has none). Until then every industry page honestly shows "not set up yet". 2. Most mapped categories other than apparel are sample-backed, so even approved mappings will show no products until real supplier or catalogue products exist there. 3. Industry description text and a supplier tab are not part of the current design.
