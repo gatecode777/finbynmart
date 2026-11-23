@@ -156,15 +156,6 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
     [ref, reloadOverview],
   );
 
-  // a visible page that was in the background is read again, at most once a minute; there is no timer polling
-  useEffect(() => {
-    function onVisible() {
-      if (document.visibilityState === "visible" && Date.now() - lastRefresh.current > 60_000) void refreshAll(true);
-    }
-    document.addEventListener("visibilitychange", onVisible);
-    return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [refreshAll]);
-
   async function loadOlder() {
     if (!meta.nextCursor || loadingOlder) return;
     setLoadingOlder(true);

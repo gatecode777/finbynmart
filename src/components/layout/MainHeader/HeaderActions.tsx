@@ -42,17 +42,14 @@ export function HeaderActions() {
         });
     };
     const refresh = () => read();
-    const onVisible = () => { if (document.visibilityState === "visible") read(); };
     read();
     window.addEventListener(AUTH_EVENT, refresh);
     window.addEventListener("pageshow", refresh); // coming back from history (bfcache) shows the real state
-    document.addEventListener("visibilitychange", onVisible);
     return () => {
       active = false;
       clearTimeout(retry);
       window.removeEventListener(AUTH_EVENT, refresh);
       window.removeEventListener("pageshow", refresh);
-      document.removeEventListener("visibilitychange", onVisible);
     };
   }, [pathname]);
 

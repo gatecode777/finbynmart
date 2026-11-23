@@ -8,7 +8,6 @@ import type { SupplierNotificationDto } from "@/lib/supplier/notifications";
 import shell from "./SupplierShell.module.css";
 import styles from "./NotificationBell.module.css";
 
-const POLL_MS = 60_000;
 const PANEL_SIZE = 8;
 const NOTIFICATIONS_CHANGED = "supplier-notifications-changed";
 
@@ -67,12 +66,8 @@ export function NotificationBell() {
     const onChange = () => {
       void refreshCount();
     };
-    const tick = window.setInterval(() => document.visibilityState === "visible" && void refreshCount(), POLL_MS);
-    window.addEventListener("focus", onChange);
     window.addEventListener(NOTIFICATIONS_CHANGED, onChange);
     return () => {
-      window.clearInterval(tick);
-      window.removeEventListener("focus", onChange);
       window.removeEventListener(NOTIFICATIONS_CHANGED, onChange);
     };
   }, [refreshCount]);

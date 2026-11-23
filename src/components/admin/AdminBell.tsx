@@ -27,9 +27,8 @@ export function AdminBell() {
   useEffect(() => { void read(); }, [read, pathname]);
   useEffect(() => {
     const on = () => void read();
-    window.addEventListener("focus", on);
     window.addEventListener(ADMIN_NOTIFICATIONS_EVENT, on);
-    return () => { window.removeEventListener("focus", on); window.removeEventListener(ADMIN_NOTIFICATIONS_EVENT, on); };
+    return () => { window.removeEventListener(ADMIN_NOTIFICATIONS_EVENT, on); };
   }, [read]);
   if (count === null) return null;
   return (
