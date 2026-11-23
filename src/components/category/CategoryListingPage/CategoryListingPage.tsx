@@ -212,7 +212,7 @@ export function CategoryListingPage(props: CategoryListingPageProps) {
                   <ul className={styles.applied} aria-label="Applied filters">
                     {applied.map((item) => (
                       <li key={item.key}>
-                        <Link href={item.href} className={styles.appliedChip} aria-label={`Remove filter ${item.label}`}>
+                        <Link prefetch={false} href={item.href} className={styles.appliedChip} aria-label={`Remove filter ${item.label}`}>
                           {item.label}
                           <X size={14} strokeWidth={2.25} aria-hidden />
                         </Link>
@@ -227,11 +227,11 @@ export function CategoryListingPage(props: CategoryListingPageProps) {
                     actions={
                       <>
                         {query.q && (
-                          <Link href={href({ q: "" })} className={styles.emptyLink}>
+                          <Link prefetch={false} href={href({ q: "" })} className={styles.emptyLink}>
                             Clear search
                           </Link>
                         )}
-                        <Link href={href(NO_FILTERS)} className={styles.emptyLink}>
+                        <Link prefetch={false} href={href(NO_FILTERS)} className={styles.emptyLink}>
                           Clear all filters
                         </Link>
                       </>
@@ -286,10 +286,10 @@ export function CategoryListingPage(props: CategoryListingPageProps) {
                   title={`No products in ${name} yet`}
                   actions={
                     <>
-                      <Link href={props.requirementHref} className={styles.emptyLink}>
+                      <Link prefetch={false} href={props.requirementHref} className={styles.emptyLink}>
                         Post a requirement
                       </Link>
-                      <Link href="/categories" className={styles.emptyLink}>
+                      <Link prefetch={false} href="/categories" className={styles.emptyLink}>
                         Browse all categories
                       </Link>
                     </>
@@ -303,7 +303,7 @@ export function CategoryListingPage(props: CategoryListingPageProps) {
                     <ul className={styles.othersList}>
                       {others.map((node) => (
                         <li key={node.href}>
-                          <Link href={node.href} className={styles.otherLink}>
+                          <Link prefetch={false} href={node.href} className={styles.otherLink}>
                             {node.name} <span className={styles.otherCount}>({formatCount(node.count)})</span>
                           </Link>
                         </li>

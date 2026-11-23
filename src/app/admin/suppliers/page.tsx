@@ -26,7 +26,7 @@ async function AdminSuppliersPage({ searchParams }: { searchParams: Promise<Reco
   const initial = await listCompanies(state, caps, undefined, true);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Suppliers</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Suppliers</p>
       <h1 className={styles.heading}>Supplier Management</h1>
       <p className={styles.lead}>Review supplier companies, catalogue links and access status.</p>
       <AdminSuppliersWorkspace initial={initial} state={state} initialReview={review} caps={caps} canExport={permissions.includes("suppliers.export")} />

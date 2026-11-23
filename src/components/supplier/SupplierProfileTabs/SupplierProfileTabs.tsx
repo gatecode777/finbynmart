@@ -23,7 +23,7 @@ export function SupplierProfileTabs({ url, productCount, certificationCount, rev
         <ul className={styles.list}>
           {tabs.map((tab) => (
             <li key={tab.id}>
-              <Link href={tab.href} className={tab.id === active ? styles.on : styles.tab} aria-current={tab.id === active ? "page" : undefined}>
+              <Link prefetch={false} href={tab.href} className={tab.id === active ? styles.on : styles.tab} aria-current={tab.id === active ? "page" : undefined}>
                 {tab.label}
               </Link>
             </li>

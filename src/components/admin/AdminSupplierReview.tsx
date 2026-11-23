@@ -144,9 +144,9 @@ export function AdminSupplierReview({ id, onClose, onChanged }: { id: string | n
                     </dl>
                   )}
                   <div className={m.actions} role="group" aria-label="Related tools and status">
-                    {d.links.companyLinks && <Link href={d.links.companyLinks} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> Open Company Links</Link>}
-                    {d.links.products && <Link href={d.links.products} className={prof.btnSecondary}><Package size={16} aria-hidden /> View permitted products</Link>}
-                    {d.links.review && <Link href={d.links.review} className={prof.btnSecondary}>Open Product Review</Link>}
+                    {d.links.companyLinks && <Link prefetch={false} href={d.links.companyLinks} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> Open Company Links</Link>}
+                    {d.links.products && <Link prefetch={false} href={d.links.products} className={prof.btnSecondary}><Package size={16} aria-hidden /> View permitted products</Link>}
+                    {d.links.review && <Link prefetch={false} href={d.links.review} className={prof.btnSecondary}>Open Product Review</Link>}
                     {d.actions.suspend.permitted && <div><button type="button" className={prof.btnGold} disabled={!d.actions.suspend.available} aria-describedby={d.actions.suspend.reason ? `${uid}-s-why` : undefined} onClick={() => openAction("suspend")}><ShieldAlert size={16} aria-hidden /> Manage status: suspend</button>{d.actions.suspend.reason && <span id={`${uid}-s-why`} className={m.actionNote}>{d.actions.suspend.reason}</span>}</div>}
                     {d.actions.reactivate.permitted && <div><button type="button" className={prof.btnGold} disabled={!d.actions.reactivate.available} aria-describedby={d.actions.reactivate.reason ? `${uid}-r-why` : undefined} onClick={() => openAction("reactivate")}><ShieldCheck size={16} aria-hidden /> Manage status: reactivate</button>{d.actions.reactivate.reason && <span id={`${uid}-r-why`} className={m.actionNote}>{d.actions.reactivate.reason}</span>}</div>}
                   </div>

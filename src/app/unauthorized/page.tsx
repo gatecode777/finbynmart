@@ -30,7 +30,7 @@ export default async function UnauthorizedPage({ searchParams }: { searchParams:
   return (
     <div className={styles.page}>
       <header className={styles.brand}>
-        <Link href="/" aria-label="Finbyn Mart, home" className={styles.logoLink}>
+        <Link prefetch={false} href="/" aria-label="Finbyn Mart, home" className={styles.logoLink}>
           <Image src="/images/brand/finbyn-mart-logo.png" alt="Finbyn Mart" width={160} height={44} priority className={styles.logo} />
         </Link>
       </header>
@@ -40,10 +40,10 @@ export default async function UnauthorizedPage({ searchParams }: { searchParams:
         <h1 id="unauthorized-title" className={styles.title}>Please sign in to continue.</h1>
         <p className={styles.text}>You need to sign in to access this page.</p>
         <div className={styles.actions}>
-          <Link href={signInHref(next)} className={styles.primary}>Sign In</Link>
-          <Link href="/" className={styles.secondary}>Go to Homepage</Link>
+          <Link prefetch={false} href={signInHref(next)} className={styles.primary}>Sign In</Link>
+          <Link prefetch={false} href="/" className={styles.secondary}>Go to Homepage</Link>
         </div>
-        {showJoin && <p className={styles.join}>New to Finbyn Mart? <Link href="/sign-up" className={styles.link}>Join as a Buyer</Link></p>}
+        {showJoin && <p className={styles.join}>New to Finbyn Mart? <Link prefetch={false} href="/sign-up" className={styles.link}>Join as a Buyer</Link></p>}
       </section>
       <footer className={styles.foot}><span>Finbyn Mart</span></footer>
     </div>

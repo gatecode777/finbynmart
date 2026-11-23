@@ -33,7 +33,7 @@ export function AdminBell() {
   }, [read]);
   if (count === null) return null;
   return (
-    <Link href="/admin/notifications" className={n.bell} aria-label={count > 0 ? `Notifications, ${count > 99 ? "more than 99" : count} unread` : "Notifications, none unread"}>
+    <Link prefetch={false} href="/admin/notifications" className={n.bell} aria-label={count > 0 ? `Notifications, ${count > 99 ? "more than 99" : count} unread` : "Notifications, none unread"}>
       <Bell size={22} aria-hidden />
       {count > 0 && <span className={n.count} aria-hidden>{badgeText(count)}</span>}
     </Link>

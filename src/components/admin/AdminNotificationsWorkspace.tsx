@@ -143,7 +143,7 @@ export function AdminNotificationsWorkspace({ initial }: { initial: Notification
                   </div>
                   <time className={n.time} dateTime={it.occurredAt} title={abs(it.occurredAt)}>{relativeTime(it.occurredAt)}</time>
                   <div className={n.actions}>
-                    <Link href={it.link} className={n.link} aria-label={`${it.linkLabel}: ${it.title}`}>{it.linkLabel}</Link>
+                    <Link prefetch={false} href={it.link} className={n.link} aria-label={`${it.linkLabel}: ${it.title}`}>{it.linkLabel}</Link>
                     {!it.read && <button type="button" className={n.mark} disabled={pending.has(it.id)} onClick={() => markOne(it)} aria-label={`Mark "${it.title}" as read`}>{pending.has(it.id) ? "Marking…" : "Mark as read"}</button>}
                   </div>
                 </li>

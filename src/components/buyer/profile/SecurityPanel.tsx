@@ -22,7 +22,7 @@ export function SecurityPanel({ security }: { security: SecurityDto }) {
         <li className={dash.statusRow}><span>Password last changed</span><span>{when(security.passwordChangedAt)}</span></li>
         <li className={dash.statusRow}><span>Signed-in devices</span><span>{security.sessions.activeCount === null ? "Not available" : security.sessions.activeCount}</span></li>
       </ul>
-      <p className={dash.legendNote}>{security.sessions.reason} <Link href="/buyer/security?tab=sessions" className={dash.viewAll}>Open Account Security</Link></p>
+      <p className={dash.legendNote}>{security.sessions.reason} <Link prefetch={false} href="/buyer/security?tab=sessions" className={dash.viewAll}>Open Account Security</Link></p>
 
       <h3 className={`${styles.verifyTitle} ${styles.sectionGap}`}>Change Password</h3>
       <ChangePasswordForm />

@@ -54,9 +54,9 @@ export function PrivacyAndMore() {
           Data export and account deletion are not automated yet. To ask for either, contact our support team; nothing is exported or deleted until a person has handled your request.
         </p>
         <ul className={styles.linkList}>
-          <li><Link href="/contact-us" className={styles.link}>Contact support</Link></li>
-          <li><Link href={PRIVACY_PATH} className={styles.link}>Privacy policy</Link></li>
-          <li><Link href={TERMS_PATH} className={styles.link}>Terms and conditions</Link></li>
+          <li><Link prefetch={false} href="/contact-us" className={styles.link}>Contact support</Link></li>
+          <li><Link prefetch={false} href={PRIVACY_PATH} className={styles.link}>Privacy policy</Link></li>
+          <li><Link prefetch={false} href={TERMS_PATH} className={styles.link}>Terms and conditions</Link></li>
         </ul>
       </section>
       <section className={dash.card} aria-labelledby="more-title">

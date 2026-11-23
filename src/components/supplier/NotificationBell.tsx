@@ -228,7 +228,7 @@ export function NotificationBell() {
                 return (
                   <li key={n.id} className={clsx(styles.bellItem, !n.read && styles.bellItemUnread)}>
                     {n.link ? (
-                      <Link href={n.link} className={styles.bellItemAction} onClick={() => void open1(n)}>
+                      <Link prefetch={false} href={n.link} className={styles.bellItemAction} onClick={() => void open1(n)}>
                         {body}
                       </Link>
                     ) : (
@@ -248,7 +248,7 @@ export function NotificationBell() {
           )}
 
           <div className={styles.bellFoot}>
-            <Link href="/supplier/dashboard" className={styles.link} onClick={() => setOpen(false)}>
+            <Link prefetch={false} href="/supplier/dashboard" className={styles.link} onClick={() => setOpen(false)}>
               Supplier Dashboard Overview
             </Link>
           </div>

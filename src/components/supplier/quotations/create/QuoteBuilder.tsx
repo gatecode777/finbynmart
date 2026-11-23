@@ -290,7 +290,7 @@ export function QuoteBuilder(props: BuilderProps) {
       </div>
 
       <section className={styles.context} aria-label="Inquiry being quoted">
-        <div className={styles.contextItem}><FileText size={22} aria-hidden /><div><span className={styles.contextLabel}>Inquiry {inquiry.statusLabel ? `· ${inquiry.statusLabel}` : ""}</span><span className={styles.contextValue}><Link href={`/supplier/inquiries/${inquiry.reference}`} className={styles.errorLink} style={{ color: "inherit" }}>{inquiry.reference}</Link></span><span className={styles.contextLabel}>{inquiry.productName ?? "General inquiry"}{inquiry.category ? ` · ${inquiry.category}` : ""}</span></div></div>
+        <div className={styles.contextItem}><FileText size={22} aria-hidden /><div><span className={styles.contextLabel}>Inquiry {inquiry.statusLabel ? `· ${inquiry.statusLabel}` : ""}</span><span className={styles.contextValue}><Link prefetch={false} href={`/supplier/inquiries/${inquiry.reference}`} className={styles.errorLink} style={{ color: "inherit" }}>{inquiry.reference}</Link></span><span className={styles.contextLabel}>{inquiry.productName ?? "General inquiry"}{inquiry.category ? ` · ${inquiry.category}` : ""}</span></div></div>
         <div className={styles.contextItem}><Building2 size={22} aria-hidden /><div><span className={styles.contextLabel}>Buyer</span><span className={styles.contextValue}>{inquiry.buyer}</span></div></div>
         <div className={styles.contextItem}><MapPin size={22} aria-hidden /><div><span className={styles.contextLabel}>Requested</span><span className={styles.contextValue}>{inquiry.quantity.toLocaleString("en-IN")}{inquiry.unit ? ` ${inquiry.unit}` : ""}</span><span className={styles.contextLabel}>{inquiry.deliveryLocation ?? "Delivery location not stated"}</span></div></div>
       </section>
@@ -550,7 +550,7 @@ export function QuoteBuilder(props: BuilderProps) {
             {reference ? ` · ${reference}` : ""}
           </p>
           <div className={styles.footerButtons}>
-            <Link href={leaveHref} className={dash.btn} onClick={leave}>Back to quotations</Link>
+            <Link prefetch={false} href={leaveHref} className={dash.btn} onClick={leave}>Back to quotations</Link>
             <button type="button" className={dash.btn} onClick={() => void save()} disabled={saving || busy !== null} aria-busy={saving}>{saving ? "Saving..." : "Save Draft"}</button>
             <button ref={reviewButton} type="button" className={clsx(dash.btn, quotes.primaryBtn)} onClick={() => void openDialog("review")} disabled={saving || busy !== null || !props.eligible} aria-busy={busy === "review"}>{busy === "review" ? "Preparing..." : "Review & Submit"}</button>
           </div>

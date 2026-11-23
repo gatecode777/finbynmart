@@ -223,7 +223,7 @@ function AuditDetailDialog({ eventKey, onClose }: { eventKey: string | null; onC
             </dl>
             {d.notes.map((n) => <p key={n} className={m.muted}>{n}</p>)}
             <div className={m.actions} role="group" aria-label="Related record">
-              {d.link ? <Link href={d.link.href} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> {d.link.label}</Link> : <p className={m.muted}>No related-record link is available for this event with your permissions.</p>}
+              {d.link ? <Link prefetch={false} href={d.link.href} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> {d.link.label}</Link> : <p className={m.muted}>No related-record link is available for this event with your permissions.</p>}
             </div>
           </div>
         )}

@@ -34,7 +34,7 @@ export function SavedSupplierCard({ item, selected, selectionFull, onToggle, onR
         <Heart size={20} fill="currentColor" aria-hidden />
       </button>
       <span className={styles.avatar} aria-hidden>{item.initials}</span>
-      <h3 className={styles.name}>{item.url ? <Link href={item.url}>{item.name}</Link> : item.name}</h3>
+      <h3 className={styles.name}>{item.url ? <Link prefetch={false} href={item.url}>{item.name}</Link> : item.name}</h3>
       {item.available ? (
         <>
           <p className={styles.badges}>
@@ -57,11 +57,11 @@ export function SavedSupplierCard({ item, selected, selectionFull, onToggle, onR
           </ul>
           <div className={styles.actions}>
             {item.inquiryHref && (
-              <Link href={item.inquiryHref} className={`${inquiries.btn} ${inquiries.btnPrimary}`}>
+              <Link prefetch={false} href={item.inquiryHref} className={`${inquiries.btn} ${inquiries.btnPrimary}`}>
                 <MessageSquare size={16} aria-hidden /> Contact Supplier
               </Link>
             )}
-            {item.url && <Link href={item.url} className={inquiries.btn}>View Profile</Link>}
+            {item.url && <Link prefetch={false} href={item.url} className={inquiries.btn}>View Profile</Link>}
           </div>
         </>
       ) : (

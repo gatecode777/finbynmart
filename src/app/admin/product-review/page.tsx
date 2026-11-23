@@ -11,7 +11,7 @@ export default async function ProductReviewPage() {
   await requireAdminPage("/admin/product-review", "products.review");
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Product review</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Product review</p>
       <h1 className={styles.heading}>Product Review</h1>
       <p className={styles.lead}>Approve or reject the exact revision a supplier submitted.</p>
       <ProductReviewWorkspace />

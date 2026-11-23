@@ -40,7 +40,7 @@ export function HeaderActions({ cancel }: Props) {
 
   return (
     <div className={`${styles.headerActions} ${styles.noPrint}`}>
-      <Link href="/buyer/inquiries" className={styles.btn}>
+      <Link prefetch={false} href="/buyer/inquiries" className={styles.btn}>
         <ArrowLeft size={18} aria-hidden /> Back to My Inquiries
       </Link>
       <div className={styles.menuWrap} ref={wrap}>

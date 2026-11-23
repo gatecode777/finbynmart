@@ -9,8 +9,8 @@ import { getSupportChannels } from "@/lib/support/channels";
 import { siteUrl } from "@/lib/site";
 import styles from "./help.module.css";
 
-// rendered per request (still no database): the optional e-mail and phone channels come from the runtime environment, not from the build
-export const dynamic = "force-dynamic";
+// static: the optional e-mail and phone channels come from the environment at build time (a changed value needs a redeploy, as every environment change does on Vercel)
+export const revalidate = 3600;
 
 const TITLE = "Help Center & FAQs | Finbyn Mart";
 const DESCRIPTION = "Answers about creating an account, sending inquiries and requirements, quotations and conversations, supplier accounts and products, and how to contact Finbyn Mart.";
@@ -43,16 +43,16 @@ export default function HelpPage() {
           <ul className={styles.contactList}>
             {channels.map((c) => (
               <li key={c.key} className={styles.contactItem}>
-                {c.key === "contact" ? <Link href={c.href!} className={styles.contactLink}>{c.label}</Link> : <a href={c.href!} className={styles.contactLink}>{c.label}</a>}
+                {c.key === "contact" ? <Link prefetch={false} href={c.href!} className={styles.contactLink}>{c.label}</Link> : <a href={c.href!} className={styles.contactLink}>{c.label}</a>}
                 <span className={styles.contactNote}>{c.detail ?? c.note}</span>
               </li>
             ))}
             <li className={styles.contactItem}>
-              <Link href="/buyer/support" className={styles.contactLink}>Buyer support tickets</Link>
+              <Link prefetch={false} href="/buyer/support" className={styles.contactLink}>Buyer support tickets</Link>
               <span className={styles.contactNote}>For buyer accounts. You will be asked to sign in first.</span>
             </li>
             <li className={styles.contactItem}>
-              <Link href="/supplier/support" className={styles.contactLink}>Supplier support tickets</Link>
+              <Link prefetch={false} href="/supplier/support" className={styles.contactLink}>Supplier support tickets</Link>
               <span className={styles.contactNote}>For supplier accounts. You will be asked to sign in first.</span>
             </li>
           </ul>

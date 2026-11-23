@@ -21,7 +21,7 @@ export function SupportRelatedDetails({ related, compact = false }: { related: R
           </div>
         ))}
       </dl>
-      {related.href && <Link href={related.href} className={inq.btn}><ExternalLink size={16} aria-hidden /> View {related.typeLabel}</Link>}
+      {related.href && <Link prefetch={false} href={related.href} className={inq.btn}><ExternalLink size={16} aria-hidden /> View {related.typeLabel}</Link>}
       {compact ? null : <p className={inq.muted}>Read again just now; it is shown only while it is still yours.</p>}
     </div>
   );

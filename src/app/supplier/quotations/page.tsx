@@ -45,7 +45,7 @@ async function SupplierQuotationsPage({ searchParams }: { searchParams: Promise<
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / Supplier Portal / Quotations
+        <Link prefetch={false} href="/">Home</Link> / Supplier Portal / Quotations
       </p>
       <SupplierQuotationsWorkspace initial={page} initialParams={initialParams} renderedAt={Date.now()} />
     </div>

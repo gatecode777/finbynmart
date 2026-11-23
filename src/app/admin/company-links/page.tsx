@@ -27,7 +27,7 @@ export default async function CompanyLinksPage({ searchParams }: { searchParams:
   const initialQuery = await startingQuery(company ?? undefined);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Company links</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Company links</p>
       <h1 className={styles.heading}>Company Links</h1>
       <p className={styles.lead}>Link a catalogue seller to the supplier company that owns it, after reviewing ownership evidence.</p>
       <CompanyLinksWorkspace initialQuery={initialQuery} />

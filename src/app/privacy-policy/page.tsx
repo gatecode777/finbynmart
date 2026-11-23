@@ -99,7 +99,7 @@ export default function PrivacyPolicyPage() {
                   <h2 id="contact-h" className={styles.contactTitle}>Questions about privacy?</h2>
                   <p>Send us a message, including any request about your information.{email?.detail ? <> You can also write to <a href={email.href ?? undefined}>{email.detail}</a>.</> : null}</p>
                 </div>
-                <Link href="/contact-us" className={styles.contactLink}>Contact Us</Link>
+                <Link prefetch={false} href="/contact-us" className={styles.contactLink}>Contact Us</Link>
               </section>
             </article>
           </div>

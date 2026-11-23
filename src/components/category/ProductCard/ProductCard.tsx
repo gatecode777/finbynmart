@@ -27,7 +27,7 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
       </div>
 
       <div className={styles.body}>
-        <Link href={product.href} className={styles.name}>
+        <Link prefetch={false} href={product.href} className={styles.name}>
           {product.name}
         </Link>
 
@@ -52,7 +52,7 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
         )}
 
         <div className={styles.supplierRow}>
-          <Link href={product.supplierHref} className={styles.supplierName}>
+          <Link prefetch={false} href={product.supplierHref} className={styles.supplierName}>
             {product.supplierName}
           </Link>
           {product.verified && <Badge variant="success" icon>Verified</Badge>}
@@ -73,15 +73,15 @@ export function ProductCard({ product, view, inquiry = false }: { product: Produ
 
         {inquiry ? (
           <div className={styles.ctaRow}>
-            <Link href={`${product.href}#get-best-quote`} className={styles.cta}>
+            <Link prefetch={false} href={`${product.href}#get-best-quote`} className={styles.cta}>
               Get Best Quote
             </Link>
-            <Link href={`${product.href}#send-inquiry`} className={styles.ctaSecondary}>
+            <Link prefetch={false} href={`${product.href}#send-inquiry`} className={styles.ctaSecondary}>
               Add Inquiry
             </Link>
           </div>
         ) : (
-          <Link href={`${product.href}#get-best-quote`} className={styles.cta}>
+          <Link prefetch={false} href={`${product.href}#get-best-quote`} className={styles.cta}>
             Get Best Quote
           </Link>
         )}

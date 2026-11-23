@@ -39,7 +39,7 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
 
       {!qt.isCurrent && (
         <p className={`${q.notice} ${q.noticeInfo}`} role="status">
-          You are viewing version {qt.version}, an earlier version. {current ? <>The current version is {current.version}: <Link href={`/buyer/quotations/${qt.reference}`} className={d.link}>open it</Link>.</> : null} Decisions apply only to the current version.
+          You are viewing version {qt.version}, an earlier version. {current ? <>The current version is {current.version}: <Link prefetch={false} href={`/buyer/quotations/${qt.reference}`} className={d.link}>open it</Link>.</> : null} Decisions apply only to the current version.
         </p>
       )}
       {x.decision && <p className={`${q.notice} ${q.noticeInfo}`} role="status">{x.decision.type === "ACCEPTED" ? "You accepted this quotation" : "You rejected this quotation"} on {x.decision.atLabel}.{x.decision.reason ? ` Reason: ${x.decision.reason}` : ""}{x.decision.type === "ACCEPTED" ? " Order processing is not available yet; this recorded your decision only." : ""}</p>}
@@ -50,7 +50,7 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
         <ul className={`${d.tabList} ${q.tabs}`}>
           {TABS.map(({ key, label, icon: Icon }) => (
             <li key={key}>
-              <Link href={`/buyer/quotations/${qt.reference}?${new URLSearchParams({ ...(qt.isCurrent ? {} : { version: String(qt.version) }), tab: key })}`} className={`${d.tab} ${tab === key ? d.tabActive : ""}`} aria-current={tab === key ? "page" : undefined}>
+              <Link prefetch={false} href={`/buyer/quotations/${qt.reference}?${new URLSearchParams({ ...(qt.isCurrent ? {} : { version: String(qt.version) }), tab: key })}`} className={`${d.tab} ${tab === key ? d.tabActive : ""}`} aria-current={tab === key ? "page" : undefined}>
                 <Icon size={18} aria-hidden /> {label}{key === "compare" && x.related.length > 0 ? ` (${x.related.length + 1})` : ""}
               </Link>
             </li>
@@ -69,8 +69,8 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
                 <p className={d.refBadge}>Quotation Reference</p>
                 <h2 id="qsummary-title" className={`${d.reference} ${q.refTitle}`}>{qt.reference} <span className={d.muted}>V{qt.version}{qt.isCurrent ? " (current)" : ""}</span></h2>
                 <p className={d.productName}>{qt.productName}</p>
-                <p className={d.muted}>Against inquiry <Link href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></p>
-                <p className={d.muted}>{x.supplier.url ? <Link href={x.supplier.url} className={d.link}>{x.supplier.name}</Link> : x.supplier.name}{x.supplier.verified && <> <BadgeCheck size={14} aria-hidden /> Verified</>}</p>
+                <p className={d.muted}>Against inquiry <Link prefetch={false} href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></p>
+                <p className={d.muted}>{x.supplier.url ? <Link prefetch={false} href={x.supplier.url} className={d.link}>{x.supplier.name}</Link> : x.supplier.name}{x.supplier.verified && <> <BadgeCheck size={14} aria-hidden /> Verified</>}</p>
               </div>
               <dl className={d.dates}>
                 <div><dt>Quotation Date</dt><dd><time dateTime={qt.sentAt}>{qt.sentLabel}</time></dd></div>
@@ -147,9 +147,9 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
                 <>
                   <ul className={`${d.steps} ${q.plainList}`}>
                     <li><strong>{qt.reference}</strong> - {x.supplier.name} - {qt.unitPrice}{qt.unit ? ` / ${qt.unit}` : ""} - {qt.statusLabel} (this one)</li>
-                    {x.related.map((r) => <li key={r.reference}><Link href={r.href} className={d.link}>{r.reference}</Link> - {r.supplierName} - {r.unitPrice} - {r.statusLabel}</li>)}
+                    {x.related.map((r) => <li key={r.reference}><Link prefetch={false} href={r.href} className={d.link}>{r.reference}</Link> - {r.supplierName} - {r.unitPrice} - {r.statusLabel}</li>)}
                   </ul>
-                  {compareHref && <Link href={compareHref} className={d.btn}><Scale size={18} aria-hidden /> Compare these quotations</Link>}
+                  {compareHref && <Link prefetch={false} href={compareHref} className={d.btn}><Scale size={18} aria-hidden /> Compare these quotations</Link>}
                   <p className={d.muted}>Comparing only places the offers side by side. It accepts nothing and ranks nothing.</p>
                 </>
               )}
@@ -166,7 +166,7 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
                   <tbody>
                     {x.versions.map((v) => (
                       <tr key={v.version}>
-                        <td><Link href={v.href} className={d.link}>V{v.version}</Link>{v.isCurrent ? " (current)" : ""}</td>
+                        <td><Link prefetch={false} href={v.href} className={d.link}>V{v.version}</Link>{v.isCurrent ? " (current)" : ""}</td>
                         <td>{v.sentLabel}</td>
                         <td>{v.unitPrice}</td>
                         <td>{v.total ?? "Not available"}</td>
@@ -198,13 +198,13 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
               <section className={d.card} aria-labelledby="inq2-title">
                 <h2 id="inq2-title" className={d.cardTitle}>Related Inquiry</h2>
                 <dl className={d.rows}>
-                  <div><dt>Inquiry Reference</dt><dd><Link href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></dd></div>
+                  <div><dt>Inquiry Reference</dt><dd><Link prefetch={false} href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></dd></div>
                   <div><dt>Inquiry Type</dt><dd>{x.inquiry.typeLabel}</dd></div>
                   <div><dt>Requested Quantity</dt><dd>{x.inquiry.quantity.toLocaleString("en-IN")}{x.inquiry.unit ? ` ${x.inquiry.unit}` : ""}</dd></div>
                   <div><dt>Delivery Location</dt><dd>{x.inquiry.deliveryLocation ?? "Not Specified"}</dd></div>
                   <div><dt>Inquiry Status</dt><dd>{x.inquiry.statusLabel}</dd></div>
                 </dl>
-                <Link href={x.inquiry.href} className={d.btn}>View Inquiry</Link>
+                <Link prefetch={false} href={x.inquiry.href} className={d.btn}>View Inquiry</Link>
               </section>
             </>
           )}
@@ -223,19 +223,19 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
             <div className={d.supplier}>
               <span className={d.initials} aria-hidden>{x.supplier.initials}</span>
               <div>
-                <p className={d.productName}>{x.supplier.url ? <Link href={x.supplier.url}>{x.supplier.name}</Link> : x.supplier.name}</p>
+                <p className={d.productName}>{x.supplier.url ? <Link prefetch={false} href={x.supplier.url}>{x.supplier.name}</Link> : x.supplier.name}</p>
                 {x.supplier.verified && <p className={d.metaLine}><BadgeCheck size={14} aria-hidden /> Verified Supplier</p>}
                 {x.supplier.location && <p className={d.metaLine}><MapPin size={14} aria-hidden /> {x.supplier.location}</p>}
                 {x.supplier.kind && <p className={d.muted}>{x.supplier.kind}</p>}
               </div>
             </div>
-            {x.supplier.url ? <Link href={x.supplier.url} className={d.btn}>View Supplier Profile</Link> : <p className={d.muted}>This supplier has no public page.</p>}
+            {x.supplier.url ? <Link prefetch={false} href={x.supplier.url} className={d.btn}>View Supplier Profile</Link> : <p className={d.muted}>This supplier has no public page.</p>}
           </section>
 
           <section className={d.card} aria-labelledby="qi-title">
             <h2 id="qi-title" className={d.cardTitle}>Inquiry</h2>
             <dl className={d.rows}>
-              <div><dt>Inquiry Reference</dt><dd><Link href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></dd></div>
+              <div><dt>Inquiry Reference</dt><dd><Link prefetch={false} href={x.inquiry.href} className={d.link}>{x.inquiry.reference}</Link></dd></div>
               <div><dt>Inquiry Type</dt><dd>{x.inquiry.typeLabel}</dd></div>
               <div><dt>Inquiry Status</dt><dd>{x.inquiry.statusLabel}</dd></div>
             </dl>
@@ -244,7 +244,7 @@ export function QuotationDetailView({ data: x, tab }: { data: QuotationDetail; t
           <section className={d.card} aria-labelledby="vh-title">
             <h2 id="vh-title" className={d.cardTitle}>Versions</h2>
             <ul className={`${d.steps} ${q.plainList}`}>
-              {x.versions.map((v) => <li key={v.version}><Link href={v.href} className={d.link}>V{v.version}</Link> - {v.sentLabel} - {v.statusLabel}{v.isCurrent ? " (current)" : ""}</li>)}
+              {x.versions.map((v) => <li key={v.version}><Link prefetch={false} href={v.href} className={d.link}>V{v.version}</Link> - {v.sentLabel} - {v.statusLabel}{v.isCurrent ? " (current)" : ""}</li>)}
             </ul>
           </section>
         </aside>

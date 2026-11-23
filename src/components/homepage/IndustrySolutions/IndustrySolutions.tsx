@@ -17,7 +17,7 @@ export function IndustrySolutions() {
         />
         <div className={styles.grid}>
           {INDUSTRY_SOLUTIONS.map((industry) => (
-            <Link key={industry.id} href={industry.href} className={styles.card}>
+            <Link prefetch={false} key={industry.id} href={industry.href} className={styles.card}>
               <div className={styles.tileWrap}>
                 <MediaTile tile={industry} alt="" iconSize={28} />
               </div>

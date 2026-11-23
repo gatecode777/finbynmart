@@ -91,7 +91,7 @@ export function ConfirmationView({ data }: { data: ConfirmationDto }) {
               </div>
               <div>
                 <dt>Supplier</dt>
-                <dd>{supplier.url ? <Link href={supplier.url}>{supplier.name}</Link> : supplier.name}</dd>
+                <dd>{supplier.url ? <Link prefetch={false} href={supplier.url}>{supplier.name}</Link> : supplier.name}</dd>
               </div>
               <div>
                 <dt>Product</dt>
@@ -102,7 +102,7 @@ export function ConfirmationView({ data }: { data: ConfirmationDto }) {
                         {product.imageSrc ? <Image src={product.imageSrc} alt={product.name} fill sizes="72px" unoptimized={product.imageRemote} className={styles.productImg} /> : <Package size={26} strokeWidth={1.5} aria-hidden />}
                       </span>
                       <span className={styles.productText}>
-                        {product.url ? <Link href={product.url}>{product.name}</Link> : product.name}
+                        {product.url ? <Link prefetch={false} href={product.url}>{product.name}</Link> : product.name}
                         {product.price && (
                           <span className={styles.productMeta}>
                             {product.price}
@@ -179,21 +179,21 @@ export function ConfirmationView({ data }: { data: ConfirmationDto }) {
         <div className={styles.actions}>
           {guest ? (
             <p className={styles.guestNote} role="note">
-              <strong>Tracking:</strong> guest inquiries cannot be tracked online yet. This page works for an hour on the browser you sent it from. <Link href={`/sign-in?next=${encodeURIComponent("/buyer/inquiries")}`}>Sign in or create an account</Link> to track future inquiries.
+              <strong>Tracking:</strong> guest inquiries cannot be tracked online yet. This page works for an hour on the browser you sent it from. <Link prefetch={false} href={`/sign-in?next=${encodeURIComponent("/buyer/inquiries")}`}>Sign in or create an account</Link> to track future inquiries.
             </p>
           ) : (
             <>
-              <Link href={`/buyer/inquiries#ref-${data.reference}`} className={clsx(styles.action, styles.actionPrimary)}>
+              <Link prefetch={false} href={`/buyer/inquiries#ref-${data.reference}`} className={clsx(styles.action, styles.actionPrimary)}>
                 <Search size={20} aria-hidden />
                 Track This Inquiry
               </Link>
-              <Link href="/buyer/inquiries" className={styles.action}>
+              <Link prefetch={false} href="/buyer/inquiries" className={styles.action}>
                 <ClipboardList size={20} aria-hidden />
                 View My Inquiries
               </Link>
             </>
           )}
-          <Link href={anotherHref} className={styles.action}>
+          <Link prefetch={false} href={anotherHref} className={styles.action}>
             <Plus size={20} aria-hidden />
             Send Another Inquiry
           </Link>
@@ -217,7 +217,7 @@ export function ConfirmationView({ data }: { data: ConfirmationDto }) {
             </p>
           )}
           {supplier.url && (
-            <Link href={supplier.url} className={styles.profile}>
+            <Link prefetch={false} href={supplier.url} className={styles.profile}>
               View Supplier Profile
               <ArrowRight size={16} aria-hidden />
             </Link>
@@ -247,7 +247,7 @@ export function ConfirmationView({ data }: { data: ConfirmationDto }) {
                 Have More Requirements?
               </h2>
               <p className={styles.panelText}>Share additional or bulk requirements and tell us what you need.</p>
-              <Link href={requirementHref} className={styles.requirementCta}>
+              <Link prefetch={false} href={requirementHref} className={styles.requirementCta}>
                 Post Your Requirement
                 <ArrowRight size={18} aria-hidden />
               </Link>

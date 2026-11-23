@@ -15,7 +15,7 @@ export function BuyerActivityProgress({ section }: { section: Section<Activity> 
       ) : (
         <ul className={styles.activityList}>
           <li>
-            <Link href="/buyer/inquiries" className={styles.activityRow}>
+            <Link prefetch={false} href="/buyer/inquiries" className={styles.activityRow}>
               <MessageSquareText size={18} aria-hidden />
               <span className={styles.activityName}>Active Inquiries</span>
               <strong>{section.data.activeInquiries}</strong>

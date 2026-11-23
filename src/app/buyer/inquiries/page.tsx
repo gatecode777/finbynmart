@@ -31,7 +31,7 @@ async function BuyerInquiriesPage({ searchParams }: { searchParams: Promise<Reco
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Inquiries are sent from buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -63,14 +63,14 @@ async function BuyerInquiriesPage({ searchParams }: { searchParams: Promise<Reco
   return (
     <BuyerShell userName={user.name} activeKey="inquiries" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / My Inquiries
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / My Inquiries
       </p>
       <div className={dash.pageHeader}>
         <div>
           <h1 className={dash.title}>My Inquiries</h1>
           <p className={dash.welcome}>Track your supplier inquiries, monitor responses and manage your quotation requests.</p>
         </div>
-        <Link href="/products" className={styles.cta}>
+        <Link prefetch={false} href="/products" className={styles.cta}>
           <Plus size={18} aria-hidden /> Create New Inquiry
         </Link>
       </div>
@@ -80,7 +80,7 @@ async function BuyerInquiriesPage({ searchParams }: { searchParams: Promise<Reco
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your inquiries could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/inquiries" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/inquiries" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

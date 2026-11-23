@@ -12,7 +12,7 @@ export default function QuotationError({ reset }: { error: Error; reset: () => v
       <p>
         <button type="button" className={dash.viewAll} onClick={reset}>Try again</button>
         {" · "}
-        <Link href="/buyer/quotations" className={dash.viewAll}>Back to Quotations</Link>
+        <Link prefetch={false} href="/buyer/quotations" className={dash.viewAll}>Back to Quotations</Link>
       </p>
     </div>
   );

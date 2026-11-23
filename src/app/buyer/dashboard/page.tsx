@@ -40,7 +40,7 @@ async function BuyerDashboardPage({ searchParams }: { searchParams: Promise<Para
         <h1 className={styles.title}>Buyer accounts only</h1>
         <p className={styles.welcome}>The buyer dashboard is for buyer accounts. Sign out and sign in with a buyer account to see it.</p>
         <p>
-          <Link href="/" className={styles.viewAll}>
+          <Link prefetch={false} href="/" className={styles.viewAll}>
             Back to Finbyn Mart
           </Link>
         </p>
@@ -63,7 +63,7 @@ async function BuyerDashboardPage({ searchParams }: { searchParams: Promise<Para
   return (
     <BuyerShell userName={user.name} activeKey="dashboard" activeInquiries={activeInquiries}>
       <p className={styles.breadcrumb}>
-        <Link href="/">Home</Link> / Buyer Dashboard
+        <Link prefetch={false} href="/">Home</Link> / Buyer Dashboard
       </p>
       <div className={styles.pageHeader}>
         <div>

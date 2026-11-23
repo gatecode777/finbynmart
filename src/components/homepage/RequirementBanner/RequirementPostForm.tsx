@@ -139,7 +139,7 @@ export function RequirementPostForm({ defaultQuery = "", defaultQuantity = "", d
           <strong>Your requirement was saved. Reference: {done.reference}.</strong> Matching suppliers: <strong>{done.label ?? "Processing"}</strong>. Suppliers are identified automatically; no number of replies or quotations is promised. Follow it, read replies and compare quotations under My Inquiries.
         </p>
         <div className={styles.actions}>
-          <Link href={done.href}>View requirement {done.reference}</Link>
+          <Link prefetch={false} href={done.href}>View requirement {done.reference}</Link>
           <button type="button" className={styles.linkButton} onClick={() => { setDone(null); setStatus("idle"); setPicked(null); setQuery(""); setV({ quantity: "", city: v.city, requiredBy: "", description: "" }); }}>Post another requirement</button>
         </div>
       </div>
@@ -183,7 +183,7 @@ export function RequirementPostForm({ defaultQuery = "", defaultQuantity = "", d
             )}
             {results && results.length === 0 && !searching && (
               <p className={styles.muted} role="status">
-                No matching product available for &ldquo;{query.trim()}&rdquo;. Try another word, <Link href="/products">browse products</Link>, <Link href="/categories">browse categories</Link> or <Link href="/contact-us">contact us</Link>. Nothing is saved without a product.
+                No matching product available for &ldquo;{query.trim()}&rdquo;. Try another word, <Link prefetch={false} href="/products">browse products</Link>, <Link prefetch={false} href="/categories">browse categories</Link> or <Link prefetch={false} href="/contact-us">contact us</Link>. Nothing is saved without a product.
               </p>
             )}
           </>

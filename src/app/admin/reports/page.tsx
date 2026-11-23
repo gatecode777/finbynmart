@@ -31,7 +31,7 @@ async function AdminReportsPage({ searchParams }: { searchParams: Promise<Record
   const initial = range.ok && !initialError ? await runReport(report, range.range).catch(() => null) : null;
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Reports</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Reports</p>
       <h1 className={styles.heading}>Reports</h1>
       <p className={styles.lead}>Review marketplace activity for a selected period.</p>
       <AdminReportsWorkspace initial={initial} permitted={allowed.map((r) => ({ key: r.key, label: r.label }))} state={{ report, from: initialError ? d.startDay : from, to: initialError ? d.endDay : to }} today={todayInReportZone()} initialError={initialError} failed={!initial && !initialError && range.ok} />

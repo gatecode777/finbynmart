@@ -83,7 +83,7 @@ export function ResetPasswordForm({ token, initialState }: { token: string; init
         <h1 className={styles.heading}>{view.title}</h1>
         <p className={styles.subheading}>{view.text}</p>
         {view.cta.href ? (
-          <Link className={styles.linkButton} href={view.cta.href}>
+          <Link prefetch={false} className={styles.linkButton} href={view.cta.href}>
             {view.cta.label}
           </Link>
         ) : (
@@ -133,7 +133,7 @@ export function ResetPasswordForm({ token, initialState }: { token: string; init
           </p>
         )}
         <p className={styles.switch}>
-          <Link className={`${styles.link} ${styles.backLink}`} href="/sign-in">
+          <Link prefetch={false} className={`${styles.link} ${styles.backLink}`} href="/sign-in">
             <ArrowLeft size={16} aria-hidden /> Back to Sign In
           </Link>
         </p>

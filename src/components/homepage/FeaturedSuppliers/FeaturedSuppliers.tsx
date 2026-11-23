@@ -41,9 +41,9 @@ export function FeaturedSuppliers() {
           actionHref="/suppliers"
         />
         {suppliers === null ? (
-          <p role="status">Suppliers could not be loaded right now. <Link href="/suppliers">Browse all suppliers</Link> or try again shortly.</p>
+          <p role="status">Suppliers could not be loaded right now. <Link prefetch={false} href="/suppliers">Browse all suppliers</Link> or try again shortly.</p>
         ) : suppliers.length === 0 ? (
-          <p>No suppliers are listed yet. You can still <Link href="/post-requirement">post your requirement</Link>.</p>
+          <p>No suppliers are listed yet. You can still <Link prefetch={false} href="/post-requirement">post your requirement</Link>.</p>
         ) : (
           <ScrollSlider label="suppliers">
             {suppliers.map((supplier) => (

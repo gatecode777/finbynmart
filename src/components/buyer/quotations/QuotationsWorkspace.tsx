@@ -203,7 +203,7 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
             <div className={inq.emptyBox}>
               <h2 className={inq.emptyTitle}>No Quotations Yet</h2>
               <p className={inq.emptyText}>Quotations from suppliers will appear here once a supplier sends one for your inquiry. You have not received any yet.</p>
-              <Link href="/buyer/inquiries" className={inq.cta}>View My Inquiries</Link>
+              <Link prefetch={false} href="/buyer/inquiries" className={inq.cta}>View My Inquiries</Link>
             </div>
           ) : (
             <div className={inq.emptyBox}>
@@ -235,15 +235,15 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
                   {data.quotations.map((r) => (
                     <tr key={r.reference}>
                       <td>{select(r)}</td>
-                      <td><span className={inq.refCell}><Link href={r.detailHref} className={inq.reference}>{r.reference}</Link><span className={inq.refType}>{r.inquiryReference} · V{r.version}</span></span></td>
-                      <td><span className={inq.productCell}>{thumb(r)}<span className={inq.productName}>{r.product.url ? <Link href={r.product.url}>{r.productName}</Link> : r.productName}</span></span></td>
-                      <td><span className={inq.supplierCell}><span className={inq.initials} aria-hidden>{r.supplier.initials}</span><span className={inq.supplierName}>{r.supplier.url ? <Link href={r.supplier.url}>{r.supplier.name}</Link> : r.supplier.name}</span></span></td>
+                      <td><span className={inq.refCell}><Link prefetch={false} href={r.detailHref} className={inq.reference}>{r.reference}</Link><span className={inq.refType}>{r.inquiryReference} · V{r.version}</span></span></td>
+                      <td><span className={inq.productCell}>{thumb(r)}<span className={inq.productName}>{r.product.url ? <Link prefetch={false} href={r.product.url}>{r.productName}</Link> : r.productName}</span></span></td>
+                      <td><span className={inq.supplierCell}><span className={inq.initials} aria-hidden>{r.supplier.initials}</span><span className={inq.supplierName}>{r.supplier.url ? <Link prefetch={false} href={r.supplier.url}>{r.supplier.name}</Link> : r.supplier.name}</span></span></td>
                       <td className={inq.nowrap}>{unit(r)}</td>
                       <td className={inq.nowrap}>{r.unitPrice}</td>
                       <td className={inq.nowrap}>{totalCell(r)}</td>
                       <td><time dateTime={r.validUntil}>{when(r.validUntil)}</time></td>
                       <td><QuotationStatusPill status={r.status} label={r.statusLabel} /></td>
-                      <td><Link href={r.detailHref} className={inq.btn} aria-label={`View details of ${r.reference}`}>View Details <ArrowRight size={16} aria-hidden /></Link></td>
+                      <td><Link prefetch={false} href={r.detailHref} className={inq.btn} aria-label={`View details of ${r.reference}`}>View Details <ArrowRight size={16} aria-hidden /></Link></td>
                     </tr>
                   ))}
                 </tbody>
@@ -253,7 +253,7 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
               {data.quotations.map((r) => (
                 <li key={r.reference} className={inq.card}>
                   <div className={inq.cardTop}>
-                    <span className={inq.refCell}><Link href={r.detailHref} className={inq.reference}>{r.reference}</Link><span className={inq.refType}>{r.inquiryReference} · V{r.version}</span></span>
+                    <span className={inq.refCell}><Link prefetch={false} href={r.detailHref} className={inq.reference}>{r.reference}</Link><span className={inq.refType}>{r.inquiryReference} · V{r.version}</span></span>
                     <QuotationStatusPill status={r.status} label={r.statusLabel} />
                   </div>
                   <span className={inq.productCell}>{thumb(r)}<span className={inq.productName}>{r.productName}</span></span>
@@ -266,7 +266,7 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
                     <div><dt>Compare</dt><dd>{select(r)}</dd></div>
                   </dl>
                   <div className={inq.cardActions}>
-                    <Link href={r.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>View Details <ArrowRight size={16} aria-hidden /></Link>
+                    <Link prefetch={false} href={r.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>View Details <ArrowRight size={16} aria-hidden /></Link>
                   </div>
                 </li>
               ))}
@@ -279,7 +279,7 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
         <div className={styles.selectBar} role="status">
           <p>{picked.length} selected for comparison (choose {COMPARE_MIN} to {COMPARE_MAX} from the same inquiry). Selecting does not accept or change a quotation.</p>
           {picked.length >= COMPARE_MIN ? (
-            <Link href={compareHref} className={`${inq.btn} ${inq.btnPrimary}`}><Scale size={16} aria-hidden /> Compare Selected ({picked.length})</Link>
+            <Link prefetch={false} href={compareHref} className={`${inq.btn} ${inq.btnPrimary}`}><Scale size={16} aria-hidden /> Compare Selected ({picked.length})</Link>
           ) : null}
           <button type="button" className={inq.btn} onClick={() => setPicked([])}>Clear selection</button>
         </div>

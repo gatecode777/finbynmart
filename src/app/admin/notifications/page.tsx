@@ -20,7 +20,7 @@ async function AdminNotificationsPage() {
   const initial = await listNotifications(new ObjectId(user.id), permissions, { tab: "all", type: "all", cursor: null, limit: PAGE_SIZE }).catch(() => null);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Notifications</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Notifications</p>
       <h1 className={styles.heading}>Notifications</h1>
       <p className={styles.lead}>Updates for work you are authorized to review.</p>
       <AdminNotificationsWorkspace initial={initial} />

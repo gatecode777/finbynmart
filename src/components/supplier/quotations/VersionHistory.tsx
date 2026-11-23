@@ -56,7 +56,7 @@ export function VersionHistory({ reference, selectedVersion, initial, nextCursor
           return (
             <li key={v.version} className={clsx(styles.versionItem, selected && styles.versionSelected)}>
               <div>
-                <Link href={v.href} className={styles.versionLink} aria-current={selected ? "page" : undefined} aria-label={`Version ${v.version}${v.isDraft ? ", draft" : v.isCurrent ? ", current offer" : ", previous"}${selected ? ", selected" : ""}`}>
+                <Link prefetch={false} href={v.href} className={styles.versionLink} aria-current={selected ? "page" : undefined} aria-label={`Version ${v.version}${v.isDraft ? ", draft" : v.isCurrent ? ", current offer" : ", previous"}${selected ? ", selected" : ""}`}>
                   <span className={clsx(styles.marker, selected && styles.markerOn)} aria-hidden />
                   Version {v.version}
                 </Link>{" "}

@@ -17,7 +17,7 @@ export function SupplierCompareView({ data }: { data: SupplierComparison }) {
   return (
     <>
       <div className={`${d.headerActions} ${d.noPrint}`}>
-        <Link href="/buyer/saved-suppliers" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Saved Suppliers</Link>
+        <Link prefetch={false} href="/buyer/saved-suppliers" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Saved Suppliers</Link>
       </div>
       <section className={d.card} aria-labelledby="compare-suppliers-title">
         <h2 id="compare-suppliers-title" className={d.cardTitle}>Compare Suppliers ({columns.length})</h2>
@@ -27,7 +27,7 @@ export function SupplierCompareView({ data }: { data: SupplierComparison }) {
             <thead>
               <tr>
                 <th scope="col">Details</th>
-                {columns.map((c) => <th key={c.key} scope="col">{c.url ? <Link href={c.url} className={d.link}>{c.name}</Link> : c.name}</th>)}
+                {columns.map((c) => <th key={c.key} scope="col">{c.url ? <Link prefetch={false} href={c.url} className={d.link}>{c.name}</Link> : c.name}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -39,7 +39,7 @@ export function SupplierCompareView({ data }: { data: SupplierComparison }) {
               ))}
               <tr>
                 <th scope="row">Actions</th>
-                {columns.map((c) => <td key={c.key}>{c.inquiryHref ? <Link href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><MessageSquare size={16} aria-hidden /> Contact Supplier</Link> : "-"}</td>)}
+                {columns.map((c) => <td key={c.key}>{c.inquiryHref ? <Link prefetch={false} href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><MessageSquare size={16} aria-hidden /> Contact Supplier</Link> : "-"}</td>)}
               </tr>
             </tbody>
           </table>
@@ -47,11 +47,11 @@ export function SupplierCompareView({ data }: { data: SupplierComparison }) {
         <ul className={q.compareCards} aria-label="Suppliers side by side">
           {columns.map((c) => (
             <li key={c.key} className={q.compareCard}>
-              <h3 className={d.productName}>{c.url ? <Link href={c.url} className={d.link}>{c.name}</Link> : c.name}</h3>
+              <h3 className={d.productName}>{c.url ? <Link prefetch={false} href={c.url} className={d.link}>{c.name}</Link> : c.name}</h3>
               <dl className={q.termRows}>
                 {fields.map((f) => <div key={f.key}><dt>{f.label}{f.differs && <span className={q.differsMark}>Differs</span>}</dt><dd>{val(c.values[f.key])}</dd></div>)}
               </dl>
-              {c.inquiryHref && <Link href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><MessageSquare size={16} aria-hidden /> Contact Supplier</Link>}
+              {c.inquiryHref && <Link prefetch={false} href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><MessageSquare size={16} aria-hidden /> Contact Supplier</Link>}
             </li>
           ))}
         </ul>

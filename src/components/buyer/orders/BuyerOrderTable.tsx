@@ -18,7 +18,7 @@ interface Props {
 function Reference({ row }: { row: OrderRow }) {
   return (
     <span className={inq.refCell}>
-      <Link href={row.detailHref} className={inq.reference}>{row.reference}</Link>
+      <Link prefetch={false} href={row.detailHref} className={inq.reference}>{row.reference}</Link>
       <span className={inq.refType}><time dateTime={row.placedAt}>{formatDateTime(row.placedAt)}</time></span>
     </span>
   );
@@ -30,7 +30,7 @@ function ProductBlock({ row }: { row: OrderRow }) {
     <span className={inq.productCell}>
       <span className={inq.thumb} aria-hidden>{item.imageSrc ? <Image src={item.imageSrc} alt="" width={56} height={56} unoptimized={item.imageRemote} /> : <Package size={24} />}</span>
       <span>
-        <span className={inq.productName}>{item.url ? <Link href={item.url}>{item.name}</Link> : item.name}</span>
+        <span className={inq.productName}>{item.url ? <Link prefetch={false} href={item.url}>{item.name}</Link> : item.name}</span>
         {row.itemCount > 1 && <span className={styles.moreItems}>+{row.itemCount - 1} more {row.itemCount - 1 === 1 ? "item" : "items"}</span>}
       </span>
     </span>
@@ -41,7 +41,7 @@ function SupplierBlock({ row }: { row: OrderRow }) {
   return (
     <span className={inq.supplierCell}>
       <span className={inq.initials} aria-hidden>{row.supplier.initials}</span>
-      <span className={inq.supplierName}>{row.supplier.url ? <Link href={row.supplier.url}>{row.supplier.name}</Link> : row.supplier.name}</span>
+      <span className={inq.supplierName}>{row.supplier.url ? <Link prefetch={false} href={row.supplier.url}>{row.supplier.name}</Link> : row.supplier.name}</span>
     </span>
   );
 }
@@ -76,7 +76,7 @@ function RowActions({ row, onCancel }: { row: OrderRow; onCancel: (row: OrderRow
 
   return (
     <span className={inq.actions}>
-      <Link href={row.detailHref} className={inq.btn} aria-label={`View order ${row.reference}`}>
+      <Link prefetch={false} href={row.detailHref} className={inq.btn} aria-label={`View order ${row.reference}`}>
         View Order <ArrowRight size={16} aria-hidden />
       </Link>
       {row.canRequestCancellation && (
@@ -154,7 +154,7 @@ export function BuyerOrderTable({ rows, onCancel }: Props) {
               <div><dt>Expected Delivery</dt><dd><Expected row={row} /></dd></div>
             </dl>
             <div className={inq.cardActions}>
-              <Link href={row.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>
+              <Link prefetch={false} href={row.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>
                 View Order <ArrowRight size={16} aria-hidden />
               </Link>
               {row.canRequestCancellation && (

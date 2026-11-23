@@ -40,7 +40,7 @@ export function InquiryAside({ requirementHref }: { requirementHref: string }) {
           Need a Bulk Requirement?
         </h2>
         <p className={styles.bulkText}>Share large quantities or custom requirements and tell us what you need.</p>
-        <Link href={requirementHref} className={styles.cta}>
+        <Link prefetch={false} href={requirementHref} className={styles.cta}>
           Post Your Requirement
           <ArrowRight size={18} strokeWidth={2.25} aria-hidden />
         </Link>

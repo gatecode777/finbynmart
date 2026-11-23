@@ -17,7 +17,7 @@ export default function ProductsError({ reset }: { error: Error & { digest?: str
               <Button type="button" onClick={reset}>
                 Try again
               </Button>
-              <Link href="/categories">Browse categories</Link>
+              <Link prefetch={false} href="/categories">Browse categories</Link>
             </>
           }
         >

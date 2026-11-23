@@ -38,7 +38,7 @@ async function PostRequirementPage({
         />
         {supplier && (
           <p>
-            A requirement is shared with eligible matching suppliers, not one company. To contact {supplier.name} directly, <Link href={`/inquiry/${supplier.slug}`}>send it an inquiry</Link>.
+            A requirement is shared with eligible matching suppliers, not one company. To contact {supplier.name} directly, <Link prefetch={false} href={`/inquiry/${supplier.slug}`}>send it an inquiry</Link>.
           </p>
         )}
         <RequirementPostForm defaultQuery={defaultProduct} defaultQuantity={defaultQuantity} defaultCity={one(sp.city) ?? ""} />

@@ -13,7 +13,7 @@ export function SupplierCard({ supplier }: { supplier: Supplier }) {
       </div>
       <div className={styles.body}>
         <div className={styles.nameRow}>
-          <Link href={supplier.href} className={styles.name}>
+          <Link prefetch={false} href={supplier.href} className={styles.name}>
             {supplier.name}
           </Link>
           {supplier.verified && <Badge variant="success" icon>Verified</Badge>}
@@ -34,7 +34,7 @@ export function SupplierCard({ supplier }: { supplier: Supplier }) {
           </span>
         )}
 
-        <Link href={supplier.href} className={`${styles.cta} ${styles.ctaButton}`}>
+        <Link prefetch={false} href={supplier.href} className={`${styles.cta} ${styles.ctaButton}`}>
           View Products
         </Link>
       </div>

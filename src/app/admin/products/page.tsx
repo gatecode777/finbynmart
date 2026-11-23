@@ -17,7 +17,7 @@ export default async function AdminProductsPage({ searchParams }: { searchParams
   const demo = process.env.NODE_ENV !== "production" && sp.preview === "demo";
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Products</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Products</p>
       <h1 className={styles.heading}>Product Management</h1>
       <p className={styles.lead}>Manage product listings and public visibility. Review decisions stay in Product Review.</p>
       <Suspense fallback={<p>Loading products...</p>}>

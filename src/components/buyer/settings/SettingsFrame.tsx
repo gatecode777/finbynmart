@@ -22,7 +22,7 @@ function Tabs({ active, unread }: { active: SettingsTab; unread: number | null }
       <ul className={profile.tabs}>
         {SETTINGS_TABS.map(({ key, label, icon: Icon }) => (
           <li key={key}>
-            <Link
+            <Link prefetch={false}
               href={`/buyer/settings?tab=${key}`}
               className={clsx(profile.tab, active === key && profile.tabActive)}
               aria-current={active === key ? "page" : undefined}

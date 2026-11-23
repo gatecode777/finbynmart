@@ -24,7 +24,7 @@ export function ProfileSide({ verification, nextSteps }: { verification: Verific
             <li key={step.key} className={clsx(styles.step, step.status === "done" && styles.stepDone, step.status === "blocked" && styles.stepBlocked)}>
               {step.status === "done" ? <CheckCircle2 size={18} aria-hidden /> : step.status === "blocked" ? <MinusCircle size={18} aria-hidden /> : <Circle size={18} aria-hidden />}
               <span>
-                {step.status === "todo" ? <Link href={`/buyer/profile?tab=${step.tab}`} className={dash.viewAll}>{step.label}</Link> : step.label}
+                {step.status === "todo" ? <Link prefetch={false} href={`/buyer/profile?tab=${step.tab}`} className={dash.viewAll}>{step.label}</Link> : step.label}
                 <span className="visually-hidden">{step.status === "done" ? " (done)" : step.status === "blocked" ? " (not available yet)" : " (to do)"}</span>
                 {step.note && <span className={styles.stepNote}>{step.note}</span>}
               </span>

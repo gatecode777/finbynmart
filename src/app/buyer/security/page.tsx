@@ -30,7 +30,7 @@ async function BuyerSecurityRoute({ searchParams }: { searchParams: Promise<Reco
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Account security for buyers is managed here.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ async function BuyerSecurityRoute({ searchParams }: { searchParams: Promise<Reco
   return (
     <BuyerShell userName={user.name} activeKey="security" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/settings">Settings &amp; Notifications</Link> / Security
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/settings">Settings &amp; Notifications</Link> / Security
       </p>
       <div className={dash.pageHeader}>
         <div>

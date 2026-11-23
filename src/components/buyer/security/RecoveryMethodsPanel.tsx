@@ -74,7 +74,7 @@ export function RecoveryMethodsPanel() {
           <li className={s.recoveryRow}>
             <div>
               <p className={s.recoveryName}>Password reset by email</p>
-              <p className={s.recoveryNote}>{data.passwordReset.note}{data.passwordReset.state === "available" && <> <Link href="/forgot-password" className={dash.viewAll}>Forgot password</Link></>}</p>
+              <p className={s.recoveryNote}>{data.passwordReset.note}{data.passwordReset.state === "available" && <> <Link prefetch={false} href="/forgot-password" className={dash.viewAll}>Forgot password</Link></>}</p>
             </div>
             <StatusBadge status={STATE[data.passwordReset.state].status} label={STATE[data.passwordReset.state].label} />
           </li>

@@ -36,7 +36,7 @@ async function AdminInquiriesPage({ searchParams }: { searchParams: Promise<Reco
   return (
     <div className={styles.page}>
       <p className={styles.breadcrumb}>
-        <Link href="/admin/dashboard">Admin</Link> / Inquiries
+        <Link prefetch={false} href="/admin/dashboard">Admin</Link> / Inquiries
       </p>
       <h1 className={styles.heading}>Inquiry Management</h1>
       <p className={styles.lead}>Review requirements, routing and administrative activity.</p>

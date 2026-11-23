@@ -8,8 +8,8 @@ import { HowItWorks } from "@/components/homepage/HowItWorks";
 import { IndiaNetworkBanner } from "@/components/homepage/IndiaNetworkBanner";
 import { IndustrySolutions } from "@/components/homepage/IndustrySolutions";
 
-// Product and supplier sections read the public catalogue at request time (not at build time).
-export const dynamic = "force-dynamic";
+// Public, session-free page: served from the cache and rebuilt at most every 5 minutes (a per-visit render cost CPU on every visit, crawlers included). Approved supplier products appear after the next rebuild.
+export const revalidate = 300;
 
 export default function Home() {
   return (

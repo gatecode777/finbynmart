@@ -59,7 +59,7 @@ export function FilterBar({ action, fields, hidden = {}, resetHref }: FilterBarP
           <Search size={16} strokeWidth={2} aria-hidden />
           Apply
         </button>
-        <Link href={resetHref} className={styles.reset}>
+        <Link prefetch={false} href={resetHref} className={styles.reset}>
           Reset
         </Link>
       </div>

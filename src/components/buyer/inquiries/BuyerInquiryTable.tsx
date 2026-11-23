@@ -29,9 +29,9 @@ function Reference({ row }: { row: BuyerInquiryRow }) {
   return (
     <span className={styles.refCell}>
       {row.reference ? (
-        <Link href={row.detailHref} className={styles.reference}>{row.reference}</Link>
+        <Link prefetch={false} href={row.detailHref} className={styles.reference}>{row.reference}</Link>
       ) : (
-        <Link href={row.detailHref} className={styles.reference}>Earlier inquiry</Link>
+        <Link prefetch={false} href={row.detailHref} className={styles.reference}>Earlier inquiry</Link>
       )}
       <span className={styles.refType}>{row.inquiryTypeLabel}</span>
     </span>
@@ -43,7 +43,7 @@ function ProductBlock({ row }: { row: BuyerInquiryRow }) {
     <span className={styles.productCell}>
       <Thumb row={row} />
       <span>
-        <span className={styles.productName}>{row.product?.url ? <Link href={row.product.url}>{title(row)}</Link> : title(row)}</span>
+        <span className={styles.productName}>{row.product?.url ? <Link prefetch={false} href={row.product.url}>{title(row)}</Link> : title(row)}</span>
         {row.categoryName && <span className={styles.muted}> <br />{row.categoryName}</span>}
         {row.product && !row.product.url && <span className={styles.muted}> <br />No longer listed</span>}
       </span>
@@ -55,7 +55,7 @@ function SupplierBlock({ row }: { row: BuyerInquiryRow }) {
   return (
     <span className={styles.supplierCell}>
       <span className={styles.initials} aria-hidden>{row.supplier.initials}</span>
-      <span className={styles.supplierName}>{row.supplier.url ? <Link href={row.supplier.url}>{row.supplier.name}</Link> : row.supplier.name}</span>
+      <span className={styles.supplierName}>{row.supplier.url ? <Link prefetch={false} href={row.supplier.url}>{row.supplier.name}</Link> : row.supplier.name}</span>
     </span>
   );
 }
@@ -90,7 +90,7 @@ function RowActions({ row, onCancel }: { row: BuyerInquiryRow; onCancel: (row: B
 
   return (
     <span className={styles.actions}>
-      <Link href={row.detailHref} className={styles.btn} aria-label={`View details of ${row.reference ?? "this inquiry"}`}>
+      <Link prefetch={false} href={row.detailHref} className={styles.btn} aria-label={`View details of ${row.reference ?? "this inquiry"}`}>
         View Details <ArrowRight size={16} aria-hidden />
       </Link>
       <span className={styles.rowMenu} ref={wrap}>
@@ -99,7 +99,7 @@ function RowActions({ row, onCancel }: { row: BuyerInquiryRow; onCancel: (row: B
         </button>
         {open && (
           <div className={styles.menu} role="menu">
-            <Link href={`${row.detailHref}#progress`} className={styles.menuItem} role="menuitem" onClick={() => setOpen(false)}>
+            <Link prefetch={false} href={`${row.detailHref}#progress`} className={styles.menuItem} role="menuitem" onClick={() => setOpen(false)}>
               <Route size={16} aria-hidden /> Track Inquiry
             </Link>
             {row.canCancel && (
@@ -173,10 +173,10 @@ export function BuyerInquiryTable({ rows, onCancel }: Props) {
               <div><dt>Submitted offers</dt><dd>{row.offerCount}</dd></div>
             </dl>
             <div className={styles.cardActions}>
-              <Link href={row.detailHref} className={`${styles.btn} ${styles.btnPrimary}`}>
+              <Link prefetch={false} href={row.detailHref} className={`${styles.btn} ${styles.btnPrimary}`}>
                 View Details <ArrowRight size={16} aria-hidden />
               </Link>
-              <Link href={`${row.detailHref}#progress`} className={styles.btn}>
+              <Link prefetch={false} href={`${row.detailHref}#progress`} className={styles.btn}>
                 <Route size={16} aria-hidden /> Track
               </Link>
               {row.canCancel && (

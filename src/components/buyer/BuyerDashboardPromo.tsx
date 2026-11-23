@@ -14,7 +14,7 @@ export function BuyerDashboardPromo() {
           Get Better Quotes from Suppliers
         </h2>
         <p>Explore products and connect with suppliers for your business requirements.</p>
-        <Link href="/products" className={styles.promoButton}>
+        <Link prefetch={false} href="/products" className={styles.promoButton}>
           Explore Now <ArrowRight size={16} aria-hidden />
         </Link>
       </div>

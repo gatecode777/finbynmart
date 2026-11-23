@@ -26,7 +26,7 @@ async function BuyerAddressesPage({ searchParams }: { searchParams: Promise<Para
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>The address book is for buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ async function BuyerAddressesPage({ searchParams }: { searchParams: Promise<Para
   return (
     <BuyerShell userName={user.name} activeKey="address-book" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Address Book
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Address Book
       </p>
       <div className={dash.pageHeader}>
         <div>

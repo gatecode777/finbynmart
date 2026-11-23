@@ -25,7 +25,7 @@ export function SupplierListCard({ supplier, view = "grid" }: { supplier: Suppli
           {supplier.initials}
         </span>
         <div className={styles.head}>
-          <Link href={supplier.url} className={styles.name}>
+          <Link prefetch={false} href={supplier.url} className={styles.name}>
             {supplier.name}
           </Link>
           {supplier.verificationStatus === "verified" && <Badge variant="success" icon>Verified Supplier</Badge>}
@@ -57,10 +57,10 @@ export function SupplierListCard({ supplier, view = "grid" }: { supplier: Suppli
       </ul>
 
       <div className={styles.actions}>
-        <Link href={supplier.url} className={styles.primary}>
+        <Link prefetch={false} href={supplier.url} className={styles.primary}>
           View Profile
         </Link>
-        <Link href={`${supplier.url}#contact`} className={styles.secondary}>
+        <Link prefetch={false} href={`${supplier.url}#contact`} className={styles.secondary}>
           Contact Supplier
         </Link>
       </div>

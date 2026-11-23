@@ -20,7 +20,7 @@ async function SupplierSettingsPage() {
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Settings
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Settings
       </p>
 
       <div className={dash.headerRow}>
@@ -38,7 +38,7 @@ async function SupplierSettingsPage() {
           <h2 id="settings-security-title" className={dash.cardTitle}>Account security</h2>
           <p className={dash.legendNote}>Change your password, review where you are signed in and sign out other devices.</p>
           <p style={{ marginTop: "0.75rem" }}>
-            <Link href="/supplier/security" className={dash.viewAll}>Open Account Security</Link>
+            <Link prefetch={false} href="/supplier/security" className={dash.viewAll}>Open Account Security</Link>
           </p>
         </section>
       </div>

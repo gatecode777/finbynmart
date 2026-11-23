@@ -39,7 +39,7 @@ export function Pagination({ page, totalPages, basePath, params = {} }: Paginati
   return (
     <nav className={styles.nav} aria-label="Pagination">
       {page > 1 ? (
-        <Link href={hrefFor(page - 1)} className={styles.step} rel="prev">
+        <Link prefetch={false} href={hrefFor(page - 1)} className={styles.step} rel="prev">
           <ChevronLeft size={16} aria-hidden />
           Previous
         </Link>
@@ -58,7 +58,7 @@ export function Pagination({ page, totalPages, basePath, params = {} }: Paginati
             </li>
           ) : (
             <li key={item}>
-              <Link
+              <Link prefetch={false}
                 href={hrefFor(item)}
                 className={clsx(styles.page, item === page && styles.current)}
                 aria-current={item === page ? "page" : undefined}
@@ -71,7 +71,7 @@ export function Pagination({ page, totalPages, basePath, params = {} }: Paginati
       </ul>
 
       {page < totalPages ? (
-        <Link href={hrefFor(page + 1)} className={styles.step} rel="next">
+        <Link prefetch={false} href={hrefFor(page + 1)} className={styles.step} rel="next">
           Next
           <ChevronRight size={16} aria-hidden />
         </Link>

@@ -136,7 +136,7 @@ export function ReviewsView({ supplier, basePath, view, requestedPage, certifica
                   <ul className={listing.applied} aria-label="Applied filters">
                     {chips.map((chip) => (
                       <li key={chip.key}>
-                        <Link href={chip.href} className={listing.appliedChip} aria-label={`Remove filter ${chip.label}`}>
+                        <Link prefetch={false} href={chip.href} className={listing.appliedChip} aria-label={`Remove filter ${chip.label}`}>
                           {chip.label}
                           <X size={14} strokeWidth={2.25} aria-hidden />
                         </Link>
@@ -149,7 +149,7 @@ export function ReviewsView({ supplier, basePath, view, requestedPage, certifica
                   <EmptyState
                     title="No reviews match these filters"
                     actions={
-                      <Link href={href(NO_REVIEW_FILTERS)} className={listing.emptyLink}>
+                      <Link prefetch={false} href={href(NO_REVIEW_FILTERS)} className={listing.emptyLink}>
                         Clear all filters
                       </Link>
                     }

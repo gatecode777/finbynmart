@@ -7,7 +7,7 @@ export function PopularSearches() {
     <div className={styles.wrap}>
       <span className={styles.label}>Popular Searches:</span>
       {POPULAR_SEARCHES.map((term) => (
-        <Link
+        <Link prefetch={false}
           key={term}
           href={`/search?type=products&q=${encodeURIComponent(term)}`}
           className={styles.chip}

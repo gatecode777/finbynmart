@@ -307,7 +307,7 @@ export function OrdersWorkspace({ initial, initialParams, initialSummary, initia
             <div className={inq.emptyBox}>
               <h2 className={inq.emptyTitle}>No Orders Yet</h2>
               <p className={inq.emptyText}>Your confirmed purchases will appear here. Explore products and connect with suppliers for your business requirements.</p>
-              <Link href="/products" className={inq.cta}>Browse Products</Link>
+              <Link prefetch={false} href="/products" className={inq.cta}>Browse Products</Link>
             </div>
           ) : (
             <div className={inq.emptyBox}>

@@ -203,7 +203,7 @@ export function AdminProductsWorkspace({ demo, canExport, canReview }: { demo: b
 
       {view.kind === "unavailable" && (
         <section className={s.panel} aria-label="Product list unavailable">
-          <p className={s.empty}><strong>The product list isn&apos;t available yet.</strong><br />The admin product list service is not connected, so no products can be shown. This is not an empty catalogue. Pending submissions can still be decided in <Link href="/admin/product-review">Product review</Link>.</p>
+          <p className={s.empty}><strong>The product list isn&apos;t available yet.</strong><br />The admin product list service is not connected, so no products can be shown. This is not an empty catalogue. Pending submissions can still be decided in <Link prefetch={false} href="/admin/product-review">Product review</Link>.</p>
         </section>
       )}
       {view.kind === "denied" && <section className={s.panel}><p className={s.empty} role="alert">Your account is not allowed to view product listings.</p></section>}
@@ -232,7 +232,7 @@ export function AdminProductsWorkspace({ demo, canExport, canReview }: { demo: b
                       <td>
                         <span className={p.actions}>
                           <button type="button" className={prof.btnSecondary} onClick={() => openDetails(r)} aria-label={`View ${r.name}`}>View</button>
-                          {(r.status === "PENDING_REVIEW" || r.pendingChanges) && <Link href="/admin/product-review" className={prof.btnSecondary} aria-label={`Review ${r.name}`}>Review</Link>}
+                          {(r.status === "PENDING_REVIEW" || r.pendingChanges) && <Link prefetch={false} href="/admin/product-review" className={prof.btnSecondary} aria-label={`Review ${r.name}`}>Review</Link>}
                         </span>
                       </td>
                     </tr>
@@ -252,7 +252,7 @@ export function AdminProductsWorkspace({ demo, canExport, canReview }: { demo: b
                     <StatusBadge row={r} />
                     <span className={p.actions}>
                       <button type="button" className={prof.btnSecondary} onClick={() => openDetails(r)} aria-label={`View ${r.name}`}>View</button>
-                      {(r.status === "PENDING_REVIEW" || r.pendingChanges) && <Link href="/admin/product-review" className={prof.btnSecondary} aria-label={`Review ${r.name}`}>Review</Link>}
+                      {(r.status === "PENDING_REVIEW" || r.pendingChanges) && <Link prefetch={false} href="/admin/product-review" className={prof.btnSecondary} aria-label={`Review ${r.name}`}>Review</Link>}
                     </span>
                   </li>
                 ))}
@@ -297,8 +297,8 @@ export function AdminProductsWorkspace({ demo, canExport, canReview }: { demo: b
                 <p className={p.muted}>{d.visibilityNote}{d.status === "PUBLISHED" ? " The content above is the approved version." : ""}{d.pendingChanges ? ` A newer revision${d.pending ? ` (revision ${d.pending.revision}, submitted ${fmt(d.pending.submittedAt)})` : ""} is pending review; the live listing still shows the approved version.` : ""}</p>
                 {d.unpublishReason && <p className={p.muted}>Unpublish reason (internal): {d.unpublishReason}</p>}
                 <div className={p.drawerActions}>
-                  {d.publicUrl ? <Link href={d.publicUrl} className={prof.btnSecondary} target="_blank" rel="noopener noreferrer"><ExternalLink size={14} aria-hidden /> View public listing</Link> : <span className={p.muted}>No public listing: {d.visibilityNote.replace(/^Not public: /, "").replace(/^Not public\.$/, "it is not public")}</span>}
-                  {canReview && <Link href="/admin/product-review" className={prof.btnSecondary}>Open Product Review</Link>}
+                  {d.publicUrl ? <Link prefetch={false} href={d.publicUrl} className={prof.btnSecondary} target="_blank" rel="noopener noreferrer"><ExternalLink size={14} aria-hidden /> View public listing</Link> : <span className={p.muted}>No public listing: {d.visibilityNote.replace(/^Not public: /, "").replace(/^Not public\.$/, "it is not public")}</span>}
+                  {canReview && <Link prefetch={false} href="/admin/product-review" className={prof.btnSecondary}>Open Product Review</Link>}
                   {d.actions.unpublish && <button type="button" className={prof.btnSecondary} onClick={() => openUnpublish(d)}>Unpublish</button>}
                 </div>
               </>

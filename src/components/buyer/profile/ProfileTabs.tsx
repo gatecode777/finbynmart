@@ -27,7 +27,7 @@ export function ProfileTabs({ active }: { active: string }) {
       <ul className={styles.tabs}>
         {TABS.map(({ key, label, icon: Icon }) => (
           <li key={key}>
-            <Link
+            <Link prefetch={false}
               href={`/buyer/profile?tab=${key}`}
               className={clsx(styles.tab, active === key && styles.tabActive)}
               aria-current={active === key ? "page" : undefined}

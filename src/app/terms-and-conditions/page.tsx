@@ -35,7 +35,7 @@ function Blocks({ blocks }: { blocks: Block[] }) {
         if (b.type === "p") return <p key={i}>{b.text}</p>;
         if (b.type === "h3") return <h3 key={i} className={styles.h3}>{b.text}</h3>;
         if (b.type === "ul") return <ul key={i} className={styles.list}>{b.items.map((t) => <li key={t}>{t}</li>)}</ul>;
-        if (b.type === "link") return <p key={i}>{b.before}<Link href={b.href}>{b.label}</Link>{b.after}</p>;
+        if (b.type === "link") return <p key={i}>{b.before}<Link prefetch={false} href={b.href}>{b.label}</Link>{b.after}</p>;
         return (
           <div key={i} className={styles.callout}>
             <p className={styles.calloutTitle}>{b.title}</p>
@@ -102,7 +102,7 @@ export default function TermsPage() {
                   <h2 id="contact-h" className={styles.contactTitle}>Questions about these terms?</h2>
                   <p>Send us a message.{email?.detail ? <> You can also write to <a href={email.href ?? undefined}>{email.detail}</a>.</> : null}</p>
                 </div>
-                <Link href="/contact-us" className={styles.contactLink}>Contact Us</Link>
+                <Link prefetch={false} href="/contact-us" className={styles.contactLink}>Contact Us</Link>
               </section>
             </article>
           </div>

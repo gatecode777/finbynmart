@@ -39,7 +39,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / Supplier Portal / Inquiries &amp; Leads / {detail.reference}
+        <Link prefetch={false} href="/">Home</Link> / Supplier Portal / Inquiries &amp; Leads / {detail.reference}
       </p>
       <div className={dash.header}>
         <div>
@@ -52,7 +52,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
         </div>
         <div className={styles.headerActions}>
           {quote.href ? (
-            <Link href={quote.href} className={clsx(dash.btn, quote.kind !== "view" && styles.primary)}>
+            <Link prefetch={false} href={quote.href} className={clsx(dash.btn, quote.kind !== "view" && styles.primary)}>
               {quote.kind === "continue" ? <PencilLine size={18} aria-hidden /> : quote.kind === "view" ? <FileText size={18} aria-hidden /> : <Plus size={18} aria-hidden />} {quote.label}
             </Link>
           ) : (
@@ -81,7 +81,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
             {req.specifications.length > 0 && (
               <>
                 <h3 className={styles.subtitle}>Product specifications</h3>
-                <p className={dash.muted}>From the listing the buyer asked about{req.productUrl ? <> (<Link href={req.productUrl} className={styles.linkBtn}>open the listing</Link>)</> : null}; not typed by the buyer.</p>
+                <p className={dash.muted}>From the listing the buyer asked about{req.productUrl ? <> (<Link prefetch={false} href={req.productUrl} className={styles.linkBtn}>open the listing</Link>)</> : null}; not typed by the buyer.</p>
                 <dl className={styles.specs}>
                   {req.specifications.map((s, i) => <div key={`${s.label}-${i}`} className={styles.spec}><dt>{s.label}</dt><dd>{s.value}</dd></div>)}
                 </dl>
@@ -130,10 +130,10 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
               <ul className={styles.related}>
                 {quotations.map((q) => (
                   <li key={q.reference} className={styles.relatedItem}>
-                    <Link href={q.detailHref} className={styles.linkBtn}>{q.reference}</Link>
+                    <Link prefetch={false} href={q.detailHref} className={styles.linkBtn}>{q.reference}</Link>
                     <span><SupplierStatusBadge status={q.status} label={q.statusLabel} /></span>
                     <span className={styles.metaText}>{q.total ? `${q.total.text}${q.total.taxSpecified ? "" : " (before tax)"}` : "Not priced yet"} · valid until {q.validLabel}</span>
-                    {q.editHref && <Link href={q.editHref} className={styles.linkBtn}>Continue draft</Link>}
+                    {q.editHref && <Link prefetch={false} href={q.editHref} className={styles.linkBtn}>Continue draft</Link>}
                   </li>
                 ))}
               </ul>
@@ -145,7 +145,7 @@ async function SupplierInquiryPage({ params }: { params: Promise<{ inquiryRefere
       </div>
 
       <p className={styles.footerLinks}>
-        <Link href="/supplier/inquiries" className={styles.linkBtn}>Back to Inquiries &amp; Leads</Link>
+        <Link prefetch={false} href="/supplier/inquiries" className={styles.linkBtn}>Back to Inquiries &amp; Leads</Link>
       </p>
     </div>
   );

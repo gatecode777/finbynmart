@@ -190,7 +190,7 @@ export function SupplierProductsWorkspace({
           </div>
 
           <div style={{ display: "flex", gap: "8px" }}>
-            <Link href="/supplier/products/new" className={styles.btnGold}>
+            <Link prefetch={false} href="/supplier/products/new" className={styles.btnGold}>
               <Plus size={16} aria-hidden /> Add New Product
             </Link>
           </div>
@@ -208,7 +208,7 @@ export function SupplierProductsWorkspace({
                 ? "Try adjusting your search filters to find what you are looking for."
                 : "Your supplier catalog does not have any products listed yet. Click below to add your first product."}
             </p>
-            <Link href="/supplier/products/new" className={styles.btnGold}>
+            <Link prefetch={false} href="/supplier/products/new" className={styles.btnGold}>
               <Plus size={16} aria-hidden /> Add Your First Product
             </Link>
           </div>
@@ -288,11 +288,11 @@ export function SupplierProductsWorkspace({
                     <td style={{ padding: "12px 14px" }}>{statusBadge(p.status)}</td>
                     <td style={{ padding: "12px 14px" }}>
                       {p.status === "DRAFT" && !p.isCatalog ? (
-                        <Link href={`/supplier/products/${p.id}/edit`} className={styles.btnSecondary} style={{ padding: "4px 8px", fontSize: "0.75rem" }}>
+                        <Link prefetch={false} href={`/supplier/products/${p.id}/edit`} className={styles.btnSecondary} style={{ padding: "4px 8px", fontSize: "0.75rem" }}>
                           Edit draft
                         </Link>
                       ) : (
-                        <Link href={`/products/${p.slug}`} target="_blank" rel="noreferrer" className={styles.btnSecondary} style={{ padding: "4px 8px", fontSize: "0.75rem" }}>
+                        <Link prefetch={false} href={`/products/${p.slug}`} target="_blank" rel="noreferrer" className={styles.btnSecondary} style={{ padding: "4px 8px", fontSize: "0.75rem" }}>
                           <ExternalLink size={13} aria-hidden /> View
                         </Link>
                       )}

@@ -28,7 +28,7 @@ async function CreateQuotationPage({ searchParams }: { searchParams: Promise<Rec
 
   const crumbs = (
     <p className={dash.breadcrumb}>
-      <Link href="/">Home</Link> / Supplier Portal / <Link href="/supplier/quotations">Quotations</Link> / Create Quotation
+      <Link prefetch={false} href="/">Home</Link> / Supplier Portal / <Link prefetch={false} href="/supplier/quotations">Quotations</Link> / Create Quotation
     </p>
   );
 
@@ -73,7 +73,7 @@ async function CreateQuotationPage({ searchParams }: { searchParams: Promise<Rec
             </div>
           </div>
           <p className={`${styles.banner} ${styles.bannerError}`} role="alert">{ctx.ineligibleReason}</p>
-          <p><Link href="/supplier/quotations/create" className={dash.btn}>Choose another inquiry</Link></p>
+          <p><Link prefetch={false} href="/supplier/quotations/create" className={dash.btn}>Choose another inquiry</Link></p>
         </div>
       );
     }

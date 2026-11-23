@@ -209,7 +209,7 @@ export function SupplierOrdersWorkspace({ initial, initialParams, renderedAt }: 
 
   const rowActions = (r: SupplierOrderRow) => (
     <span className={q.rowActions}>
-      <Link href={r.detailHref} className={clsx(dash.btn, styles.viewBtn)} aria-label={`View order ${r.reference}`}>View</Link>
+      <Link prefetch={false} href={r.detailHref} className={clsx(dash.btn, styles.viewBtn)} aria-label={`View order ${r.reference}`}>View</Link>
     </span>
   );
 
@@ -338,7 +338,7 @@ export function SupplierOrdersWorkspace({ initial, initialParams, renderedAt }: 
             <div className={q.stateBox}>
               <h2 className={q.stateTitle}>No orders yet</h2>
               <p className={q.stateText}>{data.capabilities.create.reason} A new account has none, and no sample orders are shown.</p>
-              <Link href="/supplier/quotations" className={dash.btn}><PackageOpen size={18} aria-hidden /> View quotations</Link>
+              <Link prefetch={false} href="/supplier/quotations" className={dash.btn}><PackageOpen size={18} aria-hidden /> View quotations</Link>
             </div>
           )
         ) : (
@@ -362,7 +362,7 @@ export function SupplierOrdersWorkspace({ initial, initialParams, renderedAt }: 
                   {data.orders.map((r) => (
                     <tr key={r.reference}>
                       <th scope="row" style={{ textTransform: "none", letterSpacing: 0, background: "transparent", whiteSpace: "normal" }}>
-                        <Link href={r.detailHref} className={clsx(q.ref, q.link)}>{r.reference}</Link>
+                        <Link prefetch={false} href={r.detailHref} className={clsx(q.ref, q.link)}>{r.reference}</Link>
                         <span className={q.small}>Placed {r.placedLabel}</span>
                       </th>
                       <td className={styles.buyerCell}>
@@ -385,7 +385,7 @@ export function SupplierOrdersWorkspace({ initial, initialParams, renderedAt }: 
                 <li key={r.reference} className={q.card}>
                   <div className={q.cardTop}>
                     <div>
-                      <Link href={r.detailHref} className={clsx(q.ref, q.link)}>{r.reference}</Link>
+                      <Link prefetch={false} href={r.detailHref} className={clsx(q.ref, q.link)}>{r.reference}</Link>
                       <span className={q.small}>Placed {r.placedLabel}</span>
                     </div>
                     <OrderStatusBadge group={r.statusGroup} label={r.statusLabel} />

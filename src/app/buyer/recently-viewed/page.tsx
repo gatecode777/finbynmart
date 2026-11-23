@@ -23,7 +23,7 @@ async function BuyerRecentlyViewedPage() {
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Recently viewed products belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -31,7 +31,7 @@ async function BuyerRecentlyViewedPage() {
   return (
     <BuyerShell userName={user.name} activeKey="recently-viewed" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer</Link> / Recently Viewed
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer</Link> / Recently Viewed
       </p>
       <div className={dash.pageHeader}>
         <div>

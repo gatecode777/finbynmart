@@ -64,7 +64,7 @@ export function BuyerTopbar({ userName, menuOpen, onToggleDrawer, menuButtonRef 
       <button ref={menuButtonRef} type="button" className={clsx(styles.iconButton, styles.drawerToggle)} onClick={onToggleDrawer} aria-label="Open navigation menu" aria-expanded={menuOpen} aria-controls="buyer-sidebar">
         <Menu size={22} aria-hidden />
       </button>
-      <Link href="/" className={styles.logo} aria-label="Finbyn Mart home">
+      <Link prefetch={false} href="/" className={styles.logo} aria-label="Finbyn Mart home">
         <Image src="/images/brand/finbyn-mart-logo.png" alt="Finbyn Mart" width={160} height={44} priority className={styles.logoImage} />
       </Link>
       <div className={styles.search}>
@@ -88,10 +88,10 @@ export function BuyerTopbar({ userName, menuOpen, onToggleDrawer, menuButtonRef 
         {profileOpen && (
           <div id="buyer-profile-menu" className={styles.profileMenu}>
             <p className={styles.profileMenuNote}>Signed in as {userName}</p>
-            <Link href="/buyer/profile" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
+            <Link prefetch={false} href="/buyer/profile" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
               Profile &amp; Company
             </Link>
-            <Link href="/buyer/settings" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
+            <Link prefetch={false} href="/buyer/settings" className={styles.profileMenuItem} onClick={() => setProfileOpen(false)}>
               Settings &amp; Notifications
             </Link>
             <button type="button" className={styles.profileMenuItem} onClick={signOut} disabled={signingOut}>

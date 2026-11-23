@@ -12,7 +12,7 @@ export default function InquiryDetailError({ reset }: { error: Error; reset: () 
       <p>
         <button type="button" className={dash.viewAll} onClick={reset}>Try again</button>
         {" · "}
-        <Link href="/buyer/inquiries" className={dash.viewAll}>Back to My Inquiries</Link>
+        <Link prefetch={false} href="/buyer/inquiries" className={dash.viewAll}>Back to My Inquiries</Link>
       </p>
     </div>
   );

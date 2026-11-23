@@ -50,7 +50,7 @@ export function ConfirmOrderPanel({ reference }: { reference: string }) {
     <section className={`${d.noPrint}`} aria-label="Order confirmation" style={{ margin: "1rem 0", padding: "1rem 1.25rem", border: "1px solid var(--border)", borderRadius: 12, background: "#fff" }}>
       {state.order ? (
         <p style={{ margin: 0, display: "flex", gap: ".5rem", alignItems: "center" }}>
-          <CheckCircle2 size={18} aria-hidden /> Order <strong>{state.order.reference}</strong> was confirmed from this quotation. <Link href={`/buyer/orders/${state.order.reference}`}>View order</Link>
+          <CheckCircle2 size={18} aria-hidden /> Order <strong>{state.order.reference}</strong> was confirmed from this quotation. <Link prefetch={false} href={`/buyer/orders/${state.order.reference}`}>View order</Link>
         </p>
       ) : (
         <>

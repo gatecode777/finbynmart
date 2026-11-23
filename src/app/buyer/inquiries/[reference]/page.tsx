@@ -27,7 +27,7 @@ async function BuyerInquiryDetailPage({ params }: { params: Promise<{ reference:
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Inquiries are sent from buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ async function BuyerInquiryDetailPage({ params }: { params: Promise<{ reference:
   return (
     <BuyerShell userName={user.name} activeKey="inquiries" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/inquiries">My Inquiries</Link> / {detail.reference || "Earlier inquiry"}
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/inquiries">My Inquiries</Link> / {detail.reference || "Earlier inquiry"}
       </p>
       <div className={dash.pageHeader}>
         <div>

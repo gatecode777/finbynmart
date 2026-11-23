@@ -28,7 +28,7 @@ export function SupplierProfileTabs({ active }: { active: string }) {
       <ul className={styles.tabs}>
         {SUPPLIER_PROFILE_TABS.map(({ key, label, icon: Icon }) => (
           <li key={key}>
-            <Link
+            <Link prefetch={false}
               href={`/supplier/company?tab=${key}`}
               className={clsx(styles.tab, active === key && styles.tabActive)}
               aria-current={active === key ? "page" : undefined}

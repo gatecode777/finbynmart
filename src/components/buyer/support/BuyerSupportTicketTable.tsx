@@ -9,7 +9,7 @@ import styles from "./Support.module.css";
 const Related = ({ t }: { t: TicketDto }) =>
   t.related ? (
     <span className={inq.refCell}>
-      {t.related.href ? <Link href={t.related.href} className={inq.reference}>{t.related.reference.length > 24 ? t.related.label : t.related.reference}</Link> : t.related.label}
+      {t.related.href ? <Link prefetch={false} href={t.related.href} className={inq.reference}>{t.related.reference.length > 24 ? t.related.label : t.related.reference}</Link> : t.related.label}
       <span className={inq.refType}>{t.related.typeLabel}</span>
     </span>
   ) : (
@@ -42,13 +42,13 @@ export function BuyerSupportTicketTable({ rows }: { rows: TicketDto[] }) {
           <tbody>
             {rows.map((t) => (
               <tr key={t.reference}>
-                <td><Link href={t.detailHref} className={`${inq.reference} ${styles.refLink}`}>{t.reference}</Link></td>
+                <td><Link prefetch={false} href={t.detailHref} className={`${inq.reference} ${styles.refLink}`}>{t.reference}</Link></td>
                 <td className={styles.subject}>{t.subject}</td>
                 <td><span className={styles.catTag}>{t.category.label}</span></td>
                 <td><Related t={t} /></td>
                 <td><SupportTicketStatusBadge label={t.statusLabel} group={t.statusGroup} status={t.status} /></td>
                 <td><When iso={t.updatedAt} /></td>
-                <td><Link href={t.detailHref} className={`${inq.btn} ${styles.viewBtn}`} aria-label={`View ticket ${t.reference}`}>View <ArrowRight size={16} aria-hidden /></Link></td>
+                <td><Link prefetch={false} href={t.detailHref} className={`${inq.btn} ${styles.viewBtn}`} aria-label={`View ticket ${t.reference}`}>View <ArrowRight size={16} aria-hidden /></Link></td>
               </tr>
             ))}
           </tbody>
@@ -58,7 +58,7 @@ export function BuyerSupportTicketTable({ rows }: { rows: TicketDto[] }) {
         {rows.map((t) => (
           <li key={t.reference} className={inq.card}>
             <div className={inq.cardTop}>
-              <Link href={t.detailHref} className={inq.reference}>{t.reference}</Link>
+              <Link prefetch={false} href={t.detailHref} className={inq.reference}>{t.reference}</Link>
               <SupportTicketStatusBadge label={t.statusLabel} group={t.statusGroup} status={t.status} />
             </div>
             <p className={styles.subject}>{t.subject}</p>
@@ -68,7 +68,7 @@ export function BuyerSupportTicketTable({ rows }: { rows: TicketDto[] }) {
               <div><dt>Last Update</dt><dd><When iso={t.updatedAt} /></dd></div>
             </dl>
             <div className={inq.cardActions}>
-              <Link href={t.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>View Ticket <ArrowRight size={16} aria-hidden /></Link>
+              <Link prefetch={false} href={t.detailHref} className={`${inq.btn} ${inq.btnPrimary}`}>View Ticket <ArrowRight size={16} aria-hidden /></Link>
             </div>
           </li>
         ))}

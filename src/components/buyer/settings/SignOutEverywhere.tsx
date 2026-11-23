@@ -29,7 +29,7 @@ export function SignOutEverywhere() {
   return (
     <section className={dash.card} aria-labelledby="devices-title">
       <h2 id="devices-title" className={dash.cardTitle}><LogOut size={20} aria-hidden /> Signed-in devices</h2>
-      <p className={styles.sectionIntro}>You can sign out of every other device at once; this device stays signed in. To see each signed-in device, sign-in activity and security alerts, open <Link href="/buyer/security?tab=sessions" className={dash.viewAll}>Account Security</Link>.</p>
+      <p className={styles.sectionIntro}>You can sign out of every other device at once; this device stays signed in. To see each signed-in device, sign-in activity and security alerts, open <Link prefetch={false} href="/buyer/security?tab=sessions" className={dash.viewAll}>Account Security</Link>.</p>
       {banner && <p className={clsx(profile.banner, banner.ok ? profile.bannerOk : profile.bannerError)} role={banner.ok ? "status" : "alert"}>{banner.text}</p>}
       <button type="button" className={profile.dangerButton} onClick={() => setAsk(true)} disabled={busy}>
         <LogOut size={18} aria-hidden /> {busy ? "Signing out..." : "Sign out of all other devices"}

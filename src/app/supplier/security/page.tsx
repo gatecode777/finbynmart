@@ -27,7 +27,7 @@ async function SupplierSecurityRoute({ searchParams }: { searchParams: Promise<R
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/settings">Settings</Link> / Account Security
+        <Link prefetch={false} href="/supplier/settings">Settings</Link> / Account Security
       </p>
       <h1 className={dash.title}>Account Security</h1>
       <p className={dash.welcome}>Manage security for your personal account.</p>
@@ -36,7 +36,7 @@ async function SupplierSecurityRoute({ searchParams }: { searchParams: Promise<R
       </p>
       <BuyerSecurityPage initialOverview={overview} initialTab={tab} />
       <p style={{ marginTop: "1.5rem" }}>
-        <Link href="/supplier/settings" className={dash.viewAll}>Back to Settings</Link>
+        <Link prefetch={false} href="/supplier/settings" className={dash.viewAll}>Back to Settings</Link>
       </p>
     </div>
   );

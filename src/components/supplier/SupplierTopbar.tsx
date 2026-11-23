@@ -69,7 +69,7 @@ export function SupplierTopbar({ companyName, menuOpen, onToggleDrawer, menuButt
       >
         <Menu size={22} aria-hidden />
       </button>
-      <Link href="/supplier/dashboard" className={styles.logo} aria-label="Finbyn Mart supplier dashboard">
+      <Link prefetch={false} href="/supplier/dashboard" className={styles.logo} aria-label="Finbyn Mart supplier dashboard">
         <Image src="/images/brand/finbyn-mart-logo.png" alt="Finbyn Mart" width={140} height={32} priority className={styles.logoImage} />
       </Link>
       <div className={styles.search}>
@@ -99,21 +99,21 @@ export function SupplierTopbar({ companyName, menuOpen, onToggleDrawer, menuButt
         {profileOpen && (
           <div id="supplier-profile-menu" className={styles.profileMenu}>
             <p className={styles.profileMenuNote}>Signed in as {companyName}</p>
-            <Link
+            <Link prefetch={false}
               href="/supplier/company"
               className={styles.profileMenuItem}
               onClick={() => setProfileOpen(false)}
             >
               <Building2 size={16} aria-hidden /> Company Profile
             </Link>
-            <Link
+            <Link prefetch={false}
               href="/supplier/settings"
               className={styles.profileMenuItem}
               onClick={() => setProfileOpen(false)}
             >
               <Settings size={16} aria-hidden /> Settings
             </Link>
-            <Link
+            <Link prefetch={false}
               href="/supplier/support"
               className={styles.profileMenuItem}
               onClick={() => setProfileOpen(false)}

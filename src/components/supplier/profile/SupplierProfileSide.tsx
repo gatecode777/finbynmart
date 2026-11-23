@@ -23,7 +23,7 @@ export function SupplierProfileSide({
           {completion.items.map((item) => (
             <li key={item.key} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
               {item.met ? <CheckCircle2 size={18} className={styles.verifyIconDone} aria-label="Complete" /> : <CircleAlert size={18} className={styles.verifyIconPending} aria-label="Incomplete" />}
-              <Link href={`/supplier/company?tab=${item.tab}`} style={{ color: "inherit" }}>{item.label}</Link>
+              <Link prefetch={false} href={`/supplier/company?tab=${item.tab}`} style={{ color: "inherit" }}>{item.label}</Link>
             </li>
           ))}
         </ul>
@@ -67,7 +67,7 @@ export function SupplierProfileSide({
         </div>
 
         <p className={dash.legendNote} style={{ marginTop: "12px" }}>
-          <Link href="/supplier/company?tab=verification" className={dash.viewAll}>
+          <Link prefetch={false} href="/supplier/company?tab=verification" className={dash.viewAll}>
             View verification checklist
           </Link>
         </p>
@@ -88,7 +88,7 @@ export function SupplierProfileSide({
                 <CircleAlert size={16} className={styles.verifyIconPending} aria-hidden />
               )}
               <div>
-                <Link href={`/supplier/company?tab=${step.tab}`} style={{ fontWeight: 600, color: "var(--primary, #04534f)" }}>
+                <Link prefetch={false} href={`/supplier/company?tab=${step.tab}`} style={{ fontWeight: 600, color: "var(--primary, #04534f)" }}>
                   {step.label}
                 </Link>
                 {step.note && <p style={{ margin: "2px 0 0", color: "var(--text-secondary, #526563)", fontSize: "0.75rem" }}>{step.note}</p>}

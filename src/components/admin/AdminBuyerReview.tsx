@@ -110,7 +110,7 @@ export function AdminBuyerReview({ id, canManage, onClose, onChanged }: { id: st
               </dl>
               {d.contact.masked && <p className={m.note}>Contact details are masked: your account may not read them in full.</p>}
               <div className={m.actions} role="group" aria-label="Related records and account status">
-                {d.links.inquiries && <Link href={d.links.inquiries} className={prof.btnSecondary}><MessageSquareText size={16} aria-hidden /> View Inquiries</Link>}
+                {d.links.inquiries && <Link prefetch={false} href={d.links.inquiries} className={prof.btnSecondary}><MessageSquareText size={16} aria-hidden /> View Inquiries</Link>}
                 {canManage && d.actions.suspend.permitted && <div><button type="button" className={prof.btnGold} disabled={!d.actions.suspend.available} aria-describedby={d.actions.suspend.reason ? `${uid}-s-why` : undefined} onClick={() => openAction("suspend")}>Suspend Account</button>{d.actions.suspend.reason && <p id={`${uid}-s-why`} className={m.muted}>{d.actions.suspend.reason}</p>}</div>}
                 {canManage && d.actions.reactivate.permitted && <div><button type="button" className={prof.btnGold} disabled={!d.actions.reactivate.available} aria-describedby={d.actions.reactivate.reason ? `${uid}-r-why` : undefined} onClick={() => openAction("reactivate")}>Reactivate Account</button>{d.actions.reactivate.reason && <p id={`${uid}-r-why`} className={m.muted}>{d.actions.reactivate.reason}</p>}</div>}
               </div>

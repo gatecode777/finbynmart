@@ -375,7 +375,7 @@ export function ProductDraftForm({ categories, initial, mode = "new" }: Props) {
           </details>
 
           <div className={s.bar}>
-            <Link href="/supplier/products" className={prof.btnSecondary}><ArrowLeft size={16} aria-hidden /> Back to Products</Link>
+            <Link prefetch={false} href="/supplier/products" className={prof.btnSecondary}><ArrowLeft size={16} aria-hidden /> Back to Products</Link>
             <div className={s.actions}>
               {mode === "edit" && <button type="button" className={prof.btnSecondary} onClick={discard} disabled={!dirty}>Discard local changes</button>}
               <button type="submit" className={prof.btnSecondary} disabled={save.kind === "saving"}>{save.kind === "saving" ? "Saving…" : "Save Draft"}</button>

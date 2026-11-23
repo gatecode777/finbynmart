@@ -94,7 +94,7 @@ export function AdminQuotationReview({ reference, onClose }: { reference: string
             <p className={m.muted}>Only submitted revisions are listed. A supplier&apos;s private draft or in-progress revision is never shown.</p>
 
             <div className={m.actions} role="group" aria-label="Related records">
-              {d.links.requirement ? <Link href={d.links.requirement} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> View Requirement</Link> : <p className={m.muted}>The requirement link needs inquiry-read permission.</p>}
+              {d.links.requirement ? <Link prefetch={false} href={d.links.requirement} className={prof.btnSecondary}><ExternalLink size={16} aria-hidden /> View Requirement</Link> : <p className={m.muted}>The requirement link needs inquiry-read permission.</p>}
             </div>
           </div>
         )}

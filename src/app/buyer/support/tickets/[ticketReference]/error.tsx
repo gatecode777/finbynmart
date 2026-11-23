@@ -12,7 +12,7 @@ export default function TicketError({ reset }: { error: Error; reset: () => void
       <p>
         <button type="button" className={dash.viewAll} onClick={reset}>Try again</button>
         {" · "}
-        <Link href="/buyer/support" className={dash.viewAll}>Back to Help &amp; Support</Link>
+        <Link prefetch={false} href="/buyer/support" className={dash.viewAll}>Back to Help &amp; Support</Link>
       </p>
     </div>
   );

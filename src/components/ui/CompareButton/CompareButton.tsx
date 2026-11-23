@@ -65,7 +65,7 @@ export function CompareButton({ productId, productName, variant = "label" }: { p
         {inList ? <Check size={16} aria-hidden /> : <Scale size={16} aria-hidden />}
         {inList ? "In Comparison" : "Compare"}
       </button>
-      {inList && <Link href="/buyer/compare-products" className={styles.view}>View comparison</Link>}
+      {inList && <Link prefetch={false} href="/buyer/compare-products" className={styles.view}>View comparison</Link>}
       {failed && <span className={styles.failed} role="status">Couldn&apos;t update. You can compare up to 4 products, from a buyer account.</span>}
     </span>
   );

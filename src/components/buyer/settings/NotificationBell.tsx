@@ -189,7 +189,7 @@ export function NotificationBell() {
                 return (
                   <li key={n.id} className={clsx(styles.bellItem, !n.read && styles.bellItemUnread)}>
                     {safe ? (
-                      <Link href={safe} className={styles.bellItemAction} onClick={() => void open1(n)}>{body}</Link>
+                      <Link prefetch={false} href={safe} className={styles.bellItemAction} onClick={() => void open1(n)}>{body}</Link>
                     ) : (
                       <button type="button" className={styles.bellItemAction} onClick={() => void (n.read ? Promise.resolve() : markOne(n.id).then(() => loadItems(view)))} aria-label={n.read ? n.title : `${n.title}. Mark as read`}>{body}</button>
                     )}
@@ -199,7 +199,7 @@ export function NotificationBell() {
             </ul>
           )}
           <div className={styles.bellFoot}>
-            <Link href="/buyer/settings?tab=notifications" className={styles.link} onClick={() => setOpen(false)}>View all notifications</Link>
+            <Link prefetch={false} href="/buyer/settings?tab=notifications" className={styles.link} onClick={() => setOpen(false)}>View all notifications</Link>
           </div>
         </div>
       )}

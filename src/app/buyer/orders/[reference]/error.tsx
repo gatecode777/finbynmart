@@ -12,7 +12,7 @@ export default function OrderError({ reset }: { error: Error; reset: () => void 
       <p>
         <button type="button" className={dash.viewAll} onClick={reset}>Try again</button>
         {" · "}
-        <Link href="/buyer/orders" className={dash.viewAll}>Back to Orders</Link>
+        <Link prefetch={false} href="/buyer/orders" className={dash.viewAll}>Back to Orders</Link>
       </p>
     </div>
   );

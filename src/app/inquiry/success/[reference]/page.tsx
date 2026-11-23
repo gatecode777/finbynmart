@@ -40,8 +40,8 @@ async function InquirySuccessPage({ params }: { params: Promise<{ reference: str
             title="This confirmation has expired"
             actions={
               <>
-                <Link href={`/sign-in?next=${encodeURIComponent("/buyer/inquiries")}`}>Sign in to see your inquiries</Link>
-                <Link href="/suppliers">Browse suppliers</Link>
+                <Link prefetch={false} href={`/sign-in?next=${encodeURIComponent("/buyer/inquiries")}`}>Sign in to see your inquiries</Link>
+                <Link prefetch={false} href="/suppliers">Browse suppliers</Link>
               </>
             }
           >

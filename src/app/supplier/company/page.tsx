@@ -62,7 +62,7 @@ async function SupplierCompanyPage({
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Company Profile
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Company Profile
       </p>
 
       <div className={dash.headerRow}>
@@ -73,7 +73,7 @@ async function SupplierCompanyPage({
           </p>
         </div>
         {publicSlug && (
-          <Link href={`/suppliers/${encodeURIComponent(publicSlug)}`} target="_blank" rel="noreferrer" className={dash.btn}>
+          <Link prefetch={false} href={`/suppliers/${encodeURIComponent(publicSlug)}`} target="_blank" rel="noreferrer" className={dash.btn}>
             <ExternalLink size={16} aria-hidden /> Preview Profile
           </Link>
         )}

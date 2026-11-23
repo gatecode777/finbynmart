@@ -159,6 +159,13 @@ If additional pages are discovered, document why, assign a new ID, update the to
 - **Test database rule:** writes in tests go only through `docs/page-reports/tools/it-guard.mjs` (explicit test mode, separate `TEST_MONGODB_*` variables, no fallback, name `finbyn_it_*`, not production, transaction-capable); see `docs/testing/TEST_ENVIRONMENT.md`.
 - **Configuration:** `QUOTATION_TAX_RULES` must be approved by the business and set before a quotation can be submitted (`docs/config/SUPPLIER_CONFIGURATION.md`). Still NOT built and BLOCKED: public-surface integration of approved products, dispatch and release-on-cancellation, buyer-side support notices, phone verification, a verified deployment. Fix status: `docs/audits/FINBYN_SUPPLIER_FIX_REPORT.md`.
 
+## Fluid CPU rules (permanent; `docs/performance/FLUID_CPU_AUDIT.md`)
+
+- **Every `<Link>` is `prefetch={false}`.** One page view prefetched about 65 URLs (each a function invocation for dynamic targets). Keep the prop on new links.
+- **A public page that reads no session or account data is static with `revalidate`, never `force-dynamic`**; reading `cookies()`/`headers()`/`getCurrentUser()` makes the whole route dynamic, so keep it out of public informational pages (the header asks `/api/auth/me` from the browser). A route listed in `generateStaticParams` must not duplicate a route that has its own page (the catch-all `[page]` lists only `INFO_PAGE_MAP`).
+- `src/app/robots.ts` keeps crawlers off APIs, portals, auth pages and sort/view permutations; do not remove public pages from it.
+- Never claim a CPU saving without a before/after number from `docs/performance/tools/cpu-workload.mjs` or Vercel Observability.
+
 ## Quality bar
 
 `npm run lint`, `npx tsc --noEmit` and a production build must pass before calling anything done; no console errors. Never mark a feature complete until it works against real data/backend — say when sample data is used. Do not fabricate Lighthouse or accessibility scores; run real tooling or say it was not run.

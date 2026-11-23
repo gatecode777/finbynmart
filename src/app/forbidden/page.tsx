@@ -32,8 +32,8 @@ async function ForbiddenPage() {
         <h1 id="forbidden-title" className={styles.title}>Access Denied</h1>
         <p className={styles.text}>You don&apos;t have permission to access this page.</p>
         <div className={styles.actions}>
-          <Link href={home} className={styles.primary}>Return to Authorized Dashboard</Link>
-          <Link href="/" className={styles.secondary}>Go to Homepage</Link>
+          <Link prefetch={false} href={home} className={styles.primary}>Return to Authorized Dashboard</Link>
+          <Link prefetch={false} href="/" className={styles.secondary}>Go to Homepage</Link>
         </div>
       </div>
     </section>

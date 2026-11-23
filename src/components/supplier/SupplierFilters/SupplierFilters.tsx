@@ -41,7 +41,7 @@ export function SupplierFilters({ basePath, query, facets, activeFilters }: { ba
           {activeFilters > 0 && <span className={styles.count} aria-label={`${activeFilters} active filters`}>{activeFilters}</span>}
         </span>
         {activeFilters > 0 ? (
-          <Link href={clearHref} className={styles.clear} data-drawer-close>
+          <Link prefetch={false} href={clearHref} className={styles.clear} data-drawer-close>
             Clear All
           </Link>
         ) : (

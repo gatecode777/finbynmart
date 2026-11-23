@@ -15,7 +15,7 @@ async function SupplierInquiriesPage() {
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Inquiries &amp; Leads
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Inquiries &amp; Leads
       </p>
       <h1 className={dash.title}>Inquiries &amp; Leads</h1>
       <p className={dash.welcome}>Every inquiry buyers have sent to your sellers.</p>

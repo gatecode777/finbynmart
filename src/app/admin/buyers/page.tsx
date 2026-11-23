@@ -27,7 +27,7 @@ async function AdminBuyersPage({ searchParams }: { searchParams: Promise<Record<
   const initial = await listBuyers(state).catch(() => null);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Buyers</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Buyers</p>
       <h1 className={styles.heading}>Buyer Management</h1>
       <p className={styles.lead}>Search buyer accounts and review account details.</p>
       <AdminBuyersWorkspace initial={initial} state={state} initialReview={review} canManage={permissions.includes("buyers.suspend") || permissions.includes("buyers.reactivate")} />

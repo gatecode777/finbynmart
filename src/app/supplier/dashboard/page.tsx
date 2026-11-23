@@ -28,7 +28,7 @@ async function SupplierDashboardPage({ searchParams }: { searchParams: Promise<R
   return (
     <div className={styles.page}>
       <p className={styles.breadcrumb}>
-        <Link href="/">Home</Link> / Supplier Portal / Dashboard
+        <Link prefetch={false} href="/">Home</Link> / Supplier Portal / Dashboard
       </p>
       <div className={styles.header}>
         <div>

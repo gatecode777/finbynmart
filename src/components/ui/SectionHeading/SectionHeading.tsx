@@ -26,7 +26,7 @@ export function SectionHeading({
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
       {actionLabel && actionHref && (
-        <Link href={actionHref} className={styles.action}>
+        <Link prefetch={false} href={actionHref} className={styles.action}>
           {actionLabel}
           <ArrowRight size={16} strokeWidth={2} aria-hidden />
         </Link>

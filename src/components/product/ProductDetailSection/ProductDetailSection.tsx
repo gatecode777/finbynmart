@@ -38,7 +38,7 @@ export function ProductDetailSection({ product }: { product: ProductDetail }) {
               </span>
               <h2 className={styles.bulkTitle}>Need This in Bulk?</h2>
               <p className={styles.bulkText}>Share your requirements and get a customised quote for bulk orders and long-term supply.</p>
-              <Link href={`/post-requirement?${bulk}`} className={styles.bulkLink}>
+              <Link prefetch={false} href={`/post-requirement?${bulk}`} className={styles.bulkLink}>
                 Post Your Requirement
                 <ArrowRight size={16} aria-hidden />
               </Link>

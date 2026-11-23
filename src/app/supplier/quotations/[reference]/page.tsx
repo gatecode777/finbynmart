@@ -44,7 +44,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
   return (
     <div className={dash.page}>
       <p className={`${dash.breadcrumb} ${styles.noPrint}`}>
-        <Link href="/">Home</Link> / Supplier Portal / <Link href="/supplier/quotations">Quotations</Link> / {q.reference}
+        <Link prefetch={false} href="/">Home</Link> / Supplier Portal / <Link prefetch={false} href="/supplier/quotations">Quotations</Link> / {q.reference}
       </p>
       <div className={dash.header}>
         <div>
@@ -65,7 +65,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
       )}
       {d.historical.isHistorical && (
         <p className={styles.banner} role="note">
-          This is {d.historical.message} {d.historical.currentHref && <Link href={d.historical.currentHref} className={styles.link}>Open the current offer</Link>}
+          This is {d.historical.message} {d.historical.currentHref && <Link prefetch={false} href={d.historical.currentHref} className={styles.link}>Open the current offer</Link>}
         </p>
       )}
       {isDraft && (
@@ -76,7 +76,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
       )}
       {!isDraft && q.isCurrent && d.pointers.revisionDraft && (
         <p className={clsx(styles.banner, styles.bannerInfo)} role="note">
-          A revision draft (version {d.pointers.revisionDraft.version}) exists but is not submitted: this version is still the current offer the buyer sees. <Link href={d.pointers.revisionDraft.editHref} className={styles.link}>Continue the draft</Link>
+          A revision draft (version {d.pointers.revisionDraft.version}) exists but is not submitted: this version is still the current offer the buyer sees. <Link prefetch={false} href={d.pointers.revisionDraft.editHref} className={styles.link}>Continue the draft</Link>
         </p>
       )}
       {d.pendingRevision && (
@@ -94,7 +94,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
               <div><dt>Supplier (as quoted)</dt><dd>{q.supplierName}</dd></div>
               <div>
                 <dt>Inquiry</dt>
-                <dd>{d.inquiry ? <Link href={d.inquiry.href} className={styles.link}>{d.inquiry.reference}</Link> : NOT_PROVIDED}</dd>
+                <dd>{d.inquiry ? <Link prefetch={false} href={d.inquiry.href} className={styles.link}>{d.inquiry.reference}</Link> : NOT_PROVIDED}</dd>
               </div>
               <div><dt>Inquiry status</dt><dd>{d.inquiry?.statusLabel ?? NOT_PROVIDED}</dd></div>
               <div><dt>Category</dt><dd>{d.inquiry?.category ?? NOT_PROVIDED}</dd></div>
@@ -125,7 +125,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
                   <div><dt>Currency</dt><dd>{line.currency}</dd></div>
                   <div><dt>Line reference</dt><dd>{line.id}</dd></div>
                 </dl>
-                {line.product.url && <p className={dash.muted}><Link href={line.product.url} className={styles.link}>Current listing of this product</Link> (shown separately: it may differ from what was quoted)</p>}
+                {line.product.url && <p className={dash.muted}><Link prefetch={false} href={line.product.url} className={styles.link}>Current listing of this product</Link> (shown separately: it may differ from what was quoted)</p>}
               </div>
             </div>
           </section>
@@ -224,7 +224,7 @@ async function SupplierQuotationDetailPage({ params, searchParams }: { params: P
         </div>
       </div>
 
-      <p className={styles.noPrint}><Link href="/supplier/quotations" className={styles.link}>Back to Quotations</Link></p>
+      <p className={styles.noPrint}><Link prefetch={false} href="/supplier/quotations" className={styles.link}>Back to Quotations</Link></p>
     </div>
   );
 }

@@ -88,7 +88,7 @@ export function SupplierProfileView({ supplier, certificationCount, reviewCount 
                   Products from {supplier.name}
                 </h2>
                 {supplier.productCount > 0 && (
-                  <Link href={supplier.productsUrl} className={styles.viewAll}>
+                  <Link prefetch={false} href={supplier.productsUrl} className={styles.viewAll}>
                     View All Products ({formatCount(supplier.productCount)})
                     <ArrowRight size={16} aria-hidden />
                   </Link>
@@ -111,19 +111,19 @@ export function SupplierProfileView({ supplier, certificationCount, reviewCount 
               </h2>
               {reviewCount === 0 ? (
                 <p className={styles.empty}>
-                  No reviews have been published for this supplier yet. <Link href={`${supplier.url}/reviews`}>Write the first review</Link>
+                  No reviews have been published for this supplier yet. <Link prefetch={false} href={`${supplier.url}/reviews`}>Write the first review</Link>
                 </p>
               ) : (
                 <p>
                   {reviewCount === undefined ? "See what buyers say about this supplier." : `${formatCount(reviewCount)} ${reviewCount === 1 ? "review is" : "reviews are"} published for this supplier.`}{" "}
-                  <Link href={`${supplier.url}/reviews`}>View all reviews</Link>
+                  <Link prefetch={false} href={`${supplier.url}/reviews`}>View all reviews</Link>
                 </p>
               )}
             </section>
 
             <SupplierInquiryForm supplierId={supplier.id} supplierName={supplier.name} products={supplier.products} />
             <p>
-              Need to add a delivery location, or to ask without an account? <Link href={`/inquiry/${supplier.slug}`}>Open the full inquiry page</Link>.
+              Need to add a delivery location, or to ask without an account? <Link prefetch={false} href={`/inquiry/${supplier.slug}`}>Open the full inquiry page</Link>.
             </p>
           </div>
 
@@ -154,7 +154,7 @@ export function SupplierProfileView({ supplier, certificationCount, reviewCount 
               ) : (
                 <p>
                   {certificationCount === undefined ? "See the certifications published by this supplier." : `${formatCount(certificationCount)} ${certificationCount === 1 ? "certification is" : "certifications are"} published for this supplier.`}{" "}
-                  <Link href={`${supplier.url}/certifications`}>View all certifications</Link>
+                  <Link prefetch={false} href={`${supplier.url}/certifications`}>View all certifications</Link>
                 </p>
               )}
             </section>
@@ -164,7 +164,7 @@ export function SupplierProfileView({ supplier, certificationCount, reviewCount 
                 Need a Custom Requirement?
               </h2>
               <p>Share your specific requirements and get a quotation from {supplier.name}.</p>
-              <Link href={`/post-requirement?${requirement}`} className={styles.requirementLink}>
+              <Link prefetch={false} href={`/post-requirement?${requirement}`} className={styles.requirementLink}>
                 Post Your Requirement
                 <ArrowRight size={16} aria-hidden />
               </Link>

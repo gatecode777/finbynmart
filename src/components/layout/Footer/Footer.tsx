@@ -51,7 +51,7 @@ export function Footer() {
               <p className={styles.colTitle}>{column.title}</p>
               <nav className={styles.linkList} aria-label={column.title}>
                 {column.links.map((link) => (
-                  <Link key={link.href} href={link.href}>
+                  <Link prefetch={false} key={link.href} href={link.href}>
                     {link.label}
                   </Link>
                 ))}
@@ -72,7 +72,7 @@ export function Footer() {
           <span>&copy; {new Date().getFullYear()} Finbyn Mart. All rights reserved.</span>
           <div className={styles.legalLinks}>
             {LEGAL_LINKS.map((link) => (
-              <Link key={link.href} href={link.href}>
+              <Link prefetch={false} key={link.href} href={link.href}>
                 {link.label}
               </Link>
             ))}

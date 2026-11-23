@@ -58,7 +58,7 @@ export function ProfileHeader({ overview }: { overview: Overview }) {
             <ul className={styles.missing}>
               {missing.map((item) => (
                 <li key={item.key}>
-                  <Link href={`/buyer/profile?tab=${item.tab}`}>{item.label}</Link>
+                  <Link prefetch={false} href={`/buyer/profile?tab=${item.tab}`}>{item.label}</Link>
                 </li>
               ))}
             </ul>

@@ -48,7 +48,7 @@ export function InquirySupplierCard({ supplier, rating }: { supplier: SupplierDe
           </li>
         )}
       </ul>
-      <Link href={supplier.url} className={styles.profile}>
+      <Link prefetch={false} href={supplier.url} className={styles.profile}>
         View supplier profile
       </Link>
     </section>

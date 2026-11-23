@@ -232,7 +232,7 @@ export function SupplierSupportPage({
                 {data.tickets.map((t) => (
                   <tr key={t.reference} style={{ borderBottom: "1px solid var(--border, #dce8e5)", fontSize: "0.875rem" }}>
                     <td style={{ padding: "12px 14px" }}>
-                      <Link href={`/supplier/support/tickets/${t.reference}`} style={{ fontWeight: 600, color: "var(--primary, #04534f)" }}>
+                      <Link prefetch={false} href={`/supplier/support/tickets/${t.reference}`} style={{ fontWeight: 600, color: "var(--primary, #04534f)" }}>
                         {t.reference}
                       </Link>
                     </td>
@@ -247,7 +247,7 @@ export function SupplierSupportPage({
                       {new Date(t.updatedAt).toLocaleDateString("en-IN")}
                     </td>
                     <td style={{ padding: "12px 14px" }}>
-                      <Link
+                      <Link prefetch={false}
                         href={`/supplier/support/tickets/${t.reference}`}
                         className={inq.btn}
                         style={{ padding: "4px 10px", fontSize: "0.75rem" }}

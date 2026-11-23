@@ -117,7 +117,7 @@ export function SupplierListingView({ basePath, query: requested, listing, hero,
               <ul className={styles.applied} aria-label="Applied filters">
                 {applied.map((item) => (
                   <li key={item.key}>
-                    <Link href={item.href} className={styles.appliedChip} aria-label={`Remove filter ${item.label}`}>
+                    <Link prefetch={false} href={item.href} className={styles.appliedChip} aria-label={`Remove filter ${item.label}`}>
                       {item.label}
                       <X size={14} strokeWidth={2.25} aria-hidden />
                     </Link>
@@ -132,16 +132,16 @@ export function SupplierListingView({ basePath, query: requested, listing, hero,
                 actions={
                   <>
                     {query.q && (
-                      <Link href={href({ q: "" })} className={styles.emptyLink}>
+                      <Link prefetch={false} href={href({ q: "" })} className={styles.emptyLink}>
                         Clear search
                       </Link>
                     )}
                     {activeFilters > 0 && (
-                      <Link href={href(NO_SUPPLIER_FILTERS)} className={styles.emptyLink}>
+                      <Link prefetch={false} href={href(NO_SUPPLIER_FILTERS)} className={styles.emptyLink}>
                         Clear all filters
                       </Link>
                     )}
-                    <Link href={requirementHref} className={styles.emptyLink}>
+                    <Link prefetch={false} href={requirementHref} className={styles.emptyLink}>
                       Post your requirement
                     </Link>
                   </>

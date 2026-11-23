@@ -26,7 +26,7 @@ export function SupportContactChannels({ channels }: { channels: SupportChannel[
                 {c.note && <p className={styles.channelNote}>{c.note}</p>}
               </span>
               {c.available && c.href ? (
-                external || c.href.startsWith("#") ? <a href={c.href} className={styles.channelLink} aria-label={`${c.label}: open`}><ChevronRight size={18} aria-hidden /></a> : <Link href={c.href} className={styles.channelLink} aria-label={`${c.label}: open`}><ChevronRight size={18} aria-hidden /></Link>
+                external || c.href.startsWith("#") ? <a href={c.href} className={styles.channelLink} aria-label={`${c.label}: open`}><ChevronRight size={18} aria-hidden /></a> : <Link prefetch={false} href={c.href} className={styles.channelLink} aria-label={`${c.label}: open`}><ChevronRight size={18} aria-hidden /></Link>
               ) : (
                 <span />
               )}

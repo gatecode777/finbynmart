@@ -27,7 +27,7 @@ async function AdminQuotationsPage({ searchParams }: { searchParams: Promise<Rec
   const initial = await listAdminQuotations(state).catch(() => null);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Quotations</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Quotations</p>
       <h1 className={styles.heading}>Quotation Management</h1>
       <p className={styles.lead}>Review submitted supplier quotations and recorded decisions.</p>
       <AdminQuotationsWorkspace initial={initial} state={state} initialReview={review} />

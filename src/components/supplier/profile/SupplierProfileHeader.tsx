@@ -79,7 +79,7 @@ export function SupplierProfileHeader({ overview }: { overview: SupplierOverview
             <ul className={styles.missing}>
               {missing.slice(0, 3).map((item) => (
                 <li key={item.key}>
-                  <Link href={`/supplier/company?tab=${item.tab}`}>{item.label}</Link>
+                  <Link prefetch={false} href={`/supplier/company?tab=${item.tab}`}>{item.label}</Link>
                 </li>
               ))}
             </ul>

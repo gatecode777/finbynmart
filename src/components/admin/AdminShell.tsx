@@ -40,7 +40,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   return (
     <div className={styles.shell}>
       <header className={styles.topbar}>
-        <Link href="/admin/dashboard" className={styles.logo} aria-label="Finbyn Mart admin">
+        <Link prefetch={false} href="/admin/dashboard" className={styles.logo} aria-label="Finbyn Mart admin">
           <Image src="/images/brand/finbyn-mart-logo.png" alt="Finbyn Mart" width={140} height={32} priority className={styles.logoImg} />
         </Link>
         <p className={styles.title}>Admin Portal <span className={styles.sub}>Authorized records only.</span></p>
@@ -67,7 +67,7 @@ function Nav({ activeKey }: { activeKey: string }) {
         {NAV.map(({ key, label, icon: Icon, href, built }) => (
           <li key={key}>
             {built ? (
-              <Link href={href} className={clsx(styles.item, key === activeKey && styles.itemActive)} aria-current={key === activeKey ? "page" : undefined}>
+              <Link prefetch={false} href={href} className={clsx(styles.item, key === activeKey && styles.itemActive)} aria-current={key === activeKey ? "page" : undefined}>
                 <Icon size={20} aria-hidden /> {label}
               </Link>
             ) : (

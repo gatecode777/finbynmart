@@ -62,7 +62,7 @@ export function HeaderActions() {
     return (
       <nav className={styles.actions} aria-label="Supplier account actions">
         <span className={styles.accountSlot}>
-          <Link href="/supplier/dashboard" className={`${styles.actionLink} ${styles.cta}`}>
+          <Link prefetch={false} href="/supplier/dashboard" className={`${styles.actionLink} ${styles.cta}`}>
             <span className={styles.actionIcon}>
               <BriefcaseBusiness size={18} strokeWidth={2} aria-hidden />
             </span>
@@ -81,7 +81,7 @@ export function HeaderActions() {
     const first = user.name.split(" ")[0];
     return (
       <nav className={styles.actions} aria-label="Buyer account actions">
-        <Link href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
+        <Link prefetch={false} href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
           <span className={styles.actionIcon}>
             <ClipboardList size={18} strokeWidth={2} aria-hidden />
           </span>
@@ -92,7 +92,7 @@ export function HeaderActions() {
         </Link>
 
         <span className={styles.accountSlot}>
-          <Link href="/buyer/dashboard" className={styles.actionLink}>
+          <Link prefetch={false} href="/buyer/dashboard" className={styles.actionLink}>
             <span className={styles.actionIcon}>
               <UserRound size={18} strokeWidth={2} aria-hidden />
             </span>
@@ -109,7 +109,7 @@ export function HeaderActions() {
   // GUEST (confirmed not signed in). While the state is still unknown the same nav keeps its space but is hidden, so a signed-in visitor never sees "Sign In".
   return (
     <nav className={styles.actions} aria-label="Account actions" style={user === undefined ? { visibility: "hidden" } : undefined} aria-hidden={user === undefined ? true : undefined}>
-      <Link href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
+      <Link prefetch={false} href="/post-requirement" className={`${styles.actionLink} ${styles.cta}`}>
         <span className={styles.actionIcon}>
           <ClipboardList size={18} strokeWidth={2} aria-hidden />
         </span>
@@ -120,7 +120,7 @@ export function HeaderActions() {
       </Link>
 
       <span className={styles.accountSlot}>
-        <Link href="/sign-in" className={styles.actionLink}>
+        <Link prefetch={false} href="/sign-in" className={styles.actionLink}>
           <span className={styles.actionIcon}>
             <UserRound size={18} strokeWidth={2} aria-hidden />
           </span>
@@ -131,7 +131,7 @@ export function HeaderActions() {
         </Link>
       </span>
 
-      <Link href="/register-supplier" className={styles.actionLink}>
+      <Link prefetch={false} href="/register-supplier" className={styles.actionLink}>
         <span className={styles.actionIcon}>
           <BriefcaseBusiness size={18} strokeWidth={2} aria-hidden />
         </span>

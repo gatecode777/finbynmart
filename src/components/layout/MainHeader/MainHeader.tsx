@@ -15,7 +15,7 @@ export function MainHeader() {
             <MobileNavigation />
           </div>
 
-          <Link href="/" className={styles.logoLink} aria-label="Finbyn Mart home">
+          <Link prefetch={false} href="/" className={styles.logoLink} aria-label="Finbyn Mart home">
             <Image
               src="/images/brand/finbyn-mart-logo.png"
               alt="Finbyn Mart"

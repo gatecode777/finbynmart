@@ -30,7 +30,7 @@ async function SupplierOrderDetailPage({ params }: { params: Promise<{ reference
   return (
     <div className={dash.page}>
       <p className={`${dash.breadcrumb} ${styles.noPrint}`}>
-        <Link href="/supplier/dashboard">Supplier</Link> / <Link href="/supplier/orders">Orders</Link> / {o.reference}
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / <Link prefetch={false} href="/supplier/orders">Orders</Link> / {o.reference}
       </p>
       <div className={dash.header}>
         <div>
@@ -41,7 +41,7 @@ async function SupplierOrderDetailPage({ params }: { params: Promise<{ reference
           </p>
         </div>
         <div className={`${q.headerActions} ${styles.noPrint}`}>
-          <Link href="/supplier/orders" className={dash.btn}>Back to orders</Link>
+          <Link prefetch={false} href="/supplier/orders" className={dash.btn}>Back to orders</Link>
         </div>
       </div>
 
@@ -58,7 +58,7 @@ async function SupplierOrderDetailPage({ params }: { params: Promise<{ reference
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
               {d.items.map((i, n) => (
                 <li key={`${i.name}-${n}`} className={styles.itemRow}>
-                  <span className={styles.itemName}>{i.productUrl ? <Link href={i.productUrl} className={q.link}>{i.name}</Link> : i.name}</span>
+                  <span className={styles.itemName}>{i.productUrl ? <Link prefetch={false} href={i.productUrl} className={q.link}>{i.name}</Link> : i.name}</span>
                   <span className={q.small}>Quantity {i.quantityText}</span>
                   <span className={q.small}>Agreed unit price {i.unitPrice}</span>
                 </li>
@@ -98,8 +98,8 @@ async function SupplierOrderDetailPage({ params }: { params: Promise<{ reference
               <div><dt>Items</dt><dd>{o.itemCount.toLocaleString("en-IN")}</dd></div>
               {o.expectedDelivery && <div><dt>Expected delivery</dt><dd>{o.expectedDelivery.label} ({o.expectedDelivery.source})</dd></div>}
               <div><dt>Last updated</dt><dd>{o.updatedLabel}</dd></div>
-              {d.quotation && <div><dt>Quotation</dt><dd>{d.quotation.href ? <Link href={d.quotation.href} className={q.link}>{d.quotation.reference}</Link> : d.quotation.reference}</dd></div>}
-              {d.inquiry && <div><dt>Inquiry</dt><dd>{d.inquiry.href ? <Link href={d.inquiry.href} className={q.link}>{d.inquiry.reference}</Link> : d.inquiry.reference}</dd></div>}
+              {d.quotation && <div><dt>Quotation</dt><dd>{d.quotation.href ? <Link prefetch={false} href={d.quotation.href} className={q.link}>{d.quotation.reference}</Link> : d.quotation.reference}</dd></div>}
+              {d.inquiry && <div><dt>Inquiry</dt><dd>{d.inquiry.href ? <Link prefetch={false} href={d.inquiry.href} className={q.link}>{d.inquiry.reference}</Link> : d.inquiry.reference}</dd></div>}
             </dl>
           </section>
 

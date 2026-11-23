@@ -23,13 +23,13 @@ export function SavedProductCard({ item, onRemove }: { item: SavedProductItem; o
         <Heart size={20} fill="currentColor" aria-hidden />
       </button>
       {item.category && <span className={styles.categoryTag}>{item.category.name}</span>}
-      <h3 className={styles.name}>{item.url ? <Link href={item.url}>{item.name}</Link> : item.name}</h3>
+      <h3 className={styles.name}>{item.url ? <Link prefetch={false} href={item.url}>{item.name}</Link> : item.name}</h3>
       {item.available ? (
         <>
           {item.shortDescription && <p className={styles.desc}>{item.shortDescription}</p>}
           {item.supplier && (
             <p className={styles.supplier}>
-              By {item.supplier.url ? <Link href={item.supplier.url}>{item.supplier.name}</Link> : item.supplier.name}
+              By {item.supplier.url ? <Link prefetch={false} href={item.supplier.url}>{item.supplier.name}</Link> : item.supplier.name}
               {item.supplier.verified && (
                 <span className={styles.verified}>
                   <BadgeCheck size={14} aria-hidden /> Verified
@@ -44,12 +44,12 @@ export function SavedProductCard({ item, onRemove }: { item: SavedProductItem; o
           )}
           <div className={styles.actions}>
             {item.supplier?.inquiryHref && (
-              <Link href={item.supplier.inquiryHref} className={`${inquiries.btn} ${inquiries.btnPrimary}`}>
+              <Link prefetch={false} href={item.supplier.inquiryHref} className={`${inquiries.btn} ${inquiries.btnPrimary}`}>
                 <FileText size={16} aria-hidden /> Get Quote
               </Link>
             )}
             {item.url && (
-              <Link href={item.url} className={inquiries.btn}>
+              <Link prefetch={false} href={item.url} className={inquiries.btn}>
                 View Product
               </Link>
             )}

@@ -18,16 +18,16 @@ export function AnnouncementBar() {
           </span>
         </div>
         <div className={styles.right}>
-          <Link href="/track-inquiry" className={styles.item}>
+          <Link prefetch={false} href="/track-inquiry" className={styles.item}>
             Track Inquiry
           </Link>
           <span className={styles.divider} aria-hidden />
-          <Link href="/help" className={styles.item}>
+          <Link prefetch={false} href="/help" className={styles.item}>
             <LifeBuoy size={13} strokeWidth={2} aria-hidden />
             Help
           </Link>
           <span className={styles.divider} aria-hidden />
-          <Link href="/contact-us" className={styles.item}>
+          <Link prefetch={false} href="/contact-us" className={styles.item}>
             Contact Us
           </Link>
         </div>

@@ -55,7 +55,7 @@ async function IndustryPage({ params, searchParams }: IndustryPageProps) {
     </>
   );
   const requirement = (
-    <Link href="/post-requirement">Post a requirement</Link>
+    <Link prefetch={false} href="/post-requirement">Post a requirement</Link>
   );
 
   await ensureApproved();
@@ -67,7 +67,7 @@ async function IndustryPage({ params, searchParams }: IndustryPageProps) {
       <Container>
         {head}
         <PageBody>
-          <EmptyState title="Products for this industry aren't set up yet" actions={<>{requirement}<Link href="/products">Browse all products</Link></>}>
+          <EmptyState title="Products for this industry aren't set up yet" actions={<>{requirement}<Link prefetch={false} href="/products">Browse all products</Link></>}>
             Which product categories belong to {industry.name} has not been configured yet, so no products are listed here. You can browse every product or post your requirement and suppliers will respond.
           </EmptyState>
         </PageBody>
@@ -94,7 +94,7 @@ async function IndustryPage({ params, searchParams }: IndustryPageProps) {
       <Container>
         {head}
         <PageBody>
-          <EmptyState title="No public products in this industry yet" actions={<>{requirement}<Link href="/products">Browse all products</Link></>}>
+          <EmptyState title="No public products in this industry yet" actions={<>{requirement}<Link prefetch={false} href="/products">Browse all products</Link></>}>
             The product categories for {industry.name} currently have no public products. They appear here automatically when suppliers list approved products.
           </EmptyState>
         </PageBody>
@@ -108,7 +108,7 @@ async function IndustryPage({ params, searchParams }: IndustryPageProps) {
       <Container>
         {head}
         <PageBody>
-          <EmptyState title="Products could not be loaded" actions={<><Link href={listingHref(basePath, query, { page: 1 })}>Try again</Link>{requirement}</>}>
+          <EmptyState title="Products could not be loaded" actions={<><Link prefetch={false} href={listingHref(basePath, query, { page: 1 })}>Try again</Link>{requirement}</>}>
             Something went wrong while loading products for {industry.name}. This is not an empty result. Please try again.
           </EmptyState>
         </PageBody>

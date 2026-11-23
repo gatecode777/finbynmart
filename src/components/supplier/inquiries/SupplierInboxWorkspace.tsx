@@ -47,7 +47,7 @@ export function SupplierInboxWorkspace({ initial, canView }: { initial: InboxRes
       <section className={s.panel} style={{ padding: "1.5rem" }}>
         <h2 className={s.h2}>No seller is linked to your company yet</h2>
         <p>Inquiries arrive for the sellers your company owns on Finbyn Mart. None is linked yet. The platform links a seller to a company after reviewing ownership, and a company cannot claim one itself, so there is nothing to show. Contact support to request a review.</p>
-        <p><Link href="/supplier/support" className={prof.btnSecondary}>Contact support</Link></p>
+        <p><Link prefetch={false} href="/supplier/support" className={prof.btnSecondary}>Contact support</Link></p>
       </section>
     );
   }
@@ -91,7 +91,7 @@ export function SupplierInboxWorkspace({ initial, canView }: { initial: InboxRes
                     <td>{r.location ?? "Not provided"}</td>
                     <td><span className={s.badge}>{r.statusLabel}</span></td>
                     <td>{fmt(r.receivedAt)}</td>
-                    <td><Link href={`/supplier/inquiries/${encodeURIComponent(r.reference)}`} className={prof.btnSecondary}>Open</Link></td>
+                    <td><Link prefetch={false} href={`/supplier/inquiries/${encodeURIComponent(r.reference)}`} className={prof.btnSecondary}>Open</Link></td>
                   </tr>
                 ))}
               </tbody>
@@ -106,7 +106,7 @@ export function SupplierInboxWorkspace({ initial, canView }: { initial: InboxRes
                     <div><dt>Delivery</dt><dd>{r.location ?? "Not provided"}</dd></div>
                     <div><dt>Received</dt><dd>{fmt(r.receivedAt)}</dd></div>
                   </dl>
-                  <Link href={`/supplier/inquiries/${encodeURIComponent(r.reference)}`} className={prof.btnSecondary}>Open</Link>
+                  <Link prefetch={false} href={`/supplier/inquiries/${encodeURIComponent(r.reference)}`} className={prof.btnSecondary}>Open</Link>
                 </li>
               ))}
             </ul>

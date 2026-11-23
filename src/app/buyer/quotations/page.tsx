@@ -24,7 +24,7 @@ async function BuyerQuotationsPage({ searchParams }: { searchParams: Promise<Rec
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Quotations belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -36,7 +36,7 @@ async function BuyerQuotationsPage({ searchParams }: { searchParams: Promise<Rec
   return (
     <BuyerShell userName={user.name} activeKey="quotations" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Quotations
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Quotations
       </p>
       <div className={dash.pageHeader}>
         <div>
@@ -50,7 +50,7 @@ async function BuyerQuotationsPage({ searchParams }: { searchParams: Promise<Rec
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your quotations could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/quotations" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/quotations" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

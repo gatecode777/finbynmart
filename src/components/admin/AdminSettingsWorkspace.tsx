@@ -174,7 +174,7 @@ export function AdminSettingsWorkspace({ account, categories, canPrefs, initialT
           </section>
           <section className={s.card} aria-labelledby={`${uid}-sec`}>
             <h2 id={`${uid}-sec`}>Sign-in security</h2>
-            <p className={s.help}>Changing your password signs you out of your other devices. If you cannot sign in, use <Link href="/forgot-password" className={s.link}>Reset your password</Link>.</p>
+            <p className={s.help}>Changing your password signs you out of your other devices. If you cannot sign in, use <Link prefetch={false} href="/forgot-password" className={s.link}>Reset your password</Link>.</p>
             <p className={s.help} style={{ marginTop: ".75rem" }}>Session management and two-step verification are not available for administrator accounts yet, so no controls for them are shown.</p>
           </section>
         </div>

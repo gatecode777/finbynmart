@@ -15,7 +15,7 @@ export function RelatedSearches({ terms }: { terms: string[] }) {
         <ul className={styles.list}>
           {terms.map((term) => (
             <li key={term}>
-              <Link href={`/search?q=${encodeURIComponent(term)}`} className={styles.chip}>
+              <Link prefetch={false} href={`/search?q=${encodeURIComponent(term)}`} className={styles.chip}>
                 {term}
               </Link>
             </li>

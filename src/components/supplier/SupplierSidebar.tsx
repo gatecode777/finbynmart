@@ -28,7 +28,7 @@ function NavEntry({ item, active, collapsed, onNavigate }: { item: SupplierNavIt
   }
   return (
     <li>
-      <Link href={item.href} className={clsx(styles.navItem, active && styles.navItemActive)} aria-current={active ? "page" : undefined} title={collapsed ? item.label : undefined} onClick={onNavigate}>
+      <Link prefetch={false} href={item.href} className={clsx(styles.navItem, active && styles.navItemActive)} aria-current={active ? "page" : undefined} title={collapsed ? item.label : undefined} onClick={onNavigate}>
         {content}
       </Link>
     </li>

@@ -30,7 +30,7 @@ async function BuyerTicketRoute({ params, searchParams }: { params: Promise<{ ti
     return (
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
-        <p><Link href="/contact-us" className={dash.viewAll}>Contact Us</Link></p>
+        <p><Link prefetch={false} href="/contact-us" className={dash.viewAll}>Contact Us</Link></p>
       </div>
     );
   }
@@ -49,7 +49,7 @@ async function BuyerTicketRoute({ params, searchParams }: { params: Promise<{ ti
   return (
     <BuyerShell userName={user.name} activeKey="support" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/support">Help &amp; Support</Link> / Ticket Details / {overview.reference}
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/support">Help &amp; Support</Link> / Ticket Details / {overview.reference}
       </p>
       <div className={dash.pageHeader}>
         <div>

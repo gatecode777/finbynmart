@@ -43,13 +43,13 @@ async function ResetSuccessPage() {
         </div>
         <NextSteps steps={steps} supportHref={SUPPORT_HREF} />
         <div className={styles.successActions}>
-          <Link className={styles.linkButton} href={confirmation.loginPath}>
+          <Link prefetch={false} className={styles.linkButton} href={confirmation.loginPath}>
             {signIn}
           </Link>
         </div>
         <p className={styles.switch}>
           Need help?{" "}
-          <Link className={styles.link} href={SUPPORT_HREF}>
+          <Link prefetch={false} className={styles.link} href={SUPPORT_HREF}>
             Contact Support
           </Link>
         </p>
@@ -77,17 +77,17 @@ async function ResetSuccessPage() {
         {confirmation.state === "UNAVAILABLE" ? (
           <RetryButton label="Try Again" />
         ) : (
-          <Link className={styles.linkButton} href="/sign-in">
+          <Link prefetch={false} className={styles.linkButton} href="/sign-in">
             Sign In
           </Link>
         )}
-        <Link className={styles.linkButtonSecondary} href="/forgot-password">
+        <Link prefetch={false} className={styles.linkButtonSecondary} href="/forgot-password">
           Request Password Reset
         </Link>
       </div>
       <p className={styles.switch}>
         Need help?{" "}
-        <Link className={styles.link} href={SUPPORT_HREF}>
+        <Link prefetch={false} className={styles.link} href={SUPPORT_HREF}>
           Contact Support
         </Link>
       </p>

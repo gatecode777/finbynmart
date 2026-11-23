@@ -19,7 +19,7 @@ async function SupplierProductsPage() {
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / My Products
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / My Products
       </p>
 
       <div className={dash.headerRow}>

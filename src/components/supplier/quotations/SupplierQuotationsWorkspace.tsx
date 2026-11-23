@@ -213,8 +213,8 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
   );
   const rowActions = (r: SupplierQuotationRow) => (
     <span className={styles.rowActions}>
-      <Link href={r.detailHref} className={dash.btn} aria-label={`View quotation ${r.reference}`}>View</Link>
-      {r.editHref && <Link href={r.editHref} className={dash.btn} aria-label={`Continue draft ${r.reference}`}>Continue draft</Link>}
+      <Link prefetch={false} href={r.detailHref} className={dash.btn} aria-label={`View quotation ${r.reference}`}>View</Link>
+      {r.editHref && <Link prefetch={false} href={r.editHref} className={dash.btn} aria-label={`Continue draft ${r.reference}`}>Continue draft</Link>}
       {r.actions.withdraw && (
         <button type="button" className={dash.btn} onClick={() => setWithdrawing(r)} aria-label={`Withdraw quotation ${r.reference}`}>
           <Ban size={16} aria-hidden /> Withdraw
@@ -235,7 +235,7 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
             <Download size={18} aria-hidden /> {exporting ? "Preparing..." : "Export"}
           </button>
           {data.capabilities.canCreate ? (
-            <Link href="/supplier/quotations/create" className={clsx(dash.btn, styles.primaryBtn)}>
+            <Link prefetch={false} href="/supplier/quotations/create" className={clsx(dash.btn, styles.primaryBtn)}>
               <Plus size={18} aria-hidden /> Create Quotation
             </Link>
           ) : (
@@ -367,7 +367,7 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
             <div className={styles.stateBox}>
               <h2 className={styles.stateTitle}>No Quotations Yet</h2>
               <p className={styles.stateText}>Create a quotation for an eligible buyer inquiry to share your commercial offer.</p>
-              <Link href="/supplier/quotations/create" className={clsx(dash.btn, styles.primaryBtn)}>Create Quotation</Link>
+              <Link prefetch={false} href="/supplier/quotations/create" className={clsx(dash.btn, styles.primaryBtn)}>Create Quotation</Link>
             </div>
           )
         ) : (
@@ -392,10 +392,10 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
                   {data.quotations.map((r) => (
                     <tr key={`${r.reference}-${r.version}`}>
                       <th scope="row" style={{ textTransform: "none", letterSpacing: 0, background: "transparent", whiteSpace: "normal" }}>
-                        <Link href={r.detailHref} className={clsx(styles.ref, styles.link)}>{r.reference}</Link>
+                        <Link prefetch={false} href={r.detailHref} className={clsx(styles.ref, styles.link)}>{r.reference}</Link>
                         <span className={styles.small}>Version {r.version} · {r.createdLabel}</span>
                       </th>
-                      <td><Link href={`/supplier/inquiries/${r.inquiryReference}`} className={styles.link}>{r.inquiryReference}</Link></td>
+                      <td><Link prefetch={false} href={`/supplier/inquiries/${r.inquiryReference}`} className={styles.link}>{r.inquiryReference}</Link></td>
                       <td>{r.buyer}</td>
                       <td>{r.productName}<span className={styles.small}>{qty(r)}</span></td>
                       <td className={styles.right}>{totalCell(r)}</td>
@@ -412,13 +412,13 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
                 <li key={`${r.reference}-${r.version}`} className={styles.card}>
                   <div className={styles.cardTop}>
                     <div>
-                      <Link href={r.detailHref} className={clsx(styles.ref, styles.link)}>{r.reference}</Link>
+                      <Link prefetch={false} href={r.detailHref} className={clsx(styles.ref, styles.link)}>{r.reference}</Link>
                       <span className={styles.small}>Version {r.version} · {r.createdLabel}</span>
                     </div>
                     <SupplierStatusBadge status={r.status} label={r.statusLabel} />
                   </div>
                   <dl className={styles.facts}>
-                    <div><dt>Inquiry</dt><dd><Link href={`/supplier/inquiries/${r.inquiryReference}`} className={styles.link}>{r.inquiryReference}</Link></dd></div>
+                    <div><dt>Inquiry</dt><dd><Link prefetch={false} href={`/supplier/inquiries/${r.inquiryReference}`} className={styles.link}>{r.inquiryReference}</Link></dd></div>
                     <div><dt>Buyer</dt><dd>{r.buyer}</dd></div>
                     <div><dt>Product</dt><dd>{r.productName} ({qty(r)})</dd></div>
                     <div><dt>Quoted amount</dt><dd>{totalCell(r)}</dd></div>

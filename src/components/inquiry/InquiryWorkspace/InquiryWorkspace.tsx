@@ -252,14 +252,14 @@ export function InquiryWorkspace({ supplier, products, moreProducts, initialProd
             <p className={styles.doneText}>{done.message}</p>
             <div className={styles.doneActions}>
               {done.trackingUrl && (
-                <Link href={done.trackingUrl} className={styles.primaryLink}>
+                <Link prefetch={false} href={done.trackingUrl} className={styles.primaryLink}>
                   View my inquiries
                 </Link>
               )}
               <Button type="button" variant="secondary" onClick={sendAnother}>
                 Send another inquiry
               </Button>
-              <Link href={supplier.url} className={styles.textLink}>
+              <Link prefetch={false} href={supplier.url} className={styles.textLink}>
                 Back to {supplier.name}
               </Link>
             </div>
@@ -292,7 +292,7 @@ export function InquiryWorkspace({ supplier, products, moreProducts, initialProd
               <p className={clsx(styles.banner, needsSignIn && styles.bannerInfo)} role="alert">
                 {banner}{" "}
                 {needsSignIn && (
-                  <Link href={signInHref} className={styles.inline}>
+                  <Link prefetch={false} href={signInHref} className={styles.inline}>
                     Sign in
                   </Link>
                 )}
@@ -395,7 +395,7 @@ export function InquiryWorkspace({ supplier, products, moreProducts, initialProd
               ) : (
                 <>
                   <div className={styles.identity} role="radiogroup" aria-label="How are you contacting the supplier?">
-                    <Link href={signInHref} className={styles.identityOption}>
+                    <Link prefetch={false} href={signInHref} className={styles.identityOption}>
                       <span className={styles.radioDot} aria-hidden />
                       I am a Registered Buyer (Sign in for faster response)
                       <LogIn size={16} aria-hidden />
@@ -453,11 +453,11 @@ export function InquiryWorkspace({ supplier, products, moreProducts, initialProd
                 <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} aria-invalid={Boolean(errors.consent)} aria-describedby={describe("consent")} />
                 <span>
                   I agree to the{" "}
-                  <Link href="/terms-and-conditions" target="_blank" rel="noopener noreferrer">
+                  <Link prefetch={false} href="/terms-and-conditions" target="_blank" rel="noopener noreferrer">
                     Terms of Use
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                  <Link prefetch={false} href="/privacy-policy" target="_blank" rel="noopener noreferrer">
                     Privacy Policy
                   </Link>{" "}
                   and allow Finbyn Mart to share my inquiry details with this supplier. <span aria-hidden>*</span>

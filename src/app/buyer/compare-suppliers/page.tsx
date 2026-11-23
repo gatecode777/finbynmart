@@ -25,7 +25,7 @@ async function BuyerCompareSuppliersPage({ searchParams }: { searchParams: Promi
     return (
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -37,7 +37,7 @@ async function BuyerCompareSuppliersPage({ searchParams }: { searchParams: Promi
   return (
     <BuyerShell userName={user.name} activeKey="saved-suppliers" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/saved-suppliers">Saved Suppliers</Link> / Compare
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/saved-suppliers">Saved Suppliers</Link> / Compare
       </p>
       <div className={dash.pageHeader}>
         <div>
@@ -51,7 +51,7 @@ async function BuyerCompareSuppliersPage({ searchParams }: { searchParams: Promi
         <div className={dash.accessNote} role="status">
           <h2 className={dash.cardTitle}>{keys.ok ? (result ? "These suppliers cannot be compared" : "The comparison could not be loaded") : "Choose suppliers to compare"}</h2>
           <p className={dash.welcome}>{keys.ok ? (result && !result.ok ? result.message : "Nothing was changed. Please try again.") : `Select between ${COMPARE_MIN} and ${COMPARE_MAX} of your saved suppliers, then choose Compare Selected.`}</p>
-          <p><Link href="/buyer/saved-suppliers" className={dash.viewAll}>Back to Saved Suppliers</Link></p>
+          <p><Link prefetch={false} href="/buyer/saved-suppliers" className={dash.viewAll}>Back to Saved Suppliers</Link></p>
         </div>
       )}
     </BuyerShell>

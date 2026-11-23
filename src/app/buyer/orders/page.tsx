@@ -31,7 +31,7 @@ async function BuyerOrdersPage({ searchParams }: { searchParams: Promise<Record<
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Orders belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -61,14 +61,14 @@ async function BuyerOrdersPage({ searchParams }: { searchParams: Promise<Record<
   return (
     <BuyerShell userName={user.name} activeKey="orders" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Orders
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Orders
       </p>
       <div className={dash.pageHeader}>
         <div>
           <h1 className={dash.title}>My Orders</h1>
           <p className={dash.welcome}>Track your purchases and open your order details.</p>
         </div>
-        <Link href="/products" className={inq.cta}>
+        <Link prefetch={false} href="/products" className={inq.cta}>
           <LayoutGrid size={18} aria-hidden /> Browse Products
         </Link>
       </div>
@@ -78,7 +78,7 @@ async function BuyerOrdersPage({ searchParams }: { searchParams: Promise<Record<
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your orders could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/orders" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/orders" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

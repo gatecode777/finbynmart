@@ -24,13 +24,13 @@ async function AdminSettingsPage({ searchParams }: { searchParams: Promise<Recor
   const [account, categories] = await Promise.all([getAccount(admin).catch(() => null), permissions.includes("notifications.read") ? getPreferences(admin, permissions).catch(() => null) : Promise.resolve([])]);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Settings</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Settings</p>
       <h1 className={styles.heading}>Admin Settings</h1>
       <p className={styles.lead}>Manage your account and supported preferences.</p>
       {account && categories ? (
         <AdminSettingsWorkspace account={account} categories={categories} canPrefs={permissions.includes("notifications.read")} initialTab={tab} />
       ) : (
-        <p role="alert" className={styles.err}>Your settings could not be loaded. Nothing was changed. <Link href={`/admin/settings${tab === "security" ? "?tab=security" : ""}`}>Try again</Link></p>
+        <p role="alert" className={styles.err}>Your settings could not be loaded. Nothing was changed. <Link prefetch={false} href={`/admin/settings${tab === "security" ? "?tab=security" : ""}`}>Try again</Link></p>
       )}
     </div>
   );

@@ -64,7 +64,7 @@ export function SignInForm({ next, hideRegister = false }: { next?: string; hide
         )}
       </div>
       <PasswordField label="Password" autoComplete="current-password" value={values.password} onChange={(password) => setValues((prev) => ({ ...prev, password }))} error={errors.password} />
-      <Link href="/forgot-password" className={styles.forgot}>
+      <Link prefetch={false} href="/forgot-password" className={styles.forgot}>
         Forgot password?
       </Link>
       <Button type="submit" disabled={busy}>
@@ -82,7 +82,7 @@ export function SignInForm({ next, hideRegister = false }: { next?: string; hide
           {unverified && (
             <>
               {" "}
-              <Link className={styles.link} href="/verify-email/resend">
+              <Link prefetch={false} className={styles.link} href="/verify-email/resend">
                 Send a new confirmation link
               </Link>
             </>
@@ -92,11 +92,11 @@ export function SignInForm({ next, hideRegister = false }: { next?: string; hide
       {!hideRegister && (
         <p className={styles.switch}>
           Don&apos;t have an account?{" "}
-          <Link className={styles.link} href={registerHref}>
+          <Link prefetch={false} className={styles.link} href={registerHref}>
             Sign up as a buyer
           </Link>
           {" · "}
-          <Link className={styles.link} href="/register-supplier">
+          <Link prefetch={false} className={styles.link} href="/register-supplier">
             Register as a supplier
           </Link>
         </p>

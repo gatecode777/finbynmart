@@ -55,7 +55,7 @@ async function SearchPage({ searchParams }: { searchParams: Promise<SearchParams
           <EmptyState
             title="Services aren't listed yet"
             actions={
-              <Link href={query.q ? `/search?q=${encodeURIComponent(query.q)}` : "/search"} className={styles.link}>
+              <Link prefetch={false} href={query.q ? `/search?q=${encodeURIComponent(query.q)}` : "/search"} className={styles.link}>
                 Search products
               </Link>
             }
@@ -90,7 +90,7 @@ async function SearchPage({ searchParams }: { searchParams: Promise<SearchParams
             <ul className={styles.chips}>
               {mains.map((node) => (
                 <li key={node.id}>
-                  <Link href={node.href} className={styles.chip}>
+                  <Link prefetch={false} href={node.href} className={styles.chip}>
                     {node.name} <span className={styles.chipCount}>({formatCount(node.productCount)})</span>
                   </Link>
                 </li>
@@ -164,7 +164,7 @@ async function SearchPage({ searchParams }: { searchParams: Promise<SearchParams
             <span>No matching products were found for “{applied.q}”. Check the spelling, try a more general word, or start from a category.</span>
             <span className={styles.hintLinks}>
               {mains.map((node) => (
-                <Link key={node.id} href={node.href} className={styles.chip}>
+                <Link prefetch={false} key={node.id} href={node.href} className={styles.chip}>
                   {node.name}
                 </Link>
               ))}

@@ -32,7 +32,7 @@ async function AdminAuditLogsPage({ searchParams }: { searchParams: Promise<Reco
   const initial = range.ok && allowed.length > 0 ? await listAuditEvents(permissions, { ...useState, cursor: null, limit: PAGE_SIZE }).catch(() => null) : null;
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Audit Logs</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Audit Logs</p>
       <h1 className={styles.heading}>Audit Logs</h1>
       <p className={styles.lead}>Review recorded administrative actions.</p>
       <AdminAuditWorkspace initial={initial} state={useState} today={todayInReportZone()} initialError={initialError} noScope={allowed.length === 0} failed={allowed.length > 0 && range.ok && initial === null} actions={allowed.map((a) => ({ key: a.key, label: a.label }))} />

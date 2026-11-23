@@ -186,7 +186,7 @@ export function NotificationCenter({ initial, initialQuery }: { initial: Notific
                 <div className={styles.notifFoot}>
                   <time className={styles.notifTime} dateTime={n.createdAt}>{when(n.createdAt)}</time>
                   {n.link && isSafeNotificationLink(n.link) && (
-                    <Link href={n.link} className={styles.smallButton} onClick={() => !n.read && void markOne(n.id)}>
+                    <Link prefetch={false} href={n.link} className={styles.smallButton} onClick={() => !n.read && void markOne(n.id)}>
                       <ExternalLink size={16} aria-hidden /> Open
                     </Link>
                   )}

@@ -13,7 +13,7 @@ interface TileLinkCardProps {
 
 export function TileLinkCard({ href, name, tile, shape = "square" }: TileLinkCardProps) {
   return (
-    <Link href={href} className={styles.card}>
+    <Link prefetch={false} href={href} className={styles.card}>
       <div className={clsx(styles.tile, shape === "wide" && styles.wide)}>
         <MediaTile tile={tile} alt={name} iconSize={32} />
       </div>

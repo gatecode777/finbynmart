@@ -32,7 +32,7 @@ export default async function AdminHome() {
           <ul className={d.stats}>
             {stats.map((s) => (
               <li key={s.key} className={d.stat}>
-                <Link href={s.href} className={d.statLink}>
+                <Link prefetch={false} href={s.href} className={d.statLink}>
                   <span className={d.value}>{s.value === null ? "—" : s.value.toLocaleString("en-IN")}</span>
                   <span className={d.label}>{s.label}</span>
                 </Link>
@@ -49,7 +49,7 @@ export default async function AdminHome() {
           <ul className={d.tools}>
             {tools.map((t) => (
               <li key={t.href} className={d.tool}>
-                <h3 className={d.toolTitle}><Link href={t.href}>{t.title}</Link></h3>
+                <h3 className={d.toolTitle}><Link prefetch={false} href={t.href}>{t.title}</Link></h3>
                 <p className={d.toolText}>{t.text}</p>
               </li>
             ))}

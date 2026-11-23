@@ -13,7 +13,7 @@ export function RecentInquiries({ section }: { section: Section<RecentInquiry[]>
         <h2 id="recent-inq-title" className={styles.cardTitle}>
           Recent Inquiries
         </h2>
-        <Link href="/buyer/inquiries" className={styles.viewAll}>
+        <Link prefetch={false} href="/buyer/inquiries" className={styles.viewAll}>
           View All <ArrowRight size={16} aria-hidden />
         </Link>
       </div>
@@ -22,7 +22,7 @@ export function RecentInquiries({ section }: { section: Section<RecentInquiry[]>
       ) : section.data.length === 0 ? (
         <div className={styles.emptyBlock}>
           <p className={styles.emptyNote}>No inquiries yet.</p>
-          <Link href="/post-requirement" className={styles.linkButtonSmall}>
+          <Link prefetch={false} href="/post-requirement" className={styles.linkButtonSmall}>
             <Plus size={16} aria-hidden /> Create New Inquiry
           </Link>
         </div>
@@ -57,11 +57,11 @@ export function RecentInquiries({ section }: { section: Section<RecentInquiry[]>
                   </td>
                   <td data-label="Action">
                     {row.href ? (
-                      <Link href={row.href} className={styles.viewAll}>
+                      <Link prefetch={false} href={row.href} className={styles.viewAll}>
                         View<span className="visually-hidden"> {row.reference}</span>
                       </Link>
                     ) : (
-                      <Link href="/buyer/inquiries" className={styles.viewAll}>
+                      <Link prefetch={false} href="/buyer/inquiries" className={styles.viewAll}>
                         View<span className="visually-hidden"> in My Inquiries</span>
                       </Link>
                     )}

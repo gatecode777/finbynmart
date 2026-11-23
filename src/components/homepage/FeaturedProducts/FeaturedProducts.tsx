@@ -36,9 +36,9 @@ export async function FeaturedProducts() {
           actionHref="/products"
         />
         {products === null ? (
-          <p role="status">Products could not be loaded right now. <Link href="/products">Browse all products</Link> or try again shortly.</p>
+          <p role="status">Products could not be loaded right now. <Link prefetch={false} href="/products">Browse all products</Link> or try again shortly.</p>
         ) : products.length === 0 ? (
-          <p>No products are listed yet. You can still <Link href="/post-requirement">post your requirement</Link>.</p>
+          <p>No products are listed yet. You can still <Link prefetch={false} href="/post-requirement">post your requirement</Link>.</p>
         ) : (
           <ScrollSlider label="products">
             {products.map((product) => (

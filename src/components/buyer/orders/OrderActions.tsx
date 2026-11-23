@@ -15,7 +15,7 @@ export function OrderActions({ target, canRequestCancellation }: { target: Cance
   return (
     <>
       <div className={`${d.headerActions} ${d.noPrint}`}>
-        <Link href="/buyer/orders" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Orders</Link>
+        <Link prefetch={false} href="/buyer/orders" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Orders</Link>
         <PrintButton />
         {canRequestCancellation && (
           <button type="button" className={`${d.btn} ${d.btnDanger}`} onClick={() => setOpen(true)}>

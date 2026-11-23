@@ -14,7 +14,7 @@ export function CategoryNavigation() {
             const isMenuTrigger = item.label === "All Categories";
             return (
               <li key={item.href} className={index === 5 || index === 6 ? styles.wideOnly : undefined}>
-                <Link
+                <Link prefetch={false}
                   href={item.href}
                   className={clsx(styles.link, index === 0 && styles.first)}
                 >

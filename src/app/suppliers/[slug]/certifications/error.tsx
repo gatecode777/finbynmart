@@ -17,7 +17,7 @@ export default function SupplierCertificationsError({ reset }: { error: Error & 
               <Button type="button" onClick={reset}>
                 Try again
               </Button>
-              <Link href="/suppliers">Browse suppliers</Link>
+              <Link prefetch={false} href="/suppliers">Browse suppliers</Link>
             </>
           }
         >

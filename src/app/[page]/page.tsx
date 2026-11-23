@@ -8,6 +8,9 @@ import { PageBody } from "@/components/ui/PageBody";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { FOOTER_COLUMNS, LEGAL_LINKS } from "@/lib/constants/footer";
 import { withPagePerf } from "@/lib/perf/instrument";
+import { InfoPageView } from "@/components/info/InfoPageView";
+import { INFO_PAGE_MAP } from "@/lib/constants/infoPages";
+import { siteUrl } from "@/lib/site";
 
 /**
  * Footer pages whose real content (policies, contact details, guides, pricing)
@@ -21,18 +24,36 @@ for (const link of [...FOOTER_COLUMNS.flatMap((column) => column.links), ...LEGA
   if (slug && !slug.includes("/")) PLANNED_PAGES.set(slug, link.label);
 }
 
+// static: only the information pages are prerendered. Other footer slugs have their own routes (or fall through to notFound), so they are not listed here.
+export function generateStaticParams() {
+  return [...INFO_PAGE_MAP.keys()].map((page) => ({ page }));
+}
+
 interface PlannedPageProps {
   params: Promise<{ page: string }>;
 }
 
 export async function generateMetadata({ params }: PlannedPageProps): Promise<Metadata> {
   const { page } = await params;
+  const info = INFO_PAGE_MAP.get(page);
+  if (info) {
+    const base = siteUrl();
+    return {
+      title: `${info.title} | Finbyn Mart`,
+      description: info.description,
+      ...(base ? { alternates: { canonical: `${base}/${info.slug}` } } : {}),
+      ...(info.index ? {} : { robots: { index: false, follow: true } }),
+      openGraph: { title: info.title, description: info.description, type: "website", ...(base ? { url: `${base}/${info.slug}` } : {}) },
+    };
+  }
   const label = PLANNED_PAGES.get(page);
   return label ? { title: `${label} | Finbyn Mart`, robots: { index: false } } : {};
 }
 
 async function PlannedPage({ params }: PlannedPageProps) {
   const { page } = await params;
+  const info = INFO_PAGE_MAP.get(page);
+  if (info) return <InfoPageView page={info} />;
   const label = PLANNED_PAGES.get(page);
 
   if (!label) {
@@ -48,8 +69,8 @@ async function PlannedPage({ params }: PlannedPageProps) {
           title="This page isn't published yet"
           actions={
             <>
-              <Link href="/">Back to home</Link>
-              <Link href="/suppliers">Find suppliers</Link>
+              <Link prefetch={false} href="/">Back to home</Link>
+              <Link prefetch={false} href="/suppliers">Find suppliers</Link>
             </>
           }
         >

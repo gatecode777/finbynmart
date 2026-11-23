@@ -85,12 +85,12 @@ export function InquiryTabs({ quotations, responses, reference, suppliers, conve
             <ul className={styles.quoteList}>
               {quotations.map((q) => (
                 <li key={q.reference}>
-                  <Link href={q.href} className={styles.link}>{q.reference}</Link> <span className={styles.muted}>V{q.version}</span> - {q.supplierName}{q.origin && <> <span className={styles.muted}>({q.origin === "DIRECT" ? "the supplier you selected" : "matched supplier"})</span></>}
+                  <Link prefetch={false} href={q.href} className={styles.link}>{q.reference}</Link> <span className={styles.muted}>V{q.version}</span> - {q.supplierName}{q.origin && <> <span className={styles.muted}>({q.origin === "DIRECT" ? "the supplier you selected" : "matched supplier"})</span></>}
                   <br />{q.unitPrice}{q.total ? <> · Total {q.total}</> : null} · {q.statusLabel} · {q.validLabel}
                 </li>
               ))}
             </ul>
-            {quotations.length > 1 && <p><Link href={`/buyer/quotations/compare?refs=${quotations.slice(0, 4).map((q) => q.reference).join(",")}`} className={styles.link}>Compare these quotations</Link></p>}
+            {quotations.length > 1 && <p><Link prefetch={false} href={`/buyer/quotations/compare?refs=${quotations.slice(0, 4).map((q) => q.reference).join(",")}`} className={styles.link}>Compare these quotations</Link></p>}
           </>
         ) : (
           <>

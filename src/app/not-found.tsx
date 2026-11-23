@@ -16,9 +16,9 @@ export default function NotFound() {
           title="We couldn't find that page"
           actions={
             <>
-              <Link href="/">Back to home</Link>
-              <Link href="/products">Browse products</Link>
-              <Link href="/suppliers">Find suppliers</Link>
+              <Link prefetch={false} href="/">Back to home</Link>
+              <Link prefetch={false} href="/products">Browse products</Link>
+              <Link prefetch={false} href="/suppliers">Find suppliers</Link>
             </>
           }
         >

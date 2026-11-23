@@ -114,7 +114,7 @@ export function BuyerRegisterForm({ next }: { next?: string }) {
           <Button type="button" variant="secondary" onClick={resendLink} disabled={resend.busy}>
             {resend.busy ? "Sending..." : "Send a new link"}
           </Button>
-          <Link className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
+          <Link prefetch={false} className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
             Go to sign in
           </Link>
         </div>
@@ -144,7 +144,7 @@ export function BuyerRegisterForm({ next }: { next?: string }) {
           <input id={`${id}-email`} data-field="email" className={clsx(styles.control, errors.email && styles.invalid)} type="email" inputMode="email" value={values.email} onChange={(event) => set("email")(event.target.value)} placeholder="you@company.com" autoComplete="email" aria-invalid={Boolean(errors.email)} aria-describedby={describe("email")} />
           {err("email")}
           {errors.email?.includes("already registered") && (
-            <Link className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
+            <Link prefetch={false} className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
               Sign in to your account
             </Link>
           )}
@@ -186,11 +186,11 @@ export function BuyerRegisterForm({ next }: { next?: string }) {
           <input data-field="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} aria-invalid={Boolean(errors.consent)} aria-describedby={describe("consent")} />
           <span>
             I agree to the{" "}
-            <Link href={TERMS_PATH} target="_blank" rel="noopener noreferrer">
+            <Link prefetch={false} href={TERMS_PATH} target="_blank" rel="noopener noreferrer">
               Terms of Use
             </Link>{" "}
             and{" "}
-            <Link href={PRIVACY_PATH} target="_blank" rel="noopener noreferrer">
+            <Link prefetch={false} href={PRIVACY_PATH} target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </Link>
             . <span aria-hidden>*</span>
@@ -210,12 +210,12 @@ export function BuyerRegisterForm({ next }: { next?: string }) {
       )}
       <p className={styles.switch}>
         Already have an account?{" "}
-        <Link className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
+        <Link prefetch={false} className={styles.link} href={next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in"}>
           Sign in
         </Link>
         {" · "}
         Selling instead?{" "}
-        <Link className={styles.link} href="/register-supplier">
+        <Link prefetch={false} className={styles.link} href="/register-supplier">
           Register as a supplier
         </Link>
       </p>

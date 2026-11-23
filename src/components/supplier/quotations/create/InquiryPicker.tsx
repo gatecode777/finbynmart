@@ -103,12 +103,12 @@ export function InquiryPicker({ initial }: { initial: Result }) {
                   </div>
                   {i.existing ? (
                     i.existing.status === "DRAFT" ? (
-                      <Link href={`/supplier/quotations/create?reference=${i.existing.reference}`} className={dash.btn}>Continue draft</Link>
+                      <Link prefetch={false} href={`/supplier/quotations/create?reference=${i.existing.reference}`} className={dash.btn}>Continue draft</Link>
                     ) : (
-                      <Link href={`/supplier/quotations/${i.existing.reference}`} className={dash.btn}>View quotation</Link>
+                      <Link prefetch={false} href={`/supplier/quotations/${i.existing.reference}`} className={dash.btn}>View quotation</Link>
                     )
                   ) : (
-                    <Link href={i.href} className={clsx(dash.btn, quotes.primaryBtn)}>Create quotation</Link>
+                    <Link prefetch={false} href={i.href} className={clsx(dash.btn, quotes.primaryBtn)}>Create quotation</Link>
                   )}
                 </li>
               ))}

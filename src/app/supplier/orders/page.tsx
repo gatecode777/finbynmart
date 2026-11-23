@@ -40,7 +40,7 @@ async function SupplierOrdersPage({ searchParams }: { searchParams: Promise<Reco
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Orders
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Orders
       </p>
       <SupplierOrdersWorkspace initial={page} initialParams={initialParams} renderedAt={Date.now()} />
     </div>

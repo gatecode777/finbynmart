@@ -63,7 +63,7 @@ export function HelpFaq({ faqs, topics }: { faqs: HelpFaqItem[]; topics: { value
                   <p>{faq.answer}</p>
                   {faq.links && faq.links.length > 0 && (
                     <ul className={styles.links}>
-                      {faq.links.map((l) => <li key={l.href}><Link href={l.href}>{l.label}</Link></li>)}
+                      {faq.links.map((l) => <li key={l.href}><Link prefetch={false} href={l.href}>{l.label}</Link></li>)}
                     </ul>
                   )}
                 </div>

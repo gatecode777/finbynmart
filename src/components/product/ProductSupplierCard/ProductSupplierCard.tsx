@@ -20,7 +20,7 @@ export function ProductSupplierCard({ supplier }: { supplier: ProductDetail["sup
         </span>
         <div className={styles.identity}>
           {supplier.profileAvailable ? (
-            <Link href={supplier.url} className={styles.name}>
+            <Link prefetch={false} href={supplier.url} className={styles.name}>
               {supplier.name}
             </Link>
           ) : (
@@ -42,12 +42,12 @@ export function ProductSupplierCard({ supplier }: { supplier: ProductDetail["sup
 
       <div className={styles.links}>
         {supplier.profileAvailable && (
-          <Link href={supplier.url} className={styles.link}>
+          <Link prefetch={false} href={supplier.url} className={styles.link}>
             View Supplier Profile
             <ArrowRight size={16} aria-hidden />
           </Link>
         )}
-        <Link href={supplier.productsUrl} className={styles.link}>
+        <Link prefetch={false} href={supplier.productsUrl} className={styles.link}>
           All Products by Supplier ({formatCount(supplier.productCount)})
         </Link>
       </div>

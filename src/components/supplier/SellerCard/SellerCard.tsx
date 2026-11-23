@@ -14,7 +14,7 @@ export function SellerCard({ seller }: { seller: CatalogSeller }) {
       <div className={styles.top}>
         <SellerLogo name={seller.name} size="md" />
         <div className={styles.titleBlock}>
-          <Link href={href} className={styles.name}>
+          <Link prefetch={false} href={href} className={styles.name}>
             {seller.name}
           </Link>
           <span className={styles.location}>
@@ -39,7 +39,7 @@ export function SellerCard({ seller }: { seller: CatalogSeller }) {
         </span>
       </div>
 
-      <Link href={href} className={styles.cta}>
+      <Link prefetch={false} href={href} className={styles.cta}>
         View Profile
       </Link>
     </article>

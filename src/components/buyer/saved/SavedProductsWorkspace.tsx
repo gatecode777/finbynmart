@@ -223,7 +223,7 @@ export function SavedProductsWorkspace({ initial, initialParams, renderedAt }: P
             <div className={inquiries.emptyBox}>
               <h2 className={inquiries.emptyTitle}>No Saved Products Yet</h2>
               <p className={inquiries.emptyText}>Tap the heart on a product to keep it here for quick access, and to ask suppliers for a quote later.</p>
-              <Link href="/products" className={inquiries.cta}>Explore Products</Link>
+              <Link prefetch={false} href="/products" className={inquiries.cta}>Explore Products</Link>
             </div>
           ) : (
             <div className={inquiries.emptyBox}>

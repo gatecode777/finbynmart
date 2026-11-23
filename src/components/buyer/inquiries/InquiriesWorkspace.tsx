@@ -295,7 +295,7 @@ export function InquiriesWorkspace({ initial, initialParams, initialSummary, ini
             <div className={styles.emptyBox}>
               <h2 className={styles.emptyTitle}>No Inquiries Yet</h2>
               <p className={styles.emptyText}>Start exploring products and contact suppliers to receive quotations for your business requirements.</p>
-              <Link href="/products" className={styles.cta}>Explore Products</Link>
+              <Link prefetch={false} href="/products" className={styles.cta}>Explore Products</Link>
             </div>
           ) : (
             <div className={styles.emptyBox}>

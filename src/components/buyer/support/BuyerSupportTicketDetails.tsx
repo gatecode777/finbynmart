@@ -205,7 +205,7 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
   return (
     <>
       <div className={`${d.headerActions} ${d.noPrint}`}>
-        <Link href={backHref} className={d.btn}><ArrowLeft size={18} aria-hidden /> {supportBase === "/buyer/support" ? "Back to All Tickets" : "Back to Support"}</Link>
+        <Link prefetch={false} href={backHref} className={d.btn}><ArrowLeft size={18} aria-hidden /> {supportBase === "/buyer/support" ? "Back to All Tickets" : "Back to Support"}</Link>
         {cap.canReopen && <button type="button" className={`${d.btn} ${inq.btnPrimary}`} onClick={() => setReopening(true)}><RotateCcw size={18} aria-hidden /> Reopen Ticket</button>}
       </div>
 
@@ -302,7 +302,7 @@ export function BuyerSupportTicketDetails({ initialOverview, initialMessages, in
               {overview.related && (
                 <div className={t.infoRow}>
                   <dt>Related To</dt>
-                  <dd>{overview.related.typeLabel}: {overview.related.href ? <Link href={overview.related.href} className={d.link}>{overview.related.reference}</Link> : overview.related.reference}</dd>
+                  <dd>{overview.related.typeLabel}: {overview.related.href ? <Link prefetch={false} href={overview.related.href} className={d.link}>{overview.related.reference}</Link> : overview.related.reference}</dd>
                 </div>
               )}
               <div className={t.infoRow}><dt>Created On</dt><dd>{overview.createdLabel}</dd></div>

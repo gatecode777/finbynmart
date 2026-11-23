@@ -19,7 +19,7 @@ export default async function AddProductPage({ searchParams }: { searchParams: P
   return (
     <div className={dash.page} style={{ position: "relative" }}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/products">My Products</Link> / Add Product
+        <Link prefetch={false} href="/supplier/products">My Products</Link> / Add Product
       </p>
       <h1 className={dash.title}>Add Product</h1>
       <p className={dash.welcome}>Create a clear and accurate product listing.</p>

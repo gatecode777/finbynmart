@@ -157,12 +157,12 @@ export function WriteReviewPanel({ supplierSlug, supplierName, viewer, existing 
       {viewer === "guest" && (
         <>
           <p className={styles.text}>Have you worked with {supplierName}? Sign in with your buyer account to share your experience.</p>
-          <Link href="/sign-in" className={styles.cta}>
+          <Link prefetch={false} href="/sign-in" className={styles.cta}>
             Sign in to Write a Review
             <ArrowRight size={18} strokeWidth={2.25} aria-hidden />
           </Link>
           <p className={styles.small}>
-            New here? <Link href="/sign-up">Create a free buyer account</Link>.
+            New here? <Link prefetch={false} href="/sign-up">Create a free buyer account</Link>.
           </p>
         </>
       )}

@@ -101,7 +101,7 @@ export function MobileNavigation() {
               <p className={styles.sectionTitle}>Categories</p>
               <nav className={styles.navList} aria-label="Product categories">
                 {CATEGORY_NAV.map((item) => (
-                  <Link
+                  <Link prefetch={false}
                     key={item.href}
                     href={item.href}
                     className={styles.navLink}
@@ -117,32 +117,32 @@ export function MobileNavigation() {
               <p className={styles.sectionTitle}>Account</p>
               <nav className={styles.navList} aria-label="Account actions">
                 {user?.role === "supplier" ? (
-                  <Link href="/supplier/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
+                  <Link prefetch={false} href="/supplier/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
                     <BriefcaseBusiness size={17} strokeWidth={2} aria-hidden />
                     Supplier Dashboard ({user.name.split(" ")[0]})
                   </Link>
                 ) : user?.role === "buyer" ? (
                   <>
-                    <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
                       <ClipboardList size={17} strokeWidth={2} aria-hidden />
                       Get Quotes
                     </Link>
-                    <Link href="/buyer/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/buyer/dashboard" className={styles.navLink} onClick={() => setOpen(false)}>
                       <UserRound size={17} strokeWidth={2} aria-hidden />
                       My Dashboard ({user.name.split(" ")[0]})
                     </Link>
                   </>
                 ) : (
                   <>
-                    <Link href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/post-requirement" className={styles.navLink} onClick={() => setOpen(false)}>
                       <ClipboardList size={17} strokeWidth={2} aria-hidden />
                       Get Quotes
                     </Link>
-                    <Link href="/sign-in" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/sign-in" className={styles.navLink} onClick={() => setOpen(false)}>
                       <UserRound size={17} strokeWidth={2} aria-hidden />
                       Sign In / Join Free
                     </Link>
-                    <Link href="/register-supplier" className={styles.navLink} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/register-supplier" className={styles.navLink} onClick={() => setOpen(false)}>
                       <BriefcaseBusiness size={17} strokeWidth={2} aria-hidden />
                       For Suppliers
                     </Link>

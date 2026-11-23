@@ -127,7 +127,7 @@ export function RecentlyViewedWorkspace({ initial }: { initial: RecentPage | nul
             <div className={styles.panel}>
               <h2>No recently viewed products yet.</h2>
               <p>Explore products to start your history.</p>
-              <Link href="/products" className={styles.retry}>Browse Products</Link>
+              <Link prefetch={false} href="/products" className={styles.retry}>Browse Products</Link>
             </div>
           ) : (
             <>
@@ -142,7 +142,7 @@ export function RecentlyViewedWorkspace({ initial }: { initial: RecentPage | nul
                     </button>
                     {item.available && item.url && item.name ? (
                       <>
-                        <h3 className={saved.name}><Link href={item.url}>{item.name}</Link></h3>
+                        <h3 className={saved.name}><Link prefetch={false} href={item.url}>{item.name}</Link></h3>
                         {item.supplierName && <p className={styles.meta}>Supplier: {item.supplierName}</p>}
                         {item.location && <p className={styles.meta}>Location: {item.location}</p>}
                         <p className={saved.price}>
@@ -150,7 +150,7 @@ export function RecentlyViewedWorkspace({ initial }: { initial: RecentPage | nul
                         </p>
                         <p className={styles.when}>{viewedLabel(item.viewedAt)}</p>
                         <div className={saved.actions}>
-                          <Link href={item.url} className={inquiries.btn}>View Product</Link>
+                          <Link prefetch={false} href={item.url} className={inquiries.btn}>View Product</Link>
                         </div>
                       </>
                     ) : (

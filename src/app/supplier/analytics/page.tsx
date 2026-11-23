@@ -21,7 +21,7 @@ export default async function SupplierAnalyticsPage() {
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Analytics &amp; Reports
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Analytics &amp; Reports
       </p>
       <h1 className={dash.title}>Analytics &amp; Reports</h1>
       <p className={dash.welcome}>Understand your sourcing and order activity.</p>

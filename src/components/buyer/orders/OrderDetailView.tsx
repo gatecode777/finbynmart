@@ -32,9 +32,9 @@ export function OrderDetailView({ data: x }: { data: OrderDetail }) {
               <div className={d.overviewText}>
                 <p className={d.refBadge}>Order Reference</p>
                 <h2 id="order-summary-title" className={`${d.reference} ${styles.wrap}`}>{o.reference}</h2>
-                <p className={d.muted}>{x.supplier.url ? <Link href={x.supplier.url} className={d.link}>{x.supplier.name}</Link> : x.supplier.name}{x.supplier.location ? ` · ${x.supplier.location}` : ""}</p>
-                {o.quotation && <p className={d.muted}>From quotation <Link href={o.quotation.href} className={d.link}>{o.quotation.reference}</Link></p>}
-                {o.inquiry && <p className={d.muted}>Inquiry <Link href={o.inquiry.href} className={d.link}>{o.inquiry.reference}</Link></p>}
+                <p className={d.muted}>{x.supplier.url ? <Link prefetch={false} href={x.supplier.url} className={d.link}>{x.supplier.name}</Link> : x.supplier.name}{x.supplier.location ? ` · ${x.supplier.location}` : ""}</p>
+                {o.quotation && <p className={d.muted}>From quotation <Link prefetch={false} href={o.quotation.href} className={d.link}>{o.quotation.reference}</Link></p>}
+                {o.inquiry && <p className={d.muted}>Inquiry <Link prefetch={false} href={o.inquiry.href} className={d.link}>{o.inquiry.reference}</Link></p>}
               </div>
               <dl className={d.dates}>
                 <div><dt>Placed On</dt><dd><time dateTime={o.placedAt}>{o.placedLabel}</time></dd></div>
@@ -56,7 +56,7 @@ export function OrderDetailView({ data: x }: { data: OrderDetail }) {
                 <li key={`${i.name}-${n}`}>
                   <span className={d.thumb} aria-hidden>{i.imageSrc ? <Image src={i.imageSrc} alt="" width={64} height={64} unoptimized={i.imageRemote} /> : <Package size={24} />}</span>
                   <span className={styles.itemText}>
-                    <span className={d.productName}>{i.url ? <Link href={i.url} className={d.link}>{i.name}</Link> : i.name}</span>
+                    <span className={d.productName}>{i.url ? <Link prefetch={false} href={i.url} className={d.link}>{i.name}</Link> : i.name}</span>
                     <span>{i.quantityText} at {i.unitPrice}</span>
                   </span>
                 </li>

@@ -54,10 +54,10 @@ export function ListingToolbar({ action, hidden, sort, sortOptions = SORT_OPTION
           View:
         </span>
         <div className={styles.toggle}>
-          <Link href={gridHref} className={clsx(styles.toggleButton, view === "grid" && styles.on)} aria-label="Grid view" aria-current={view === "grid" ? "true" : undefined}>
+          <Link prefetch={false} href={gridHref} className={clsx(styles.toggleButton, view === "grid" && styles.on)} aria-label="Grid view" aria-current={view === "grid" ? "true" : undefined}>
             <LayoutGrid size={18} strokeWidth={2} aria-hidden />
           </Link>
-          <Link href={listHref} className={clsx(styles.toggleButton, view === "list" && styles.on)} aria-label="List view" aria-current={view === "list" ? "true" : undefined}>
+          <Link prefetch={false} href={listHref} className={clsx(styles.toggleButton, view === "list" && styles.on)} aria-label="List view" aria-current={view === "list" ? "true" : undefined}>
             <List size={18} strokeWidth={2} aria-hidden />
           </Link>
         </div>

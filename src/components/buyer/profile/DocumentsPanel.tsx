@@ -85,7 +85,7 @@ export function DocumentsPanel({ hasCompany, storageConfigured, documents }: Pro
       <section className={dash.card} aria-labelledby="docs-title">
         <h2 id="docs-title" className={dash.cardTitle}><FileText size={20} aria-hidden /> Documents</h2>
         <p className={clsx(styles.banner, styles.bannerInfo)}>Add your company details first. Documents belong to your company.</p>
-        <Link href="/buyer/profile?tab=company" className={styles.primaryButton}>Add Company Details</Link>
+        <Link prefetch={false} href="/buyer/profile?tab=company" className={styles.primaryButton}>Add Company Details</Link>
       </section>
     );
   }

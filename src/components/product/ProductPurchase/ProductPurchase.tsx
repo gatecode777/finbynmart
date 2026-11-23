@@ -160,7 +160,7 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
           <MessageSquare size={18} aria-hidden />
           Send Inquiry
         </button>
-        <Link href={`/post-requirement?${bulk}`} className={clsx(styles.action, styles.outline, styles.wide)}>
+        <Link prefetch={false} href={`/post-requirement?${bulk}`} className={clsx(styles.action, styles.outline, styles.wide)}>
           <Percent size={18} aria-hidden />
           Request Bulk Price
         </Link>

@@ -49,7 +49,7 @@ export default function SitemapPage() {
               <ul className={styles.list}>
                 {group.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link prefetch={false} href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>

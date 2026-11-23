@@ -105,7 +105,7 @@ export function SupplierDashboard({ initial, range }: Props) {
           const cards = [
             { label: "Total Inquiries", metric: m.totalInquiries, icon: MessageSquareText, cream: false, note: "Received in the selected period", extra: null as ReactNode },
             { label: "Pending Responses", metric: m.pendingResponses, icon: Hourglass, cream: true, note: "Right now, not period bound", extra: capabilities.responsesAvailable ? null : "Replying to inquiries is not available yet." },
-            { label: "Active Quotations", metric: m.activeQuotations, icon: FileText, cream: false, note: "Right now: sent, valid, awaiting the buyer", extra: <Link href="/supplier/quotations?status=submitted" className={s.ref}>View quotations</Link> },
+            { label: "Active Quotations", metric: m.activeQuotations, icon: FileText, cream: false, note: "Right now: sent, valid, awaiting the buyer", extra: <Link prefetch={false} href="/supplier/quotations?status=submitted" className={s.ref}>View quotations</Link> },
             { label: "Confirmed Orders", metric: m.confirmedOrders, icon: Package, cream: true, note: "Placed in the selected period, not cancelled", extra: null },
           ];
           return (
@@ -151,7 +151,7 @@ export function SupplierDashboard({ initial, range }: Props) {
                         <tbody>
                           {rows.map((r) => (
                             <tr key={r.reference}>
-                              <th scope="row" style={{ background: "transparent" }}><Link href={`/supplier/inquiries/${r.reference}`} className={s.ref}>{r.reference}</Link></th>
+                              <th scope="row" style={{ background: "transparent" }}><Link prefetch={false} href={`/supplier/inquiries/${r.reference}`} className={s.ref}>{r.reference}</Link></th>
                               <td>{r.buyer}</td>
                               <td>{r.product}{r.category ? <span className={s.muted} style={{ display: "block", margin: 0 }}>{r.category}</span> : null}</td>
                               <td>{r.quantity ?? "Not stated"}</td>
@@ -166,7 +166,7 @@ export function SupplierDashboard({ initial, range }: Props) {
                       {rows.map((r) => (
                         <li key={r.reference} className={s.rowCard}>
                           <div className={s.rowTop}>
-                            <p className={s.ref}><Link href={`/supplier/inquiries/${r.reference}`} className={s.ref}>{r.reference}</Link></p>
+                            <p className={s.ref}><Link prefetch={false} href={`/supplier/inquiries/${r.reference}`} className={s.ref}>{r.reference}</Link></p>
                             <span className={clsx(s.badge, r.pending ? s.badgePending : s.badgeInfo)}>{r.status}</span>
                           </div>
                           <p className={s.muted} style={{ margin: 0 }}>{r.buyer} · {r.receivedLabel}</p>
@@ -232,7 +232,7 @@ export function SupplierDashboard({ initial, range }: Props) {
                       <li key={p.key} className={s.product}>
                         <span className={s.thumb} aria-hidden>{p.image ? <Image src={p.image.src} alt="" width={56} height={56} unoptimized={p.image.remote} /> : <Package size={22} />}</span>
                         <div>
-                          <p className={s.productName}><Link href={p.href}>{p.name}</Link></p>
+                          <p className={s.productName}><Link prefetch={false} href={p.href}>{p.name}</Link></p>
                           <p className={s.muted} style={{ margin: 0 }}>{p.sku} · {p.price}</p>
                         </div>
                         <span className={s.count} aria-label={`${p.inquiries} inquiries`}>{number(p.inquiries)}</span>
@@ -251,17 +251,17 @@ export function SupplierDashboard({ initial, range }: Props) {
         <ul className={s.actions}>
           <li className={s.action}>
             <PackagePlus size={22} aria-hidden />
-            <div><p className={s.actionTitle}>Add product</p><p className={s.actionText}>{capabilities.productManagement ? <><Link href="/supplier/products/new" className={s.ref}>Create a product draft</Link>. Submit it for review; approved products are published.</> : "Supplier product management is not available."}</p></div>
+            <div><p className={s.actionTitle}>Add product</p><p className={s.actionText}>{capabilities.productManagement ? <><Link prefetch={false} href="/supplier/products/new" className={s.ref}>Create a product draft</Link>. Submit it for review; approved products are published.</> : "Supplier product management is not available."}</p></div>
           </li>
           <li className={s.action}>
             <MessageSquareText size={22} aria-hidden />
-            <div><p className={s.actionTitle}>Reply to inquiries</p><p className={s.actionText}>{capabilities.responsesAvailable ? <>Open an inquiry from <Link href="/supplier/inquiries" className={s.ref}>Inquiries &amp; Leads</Link> to reply.</> : "Replies are not available."}</p></div>
+            <div><p className={s.actionTitle}>Reply to inquiries</p><p className={s.actionText}>{capabilities.responsesAvailable ? <>Open an inquiry from <Link prefetch={false} href="/supplier/inquiries" className={s.ref}>Inquiries &amp; Leads</Link> to reply.</> : "Replies are not available."}</p></div>
           </li>
           <li className={s.action}>
             <FileText size={22} aria-hidden />
             <div>
               <p className={s.actionTitle}>Create quotation</p>
-              <p className={s.actionText}>{capabilities.quotationCreation ? <Link href="/supplier/quotations/create" className={s.ref}>Start a quotation for a buyer inquiry</Link> : "Quotation creation is not built yet. You can review and withdraw existing quotations."}</p>
+              <p className={s.actionText}>{capabilities.quotationCreation ? <Link prefetch={false} href="/supplier/quotations/create" className={s.ref}>Start a quotation for a buyer inquiry</Link> : "Quotation creation is not built yet. You can review and withdraw existing quotations."}</p>
             </div>
           </li>
         </ul>

@@ -20,7 +20,7 @@ export function BuyerQuickActions() {
       <ul className={styles.quickGrid}>
         {ACTIONS.map(({ label, href, icon: Icon }) => (
           <li key={label}>
-            <Link href={href} className={styles.quickTile}>
+            <Link prefetch={false} href={href} className={styles.quickTile}>
               <span className={styles.quickIcon}>
                 <Icon size={22} aria-hidden />
               </span>

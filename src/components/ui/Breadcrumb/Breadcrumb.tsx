@@ -15,7 +15,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
                 <ChevronRight size={12} className={styles.separator} aria-hidden />
               )}
               {item.href && !isLast ? (
-                <Link href={item.href}>{item.label}</Link>
+                <Link prefetch={false} href={item.href}>{item.label}</Link>
               ) : (
                 <span className={isLast ? styles.current : undefined} aria-current={isLast ? "page" : undefined}>
                   {item.label}

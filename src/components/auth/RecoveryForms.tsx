@@ -38,7 +38,7 @@ export function EmailRequestForm({ purpose }: { purpose: "reset" | "verify" }) {
           <MailCheck size={28} aria-hidden />
         </span>
         <p className={styles.subheading}>{result.text}</p>
-        <Link className={styles.link} href="/sign-in">
+        <Link prefetch={false} className={styles.link} href="/sign-in">
           Back to sign in
         </Link>
       </div>
@@ -67,7 +67,7 @@ export function EmailRequestForm({ purpose }: { purpose: "reset" | "verify" }) {
         </p>
       )}
       <p className={styles.switch}>
-        <Link className={styles.link} href="/sign-in">
+        <Link prefetch={false} className={styles.link} href="/sign-in">
           Back to sign in
         </Link>
       </p>
@@ -114,7 +114,7 @@ function VerifyEmailResult({ state }: { state: "ok" | "invalid" | "missing" | "e
         </span>
         <h2 className={styles.heading}>Email confirmed</h2>
         <p className={styles.subheading}>Your email address is confirmed. You can sign in now.</p>
-        <Link className={styles.link} href="/sign-in">
+        <Link prefetch={false} className={styles.link} href="/sign-in">
           Go to sign in
         </Link>
       </div>
@@ -134,7 +134,7 @@ function VerifyEmailResult({ state }: { state: "ok" | "invalid" | "missing" | "e
             : "The confirmation link is invalid, was already used, or has expired (links last 24 hours)."}
       </p>
       {state !== "error" && (
-        <Link className={styles.link} href="/verify-email/resend">
+        <Link prefetch={false} className={styles.link} href="/verify-email/resend">
           Send a new confirmation link
         </Link>
       )}
@@ -207,7 +207,7 @@ export function ForgotPasswordForm({ validMinutes, cooldownSeconds }: { validMin
             <Button type="button" variant="secondary" disabled={busy || wait > 0} onClick={() => void request("/api/auth/forgot-password/resend")}>
               {busy ? "Sending..." : wait > 0 ? `Send again in ${wait}s` : "Send the link again"}
             </Button>
-            <Link className={styles.link} href="/sign-in">
+            <Link prefetch={false} className={styles.link} href="/sign-in">
               Back to Sign In
             </Link>
           </div>
@@ -250,7 +250,7 @@ export function ForgotPasswordForm({ validMinutes, cooldownSeconds }: { validMin
             </p>
             <p className={styles.switch}>
               Remember your password?{" "}
-              <Link className={styles.link} href="/sign-in">
+              <Link prefetch={false} className={styles.link} href="/sign-in">
                 Sign In
               </Link>
             </p>

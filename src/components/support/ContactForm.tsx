@@ -14,12 +14,12 @@ import styles from "@/components/auth/Auth.module.css";
 
 type Fields = "name" | "email" | "phone" | "topic" | "message" | "consent";
 
-export function ContactForm({ initialName = "", initialEmail = "" }: { initialName?: string; initialEmail?: string }) {
+export function ContactForm({ initialName = "", initialEmail = "", initialTopic = "" }: { initialName?: string; initialEmail?: string; initialTopic?: string }) {
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
   // one key per page load: pressing Send twice, or a retry after a dropped connection, saves one request
   const [idempotencyKey] = useState(() => (typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k${Date.now()}${Math.random().toString(36).slice(2)}0000000`));
-  const [values, setValues] = useState({ name: initialName, email: initialEmail, countryCode: "+91", number: "", topic: "", message: "" });
+  const [values, setValues] = useState({ name: initialName, email: initialEmail, countryCode: "+91", number: "", topic: initialTopic, message: "" });
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
@@ -85,7 +85,7 @@ export function ContactForm({ initialName = "", initialEmail = "" }: { initialNa
         <p>
           Reference: <strong>{saved.reference}</strong>
         </p>
-        <Link className={styles.link} href="/">
+        <Link prefetch={false} className={styles.link} href="/">
           Back to home
         </Link>
       </div>
@@ -151,11 +151,11 @@ export function ContactForm({ initialName = "", initialEmail = "" }: { initialNa
           <input data-field="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} aria-invalid={Boolean(errors.consent)} aria-describedby={describe("consent")} />
           <span>
             I agree to the{" "}
-            <Link href={TERMS_PATH} target="_blank" rel="noopener noreferrer">
+            <Link prefetch={false} href={TERMS_PATH} target="_blank" rel="noopener noreferrer">
               Terms of Use
             </Link>{" "}
             and{" "}
-            <Link href={PRIVACY_PATH} target="_blank" rel="noopener noreferrer">
+            <Link prefetch={false} href={PRIVACY_PATH} target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </Link>
             . <span aria-hidden>*</span>

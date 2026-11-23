@@ -22,7 +22,7 @@ export function CategoryShowcase() {
         />
         <div className={styles.grid}>
           {TOP_CATEGORIES.map((category) => (
-            <Link key={category.id} href={category.href} className={styles.card}>
+            <Link prefetch={false} key={category.id} href={category.href} className={styles.card}>
               <div className={styles.tileWrap}>
                 <MediaTile tile={category} alt="" />
               </div>

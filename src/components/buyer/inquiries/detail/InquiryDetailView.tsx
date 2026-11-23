@@ -170,7 +170,7 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
             <><div className={styles.supplier}>
               <span className={styles.initials} aria-hidden>{d.supplier.initials}</span>
               <div>
-                <p className={styles.productName}>{d.supplier.url ? <Link href={d.supplier.url}>{d.supplier.name}</Link> : d.supplier.name}</p>
+                <p className={styles.productName}>{d.supplier.url ? <Link prefetch={false} href={d.supplier.url}>{d.supplier.name}</Link> : d.supplier.name}</p>
                 {d.supplier.location && <p className={styles.metaLine}><MapPin size={14} aria-hidden /> {d.supplier.location}</p>}
                 {d.supplier.kind && <p className={styles.muted}>{d.supplier.kind}</p>}
                 {!d.supplier.available && <p className={styles.muted}>This supplier no longer has a public page; the saved name is shown.</p>}
@@ -185,7 +185,7 @@ export function InquiryDetailView({ data: d }: { data: InquiryDetailDto }) {
             <ul className={styles.steps}>
               {nextSteps(d).map((s) => (
                 <li key={s.text}>
-                  {s.text} {s.href && <Link href={s.href} className={styles.link}>{s.linkText}</Link>}
+                  {s.text} {s.href && <Link prefetch={false} href={s.href} className={styles.link}>{s.linkText}</Link>}
                 </li>
               ))}
             </ul>

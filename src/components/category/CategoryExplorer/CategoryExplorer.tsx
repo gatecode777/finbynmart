@@ -171,7 +171,7 @@ export function CategoryExplorer({ nodes, initialSelected, initialQuery }: Categ
               <h2 className={styles.sideTitle}>Browse Categories</h2>
               <ul className={styles.sideList}>
                 <li>
-                  <Link
+                  <Link prefetch={false}
                     href="/categories"
                     data-drawer-close
                     className={clsx(styles.row, !selected && !searching && styles.active)}
@@ -196,7 +196,7 @@ export function CategoryExplorer({ nodes, initialSelected, initialQuery }: Categ
                   if (!hasChildren) {
                     return (
                       <li key={main.id}>
-                        <Link href={main.href} className={styles.row}>
+                        <Link prefetch={false} href={main.href} className={styles.row}>
                           <MainIcon id={main.iconKey} />
                           <span className={styles.rowName}>{main.name}</span>
                           <ChevronRight size={16} aria-hidden />
@@ -208,7 +208,7 @@ export function CategoryExplorer({ nodes, initialSelected, initialQuery }: Categ
                   return (
                     <li key={main.id}>
                       <div className={clsx(styles.rowWrap, (isActive || inBranch) && styles.branchActive)}>
-                        <Link
+                        <Link prefetch={false}
                           href={`/categories?c=${encodeURIComponent(main.id)}`}
                           data-drawer-close
                           className={clsx(styles.row, isActive && styles.active)}
@@ -240,7 +240,7 @@ export function CategoryExplorer({ nodes, initialSelected, initialQuery }: Categ
                             const childActive = (selectedId === child.id || selectedId?.startsWith(`${child.id}/`)) && !searching;
                             return (
                               <li key={child.id}>
-                                <Link
+                                <Link prefetch={false}
                                   href={`/categories?c=${encodeURIComponent(child.id)}`}
                                   data-drawer-close
                                   className={clsx(styles.row, styles.childRow, childActive && styles.active)}
@@ -273,7 +273,7 @@ export function CategoryExplorer({ nodes, initialSelected, initialQuery }: Categ
                   {heading} <span className={styles.gridCount}>({formatCount(list.length)})</span>
                 </h2>
                 {selected && !searching && (
-                  <Link href={selected.href} className={styles.viewAll}>
+                  <Link prefetch={false} href={selected.href} className={styles.viewAll}>
                     View all {formatCount(selected.productCount)} {selected.productCount === 1 ? "product" : "products"}
                     <ChevronRight size={16} aria-hidden />
                   </Link>

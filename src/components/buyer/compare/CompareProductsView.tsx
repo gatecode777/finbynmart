@@ -91,9 +91,9 @@ export function CompareProductsView({ data }: { data: ProductComparison }) {
   const headerBlock = (c: CompareColumn) => (
     <span className={styles.colHead}>
       <span className={styles.thumb} aria-hidden>{c.imageSrc ? <Image src={c.imageSrc} alt="" width={120} height={120} unoptimized={c.imageRemote} /> : <Package size={36} />}</span>
-      {c.url ? <Link href={c.url} className={d.link}>{c.name}</Link> : <span>{c.name}</span>}
+      {c.url ? <Link prefetch={false} href={c.url} className={d.link}>{c.name}</Link> : <span>{c.name}</span>}
       {c.available && c.code && <span className={styles.code}>Product code: {c.code}</span>}
-      {c.supplier && <span className={styles.supplierLine}>{c.supplier.url ? <Link href={c.supplier.url}>{c.supplier.name}</Link> : c.supplier.name}{c.supplier.verified && <span className={styles.verified}><BadgeCheck size={14} aria-hidden /> Verified supplier</span>}</span>}
+      {c.supplier && <span className={styles.supplierLine}>{c.supplier.url ? <Link prefetch={false} href={c.supplier.url}>{c.supplier.name}</Link> : c.supplier.name}{c.supplier.verified && <span className={styles.verified}><BadgeCheck size={14} aria-hidden /> Verified supplier</span>}</span>}
       {c.available && c.values.category && <span className={styles.code}>{c.values.category}</span>}
       {!c.available && <span className={q.missing}>No longer available</span>}
     </span>
@@ -101,8 +101,8 @@ export function CompareProductsView({ data }: { data: ProductComparison }) {
 
   const actions = (c: CompareColumn) => (
     <span className={styles.rowActions}>
-      {c.available && c.inquiryHref && <Link href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><FileText size={16} aria-hidden /> Add to Inquiry</Link>}
-      {c.available && c.url && <Link href={c.url} className={inq.btn}>View Product</Link>}
+      {c.available && c.inquiryHref && <Link prefetch={false} href={c.inquiryHref} className={`${inq.btn} ${inq.btnPrimary}`}><FileText size={16} aria-hidden /> Add to Inquiry</Link>}
+      {c.available && c.url && <Link prefetch={false} href={c.url} className={inq.btn}>View Product</Link>}
       {c.available && <span className={styles.save}><WishlistButton productId={c.key} productName={c.name} /></span>}
       <button type="button" className={inq.btn} onClick={() => ask({ kind: "one", column: c })}><X size={16} aria-hidden /> Remove</button>
     </span>
@@ -113,8 +113,8 @@ export function CompareProductsView({ data }: { data: ProductComparison }) {
       <div className={inq.emptyBox}>
         <h2 className={inq.emptyTitle}>Nothing to compare yet</h2>
         <p className={inq.emptyText}>Add between {data.min} and {data.max} products with the Compare button on a product card, a product page or in your saved products, then come back here.</p>
-        <Link href="/products" className={inq.cta}>Browse Products</Link>
-        <Link href="/buyer/saved-products" className={inq.btn}>Open Saved Products</Link>
+        <Link prefetch={false} href="/products" className={inq.cta}>Browse Products</Link>
+        <Link prefetch={false} href="/buyer/saved-products" className={inq.btn}>Open Saved Products</Link>
       </div>
     );
   }
@@ -122,11 +122,11 @@ export function CompareProductsView({ data }: { data: ProductComparison }) {
   return (
     <>
       <div className={styles.headActions}>
-        <Link href="/buyer/saved-products" className={inq.btn}>Back to Saved Products</Link>
+        <Link prefetch={false} href="/buyer/saved-products" className={inq.btn}>Back to Saved Products</Link>
         {atMax ? (
           <button type="button" className={inq.btn} disabled aria-disabled="true" title={`Four products are the most you can compare: remove one first.`}><Plus size={16} aria-hidden /> Add More Products</button>
         ) : (
-          <Link href="/products" className={`${inq.btn} ${inq.btnPrimary}`}><Plus size={16} aria-hidden /> Add More Products</Link>
+          <Link prefetch={false} href="/products" className={`${inq.btn} ${inq.btnPrimary}`}><Plus size={16} aria-hidden /> Add More Products</Link>
         )}
         <button type="button" className={`${inq.btn} ${inq.btnDanger}`} onClick={() => ask({ kind: "all" })}><Trash2 size={16} aria-hidden /> Clear All</button>
       </div>

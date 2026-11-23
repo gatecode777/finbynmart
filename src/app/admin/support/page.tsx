@@ -11,7 +11,7 @@ export default async function AdminSupportPage() {
   await requireAdminPage("/admin/support", "support.manage");
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Support</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Support</p>
       <h1 className={styles.heading}>Support Tickets</h1>
       <p className={styles.lead}>Read tickets, reply publicly and keep internal notes.</p>
       <SupportStaffWorkspace />

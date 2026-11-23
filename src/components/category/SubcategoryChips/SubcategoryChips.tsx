@@ -39,14 +39,14 @@ export function SubcategoryChips({ chips, label = "Popular Subcategories", allHr
         <ul className={clsx(styles.row, expanded && styles.wrap)}>
           {allHref && (
             <li>
-              <Link href={allHref} className={styles.chip}>
+              <Link prefetch={false} href={allHref} className={styles.chip}>
                 {allLabel}
               </Link>
             </li>
           )}
           {shown.map((chip) => (
             <li key={chip.href}>
-              <Link
+              <Link prefetch={false}
                 href={chip.href}
                 className={clsx(styles.chip, chip.active && styles.active)}
                 aria-current={chip.active ? "true" : undefined}

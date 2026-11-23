@@ -29,7 +29,7 @@ export function NextSteps({ steps, supportHref }: { steps: NextStep[]; supportHr
       </ul>
       <p className={styles.nextStepsHelp}>
         If you did not make this change, please{" "}
-        <Link className={styles.link} href={supportHref}>
+        <Link prefetch={false} className={styles.link} href={supportHref}>
           contact support
         </Link>{" "}
         immediately.

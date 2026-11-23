@@ -30,7 +30,7 @@ async function BuyerSavedProductsPage({ searchParams }: { searchParams: Promise<
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Saved products belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -43,14 +43,14 @@ async function BuyerSavedProductsPage({ searchParams }: { searchParams: Promise<
   return (
     <BuyerShell userName={user.name} activeKey="saved-products" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Saved Products
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Saved Products
       </p>
       <div className={dash.pageHeader}>
         <div>
           <h1 className={dash.title}>Saved Products</h1>
           <p className={dash.welcome}>Your shortlisted products for easy access and inquiries.</p>
         </div>
-        <Link href="/products" className={inquiries.cta}>
+        <Link prefetch={false} href="/products" className={inquiries.cta}>
           <Plus size={18} aria-hidden /> Add More Products
         </Link>
       </div>
@@ -60,7 +60,7 @@ async function BuyerSavedProductsPage({ searchParams }: { searchParams: Promise<
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your saved products could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/saved-products" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/saved-products" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

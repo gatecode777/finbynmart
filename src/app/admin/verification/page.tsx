@@ -27,7 +27,7 @@ async function AdminVerificationPage({ searchParams }: { searchParams: Promise<R
   const initial = await listSubmissions(state);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Supplier Verification</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Supplier Verification</p>
       <h1 className={styles.heading}>Supplier Verification</h1>
       <p className={styles.lead}>Review submitted business evidence and record decisions.</p>
       <AdminVerificationWorkspace initial={initial} state={state} initialReview={review} caps={caps} />

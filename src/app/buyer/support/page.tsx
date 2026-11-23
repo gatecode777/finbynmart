@@ -34,7 +34,7 @@ async function BuyerSupportRoute({ searchParams }: { searchParams: Promise<Recor
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Support tickets belong to buyer accounts. Use the Contact Us form instead.</p>
-        <p><Link href="/contact-us" className={dash.viewAll}>Contact Us</Link></p>
+        <p><Link prefetch={false} href="/contact-us" className={dash.viewAll}>Contact Us</Link></p>
       </div>
     );
   }
@@ -59,7 +59,7 @@ async function BuyerSupportRoute({ searchParams }: { searchParams: Promise<Recor
   return (
     <BuyerShell userName={user.name} activeKey="support" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Help &amp; Support
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Help &amp; Support
       </p>
       <div className={dash.pageHeader}>
         <div>
@@ -67,7 +67,7 @@ async function BuyerSupportRoute({ searchParams }: { searchParams: Promise<Recor
           <p className={dash.welcome}>Get help, raise a support ticket, track its status, or find answers to common questions.</p>
         </div>
         <div className={support.headerActions}>
-          <Link href="/contact-us" className={inq.btn}><MessageCircle size={18} aria-hidden /> Contact Support</Link>
+          <Link prefetch={false} href="/contact-us" className={inq.btn}><MessageCircle size={18} aria-hidden /> Contact Support</Link>
           <a href="#raise-ticket" className={inq.cta}><Plus size={18} aria-hidden /> Raise a New Ticket</a>
         </div>
       </div>
@@ -87,7 +87,7 @@ async function BuyerSupportRoute({ searchParams }: { searchParams: Promise<Recor
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your tickets could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/support" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/support" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

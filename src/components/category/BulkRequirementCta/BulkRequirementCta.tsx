@@ -33,7 +33,7 @@ export function BulkRequirementCta({
           </h2>
           <p className={styles.description}>{description}</p>
         </div>
-        <Link href={href} className={styles.cta}>
+        <Link prefetch={false} href={href} className={styles.cta}>
           {label}
           <ArrowRight size={18} strokeWidth={2.25} aria-hidden />
         </Link>

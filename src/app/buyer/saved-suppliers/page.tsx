@@ -31,7 +31,7 @@ async function BuyerSavedSuppliersPage({ searchParams }: { searchParams: Promise
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Saved suppliers belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -44,14 +44,14 @@ async function BuyerSavedSuppliersPage({ searchParams }: { searchParams: Promise
   return (
     <BuyerShell userName={user.name} activeKey="saved-suppliers" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Saved Suppliers
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Saved Suppliers
       </p>
       <div className={dash.pageHeader}>
         <div>
           <h1 className={dash.title}>Saved Suppliers</h1>
           <p className={dash.welcome}>Your preferred business partners for quick access, repeat inquiries and long-term sourcing relationships.</p>
         </div>
-        <Link href="/suppliers" className={inquiries.cta}>
+        <Link prefetch={false} href="/suppliers" className={inquiries.cta}>
           <Plus size={18} aria-hidden /> Find More Suppliers
         </Link>
       </div>
@@ -61,7 +61,7 @@ async function BuyerSavedSuppliersPage({ searchParams }: { searchParams: Promise
         <div className={dash.accessNote} role="alert">
           <h2 className={dash.cardTitle}>Your saved suppliers could not be loaded</h2>
           <p className={dash.welcome}>Nothing was changed. Please try again in a moment.</p>
-          <p><Link href="/buyer/saved-suppliers" className={dash.viewAll}>Try again</Link></p>
+          <p><Link prefetch={false} href="/buyer/saved-suppliers" className={dash.viewAll}>Try again</Link></p>
         </div>
       )}
     </BuyerShell>

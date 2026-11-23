@@ -25,7 +25,7 @@ async function BuyerQuotationComparePage({ searchParams }: { searchParams: Promi
     return (
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ async function BuyerQuotationComparePage({ searchParams }: { searchParams: Promi
   return (
     <BuyerShell userName={user.name} activeKey="quotations" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/quotations">Quotations</Link> / Compare
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/quotations">Quotations</Link> / Compare
       </p>
       <div className={dash.pageHeader}>
         <div>
@@ -54,7 +54,7 @@ async function BuyerQuotationComparePage({ searchParams }: { searchParams: Promi
           <p className={dash.welcome}>
             {invalid || refs.length === 0 ? `Tick between ${COMPARE_MIN} and ${COMPARE_MAX} quotations of the same inquiry in your quotations list, then choose Compare Selected.` : result && !result.ok ? result.message : "Nothing was changed. Please try again."}
           </p>
-          <p><Link href="/buyer/quotations" className={dash.viewAll}>Back to Quotations</Link></p>
+          <p><Link prefetch={false} href="/buyer/quotations" className={dash.viewAll}>Back to Quotations</Link></p>
         </div>
       )}
     </BuyerShell>

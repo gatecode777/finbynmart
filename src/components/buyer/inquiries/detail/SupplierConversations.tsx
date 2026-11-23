@@ -113,7 +113,7 @@ export function SupplierConversations({ reference, suppliers, open }: { referenc
               {s.lastReply ? <p className={styles.reply}>&ldquo;{s.lastReply.summary}&rdquo;</p> : <p className={styles.muted}>This supplier has not sent a message{s.offer ? ", but has submitted an offer" : ""}.</p>}
               <div className={styles.responderActions}>
                 {s.offer ? (
-                  <Link href={s.offer.href} className={styles.link}>View quotation {s.offer.reference} (V{s.offer.version}, {s.offer.statusLabel})</Link>
+                  <Link prefetch={false} href={s.offer.href} className={styles.link}>View quotation {s.offer.reference} (V{s.offer.version}, {s.offer.statusLabel})</Link>
                 ) : (
                   <span className={styles.muted}>No submitted offer yet</span>
                 )}

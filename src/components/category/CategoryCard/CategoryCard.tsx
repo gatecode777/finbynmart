@@ -21,7 +21,7 @@ export function CategoryCard({ node, context, onExplore }: CategoryCardProps) {
   const count = `${formatCount(node.productCount)} ${node.productCount === 1 ? "product" : "products"}`;
 
   return (
-    <Link
+    <Link prefetch={false}
       href={href}
       className={styles.card}
       aria-label={explores ? `${node.name}, ${count}. Browse subcategories` : `${node.name}, ${count}`}

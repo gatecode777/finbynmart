@@ -59,7 +59,7 @@ async function SupplierSupportRoute({
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/dashboard">Supplier</Link> / Help &amp; Support
+        <Link prefetch={false} href="/supplier/dashboard">Supplier</Link> / Help &amp; Support
       </p>
 
       <div className={dash.headerRow}>
@@ -70,7 +70,7 @@ async function SupplierSupportRoute({
           </p>
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
-          <Link href="/contact-us" className={inq.btn}>
+          <Link prefetch={false} href="/contact-us" className={inq.btn}>
             <MessageCircle size={18} aria-hidden /> Contact Us
           </Link>
           <a href="#raise-ticket" className={inq.cta}>

@@ -256,12 +256,12 @@ export function SavedSuppliersWorkspace({ initial, initialParams, initialSummary
     <>
       <div className={styles.topActions}>
         {canCompare ? (
-          <Link href={`/buyer/compare-suppliers?ids=${picked.map((p) => p.key).join(",")}`} className={inquiries.btn}><Scale size={18} aria-hidden /> Compare Selected ({picked.length})</Link>
+          <Link prefetch={false} href={`/buyer/compare-suppliers?ids=${picked.map((p) => p.key).join(",")}`} className={inquiries.btn}><Scale size={18} aria-hidden /> Compare Selected ({picked.length})</Link>
         ) : (
           <button type="button" className={inquiries.btn} disabled aria-disabled="true"><Scale size={18} aria-hidden /> Compare Selected ({picked.length})</button>
         )}
         {inquiryTarget ? (
-          <Link href={inquiryTarget} className={inquiries.btn}><MessageSquare size={18} aria-hidden /> Add to Inquiry</Link>
+          <Link prefetch={false} href={inquiryTarget} className={inquiries.btn}><MessageSquare size={18} aria-hidden /> Add to Inquiry</Link>
         ) : (
           <button type="button" className={inquiries.btn} disabled aria-disabled="true"><MessageSquare size={18} aria-hidden /> Add to Inquiry</button>
         )}
@@ -359,7 +359,7 @@ export function SavedSuppliersWorkspace({ initial, initialParams, initialSummary
             <div className={inquiries.emptyBox}>
               <h2 className={inquiries.emptyTitle}>No Saved Suppliers Yet</h2>
               <p className={inquiries.emptyText}>Save suppliers you trust to quickly revisit their business profiles and start future sourcing inquiries.</p>
-              <Link href="/suppliers" className={inquiries.cta}>Explore Suppliers</Link>
+              <Link prefetch={false} href="/suppliers" className={inquiries.cta}>Explore Suppliers</Link>
             </div>
           ) : (
             <div className={inquiries.emptyBox}>

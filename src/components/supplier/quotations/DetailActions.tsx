@@ -44,7 +44,7 @@ export function DetailActions({ reference, statusLabel, version, isDraft, canWit
           <Printer size={18} aria-hidden /> Print
         </button>
         {editHref && (
-          <Link href={editHref} className={clsx(dash.btn, styles.primaryBtn)}>
+          <Link prefetch={false} href={editHref} className={clsx(dash.btn, styles.primaryBtn)}>
             <PencilLine size={18} aria-hidden /> Edit Draft
           </Link>
         )}
@@ -54,7 +54,7 @@ export function DetailActions({ reference, statusLabel, version, isDraft, canWit
           </button>
         )}
         {!isDraft && !createRevision.available && createRevision.continueHref && (
-          <Link href={createRevision.continueHref} className={clsx(dash.btn, styles.primaryBtn)}>
+          <Link prefetch={false} href={createRevision.continueHref} className={clsx(dash.btn, styles.primaryBtn)}>
             <PencilLine size={18} aria-hidden /> Continue Revision Draft
           </Link>
         )}

@@ -32,7 +32,7 @@ function Action({ label, href, variant }: { label: string; href: string; variant
   const isPost = variant === "primary";
 
   return (
-    <Link href={href} className={variant === "primary" ? styles.primary : styles.secondary}>
+    <Link prefetch={false} href={href} className={variant === "primary" ? styles.primary : styles.secondary}>
       {isSuppliers && <Users size={18} aria-hidden />}
       {isContact && <Mail size={18} aria-hidden />}
       <span>{label}</span>
@@ -116,23 +116,23 @@ export default function AboutUsPage() {
             {c.steps.items.map((s, i) => {
               const Icon = ICONS[s.icon];
               return (
-                  <li key={s.title} className={styles.stepWrapper}>
-                    <div className={styles.step}>
-                      <span className={styles.iconBadge}><Icon size={22} strokeWidth={2} aria-hidden /></span>
-                      <div className={styles.stepContent}>
-                        <strong className={styles.itemTitle}>{i + 1}. {s.title}</strong>
-                        <span className={styles.itemText}>{s.text}</span>
-                      </div>
+                <li key={s.title} className={styles.stepWrapper}>
+                  <div className={styles.step}>
+                    <span className={styles.iconBadge}><Icon size={22} strokeWidth={2} aria-hidden /></span>
+                    <div className={styles.stepContent}>
+                      <strong className={styles.itemTitle}>{i + 1}. {s.title}</strong>
+                      <span className={styles.itemText}>{s.text}</span>
                     </div>
-                    {i < c.steps.items.length - 1 && (
-                      <span className={styles.stepConnector} aria-hidden>
-                        <ArrowRight size={20} strokeWidth={2} />
-                      </span>
-                    )}
-                  </li>
-                  );
+                  </div>
+                  {i < c.steps.items.length - 1 && (
+                    <span className={styles.stepConnector} aria-hidden>
+                      <ArrowRight size={20} strokeWidth={2} />
+                    </span>
+                  )}
+                </li>
+              );
             })}
-                </ol>
+          </ol>
         </section>
 
         <section className={styles.cta} aria-labelledby="cta-heading">

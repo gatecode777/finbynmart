@@ -32,14 +32,14 @@ export function RecommendedSuppliers({ section }: { section: Section<Recommendat
                       {supplier.city}, {supplier.state}
                     </span>
                   </span>
-                  <Link href={supplier.url} className={styles.linkButtonSmall}>
+                  <Link prefetch={false} href={supplier.url} className={styles.linkButtonSmall}>
                     View<span className="visually-hidden"> {supplier.name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           )}
-          <Link href="/suppliers" className={styles.outlineButton}>
+          <Link prefetch={false} href="/suppliers" className={styles.outlineButton}>
             Find More Suppliers <ArrowRight size={16} aria-hidden />
           </Link>
         </>

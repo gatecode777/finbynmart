@@ -22,7 +22,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ pr
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/products">My Products</Link> / {draft.input.name || "Untitled"} / Edit
+        <Link prefetch={false} href="/supplier/products">My Products</Link> / {draft.input.name || "Untitled"} / Edit
       </p>
       <h1 className={dash.title}>Edit Product</h1>
       <div className={s.chips}>

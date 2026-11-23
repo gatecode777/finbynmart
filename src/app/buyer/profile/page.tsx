@@ -37,7 +37,7 @@ async function BuyerProfilePage({ searchParams }: { searchParams: Promise<Record
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>This page is for buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -60,7 +60,7 @@ async function BuyerProfilePage({ searchParams }: { searchParams: Promise<Record
   return (
     <BuyerShell userName={user.name} activeKey="profile" activeInquiries={activeInquiries}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / Profile &amp; Company
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / Profile &amp; Company
       </p>
       <div className={dash.pageHeader}>
         <div>

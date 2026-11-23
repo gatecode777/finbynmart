@@ -17,7 +17,7 @@ export default function CategoryError({ reset }: { error: Error & { digest?: str
               <Button type="button" onClick={reset}>
                 Try again
               </Button>
-              <Link href="/categories">Back to All Categories</Link>
+              <Link prefetch={false} href="/categories">Back to All Categories</Link>
             </>
           }
         >

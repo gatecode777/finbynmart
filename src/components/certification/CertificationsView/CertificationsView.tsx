@@ -118,7 +118,7 @@ export function CertificationsView({ supplier, basePath, view, requestedPage, re
                   <ul className={listing.applied} aria-label="Applied filters">
                     {chips.map((chip) => (
                       <li key={chip.key}>
-                        <Link href={chip.href} className={listing.appliedChip} aria-label={`Remove filter ${chip.label}`}>
+                        <Link prefetch={false} href={chip.href} className={listing.appliedChip} aria-label={`Remove filter ${chip.label}`}>
                           {chip.label}
                           <X size={14} strokeWidth={2.25} aria-hidden />
                         </Link>
@@ -131,7 +131,7 @@ export function CertificationsView({ supplier, basePath, view, requestedPage, re
                   <EmptyState
                     title="No certifications match these filters"
                     actions={
-                      <Link href={href(NO_CERT_FILTERS)} className={listing.emptyLink}>
+                      <Link prefetch={false} href={href(NO_CERT_FILTERS)} className={listing.emptyLink}>
                         Clear all filters
                       </Link>
                     }
@@ -175,10 +175,10 @@ export function CertificationsView({ supplier, basePath, view, requestedPage, re
                   title="No certifications published yet"
                   actions={
                     <>
-                      <Link href={requirementHref} className={listing.emptyLink}>
+                      <Link prefetch={false} href={requirementHref} className={listing.emptyLink}>
                         Send Your Requirement
                       </Link>
-                      <Link href={supplier.url} className={listing.emptyLink}>
+                      <Link prefetch={false} href={supplier.url} className={listing.emptyLink}>
                         Back to supplier profile
                       </Link>
                     </>

@@ -28,7 +28,7 @@ async function AdminCategoriesPage({ searchParams }: { searchParams: Promise<Rec
   const initial = await listCategories(state, caps);
   return (
     <div className={styles.page}>
-      <p className={styles.breadcrumb}><Link href="/admin/dashboard">Admin</Link> / Categories</p>
+      <p className={styles.breadcrumb}><Link prefetch={false} href="/admin/dashboard">Admin</Link> / Categories</p>
       <h1 className={styles.heading}>Category Management</h1>
       <p className={styles.lead}>Manage category hierarchy and marketplace availability.</p>
       <AdminCategoriesWorkspace initial={initial} state={state} initialReview={review} caps={caps} />

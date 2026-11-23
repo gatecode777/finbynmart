@@ -18,7 +18,7 @@ export function SubcategoryGrid({ category }: { category: CategoryPageData }) {
             ).length;
 
             return (
-              <Link key={subcategory.id} href={subcategory.href} className={styles.card}>
+              <Link prefetch={false} key={subcategory.id} href={subcategory.href} className={styles.card}>
                 <div className={styles.tileWrap}>
                   <MediaTile tile={subcategory} alt={subcategory.name} iconSize={26} />
                 </div>

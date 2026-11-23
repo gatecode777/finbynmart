@@ -67,12 +67,12 @@ export default function HowItWorksPage() {
         <Container>
           <h2 id="cta-heading" className={styles.heading}>{C.cta.heading}</h2>
           <div className={styles.ctaRow}>
-            <Link href={C.cta.primary.href} className={styles.primary}>{C.cta.primary.label}</Link>
-            {C.cta.explore.map((l) => <Link key={l.href} href={l.href} className={styles.secondary}>{l.label}</Link>)}
+            <Link prefetch={false} href={C.cta.primary.href} className={styles.primary}>{C.cta.primary.label}</Link>
+            {C.cta.explore.map((l) => <Link prefetch={false} key={l.href} href={l.href} className={styles.secondary}>{l.label}</Link>)}
           </div>
           <div className={styles.ctaRow}>
-            {C.cta.account.map((l) => <Link key={l.href} href={l.href} className={styles.link}>{l.label}</Link>)}
-            <Link href={C.cta.help.href} className={styles.link}>{C.cta.help.label}</Link>
+            {C.cta.account.map((l) => <Link prefetch={false} key={l.href} href={l.href} className={styles.link}>{l.label}</Link>)}
+            <Link prefetch={false} href={C.cta.help.href} className={styles.link}>{C.cta.help.label}</Link>
           </div>
         </Container>
       </section>

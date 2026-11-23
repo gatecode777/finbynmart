@@ -90,8 +90,8 @@ export function QuotationActions({ summary, can, compareHref }: Props) {
   return (
     <>
       <div className={`${d.headerActions} ${d.noPrint}`}>
-        <Link href="/buyer/quotations" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Quotations</Link>
-        {compareHref && <Link href={compareHref} className={d.btn}><Scale size={18} aria-hidden /> Compare Quotations</Link>}
+        <Link prefetch={false} href="/buyer/quotations" className={d.btn}><ArrowLeft size={18} aria-hidden /> Back to Quotations</Link>
+        {compareHref && <Link prefetch={false} href={compareHref} className={d.btn}><Scale size={18} aria-hidden /> Compare Quotations</Link>}
         <button type="button" className={d.btn} onClick={() => window.print()}><Printer size={18} aria-hidden /> Print / Save</button>
       </div>
 

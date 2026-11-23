@@ -26,7 +26,7 @@ async function BuyerOrderPage({ params }: { params: Promise<{ reference: string 
       <div className={dash.accessNote} role="alert">
         <h1 className={dash.title}>Buyer accounts only</h1>
         <p className={dash.welcome}>Orders belong to buyer accounts.</p>
-        <p><Link href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
+        <p><Link prefetch={false} href="/" className={dash.viewAll}>Back to Finbyn Mart</Link></p>
       </div>
     );
   }
@@ -37,7 +37,7 @@ async function BuyerOrderPage({ params }: { params: Promise<{ reference: string 
   return (
     <BuyerShell userName={user.name} activeKey="orders" activeInquiries={active}>
       <p className={dash.breadcrumb}>
-        <Link href="/">Home</Link> / <Link href="/buyer/dashboard">Buyer Dashboard</Link> / <Link href="/buyer/orders">Orders</Link> / {detail.order.reference}
+        <Link prefetch={false} href="/">Home</Link> / <Link prefetch={false} href="/buyer/dashboard">Buyer Dashboard</Link> / <Link prefetch={false} href="/buyer/orders">Orders</Link> / {detail.order.reference}
       </p>
       <div className={dash.pageHeader}>
         <div>

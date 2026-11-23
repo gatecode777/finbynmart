@@ -44,7 +44,7 @@ async function SupplierTicketRoute({
   return (
     <div className={dash.page}>
       <p className={dash.breadcrumb}>
-        <Link href="/supplier/support">Help &amp; Support</Link> / {ticketReference}
+        <Link prefetch={false} href="/supplier/support">Help &amp; Support</Link> / {ticketReference}
       </p>
       <BuyerSupportTicketDetails
         initialOverview={overview}
