@@ -36,7 +36,7 @@ check("GET never writes (no record, remove or clear on the read paths) and the p
 // recorder and product page
 const rec = read("src/components/product/RecentlyViewedRecorder.tsx");
 const prod = read("src/app/products/[slug]/page.tsx");
-check("the recorder is a client effect after display: it asks who is signed in, posts only for a buyer, once per product per mount, ignores failures, renders nothing", /^"use client"/.test(rec) && /useEffect/.test(rec) && /me\?\.user\?\.role !== "buyer"\) return/.test(rec) && /done\.current === productKey/.test(rec) && /catch \{/.test(rec) && /return null/.test(rec) && /JSON\.stringify\(\{ productId: productKey \}\)/.test(rec));
+check("the recorder is a client effect after display: it asks who is signed in, posts only for a buyer, once per product per mount, ignores failures, renders nothing", /^"use client"/.test(rec) && /useEffect/.test(rec) && /await fetchMe\(\)/.test(rec) && /me\?\.role !== "buyer"\) return/.test(rec) && /done\.current === productKey/.test(rec) && /catch \{/.test(rec) && /return null/.test(rec) && /JSON\.stringify\(\{ productId: productKey \}\)/.test(rec));
 check("the product page renders the recorder only after a resolved product (after notFound) and records nothing on the server; the page stays user-independent (no cookies or session)", prod.indexOf("notFound()") < prod.indexOf("<RecentlyViewedRecorder") && /productKey=\{product\.id\}/.test(prod) && !/recordView|getCurrentUser|cookies\(\)/.test(prod));
 check("no prefetch, listing or search code records a view", !/recently-viewed|RecentlyViewed/.test(read("src/lib/catalog/categoryListing.ts")) && !/recently-viewed/.test(read("src/components/layout/MainHeader/HeaderActions.tsx")));
 

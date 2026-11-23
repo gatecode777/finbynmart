@@ -164,15 +164,6 @@ export function BuyerSupportPage({ initial, initialParams, initialSummary, confi
     return () => window.clearTimeout(timer);
   }, [search]);
 
-  useEffect(() => {
-    const refresh = () => {
-      void load(latest.current);
-      void loadSummary();
-    };
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load, loadSummary]);
-
   const change = (patch: Partial<TicketParams>) => setParams((p) => ({ ...p, page: 1, ...patch }));
   const activeFilters = [params.status !== "all" ? params.status : "", params.categoryId, params.relatedEntityType, params.range].filter(Boolean).length;
   const anyFilter = activeFilters > 0 || params.q !== "";

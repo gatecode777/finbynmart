@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { fetchMe } from "@/lib/client/me";
 
 /**
  * Records that a signed-in BUYER opened this public product (Page 32). It renders nothing and runs only in the browser after the product page has been displayed, so server
@@ -14,8 +15,8 @@ export function RecentlyViewedRecorder({ productKey }: { productKey: string }) {
     done.current = productKey;
     (async () => {
       try {
-        const me = await (await fetch("/api/auth/me", { cache: "no-store" })).json();
-        if (me?.user?.role !== "buyer") return;
+        const me = await fetchMe();
+        if (me?.role !== "buyer") return;
         await fetch("/api/buyer/recently-viewed", { method: "POST", cache: "no-store", credentials: "same-origin", headers: { "content-type": "application/json" }, body: JSON.stringify({ productId: productKey }) });
       } catch { /* never block or break the product page */ }
     })();

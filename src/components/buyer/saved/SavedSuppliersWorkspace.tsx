@@ -172,13 +172,7 @@ export function SavedSuppliersWorkspace({ initial, initialParams, initialSummary
     } catch {
       /* storage can be blocked: the grid stays */
     }
-    const refresh = () => {
-      void load(latest.current);
-      void loadSummary();
-    };
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load, loadSummary]);
+  }, []);
 
   const chooseView = (next: "grid" | "list") => {
     setView(next);

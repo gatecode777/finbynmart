@@ -59,13 +59,10 @@ export function NotificationCenter({ initial, initialQuery }: { initial: Notific
   }, []);
 
   useEffect(() => {
-    const refresh = () => void load(query);
     // the bell panel changed something (marked read): show it here too; the centre ignores its own events
     const fromBell = (event: Event) => (event as CustomEvent<{ source?: string }>).detail?.source === "bell" && void load(query);
-    window.addEventListener("focus", refresh);
     window.addEventListener(NOTIFICATIONS_CHANGED, fromBell);
     return () => {
-      window.removeEventListener("focus", refresh);
       window.removeEventListener(NOTIFICATIONS_CHANGED, fromBell);
     };
   }, [load, query]);

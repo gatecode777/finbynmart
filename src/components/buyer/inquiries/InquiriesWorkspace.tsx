@@ -161,16 +161,6 @@ export function InquiriesWorkspace({ initial, initialParams, initialSummary, ini
     return () => window.clearTimeout(timer);
   }, [search]);
 
-  // coming back to the tab: read again, so a status that changed meanwhile is not shown stale
-  useEffect(() => {
-    const refresh = () => {
-      void load(latest.current);
-      void loadSummary();
-    };
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load, loadSummary]);
-
   // a link to #ref-<reference> (from the confirmation page) scrolls to that inquiry
   useEffect(() => {
     const hash = window.location.hash;

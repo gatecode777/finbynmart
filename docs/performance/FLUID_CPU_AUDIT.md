@@ -50,3 +50,58 @@ No user-specific response was made cacheable: the homepage, Help and the informa
 
 ## Remaining bottlenecks
 `/api/auth/me` per page view; listing pages (`/products`, `/categories/[slug]`, `/suppliers`) are dynamic and the most expensive; supplier profile pages are `force-dynamic`; catalogue indexes are built per instance (`getCatalog`, first listing about 0.15 to 0.5 s); no XML sitemap.
+
+---
+
+# Addendum 2026-11-23: unwanted API calls and duplicate server reads
+
+Request from the owner: call an API only when the user asks for something. Evidence below is local (production build, throwaway in-memory MongoDB, MongoDB profiler); **no Vercel invocation or CPU data was available.**
+
+## Confirmed findings (code and measurement)
+| # | Finding | Evidence |
+|---|---|---|
+| 1 | A supplier page ran the account read 3 times and the company read 2 times in one request (layout, guard, page) | profiler: 10 identity operations per supplier page (users 5, auth_sessions 3, supplier_companies 2) where 3 are needed |
+| 2 | Buyer/admin pages repeated the account read (buyer dashboard users:2, admin users:4, sessions:2) | profiler |
+| 3 | Header, mobile menu and the product-view recorder each called `/api/auth/me`; the header asked again on every client navigation and twice on a normal load (`pageshow` fires on load) | code; `header-session-check.mjs` meCalls |
+| 4 | Anonymous visitors triggered `GET /api/buyer/wishlist` and `GET /api/buyer/compare` on every page with product cards (answer is always `authenticated:false`) | `nav-me-calls.mjs`: 2 calls |
+| 5 | 60 s polling of unread counts (buyer and supplier bells) and refetch on window focus or tab visibility in 3 bells, 8 list workspaces, the header and the support ticket page | code |
+| 6 | Homepage prerender now reads the approved-products list at BUILD time, so a build uses whatever `MONGODB_URI` is set (read only). Local audit builds must set a dead `MONGODB_URI` | observed: a build hung against an unreachable database |
+
+## Changes
+| Change | Files | Mechanism |
+|---|---|---|
+| `getCurrentUser`, `resolveSupplierContext(userId)`, `getAdminPermissions(userId)` wrapped in React `cache()` | `src/lib/auth/session.ts`, `src/lib/supplier/company.ts`, `src/lib/admin/permissions.ts` | One read per request. React `cache` is scoped to a single request render, so another visitor can never receive the value; keyed by account id where an argument exists. Route handlers are not memoized. Authorization is unchanged: the guards still run on every page and API. |
+| One shared, 30 s, in-flight-sharing `/api/auth/me` client helper; header, mobile menu and recorder use it; `pageshow` refreshes only on a back/forward restore | `src/lib/client/me.ts`, `HeaderActions.tsx`, `MobileNavigation.tsx`, `RecentlyViewedRecorder.tsx` | One request per tab per 30 s; sign-in/out (`AUTH_EVENT`) forgets it; failures are never remembered. Display hint only: the server still checks the session. |
+| Saved-items store skips its list request when the visitor is signed out | `wishlistStore.ts` | The endpoint returns `{authenticated:false}` for them anyway. Signed-in and unknown states still ask. |
+| Removed the 60 s polling and every focus/visibility refetch | 3 bells, `HeaderActions`, `BuyerSupportTicketDetails`, 5 list workspaces, 2 saved-items workspaces, `NotificationCenter` | Data now loads on page load and on the user's own actions (filter, page, save, mark read). |
+
+## Measured before and after (local, same pages, same seeded data)
+| Signed-in page view (profiler operations) | Before | After |
+|---|---|---|
+| supplier dashboard / inquiries / quotations / products | 23 / 13 / 14 / 15 | 17 / 7 / 8 / 9 |
+| buyer dashboard / inquiries / quotations | 9 / 9 / 7 | 9 / 9 / 7 (buyer already read the account once or twice; unchanged) |
+| admin dashboard / inquiries | 14 / 10 | 11 / 7 |
+| all nine page views | 114 | 84 (about 26 % fewer database operations) |
+
+| Browser requests | Before (code-derived, not run) | After (measured) |
+|---|---|---|
+| `/api/auth/me` on one load + 3 client navigations | at least 4 (one per navigation, plus a `pageshow` duplicate) | 1 |
+| other API calls for an anonymous visitor on the homepage | 2 (wishlist, compare) | 0 |
+
+Database operations are mostly waiting, not CPU; fewer operations means fewer round trips and less driver and serialization work, which is not a measured Active CPU figure. **No percentage CPU reduction is claimed.**
+
+## Checks
+`tsc`, lint, production build (local, dead database URL): clean. All 66 unit scripts pass (new `fluid-cpu-unit-test.mjs`: helper concurrency and freshness, failure not remembered, cache wrappers keyed by account, no force-dynamic public pages, every `<Link>` opts out of prefetch, no `setInterval`, no focus/visibility refetch). `header-session-check.mjs` 5/5. `portal-sweep.mjs`: 86 page loads, 0 issues, 8 of 8 cross-portal refusals (buyer, supplier, admin). One earlier sweep showed the intermittent hydration error #418 on `/supplier/company`; it did not recur in the last sweep and its cause is still unknown.
+Not run: a cross-tenant isolation test through two supplier companies, an authenticated load test, Vercel Observability, cache-freshness-after-mutation tests (no new shared cache was added).
+
+## Remaining
+- `/products`, category and supplier listing pages (dynamic; about 50 ms per request locally) and supplier profile pages (`force-dynamic`).
+- Buyer inquiries issues 7 separate index-covered queries (list, count, summary, two facets, active count); folding the active count into the summary would save one but the statuses need verifying first.
+- Each new instance still builds the catalogue index once.
+- No index changes are proposed: every operation counted above uses an existing index; no explain plan was run on the throwaway data.
+
+## Rollback
+Each change is independent. Revert `src/lib/client/me.ts` and its three callers to restore per-component `/api/auth/me` calls; remove the three `cache()` wrappers to restore per-call reads; the polling and focus listeners are small effects that can be re-added from git history.
+
+## Vercel
+Same list as above, plus: compare invocations per route for `/api/auth/me`, `/api/buyer/wishlist`, `/api/buyer/compare`, `/api/*/notifications/unread-count` before and after a deployment of these commits.

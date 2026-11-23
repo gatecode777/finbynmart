@@ -151,12 +151,6 @@ export function SupplierQuotationsWorkspace({ initial, initialParams, renderedAt
     return () => window.clearTimeout(timer);
   }, [search]);
 
-  useEffect(() => {
-    const refresh = () => void load(latest.current);
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load]);
-
   const change = (patch: Partial<QuotationParams>) => setParams((p) => ({ ...p, page: 1, ...patch }));
   const { meta, summary, tabCounts } = data;
   const firstRow = meta.total === 0 ? 0 : (meta.page - 1) * meta.limit + 1;

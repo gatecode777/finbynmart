@@ -156,15 +156,6 @@ export function OrdersWorkspace({ initial, initialParams, initialSummary, initia
     return () => window.clearTimeout(timer);
   }, [search]);
 
-  useEffect(() => {
-    const refresh = () => {
-      void load(latest.current);
-      void loadSummary();
-    };
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load, loadSummary]);
-
   const change = (patch: Partial<OrderParams>) => setParams((p) => ({ ...p, page: 1, ...patch }));
   const oneCurrency = facets && facets.currencies.length === 1 ? facets.currencies[0].id : "";
   const changeSort = (sort: string) => change(AMOUNT_SORTS.includes(sort as (typeof AMOUNT_SORTS)[number]) && !params.currency && oneCurrency ? { sort, currency: oneCurrency } : { sort });

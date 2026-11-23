@@ -136,10 +136,7 @@ export function SavedProductsWorkspace({ initial, initialParams, renderedAt }: P
     } catch {
       /* storage can be blocked: the grid stays */
     }
-    const refresh = () => void load(latest.current);
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load]);
+  }, []);
 
   const chooseView = (next: "grid" | "list") => {
     setView(next);

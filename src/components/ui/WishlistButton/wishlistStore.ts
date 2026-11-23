@@ -1,3 +1,5 @@
+import { fetchMe } from "@/lib/client/me";
+
 /**
  * Client-side mirror of the signed-in buyer's saved items (products or suppliers). Each store is loaded once per
  * page from its list endpoint and only ever changes after the server confirms a save or removal, so what a heart
@@ -39,8 +41,9 @@ function createWishlistStore({ listUrl, listField, bodyField }: StoreConfig) {
     getServerSnapshot: () => INITIAL,
 
     load(): Promise<void> {
-      loading ??= fetch(listUrl, { cache: "no-store" })
-        .then((response) => response.json())
+      loading ??= fetchMe()
+        // a signed-out visitor gets { authenticated: false } from the list endpoint anyway, so it is not asked; an unknown answer (failure) still asks
+        .then((me) => (me === null ? { authenticated: false } : fetch(listUrl, { cache: "no-store" }).then((response) => response.json())))
         .then((data) => set({ loaded: true, authenticated: Boolean(data.authenticated), keys: new Set<string>(data[listField] ?? []) }))
         .catch(() => {
           // Leave the store unloaded so the next mount can try again.

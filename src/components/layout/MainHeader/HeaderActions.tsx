@@ -5,12 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ClipboardList, UserRound, BriefcaseBusiness } from "lucide-react";
 import { AUTH_EVENT } from "@/components/ui/Toast/flash";
+import { fetchMe, type Me } from "@/lib/client/me";
 import styles from "./MainHeader.module.css";
-
-interface Me {
-  name: string;
-  role: "buyer" | "supplier";
-}
 
 /**
  * Role-aware marketplace header actions.
@@ -27,13 +23,11 @@ export function HeaderActions() {
     let active = true;
     let retry: ReturnType<typeof setTimeout> | undefined;
     // a failed or unavailable answer is retried (1 s, 3 s) and only then treated as signed out; it is never taken as "signed out" straight away
-    const read = (attempt = 0) => {
+    const read = (attempt = 0, force = false) => {
       clearTimeout(retry);
-      fetch("/api/auth/me", { cache: "no-store" })
-        .then(async (response) => {
-          if (!response.ok) throw new Error("unavailable");
-          const data = await response.json();
-          if (active) setUser(data.user ?? null);
+      fetchMe(force)
+        .then((me) => {
+          if (active) setUser(me);
         })
         .catch(() => {
           if (!active) return;
@@ -42,14 +36,16 @@ export function HeaderActions() {
         });
     };
     const refresh = () => read();
+    // coming back from history (bfcache) shows the real state; an ordinary load fires pageshow too and must not ask a second time
+    const restored = (event: PageTransitionEvent) => { if (event.persisted) read(0, true); };
     read();
     window.addEventListener(AUTH_EVENT, refresh);
-    window.addEventListener("pageshow", refresh); // coming back from history (bfcache) shows the real state
+    window.addEventListener("pageshow", restored);
     return () => {
       active = false;
       clearTimeout(retry);
       window.removeEventListener(AUTH_EVENT, refresh);
-      window.removeEventListener("pageshow", refresh);
+      window.removeEventListener("pageshow", restored);
     };
   }, [pathname]);
 

@@ -7,6 +7,7 @@ import { SearchBar } from "@/components/layout/SearchBar";
 import { CATEGORY_NAV } from "@/lib/constants/navigation";
 import styles from "./MobileNavigation.module.css";
 import { lockBodyScroll } from "@/lib/utils/scrollLock";
+import { fetchMe } from "@/lib/client/me";
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
@@ -16,9 +17,8 @@ export function MobileNavigation() {
 
   useEffect(() => {
     if (!open) return;
-    fetch("/api/auth/me", { cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("unavailable"))))
-      .then((data) => setUser(data.user ?? null))
+    fetchMe()
+      .then(setUser)
       .catch(() => undefined);
 
     const trigger = triggerRef.current;

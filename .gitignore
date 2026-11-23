@@ -42,3 +42,6 @@ next-env.d.ts
 /.test-mongo/
 /docs/audits/runtime/
 .test-db-uri
+
+.vercel
+.env*

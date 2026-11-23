@@ -119,12 +119,6 @@ export function QuotationsWorkspace({ initial, initialParams, renderedAt }: Prop
     return () => window.clearTimeout(timer);
   }, [search]);
 
-  useEffect(() => {
-    const refresh = () => void load(latest.current);
-    window.addEventListener("focus", refresh);
-    return () => window.removeEventListener("focus", refresh);
-  }, [load]);
-
   const change = (patch: Partial<QuotationParams>) => setParams((p) => ({ ...p, page: 1, ...patch }));
   const toggle = (reference: string) => setPicked((cur) => (cur.includes(reference) ? cur.filter((r) => r !== reference) : cur.length >= COMPARE_MAX ? cur : [...cur, reference]));
   const { meta, summary, tabCounts } = data;

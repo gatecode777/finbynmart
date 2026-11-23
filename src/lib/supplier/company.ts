@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { ObjectId, type Collection } from "mongodb";
 import { getDb } from "@/lib/db/mongo";
 
@@ -117,7 +118,7 @@ interface UserRow {
  * The company and profile of the signed-in supplier account, from the account id the SESSION proved. Null when the account is not a
  * supplier account (or has no business details). Creates the company row on first use (idempotent, race safe).
  */
-export async function resolveSupplierContext(userId: string): Promise<SupplierContext | null> {
+async function readSupplierContext(userId: string): Promise<SupplierContext | null> {
   if (!ObjectId.isValid(userId)) return null;
   const _id = new ObjectId(userId);
   const db = await getDb();
@@ -143,3 +144,6 @@ export async function resolveSupplierContext(userId: string): Promise<SupplierCo
     profile: { displayName: s.businessName, contactName: user.name, email: user.email, emailVerified: user.emailVerified === true, phone: s.phone || null, city: s.city || null, description: s.offering || null },
   };
 }
+
+/** Resolved once per request for one account (keyed by the account id, so two accounts never share an entry); route handlers are not memoized. */
+export const resolveSupplierContext = cache(readSupplierContext);

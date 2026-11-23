@@ -1,8 +1,4 @@
-/**
- * Decorative hero illustration for About Us: two business people at laptops, three floating product cards and conversation bubbles. Original artwork drawn as inline SVG in the project's
- * brand tokens (no raster file, no external image, nothing to load or fail, no layout shift because the viewBox fixes its proportions). It carries no information, so it is hidden from
- * assistive technology; the page is complete without it. Skin and hair tones are illustration colours with no design token.
- */
+
 const SKIN_A = "#e9b48c";
 const SKIN_B = "#c98a62";
 
@@ -21,8 +17,6 @@ export function AboutIllustration({ className }: { className?: string }) {
         <ellipse cx="52" cy="318" rx="10" ry="34" transform="rotate(-30 52 318)" />
         <ellipse cx="548" cy="322" rx="10" ry="34" transform="rotate(30 548 322)" />
       </g>
-
-      {/* dashed connections from the people to the cards */}
       <g fill="none" stroke="var(--primary)" strokeWidth="2" strokeDasharray="5 6" strokeLinecap="round" opacity=".7">
         <path d="M170 150 C 200 120, 235 105, 262 116" />
         <path d="M455 160 C 480 130, 500 120, 512 112" />

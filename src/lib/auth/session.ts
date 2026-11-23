@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { cache } from "react";
 import { ObjectId } from "mongodb";
 import { cookies, headers } from "next/headers";
 import { bindSessionVersion, createRegistrySession, findActiveSession, hashSid, revokeBySidHash, SESSION_MAX_AGE_MS, SID_PATTERN, touchSession, type CreatedSession } from "./sessionRegistry";
@@ -128,7 +129,7 @@ export async function currentSessionRef(): Promise<{ userId: string; sidHash: st
 /** Set AUTH_REQUIRE_SESSION_REGISTRY=1 once the 7-day window for old cookies has passed: a cookie with no registry record is then refused. */
 const registryRequired = () => process.env.AUTH_REQUIRE_SESSION_REGISTRY === "1";
 
-export async function getCurrentUser(): Promise<PublicUser | null> {
+async function readCurrentUser(): Promise<PublicUser | null> {
   const claims = await readClaims();
   if (!claims) return null;
   // the account and its session record are read together: revocation costs no extra round trip
@@ -146,3 +147,6 @@ export async function getCurrentUser(): Promise<PublicUser | null> {
   // a suspended (or never-verified) account loses its existing session at once
   return statusOf(user) === "ACTIVE" ? toPublicUser({ ...user, _id: user._id }) : null;
 }
+
+/** One account read per request: a layout, its guard and the page all ask, and the result is shared inside that one render only (React `cache` is request-scoped, so it can never be seen by another visitor). Route handlers are not memoized. */
+export const getCurrentUser = cache(readCurrentUser);
